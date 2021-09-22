@@ -457,7 +457,7 @@ defUtilSymbol // ClearAll;
 defUtilSymbol[ name_String ] :=
     Module[ { ctx, full },
         ctx  = "ResourceSystemClient`DefinitionUtilities`";
-        full = StringJoin[ ctx, name ];
-        Block[ { $ContextPath }, Quiet[ Needs @ ctx, General::shdw ]; ];
-        If[ NameQ @ full, Symbol @ full, $Failed & ] (* TODO: better failure *)
+        full = ctx <> name;
+        Block[ { $ContextPath }, Quiet[ Needs @ ctx, General::shdw ] ];
+        If[ NameQ @ full, defUtilSymbol[ name ] = Symbol @ full, $Failed & ]
     ];

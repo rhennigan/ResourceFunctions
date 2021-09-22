@@ -23,7 +23,9 @@ Non-negative integer or Automatic expected for the cluster count instead of `1`.
 (* ::Section::Closed:: *)
 (*Options*)
 
-PrincipalAxisClustering // Options = { };
+PrincipalAxisClustering // Options = {
+    Method -> Median
+};
 
 (*
     TODO: Possible options to implement (from FindClusters):
@@ -48,7 +50,8 @@ PrincipalAxisClustering[ points_, opts: OptionsPattern[ ] ] :=
 PrincipalAxisClustering[ points_, maxItems_, opts: OptionsPattern[ ] ] :=
     catchTop @ principalAxisClustering[
         checkPoints @ points,
-        checkMaxItems @ maxItems
+        checkMaxItems @ maxItems,
+        OptionValue @ Method
     ];
 
 (* ::**********************************************************************:: *)
@@ -56,19 +59,21 @@ PrincipalAxisClustering[ points_, maxItems_, opts: OptionsPattern[ ] ] :=
 (*principalAxisClustering*)
 principalAxisClustering // ClearAll;
 
-e: principalAxisClustering[ arr_NumericArray, maxItems_ ] :=
+e: principalAxisClustering[ arr_NumericArray, maxItems_, method_ ] :=
     Module[ { points, clusters, type, result },
         points = Developer`ToPackedArray @ Normal @ arr;
         If[ Dimensions @ points =!= 2, throwFailure[ "matrix", arr ] ];
         If[ ! pointsQ @ points, throwFailure[ "invnarr", arr ] ];
-        clusters = principalAxisClustering[ points, maxItems ];
+        clusters = principalAxisClustering[ points, maxItems, method ];
         If[ ! TrueQ @ clustersQ @ clusters, internalFailure @ e ];
         type = NumericArrayType @ arr;
         result = NumericArray[ #, type ] & /@ clusters
     ];
 
-principalAxisClustering[ points_? pointsQ, maxItems_ ] :=
-    paClusters[ points, maxItems ];
+principalAxisClustering[ points_? pointsQ, maxItems_, method_ ] :=
+    Block[ { axisSign = getAxisSignFunc @ method },
+        paClusters[ points, maxItems ]
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
@@ -173,12 +178,15 @@ split[ points_ ] :=
 (*partialSplit*)
 partialSplit // ClearAll;
 
-partialSplit[ clusters_, rem_ ] /; 0 < rem < Length @ clusters :=
+partialSplit[ clusters_, rem_ ] /; Less[ 0, rem, Length @ clusters ] :=
     Module[ { lens, largest, pos, splitter },
 
-        lens     = Length /@ clusters;
-        largest  = TakeLargest[ lens, rem ];
-        pos      = FirstPosition[ lens, # ] & /@ largest;
+        pos = Keys @ TakeLargestBy[
+                  Association @ MapIndexed[ #2 -> #1 &, clusters ],
+                  Length,
+                  rem
+              ];
+
         splitter = Composition[ Apply @ Sequence, split ];
 
         MapAt[ splitter, clusters, pos ]
@@ -202,15 +210,53 @@ principalAxis[ points_ ] :=
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
+(*getAxisSignFunc*)
+getAxisSignFunc // ClearAll;
+getAxisSignFunc[ Mean   ] := axisMeanSign;
+getAxisSignFunc[ Median ] := axisMedianSign;
+getAxisSignFunc[ other_ ] := throwFailure[ "invmethod", other ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
 (*axisSign*)
 axisSign // ClearAll;
+axisSign := getAxisSignFunc @ OptionValue[ PrincipalAxisClustering, Method ];
 
-axisSign := axisSign =
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*axisSign*)
+axisMedianSign // ClearAll;
+
+axisMedianSign := axisMedianSign =
     Compile[ { { points, _Real, 2 }, { axis0, _Real, 1 } },
-        Block[ { mean, shifted, axis, dotted  },
+        Block[ { mean, shifted, axis, dotted, len, sign },
 
             mean    = Mean @ points;
             shifted = # - mean & /@ points;
+            axis    = If[ Negative @ Total @ axis0, -axis0, axis0 ];
+            dotted  = Dot[ shifted, axis ];
+            len     = Length @ points;
+            sign    = Sign[ dotted - Median @ dotted ];
+
+            2 * Sign[ sign + 1 ] - 1
+        ],
+        RuntimeOptions    -> "Speed",
+        RuntimeAttributes -> { Listable },
+        Parallelization   -> True,
+        CompilationTarget -> $compilationTarget
+    ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*axisMeanSign*)
+axisMeanSign // ClearAll;
+
+axisMeanSign := axisMeanSign =
+    Compile[ { { points, _Real, 2 }, { axis0, _Real, 1 } },
+        Block[ { median, shifted, axis, dotted },
+
+            median  = Mean @ points;
+            shifted = # - median & /@ points;
             axis    = If[ Negative @ Total @ axis0, -axis0, axis0 ];
             dotted  = Dot[ shifted, axis ];
 

@@ -238,10 +238,11 @@ generateExamples[ ___ ] := Missing[ ];
 findExamplesFile // ClearAll;
 
 findExamplesFile[ info: KeyValuePattern @ { }, dir_ ] :=
-    Module[ { name, patt1, patt2, files1, files2 },
+    Module[ { name, base, patt1, patt2, files1, files2 },
         name   = Lookup[ info, "Name", FileBaseName @ dir ];
-        patt1  = ("examples"|"examplenotebook")~~(".wl"|".m");
-        patt2  = (name|"definitionnotebook")~~(".nb");
+        base   = ("examples"|"examplenotebook");
+        patt1  = base~~(".wl"|".m");
+        patt2  = (name|base|"definitionnotebook")~~(".nb");
         files1 = FileNames[ patt1, dir, IgnoreCase -> True ];
         files2 = FileNames[ patt2, dir, IgnoreCase -> True ];
         SelectFirst[ Join[ files1, files2 ], FileExistsQ ]

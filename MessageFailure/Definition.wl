@@ -171,8 +171,8 @@ paramsAndOptions[ params___ ] :=
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*From MessageName*)
-MessageFailure[ msg: MessageName[ sym_, tag_, tags___ ], params___ ] /;
-    messageNameQ @ msg :=
+MessageFailure[ msg: MessageName[ sym_, tag_, tags___ ], params___ ] /; 
+    messageNameQ @ msg := 
         catch @ messageFailure @ Join[
             <|
                 "MessageTemplate" :> msg,

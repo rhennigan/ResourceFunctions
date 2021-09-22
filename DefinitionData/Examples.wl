@@ -1,3 +1,5 @@
+(* :!CodeAnalysis::BeginBlock:: *)
+(* :!CodeAnalysis::Disable::SuspiciousSessionToken:: *)
 EvaluateExcluded[
     Get @ FileNameJoin @ {
         DirectoryName @ $InputFileName,
@@ -130,3 +132,5 @@ MyContext`c := 1;
 DefinitionData @ a
 
 %[ "Names" ]
+
+(* :!CodeAnalysis::EndBlock:: *)

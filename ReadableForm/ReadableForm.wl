@@ -41,7 +41,8 @@ ReadableForm // Options = {
     CachePersistence   -> Automatic,
     CharacterEncoding  -> "Unicode",
     PageWidth          -> 80,
-    PerformanceGoal    -> "Quality"
+    PerformanceGoal    -> "Quality",
+    Trace              -> False
 };
 
 
@@ -68,7 +69,8 @@ ReadableForm /:
             OptionValue[ ReadableForm, { opts }, CachePersistence   ],
             OptionValue[ ReadableForm, { opts }, "DynamicAlignment" ],
             OptionValue[ ReadableForm, { opts }, "StrictMode"       ],
-            OptionValue[ ReadableForm, { opts }, "Tokens"           ]
+            OptionValue[ ReadableForm, { opts }, "Tokens"           ],
+            OptionValue[ ReadableForm, { opts }, Trace              ]
         ];
 
 
@@ -91,7 +93,8 @@ ReadableForm /:
             OptionValue[ ReadableForm, { opts }, CachePersistence   ],
             OptionValue[ ReadableForm, { opts }, "DynamicAlignment" ],
             OptionValue[ ReadableForm, { opts }, "StrictMode"       ],
-            OptionValue[ ReadableForm, { opts }, "Tokens"           ]
+            OptionValue[ ReadableForm, { opts }, "Tokens"           ],
+            OptionValue[ ReadableForm, { opts }, Trace              ]
         ];
 
 
@@ -153,7 +156,8 @@ ReadableForm /:
                     OptionValue[ ReadableForm, { opts }, CachePersistence   ],
                     OptionValue[ ReadableForm, { opts }, "DynamicAlignment" ],
                     OptionValue[ ReadableForm, { opts }, "StrictMode"       ],
-                    OptionValue[ ReadableForm, { opts }, "Tokens"           ]
+                    OptionValue[ ReadableForm, { opts }, "Tokens"           ],
+                    OptionValue[ ReadableForm, { opts }, Trace              ]
                 ]
             ];
 
@@ -244,7 +248,8 @@ formatDataString[
     cache_,
     fancy_,
     strict_,
-    tokens_
+    tokens_,
+    trace_
 ] :=
     Block[
         {
@@ -259,8 +264,11 @@ formatDataString[
             $fCache         = MatchQ[ cache, Full|True ],
             $sCache         = MatchQ[ cache, Full|Automatic|True ],
             $fancyAlign     = TrueQ @ fancy,
-            $retry          = TrueQ @ strict
+            $retry          = TrueQ @ strict,
+            $trace          = TrueQ @ trace
         },
+
+        If[ TrueQ @ $trace, $traces = Internal`Bag[ ] ];
 
         indent[ ] <> StringTrim @ Apply[
             cFormat,
@@ -384,9 +392,27 @@ cached[ state_, eval_ ] := cached[ state, Verbatim @ eval ] = eval;
 
 cFormat // ClearAll;
 cFormat // Attributes = { HoldAllComplete };
-cFormat[ arg_ ] /; $fCache := cached @ format @ arg;
-cFormat[ arg_ ] := format @ arg;
+cFormat[ arg_ ] /; $fCache := cached @ trace @ format @ arg;
+cFormat[ arg_ ] := trace @ format @ arg;
 
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*trace*)
+trace // ClearAll;
+trace // Attributes = { HoldFirst };
+
+trace[ eval_ ] /; $trace :=
+    With[ { uuid = CreateUUID[ ] },
+        Internal`StuffBag[ $traces, uuid -> HoldForm @ eval ];
+        With[ { res = eval },
+            Internal`StuffBag[ $traces, uuid -> HoldForm @ res ];
+            res
+        ]
+    ];
+
+trace[ eval_ ] := eval;
+
+$traces = Internal`Bag[ ];
 
     (* ::******************************************************************:: *)
     (* ::Subsubsection::Closed:: *)
@@ -406,7 +432,8 @@ $state :=
         $prefix,
         $prefixEnabled,
         $relativeWidth,
-        $retry
+        $retry,
+        $trace
     };
 
 
@@ -499,22 +526,22 @@ format[{}] := "{ }";
       (* ::Subsubsubsection::Closed:: *)
       (*Symbol Definitions*)
 
-(* ClearAll *)
+(* !ClearAll *)
 format[ ClearAll[ s_Symbol? symbolQ ] ] :=
     StringJoin[ toString @ s, " // ClearAll" ];
 
 
-(* Attributes *)
+(* !Attributes *)
 format[ Attributes[ s_Symbol? symbolQ ] = attrs_ ] :=
     StringJoin[ toString @ s, " // Attributes = ", cFormat @ attrs ];
 
 
-(* Options *)
+(* !Options *)
 format[ Options[ s_Symbol? symbolQ ] = opts_ ] :=
     StringJoin[ toString @ s, " // Options = ", cFormat @ opts ];
 
 
-(* TagSetDelayed *)
+(* !TagSetDelayed *)
 format[ TagSetDelayed[ sym_Symbol, lhs_, rhs_ ] ] :=
     StringJoin[
         "\n",
@@ -533,7 +560,7 @@ format[ TagSetDelayed[ sym_Symbol, lhs_, rhs_ ] ] :=
         ]
     ];
 
-(* TagSet *)
+(* !TagSet *)
 format[ TagSet[ sym_Symbol, lhs_, rhs_ ] ] :=
     StringJoin[
         "\n",
@@ -560,7 +587,7 @@ $bHead = (Blank|BlankSequence|BlankNullSequence);
 $blank = $bHead[ _Symbol ] | $bHead[ ];
 
 
-(* Condition *)
+(* !Condition *)
 format[ Verbatim[ Condition ][ patt_, test_ ] ] /;
     fitsOnLineQ[ patt /; test ] :=
         Module[ { f1, f2 },
@@ -581,16 +608,54 @@ format[ Verbatim[ Condition ][ patt_, test_ ] ] /;
             ]
         ];
 
+continueSameLineQ[ s1_String, s2_String ] :=
+    stringFitsOnLineQ[
+        StringJoin[
+            Last @ StringSplit[ s1, "\n" ],
+            First @ StringSplit[ s2, "\n" ]
+        ]
+    ];
 
+(* TODO: finish and generalize continuations like this *)
 format[ Verbatim[ Condition ][ patt_, test_ ] ] :=
-    Module[ { p1, p2, f1, f2, full, reflow },
+    Module[ { p1, p2, l1, r1, l2, r2, f1, f2, full, next, reflow },
 
         p1 = lhsParenQ[ Condition, patt ];
         p2 = rhsParenQ[ Condition, test ];
-        f1 = If[ p1, StringJoin[ "(", cFormat @ patt, ")" ], cFormat @ patt ];
-        f2 = If[ p2, StringJoin[ "(", cFormat @ test, ")" ], cFormat @ test ];
+
+        l1 = If[ p1, "(", "" ];
+        r1 = If[ p1, ")", "" ];
+        l2 = If[ p2, "(", "" ];
+        r2 = If[ p2, ")", "" ];
+
+        f1 = StringJoin[ l1, cFormat @ patt, r1 ];
+        f2 = StringJoin[ l2, cFormat @ test, r2 ];
 
         full = StringJoin[ f1, " /; ", f2 ];
+
+        If[ stringFitsOnLineQ @ full, Throw[ full, $tag ] ];
+
+        If[ StringFreeQ[ f2, "\n" ],
+            next = StringJoin[ indent[ 1 ], f2 ];
+            If[ stringFitsOnLineQ @ next,
+                Throw[
+                    StringJoin[ f1, " /;\n", indent[ ], next ],
+                    $tag
+                ],
+                Throw[
+                    StringJoin[
+                        f1,
+                        " /; ", l2, "\n",
+                        withIndent @ StringJoin[ indent[ ], cFormat @ test ],
+                        If[ p2,
+                            StringJoin[ "\n", indent[ ], r2 ],
+                            ""
+                        ]
+                    ],
+                    $tag
+                ]
+            ]
+        ];
 
         (* reflow = If[
             stringFitsOnLineQ @ full,
@@ -610,7 +675,7 @@ format[ Verbatim[ Condition ][ patt_, test_ ] ] :=
             reflow,
             cFormat @ Condition[ patt, test ]
         ]
-    ];
+    ] ~Catch~ $tag;
 
 
 
@@ -622,7 +687,7 @@ verifiedLength /: HoldPattern[ SetDelayed ][ lhs_, verifiedLength[ rhs_ ] ] :=
 
 
 
-(* Pattern *)
+(* !Pattern *)
 format[ Verbatim[ Pattern ][ s_Symbol, p: $blank ] ] :=
     inline[ $blank, StringJoin[ toString @ s, toString @ p ] ];
 
@@ -631,12 +696,12 @@ format[ Verbatim[ Pattern ][ s_Symbol, patt_ ] ] :=
     StringJoin[ toString @ s, ": ", formatRHS[ Pattern, patt ] ];
 
 
-(* Blank, BlankSequence, and BlankNullSequence *)
+(* !Blank, !BlankSequence, and !BlankNullSequence *)
 format[ p: $blank ] :=
     inline[ $blank, toString @ p ];
 
 
-(* Repeated *)
+(* !Repeated *)
 format[ Verbatim[ Repeated ][ a_ ] ] :=
     Module[ { str },
         str = formatArg[ Repeated, a ];
@@ -648,7 +713,7 @@ format[ Verbatim[ Repeated ][ a_ ] ] :=
     ];
 
 
-(* RepeatedNull *)
+(* !RepeatedNull *)
 format[ Verbatim[ RepeatedNull ][ a_ ] ] :=
     Module[ { str },
         str = formatArg[ RepeatedNull, a ];
@@ -660,8 +725,7 @@ format[ Verbatim[ RepeatedNull ][ a_ ] ] :=
     ];
 
 
-(* PatternTest *)
-
+(* !PatternTest *)
 format[ Verbatim[ PatternTest ][
     p: Verbatim[ Pattern ][ _? symbolQ, $blank ],
     f_? symbolQ
@@ -741,7 +805,7 @@ tryOffsetAlign[ baseOffset_, indentOffset_, string_ ] :=
     ];
 
 
-(* If (two arguments) *)
+(* !If (two arguments) *)
 format[ if: If[ a_, b_ ] ] /; fitsOnLineQ @ if :=
     StringJoin[
         "If[ ", cFormat @ a, ", ", cFormat @ b, " ]"
@@ -750,7 +814,7 @@ format[ if: If[ a_, b_ ] ] /; fitsOnLineQ @ if :=
 
 format[ if: If[ cond_, expr_ ] ] :=
   StringJoin[ (* TODO: insert additional linebreak around comma for multiline *)
-      "If[ ", cFormat[cond], ",\n",
+      "If[ ", withIndent @ cFormat[cond], ",\n",
       Internal`WithLocalSettings[
           $level++,
           StringJoin[ indent[], cFormat@expr, "\n" ],
@@ -760,16 +824,15 @@ format[ if: If[ cond_, expr_ ] ] :=
   ];
 
 
-(* If (three arguments) *)
+(* !If (three arguments) *)
 format[ if: If[ a_, b_, c_ ] ] /; fitsOnLineQ @ if :=
     StringJoin[
         "If[ ", cFormat @ a, ", ", cFormat @ b, ", ", cFormat @ c,  " ]"
     ];
 
-
 format[ if: If[ cond_, then_, else_ ] ] :=
   StringJoin[
-      "If[ ", cFormat[cond], ",\n",
+      "If[ ", withIndent @ cFormat[cond], ",\n",
       Internal`WithLocalSettings[
           $level++,
           StringJoin[
@@ -796,7 +859,7 @@ $scopeFunc = Alternatives[
 ];
 
 
-(* With, Block, and Module *)
+(* !With, !Block, and !Module *)
 format[ e: (h:$scopeFunc)[ args___ ] ] /; fitsOnLineQ[ e, 2 ] :=
     inline[
         $scopeFunc,
@@ -859,7 +922,7 @@ format[ (h: $scopeFunc)[ { syms___ }, args__ ] ] :=
 
 
 
-format[ expr: Function[ e_ ][ a___ ] ] /; fitsOnLineQ[ expr, 8 ] :=
+(* format[ expr: Function[ e_ ][ a___ ] ] /; fitsOnLineQ[ expr, 8 ] :=
     StringJoin[
         "Function[ ",
         Block[ { $singleSlot = singleSlotQ @ Function[ e ] }, cFormat @ e ],
@@ -919,7 +982,7 @@ format[ f: Function[ e_ ] ] :=
             indent[$level],
             "]"
         ]
-    ];
+    ]; *)
 
 
 format[ $key[ k_ ] -> $value[ v_ ] ] := cFormat @ Rule[ k, v ];
@@ -928,9 +991,12 @@ format[ $key[ k_ ] -> $value[ v_ ] ] := cFormat @ Rule[ k, v ];
 format[ $key[ k_ ] -> $delayed[ v_] ] := cFormat @ RuleDelayed[ k, v ];
 
 
-format[ ($key|$value|$delayed)[ expr_ ] ] := cFormat @ expr;
+(* format[ ($key|$value|$delayed)[ expr_ ] ] := cFormat @ expr; *)
+format[ $key[     expr_ ] ] := formatLHS[ Rule, expr ];
+format[ $value[   expr_ ] ] := formatRHS[ Rule, expr ];
+format[ $delayed[ expr_ ] ] := formatRHS[ RuleDelayed, expr ];
 
-
+(* !Rule *)
 format[ r: Rule[ a_, b_ ] /; fitsOnLineQ @ r || AtomQ @ Unevaluated @ b ] :=
     StringJoin[
         formatLHS[ Rule, a ],
@@ -938,13 +1004,34 @@ format[ r: Rule[ a_, b_ ] /; fitsOnLineQ @ r || AtomQ @ Unevaluated @ b ] :=
         formatRHS[ Rule, b ]
     ];
 
-
+(* !RuleDelayed *)
 format[ r: RuleDelayed[ a_, b_ ] /; fitsOnLineQ @ r || AtomQ @ Unevaluated @ b ] :=
     StringJoin[
         formatLHS[ RuleDelayed, a ],
         " :> ",
         formatRHS[ RuleDelayed, b ]
     ];
+
+(* !List/!Association continuations *)
+format[
+    (cont: Rule | RuleDelayed | Set | SetDelayed)[
+        a_,
+        b: _List | _Association
+    ]
+] :=
+    StringJoin[ formatLHS[ Rule, a ], " ", contOp @ cont, " ", cFormat @ b ];
+
+(* !KeyValuePattern continuations *)
+format[ Verbatim[ KeyValuePattern ][ list_List ] ] :=
+    If[ TrueQ @ $prefix,
+        StringJoin[ "KeyValuePattern @ ", cFormat @ list ],
+        StringJoin[ "KeyValuePattern[ ", cFormat @ list, " ]" ]
+    ];
+
+contOp[ Rule        ] := "->";
+contOp[ RuleDelayed ] := ":>";
+contOp[ Set         ] := "=" ;
+contOp[ SetDelayed  ] := ":=";
 
 
 format[ Rule[ a_, b_ ] ] :=
@@ -1035,8 +1122,8 @@ format[ CompoundExpression[ a_, b__ ] ] :=
 ceFormat // ClearAll;
 ceFormat // Attributes = { HoldAllComplete };
 
-ceFormat[ ce: CompoundExpression[ a___ ] ] /; fitsOnLineQ @ ce  :=
-    StringRiffle[ formatArgList[ CompoundExpression, a ], "; " ];
+(* ceFormat[ ce: CompoundExpression[ a___ ] ] /; fitsOnLineQ @ ce  :=
+    StringRiffle[ formatArgList[ CompoundExpression, a ], "; " ]; *)
 
 ceFormat[ CompoundExpression[ a___ ] ] :=
     Module[ { strings, lines },
@@ -1059,61 +1146,130 @@ ceFormat[ CompoundExpression[ a___ ] ] :=
         StringJoin[ lines, Last @ strings ]
     ];
 
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*Arithmetic Weirdness*)
+format[ e: Verbatim[ Plus ][ a_ ] ] /; fitsOnLineQ @ e :=
+    With[ { str = formatArg[ Plus, a ] },
+        If[ StringStartsQ[ str, "-" ],
+            "+(" <> str <> ")",
+            "+" <> str
+        ]
+    ];
+
+format[ e: Verbatim[ Plus ][ a_, b__ ] ] /; fitsOnLineQ @ e :=
+    Module[ { args, formatted },
+        args = formatArgList[ Plus, a, b ];
+        formatted = formatOrderlessStrings[ args, "+" ];
+        StringJoin @ formatted /; MatchQ[ formatted, { __String } ]
+    ];
+
+format[ e: Verbatim[ Times ][ -1, a_ ] ] /; fitsOnLineQ @ e :=
+    "-" <> formatArg[ Times, a ];
+
+format[ e: Verbatim[ Times ][ a_, b__ ] ] /; fitsOnLineQ @ e :=
+    Module[ { args, formatted },
+        args = formatArgList[ Times, a, b ];
+        formatted = formatOrderlessStrings[ args, "*" ];
+        StringJoin @ formatted /; MatchQ[ formatted, { __String } ]
+    ];
+
+formatOrderlessStrings[ { x_ }, op_ ] :=
+    {
+        If[ StringStartsQ[ x, "-" ],
+            StringReplace[
+                x,
+                StringExpression[
+                    StartOfString,
+                    "-",
+                    c: Except[ " " ]
+                ] :> StringJoin[ "-", c ]
+            ],
+            StringJoin[ op, x ]
+        ]
+    };
+
+formatOrderlessStrings[ { x_, xs__ }, op_ ] :=
+    Flatten @ { x, formatPlusString[ #, op ] & /@ { xs } };
+
+formatPlusString[ x_String, op_String ] :=
+    If[ StringStartsQ[ x, "-" ],
+        StringReplace[
+            x,
+            StringExpression[
+                StartOfString,
+                "-",
+                c: Except[ " " ]
+            ] :> StringJoin[ " - ", c ]
+        ],
+        StringJoin[ " "<>op<>" ", x ]
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*Misc Operators*)
+defineBinaryOp[ AddTo        , " += "  ]; (* !AddTo        *)
+defineBinaryOp[ Apply        , " @@ "  ]; (* !Apply        *)
+defineBinaryOp[ Apply1       , " @@@ " ]; (* !Apply1       *)
+defineBinaryOp[ ApplyTo      , " //= " ]; (* !ApplyTo      *)
+defineBinaryOp[ DivideBy     , " /= "  ]; (* !DivideBy     *)
+defineBinaryOp[ Greater      , " > "   ]; (* !Greater      *)
+defineBinaryOp[ GreaterEqual , " >= "  ]; (* !GreaterEqual *)
+defineBinaryOp[ Less         , " < "   ]; (* !Less         *)
+defineBinaryOp[ LessEqual    , " <= "  ]; (* !LessEqual    *)
+defineBinaryOp[ Map          , " /@ "  ]; (* !Map          *)
+defineBinaryOp[ ReplaceAll   , " /. "  ]; (* !ReplaceAll   *)
+defineBinaryOp[ SubtractFrom , " -= "  ]; (* !SubtractFrom *)
+defineBinaryOp[ TimesBy      , " *= "  ]; (* !TimesBy      *)
 
 
+defineMultiOp[ Alternatives    , " | "   ]; (* !Alternatives     *)
+defineMultiOp[ And             , " && "  ]; (* !And              *)
+defineMultiOp[ Plus            , " + "   ]; (* !Plus             *)
+defineMultiOp[ SameQ           , " === " ]; (* !SameQ            *)
+defineMultiOp[ Span            , ";;"    ]; (* !Span             *)
+defineMultiOp[ StringExpression, " ~~ "  ]; (* !StringExpression *)
+defineMultiOp[ StringJoin      , " <> "  ]; (* !StringJoin       *)
+defineMultiOp[ UnsameQ         , " =!= " ]; (* !UnsameQ          *)
 
-defineBinaryOp[ AddTo        , " += "  ];
-defineBinaryOp[ Apply        , " @@ "  ];
-defineBinaryOp[ Apply1       , " @@@ " ];
-defineBinaryOp[ ApplyTo      , " //= " ];
-defineBinaryOp[ DivideBy     , " /= "  ];
-defineBinaryOp[ Greater      , " > "   ];
-defineBinaryOp[ GreaterEqual , " >= "  ];
-defineBinaryOp[ Less         , " < "   ];
-defineBinaryOp[ LessEqual    , " <= "  ];
-defineBinaryOp[ Map          , " /@ "  ];
-defineBinaryOp[ ReplaceAll   , " /. "  ];
-defineBinaryOp[ SubtractFrom , " -= "  ];
-defineBinaryOp[ TimesBy      , " *= "  ];
-(* defineBinaryOp[ Power      , " ^ "   ]; *)
 
-defineMultiOp[ Alternatives, " | "   ];
-defineMultiOp[ And         , " && "  ];
-defineMultiOp[ Plus        , " + "   ];
-defineMultiOp[ SameQ       , " === " ];
-(* defineMultiOp[ Times       , " * "   ]; *)
-defineMultiOp[ UnsameQ     , " =!= " ];
+defineLeftOp[ Not         , "! " ]; (* !Not          *)
+defineLeftOp[ PreDecrement, "--" ]; (* !PreDecrement *)
+defineLeftOp[ PreIncrement, "++" ]; (* !PreIncrement *)
 
-defineLeftOp[ Not         , "! " ];
-defineLeftOp[ PreDecrement, "--" ];
-defineLeftOp[ PreIncrement, "++" ];
-
-defineRightOp[ Decrement, "--" ];
-defineRightOp[ Increment, "++" ];
+defineRightOp[ Decrement, "--" ]; (* !Decrement *)
+defineRightOp[ Increment, "++" ]; (* !Increment *)
+defineRightOp[ Function , " &" ]; (* !Function  *)
 
 
 (* TODO: fix `a-b` ending up as `a + -b` on long lines *)
 format[ e: Times[ _, Power[ _, -1 ] ] ] /; fitsOnLineQ @ e := toString @ e;
-format[ e_Times ] /; fitsOnLineQ @ e := toString @ e;
+(* format[ e_Times ] /; fitsOnLineQ @ e := toString @ e; *)
 
 format[ e: Power[ ___ ] ] /; fitsOnLineQ @ e := toString @ e;
 
-
+(* Apply *)
 format[ e: Apply[ f_, x_, { 1 } ] ] /;
     ! reqParenQ[ Apply, f ] && ! reqParenQ[ Apply, x ] && fitsOnLineQ @ e :=
-        cFormat @ Apply1[ f, x ];
+        With[ { str = cFormat @ Apply1[ f, x ] },
+            str /; stringFitsOnLineQ @ str
+        ];
 
 prec @ Apply1 = prec @ Apply;
 
 Apply1 /: Format[ Apply1, InputForm ] := Apply;
 
 
+(* !Part *)
+format[ e: Part[ a_, b___ ] ] :=
+    Module[ { lhs, rhs, str },
+        lhs = formatLHS[ Part, a ];
+        rhs = Riffle[ List @@ cFormat /@ HoldComplete[ b ], ", " ];
+        str = StringJoin[ lhs, "[[ ", rhs, " ]]" ];
+        str /; stringFitsOnLineQ @ str
+    ];
 
-(* Slot *)
+(* !Slot *)
 format[ $$slot[ 1 ] ] /; $singleSlot := "#";
 
 format[ $$slot[ i_Integer ] ] /;
@@ -1131,8 +1287,10 @@ format[ $$slot[ str_String ] ] /;
         StringJoin[ "#", toString @ str ]
     ];
 
+$singleSlot = False;
 
-(* SlotSequence *)
+
+(* !SlotSequence *)
 format[ Verbatim[ SlotSequence ][ 1 ] ] /; $singleSlot := "##";
 
 format[ Verbatim[ SlotSequence ][ i_Integer ] ] /;
@@ -1140,7 +1298,7 @@ format[ Verbatim[ SlotSequence ][ i_Integer ] ] /;
         "##" <> toString @ i;
 
 
-
+(* !Rational *)
 format[ e: Rational[ lhs_, rhs_ ] ] /; And[
     fitsOnLineQ @ e,
     AtomQ @ Unevaluated @ e,
@@ -1149,7 +1307,7 @@ format[ e: Rational[ lhs_, rhs_ ] ] /; And[
 ] :=
     StringJoin[ formatLHS[ Rational, lhs ], " / ", formatRHS[ Rational, rhs ] ];
 
-
+(* !MessageName *)
 format[ e: MessageName[ sym_? symbolQ, tag_String ] ] /;
     StringQ @ Unevaluated @ tag && fitsOnLineQ @ e :=
         StringJoin[
@@ -1214,7 +1372,7 @@ format[ a: f_[ ___ ] ] /; $fastMode :=
       str /; stringFitsOnLineQ @ str
   ];
 
-
+(* !Set *)
 format[ r: Verbatim[ Set ][ a_, b_ ] ] :=
     Module[ { fits, g },
 
@@ -1239,7 +1397,7 @@ format[ r: Verbatim[ Set ][ a_, b_ ] ] :=
         ]
     ];
 
-
+(* !SetDelayed *)
 format[ r: Verbatim[ SetDelayed ][ a_, b_ ] ] :=
     Module[ { fits, g },
 
@@ -1272,7 +1430,7 @@ format[ r: Verbatim[ SetDelayed ][ a_, b_ ] ] :=
         ]
     ];
 
-
+(* !UpSetDelayed *)
 format[ r: Verbatim[ UpSetDelayed ][ a_, b_ ] ] :=
     Module[ { fits, g },
 
@@ -1305,7 +1463,7 @@ format[ r: Verbatim[ UpSetDelayed ][ a_, b_ ] ] :=
         ]
     ];
 
-
+(* !Association *)
 format[assoc_Association /; AssociationQ@Unevaluated@assoc && fitsOnLineQ @ assoc ] :=
     With[ { tagged = tagAssociations @ assoc },
         StringJoin[
@@ -1368,6 +1526,7 @@ formatAssoc[ tagged_ ] /; $fancyAlign :=
         check[ k_ -> v_ ] :=
             With[ { ks = cFormat @ k, vs = cFormat @ v },
 
+                (* Echo[ HoldForm[ k -> v ], "check" ]; *)
                 If[ StringContainsQ[ StringJoin[ ks, vs ], "\n" ],
                     (* Echo[ k -> v, "line" ]; *)
                     Throw[ $noAlign, $tag ]
@@ -1381,7 +1540,12 @@ formatAssoc[ tagged_ ] /; $fancyAlign :=
                     Throw[ $noAlign, $tag ]
                 ];
 
-                { indent[ ], ks, If[ Head @ v === $delayed, " :> ", " -> " ], vs }
+                (* { indent[ ], ks, If[ Head @ v === $delayed, " :> ", " -> " ], vs } *)
+                If[ Head @ v === $delayed,
+                    { indent[ ], ks, " :> ", vs },
+                    { indent[ ], ks, " -> ", vs }
+                ]
+
             ];
 
         align[ { i_, k_, r_, v_ } ] :=
@@ -1469,7 +1633,7 @@ format[Association[rules : (_Rule | _RuleDelayed) ..] /; fitsOnLineQ @ Associati
       "|>"
   ]; *)
 
-
+(* !List *)
 format[ list_List ] /; fitsOnLineQ @ list :=
     StringJoin[ "{ ", StringRiffle[ cFormat /@ Unevaluated @ list, ", " ], " }" ];
 
@@ -1853,10 +2017,18 @@ fitsOnLineQ[ expr_, offset_ ] := stringFitsOnLineQ[ toString @ expr, offset ];
 stringFitsOnLineQ // ClearAll;
 
 
-stringFitsOnLineQ[ string_String ] := TrueQ[ StringLength @ string < currentLineWidth[ ] ];
+stringFitsOnLineQ[ string_String ] :=
+    TrueQ @ And[
+        StringLength @ string < currentLineWidth[ ],
+        StringFreeQ[ string, "\n" ]
+    ];
 
 
-stringFitsOnLineQ[ string_String, offset_ ] := TrueQ[ StringLength @ string < currentLineWidth[ ] - offset ];
+stringFitsOnLineQ[ string_String, offset_ ] :=
+    TrueQ @ And[
+        StringLength @ string < currentLineWidth[ ] - offset,
+        StringFreeQ[ string, "\n" ]
+    ];
 
 
 stringFitsOnLineQ[ ___ ] := False;
@@ -2045,7 +2217,8 @@ reqParenQ[ f_, h_[ ___ ] ] := TrueQ[ prec @ f >= prec @ h ];
 
 reqParenQ[ f_ ] := Function[ e, reqParenQ[ f, e ], HoldAllComplete ];
 
-reqParenQ[ Power, neg_ ] := Internal`SyntacticNegativeQ @ Unevaluated @ neg;
+reqParenQ[ Power|Times, neg_ ] :=
+    Internal`SyntacticNegativeQ @ Unevaluated @ neg;
 
 reqParenQ[ _, __ ] := False;
 
@@ -2059,7 +2232,7 @@ prec // ClearAll;
 
 prec // Attributes = { HoldAllComplete };
 
-prec[ Function ] = 1000.0;
+(* prec[ Function ] = 1000.0; *)
 
 (* https://bugs.wolfram.com/show?number=408557 *)
 prec[ TagSetDelayed ] = 100.0; (* wtf? *)
@@ -2258,7 +2431,7 @@ makePrefix[ f_[ s_String ], _ ] :=
   ];
 
 
-makePrefix[ e: _List|_Association, _ ] :=
+makePrefix[ e: _List|Association[ (_Rule|_RuleDelayed ) .. ], _ ] :=
   With[ { str = Block[ { $prefix = False }, cFormat @ e ] },
       $prefix = True;
       str
@@ -2432,10 +2605,10 @@ formatArgList // ClearAll;
 formatArgList // Attributes = { HoldAllComplete };
 
 formatArgList[ None, args___ ] :=
-    Cases[ HoldComplete @  args, e_ :> cFormat @ e ];
+    Cases[ HoldComplete @ args, e_ :> cFormat @ e ];
 
 formatArgList[ parent_, args___ ] :=
-    Cases[ HoldComplete @  args, e_ :> formatArg[ parent, e ] ];
+    Cases[ HoldComplete @ args, e_ :> formatArg[ parent, e ] ];
 
 
 (* ::Subsubsection:: *)

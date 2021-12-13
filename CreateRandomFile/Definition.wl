@@ -126,7 +126,7 @@ CreateRandomFile[
     catchTop @ CreateRandomFile[ File @ path, bytes, opts ];
 
 
-(* File[...] *)
+(* <+File[$$]+>: *)
 CreateRandomFile[
     File[ path: $string ],
     bytes: $byteCount,
@@ -146,7 +146,7 @@ CreateRandomFile[
     ];
 
 
-(* CloudObject[...] *)
+(* <+CloudObject[$$]+>: *)
 CreateRandomFile[
     co_CloudObject,
     bytes: $byteCount,
@@ -163,13 +163,13 @@ CreateRandomFile[
     ];
 
 
-(* LocalObject[...] *)
+(* <+LocalObject[$$]+>: *)
 CreateRandomFile[
     lo_LocalObject,
     bytes: $byteCount,
     opts: OptionsPattern[ ]
 ] :=
-    catchTop @ Module[ { overwrite, msged, path, new },
+    catchTop @ Module[ { overwrite, path, new },
         overwrite = TrueQ @ OptionValue @ OverwriteTarget;
         If[ ! overwrite && FileExistsQ @ lo, throwFailure[ "filex", lo ] ];
         Check[ Export[ lo, { }, "Binary" ], $failed = True ];

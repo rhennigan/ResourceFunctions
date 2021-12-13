@@ -104,13 +104,17 @@ CreateRandomFile // Options = {
 (*Argument patterns*)
 $string    = _String  ? StringQ;
 $byteCount = _Integer ? NonNegative;
-$fileSpec  = $string | File[ $string ] | _CloudObject | _LocalObject;
+$fileSpec  = Automatic | $string | File[ $string ] | _CloudObject | _LocalObject;
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Main definition*)
 
 CreateRandomFile[ bytes: $byteCount, opts: OptionsPattern[ ] ] :=
+    catchTop @ CreateRandomFile[ Automatic, bytes, opts ];
+
+
+CreateRandomFile[ Automatic, bytes: $byteCount, opts: OptionsPattern[ ] ] :=
     catchTop @ CreateRandomFile[ createFileName[ ], bytes, opts ];
 
 
@@ -168,7 +172,7 @@ CreateRandomFile[
     catchTop @ Module[ { overwrite, msged, path, new },
         overwrite = TrueQ @ OptionValue @ OverwriteTarget;
         If[ ! overwrite && FileExistsQ @ lo, throwFailure[ "filex", lo ] ];
-        Check[ Export[ LocalObject[ "temp" ], { }, "Binary" ], $failed = True ];
+        Check[ Export[ lo, { }, "Binary" ], $failed = True ];
         path = LocalObjects`AuxPathName @ lo;
         If[ ! FileExistsQ @ path, throwFailure[ "writefail", lo, bytes ] ];
         new = CreateRandomFile[ path, bytes, OverwriteTarget -> True, opts ];
@@ -340,6 +344,26 @@ checkResult // endDefinition;
 (* ::Subsubsection::Closed:: *)
 (*writeRandomBytes*)
 writeRandomBytes // beginDefinition;
+
+writeRandomBytes[
+    stream_,
+    0,
+    targetBlockSize_,
+    progress_,
+    append_,
+    createInt_,
+    overwrite_
+] :=
+    Module[ { fileExists },
+        fileExists = Quiet[ FileExistsQ @ stream, FileExistsQ::badfile ];
+
+        If[ fileExists && ! TrueQ @ overwrite && ! TrueQ @ append,
+            throwFailure[ "filex", stream ]
+        ];
+
+        CreateFile[ stream, CreateIntermediateDirectories -> createInt ]
+    ];
+
 
 writeRandomBytes[
     stream_,

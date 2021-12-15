@@ -475,7 +475,9 @@ generateVerificationTestCells // ClearAll;
 generateVerificationTestCells[ dir_, info_, vtFile_? FileExistsQ ] :=
     If[ ToUpperCase @ FileExtension @ vtFile === "NB",
         vtCellsFromNotebook[ dir, info, vtFile ],
-        vtCellsFromPackage[ dir, info, vtFile ]
+        Block[ { $currentHeaderLevel = 2 },
+            vtCellsFromPackage[ dir, info, vtFile ]
+        ]
     ];
 
 generateVerificationTestCells[ ___ ] := Missing[ ];
@@ -963,13 +965,35 @@ $exampleDelimiter =
 (* ::Subsubsection::Closed:: *)
 (*demoteHeaders*)
 demoteHeaders // ClearAll;
-
 demoteHeaders[ cells_ ] :=
-    cells /. {
-        Cell[ a_, "Section"      , b___ ] :> Cell[ a, "Subsection"      , b ],
-        Cell[ a_, "Subsection"   , b___ ] :> Cell[ a, "Subsubsection"   , b ],
-        Cell[ a_, "Subsubsection", b___ ] :> Cell[ a, "Subsubsubsection", b ]
-    };
+    demoteHeaders0[ cells, $currentHeaderLevel ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*demoteHeaders0*)
+demoteHeaders0 // ClearAll;
+
+demoteHeaders0[ cells_, n_Integer? Positive ] :=
+    demoteHeaders0[
+        cells /. {
+            Cell[ a_, "Section"      , b___ ] :>
+                Cell[ a, "Subsection"      , b ],
+            Cell[ a_, "Subsection"   , b___ ] :>
+                Cell[ a, "Subsubsection"   , b ],
+            Cell[ a_, "Subsubsection", b___ ] :>
+                Cell[ a, "Subsubsubsection", b ],
+            Cell[ a_, "Subsubsubsection", b___ ] :>
+                Cell[ a, "Text", b ]
+        },
+        n - 1
+    ];
+
+demoteHeaders0[ cells_, _ ] := cells;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*$currentHeaderLevel*)
+$currentHeaderLevel = 1;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)

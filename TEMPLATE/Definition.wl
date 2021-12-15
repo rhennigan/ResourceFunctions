@@ -65,6 +65,9 @@ endDefinition // endDefinition;
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Messages*)
+$$Function::internal =
+"An unexpected error occurred. `1`";
+
 $$Messages
 
 (* ::**********************************************************************:: *)
@@ -96,6 +99,12 @@ $$ErrorCases
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Dependencies*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Misc utilities*)
+
+$$Utilities
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -174,9 +183,3 @@ $bugReportLink := $bugReportLink = Hyperlink[
         "Fragment" -> SymbolName @ $$Function
     |>
 ];
-
-(* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
-(*Misc utilities*)
-
-$$Utilities

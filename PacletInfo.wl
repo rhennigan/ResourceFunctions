@@ -1,6 +1,6 @@
 PacletObject[ <|
     "Name" -> "RH_ResourceFunctions",
-    "Version" -> "1.2.19",
+    "Version" -> "1.2.20",
     "WolframVersion" -> "12.0+",
     "Extensions" -> {
         {

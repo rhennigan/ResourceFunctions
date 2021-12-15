@@ -363,7 +363,11 @@ generateCategories[ dir_, info: KeyValuePattern @ { } ] :=
     generateCategories[ dir, info, Lookup[ info, "Categories" ] ];
 
 generateCategories[ dir_, info_, cats: { __String } ] :=
-    Cell[ #, "Item" ] & /@ cats;
+    DefinitionNotebookClient`CheckboxesCell[
+        "Function",
+        "Categories",
+        "Checked" -> cats
+    ];
 
 generateCategories[ ___ ] := Missing[ ];
 

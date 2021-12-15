@@ -1270,15 +1270,15 @@ format[ e: Part[ a_, b___ ] ] :=
     ];
 
 (* !Slot *)
-format[ $$slot[ 1 ] ] /; $singleSlot := "#";
+format[ ($$slot|Slot)[ 1 ] ] /; TrueQ @ $singleSlot := "#";
 
-format[ $$slot[ i_Integer ] ] /;
-    ! $singleSlot && IntegerQ @ Unevaluated @ i && NonNegative @ i :=
+format[ ($$slot|Slot)[ i_Integer ] ] /;
+    ! TrueQ @ $singleSlot && IntegerQ @ Unevaluated @ i && NonNegative @ i :=
         "#" <> toString @ i;
 
 
-format[ $$slot[ str_String ] ] /;
-    ! $singleSlot && StringQ @ Unevaluated @ str :=
+format[ ($$slot|Slot)[ str_String ] ] /;
+    ! TrueQ @ $singleSlot && StringQ @ Unevaluated @ str :=
     If[ StringMatchQ[
             str,
             LetterCharacter~~(LetterCharacter | DigitCharacter)...

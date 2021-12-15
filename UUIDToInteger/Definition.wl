@@ -1,0 +1,1 @@
+UUIDToInteger[ uuid_String ] := FromDigits[ StringDelete[ uuid, "-" ], 16 ];

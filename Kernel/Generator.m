@@ -1,24 +1,33 @@
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Package header*)
-BeginPackage[ "RH`ResourceFunctions`Generate`" ];
 
-GenerateDefinitionNotebook;
+Package[ "RH`ResourceFunctions`" ]
 
-Begin[ "`Private`" ];
+PackageExport[ "GenerateDefinitionNotebook" ]
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*GenerateDefinitionNotebook*)
-GenerateDefinitionNotebook // ClearAll;
+GenerateDefinitionNotebook[ name_String? buildableNameQ ] :=
+    GenerateDefinitionNotebook @ FileNameJoin @ {
+        $ResourceFunctionDirectory,
+        name
+    };
 
-GenerateDefinitionNotebook[ dir_ ] :=
+GenerateDefinitionNotebook[ dir_? DirectoryQ ] :=
     With[ { nb = generateDefinitionNotebook @ dir },
         If[ MatchQ[ nb, Notebook[ { ___Cell }, ___ ] ],
             nb,
             Failure[ GenerateDefinitionNotebook, <| |> ]
         ]
     ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*buildableNameQ*)
+buildableNameQ[ name_ ] := MemberQ[ $BuildableNames, name ];
+buildableNameQ[ ___   ] := False;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -238,14 +247,16 @@ generateExamples[ ___ ] := Missing[ ];
 findExamplesFile // ClearAll;
 
 findExamplesFile[ info: KeyValuePattern @ { }, dir_ ] :=
-    Module[ { name, base, patt1, patt2, files1, files2 },
+    Module[ { name, base, patt1, patt2, patt3, files1, files2, files3 },
         name   = Lookup[ info, "Name", FileBaseName @ dir ];
         base   = ("examples"|"examplenotebook");
         patt1  = base~~(".wl"|".m");
-        patt2  = (name|base|"definitionnotebook")~~(".nb");
+        patt2  = base~~(".nb");
+        patt3  = (name|"definitionnotebook"|"definition")~~(".nb");
         files1 = FileNames[ patt1, dir, IgnoreCase -> True ];
         files2 = FileNames[ patt2, dir, IgnoreCase -> True ];
-        SelectFirst[ Join[ files1, files2 ], FileExistsQ ]
+        files3 = FileNames[ patt3, dir, IgnoreCase -> True ];
+        SelectFirst[ Join[ files1, files2, files3 ], FileExistsQ ]
     ];
 
 (* ::**********************************************************************:: *)
@@ -1260,9 +1271,3 @@ firstMatchingFile[ { patt_, rest___ }, args___ ] :=
 
 firstMatchingFile[ { }, ___ ] := Missing[ "NotFound" ];
 
-(* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
-(*End Package*)
-End[ ];
-
-EndPackage[ ];

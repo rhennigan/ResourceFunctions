@@ -68,8 +68,8 @@ endDefinition // endDefinition;
 CreateResourceFunctionSymbols::internal =
 "An unexpected error occurred. `1`";
 
-CreateResourceFunctionSymbols::pctx =
-"Cannot set definitions in protected context `1`.";
+CreateResourceFunctionSymbols::exctx =
+"Cannot set definitions in excluded context `1`.";
 
 CreateResourceFunctionSymbols::invctx =
 "Valid context string expected at position `1` in `2`.";
@@ -92,6 +92,12 @@ CreateResourceFunctionSymbols::symctx =
 CreateResourceFunctionSymbols::deffail =
 "Failed to set definitions for `1`.";
 
+CreateResourceFunctionSymbols::invexc =
+"Expected a list of contexts or Automatic instead of `1` as the setting for ExcludedContexts.";
+
+CreateResourceFunctionSymbols::invow =
+"Expected True or False instead of `1` as the setting for OverwriteTarget.";
+
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Attributes*)
@@ -100,56 +106,57 @@ CreateResourceFunctionSymbols // Attributes = { };
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Options*)
-CreateResourceFunctionSymbols // Options = { OverwriteTarget -> False };
+CreateResourceFunctionSymbols // Options = {
+    ExcludedContexts   -> Automatic,
+    OverwriteTarget    -> False,
+    ResourceSystemBase -> Automatic (* TODO *)
+};
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Argument patterns*)
-$validContext  = Automatic | _String? validContextQ;
 $contextString = _String? contextQ;
 $anyContext    = Automatic | $contextString;
 $name          = _String? StringQ;
 $names         = { $name... };
-$nameOrNames   = $name | $names;
+$nameOrNames   = $name | $names | Automatic | All;
+$result        = $name | Missing[ "SymbolExists", $name ] | _Failure? FailureQ;
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Main definition*)
+
+(* Use <+Automatic+> as default first argument: *)
 CreateResourceFunctionSymbols[ opts: OptionsPattern[ ] ] :=
     catchTop @ CreateResourceFunctionSymbols[ Automatic, opts ];
 
+(* Use <+All+> as default second argument: *)
+CreateResourceFunctionSymbols[ ctx: $anyContext, opts: OptionsPattern[ ] ] :=
+    catchTop @ CreateResourceFunctionSymbols[ ctx, All, opts ];
 
+(* Do the thing: *)
 CreateResourceFunctionSymbols[
-    ctx: $validContext,
-    opts: OptionsPattern[ ]
-] :=
-    catchTop @ CreateResourceFunctionSymbols[
-        ctx,
-        getResourceFunctionNames[ ],
-        opts
-    ];
-
-
-CreateResourceFunctionSymbols[
-    ctx0: $validContext,
+    ctx0: $anyContext,
     names: $nameOrNames,
     opts: OptionsPattern[ ]
 ] := catchTop @ Enclose[
-    Module[ { ctx, base, full, overwrite, current, res },
-        ctx       = Replace[ ctx0, Automatic -> $defaultContext ];
-        base      = Flatten @ { names };
+    Module[ { ctx, base, full, overwrite, excluded, current, res },
+
+        excluded  = OptionValue @ ExcludedContexts;
+        ctx       = checkContext[ ctx0, excluded ];
+        base      = toNameList @ names;
         full      = (ctx <> #1 &) /@ base;
-        overwrite = TrueQ @ OptionValue @ OverwriteTarget;
+        overwrite = checkOverwriteTarget @ OptionValue @ OverwriteTarget;
         current   = If[ overwrite, { }, definedNamePatt @ full ];
 
         res       = Block[ { $existingNames = current },
                            ConfirmMatch[ defineRFSymbols @ full,
-                                         { (_String|_Missing)... }
+                                         { $result... }
                            ]
                     ];
 
         If[ StringQ @ names,
-            ConfirmMatch[ First[ res, $Failed ], _String|_Missing ],
+            ConfirmMatch[ First[ res, $Failed ], $result ],
             res
         ]
     ],
@@ -160,45 +167,24 @@ CreateResourceFunctionSymbols[
 ];
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Error cases*)
 
-(* Trying to define symbols in an internal context: *)
-CreateResourceFunctionSymbols[ context: $contextString, ___ ] :=
-    catchTop @ throwFailure[ "pctx", context ];
-
 (* First argument is not a valid context: *)
-CreateResourceFunctionSymbols[ a: Except[ $anyContext ], b___ ] :=
-    catchTop @ throwFailure[
-        "invctx",
-        1,
-        HoldForm @ CreateResourceFunctionSymbols[ a, b ]
-    ];
+e: CreateResourceFunctionSymbols[ Except[ $anyContext ], ___ ] :=
+    catchTop @ throwFailure[ "invctx", 1, HoldForm @ e ];
 
 (* Second argument is not a valid list of names: *)
-CreateResourceFunctionSymbols[
-    a: $anyContext,
-    b: Except[ $nameOrNames ],
-    c___
-] :=
-    catchTop @ throwFailure[
-        "invnames",
-        2,
-        HoldForm @ CreateResourceFunctionSymbols[ a, b, c ]
-    ];
+e: CreateResourceFunctionSymbols[ $anyContext, Except[ $nameOrNames ], ___ ] :=
+    catchTop @ throwFailure[ "invnames", 2, HoldForm @ e ];
 
 (* Wrong number of arguments: *)
-CreateResourceFunctionSymbols[ a_, b_, c: Except[ OptionsPattern[ ] ], d___ ] :=
-    catchTop @ throwFailure[
-        "nonopt",
-        c,
-        2,
-        HoldForm @ CreateResourceFunctionSymbols[ a, b, c, d ]
-    ];
+e: CreateResourceFunctionSymbols[ _, _, a: Except[ OptionsPattern[ ] ], ___ ] :=
+    catchTop @ throwFailure[ "nonopt", a, 2, HoldForm @ e ];
 
 (* Missed something that needs to be fixed: *)
-CreateResourceFunctionSymbols[ a___ ] :=
-    catchTop @ throwInternalFailure @ CreateResourceFunctionSymbols @ a;
+e: CreateResourceFunctionSymbols[ ___ ] :=
+    catchTop @ throwInternalFailure @ e;
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
@@ -229,14 +215,52 @@ $emptyDefPattern =
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*checkOverwriteTarget*)
+checkOverwriteTarget // beginDefinition;
+checkOverwriteTarget[ bool: True|False ] := bool;
+checkOverwriteTarget[ other_ ] := throwFailure[ "invow", other ];
+checkOverwriteTarget // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*checkContext*)
+checkContext // beginDefinition;
+
+checkContext[ Automatic, excl_  ] := checkContext[ $defaultContext, excl ];
+checkContext[ ctx_, Automatic   ] := checkContext[ ctx, $defaultExcluded ];
+checkContext[ ctx_, None        ] := checkContext[ ctx, { }              ];
+
+checkContext[ ctx_? contextQ, excl: { ___? StringPattern`StringPatternQ } ] :=
+    If[ StringMatchQ[ ctx, # <> "*" & /@ StringTrim[ excl, "*" ] ],
+        throwFailure[ "exctx", ctx ],
+        ctx
+    ];
+
+checkContext[ ctx_, excl_? StringPattern`StringPatternQ ] :=
+    checkContext[ ctx, { excl } ];
+
+checkContext[ _, other_ ] := throwFailure[ "invexc", other ];
+
+checkContext // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*toNameList*)
+toNameList // beginDefinition;
+toNameList[ All|Automatic       ] := getResourceFunctionNames[ ];
+toNameList[ name: $name         ] := { name };
+toNameList[ names: { $name... } ] := names;
+toNameList // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*definedNamePatt*)
 definedNamePatt // beginDefinition;
 
-definedNamePatt[ names: { ___String } ] :=
-    Apply[
-        Alternatives,
-        ToExpression[ Select[ names, definedNameQ ], InputForm, HoldPattern ]
-    ];
+definedNamePatt[ names: { ___String } ] := Apply[
+    Alternatives,
+    ToExpression[ Select[ names, definedNameQ ], InputForm, HoldPattern ]
+];
 
 definedNamePatt // endDefinition;
 
@@ -268,42 +292,35 @@ qualifiedNames // endDefinition;
 (* ::Subsubsection::Closed:: *)
 (*definedNameQ*)
 definedNameQ // beginDefinition;
-
-definedNameQ[ name_String? NameQ ] :=
-    Or[ Attributes @ name =!= { },
-        ! MatchQ[
-              Language`ExtendedDefinition[ name, "ExcludedContexts" -> { } ],
-              $emptyDefPattern
-          ]
-    ];
-
+definedNameQ[ name_? NameQ ] := ToExpression[ name, InputForm, definedSymbolQ ];
 definedNameQ[ ___ ] := False;
-
 definedNameQ // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
-(*validContextQ*)
-validContextQ // beginDefinition;
-validContextQ[ c_? contextQ ] := ! StringStartsQ[ c, $excludedContexts ];
-validContextQ[ ___ ] := False;
-validContextQ // endDefinition;
+(*definedSymbolQ*)
+definedSymbolQ // beginDefinition;
+definedSymbolQ // Attributes = { HoldAllComplete };
+definedSymbolQ[ _Symbol? System`Private`HasAnyEvaluationsQ ] := True;
+definedSymbolQ[ _Symbol? System`Private`HasAnyCodesQ       ] := True;
+definedSymbolQ[ ___ ] := False;
+definedSymbolQ // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
-(*$excludedContexts*)
-$excludedContexts // ClearAll;
-$excludedContexts :=
+(*$defaultExcluded*)
+$defaultExcluded // ClearAll;
+$defaultExcluded :=
     Block[ { $ContextPath },
         Needs[ "ResourceSystemClient`DefinitionUtilities`" ];
-        $excludedContexts =
+        $defaultExcluded =
             FirstCase[
                 {
                     ResourceSystemClient`DefinitionUtilities`Private`$defaultExcludedContexts,
                     Language`$InternalContexts
                 },
                 { __String },
-                throwInternalFailure @ $excludedContexts
+                throwInternalFailure @ $defaultExcluded
             ]
     ];
 
@@ -381,6 +398,8 @@ getResourceFunctionNames[ ] :=
     ];
 
 getResourceFunctionNames // endDefinition;
+
+(* TODO: allow ResourceSystemBase option *)
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)

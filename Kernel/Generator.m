@@ -144,10 +144,21 @@ makeUsageGroup[ { usage_, desc_ } ] :=
 makeUsageInput // ClearAll;
 
 makeUsageInput[ usage_String ] :=
-    Cell[ BoxData @ ResourceFunction[ "StringTemplateInput" ][ usage ],
-          "UsageInputs",
-          FontFamily -> "Source Sans Pro"
+    Module[ { str, templated },
+        str = eliminateNewLineWhitespace @ usage;
+        templated = ResourceFunction[ "StringTemplateInput" ][ str ];
+        usageInputCell @ templated
     ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*usageInputCell*)
+usageInputCell // ClearAll;
+
+usageInputCell[ BoxData[ boxes_ ] ] := usageInputCell @ boxes;
+
+usageInputCell[ boxes_ ] :=
+    Cell[ BoxData @ boxes, "UsageInputs", FontFamily -> "Source Sans Pro" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -155,7 +166,10 @@ makeUsageInput[ usage_String ] :=
 makeUsageDesc // ClearAll;
 
 makeUsageDesc[ desc_String ] :=
-    autoTemplateStrings @ Cell[ desc, "UsageDescription" ];
+    autoTemplateStrings @ Cell[
+        eliminateNewLineWhitespace @ desc,
+        "UsageDescription"
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -210,7 +224,8 @@ findNotesFile[ dir_ ] :=
 (*makeNotesCell*)
 makeNotesCell // ClearAll;
 
-makeNotesCell[ str_String ] := autoTemplateStrings @ Cell[ str, "Notes" ];
+makeNotesCell[ str_String ] :=
+    autoTemplateStrings @ Cell[ eliminateNewLineWhitespace @ str, "Notes" ];
 
 makeNotesCell[ table_ /; MatrixQ[ table, StringQ ] ] :=
     With[ { grid = Map[ notesTableItem, table, { 2 } ] },
@@ -220,10 +235,23 @@ makeNotesCell[ table_ /; MatrixQ[ table, StringQ ] ] :=
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*eliminateNewLineWhitespace*)
+eliminateNewLineWhitespace[ str_String ] :=
+    StringReplace[ str, Longest[ $newLineWhitespace.. ] :> " " ];
+
+$newLine           = "\r\n" | "\n";
+$newLineWhitespace = WhitespaceCharacter...~~$newLine~~WhitespaceCharacter...;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*notesTableItem*)
 notesTableItem // ClearAll;
 notesTableItem[ str_String ] :=
-    Sequence @@ Flatten[ { autoTemplateStrings @ Cell[ str, "TableText" ] } ];
+    Module[ { cell, templated },
+        cell      = Cell[ eliminateNewLineWhitespace @ str, "TableText" ];
+        templated = Flatten @ { autoTemplateStrings @ cell };
+        Sequence @@ templated
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -534,7 +562,7 @@ vtCellsFromPackage[ dir_, info_, file_ ] :=
             ReplaceAll[
                 generateDefinitionCells[ info, tmp ],
                 Cell[ a_, "Code", b___ ] :>
-                    Cell[ a, "Code", InitializationCell -> False, b ]
+                    Cell[ a, "Input", "Code", InitializationCell -> False, b ]
             ]
             ,
             DeleteFile @ tmp
@@ -939,7 +967,7 @@ createPackageNotebook[ file_, None ] :=
 createPackageNotebook[ file_, Automatic ] :=
     createPackageNotebook0[ file, True ];
 
-createPackageNotebook[ file_, RemoteEvaluate ] :=
+createPackageNotebook[ file_, HoldPattern @ RemoteEvaluate ] :=
     RemoteEvaluate[
         "localhost",
         UsingFrontEnd @ createPackageNotebook0[ file, True ]

@@ -74,6 +74,9 @@ CreateResourceFunctionSymbols::exctx =
 CreateResourceFunctionSymbols::invctx =
 "Valid context string expected at position `1` in `2`.";
 
+CreateResourceFunctionSymbols::invname =
+"Expected a valid ResourceFunction name instead of `1`.";
+
 CreateResourceFunctionSymbols::invnames =
 "String or list of strings expected at position `1` in `2`.";
 
@@ -98,6 +101,21 @@ CreateResourceFunctionSymbols::invexc =
 CreateResourceFunctionSymbols::invow =
 "Expected True or False instead of `1` as the setting for OverwriteTarget.";
 
+CreateResourceFunctionSymbols::invunk =
+"Expected True or False instead of `1` as the setting for AllowUnknownNames.";
+
+CreateResourceFunctionSymbols::names =
+"Failed to retrieve resource function names.";
+
+CreateResourceFunctionSymbols::rsbnames =
+"Failed to retrieve resource function names using the ResourceSystemBase `1`.";
+
+CreateResourceFunctionSymbols::unkname =
+"`1` is not a known resource function name.";
+
+CreateResourceFunctionSymbols::unknames =
+"`1` are not known resource function names.";
+
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Attributes*)
@@ -107,9 +125,10 @@ CreateResourceFunctionSymbols // Attributes = { };
 (* ::Section::Closed:: *)
 (*Options*)
 CreateResourceFunctionSymbols // Options = {
-    ExcludedContexts   -> Automatic,
-    OverwriteTarget    -> False,
-    ResourceSystemBase -> Automatic (* TODO *)
+    "AllowUnknownNames" -> True,
+    ExcludedContexts    -> Automatic,
+    OverwriteTarget     -> False,
+    ResourceSystemBase  -> Automatic
 };
 
 (* ::**********************************************************************:: *)
@@ -117,14 +136,20 @@ CreateResourceFunctionSymbols // Options = {
 (*Argument patterns*)
 $contextString = _String? contextQ;
 $anyContext    = Automatic | $contextString;
-$name          = _String? StringQ;
+$symName       = _String? symbolNameQ;
+$name          = _String? rfNameQ;
 $names         = { $name... };
 $nameOrNames   = $name | $names | Automatic | All;
-$result        = $name | Missing[ "SymbolExists", $name ] | _Failure? FailureQ;
+$failure       = _Failure? FailureQ;
+$result        = $symName | Missing[ "SymbolExists", $symName ] | $failure;
 
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Main definition*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsection:: *)
+(*Create symbols*)
 
 (* Use <+Automatic+> as default first argument: *)
 CreateResourceFunctionSymbols[ opts: OptionsPattern[ ] ] :=
@@ -140,11 +165,13 @@ CreateResourceFunctionSymbols[
     names: $nameOrNames,
     opts: OptionsPattern[ ]
 ] := catchTop @ Enclose[
-    Module[ { ctx, base, full, overwrite, excluded, current, res },
+    Module[ { ctx, rsbase, unk, base, full, overwrite, excluded, current, res },
 
         excluded  = OptionValue @ ExcludedContexts;
         ctx       = checkContext[ ctx0, excluded ];
-        base      = toNameList @ names;
+        rsbase    = OptionValue @ ResourceSystemBase;
+        unk       = OptionValue @ AllowUnknownNames;
+        base      = toNameList[ names, rsbase, unk ];
         full      = (ctx <> #1 &) /@ base;
         overwrite = checkOverwriteTarget @ OptionValue @ OverwriteTarget;
         current   = If[ overwrite, { }, definedNamePatt @ full ];
@@ -158,6 +185,73 @@ CreateResourceFunctionSymbols[
         If[ StringQ @ names,
             ConfirmMatch[ First[ res, $Failed ], $result ],
             res
+        ];
+
+        ConfirmMatch[ makeResult @ res, _Success|$failure ]
+    ],
+    throwInternalFailure[
+        CreateResourceFunctionSymbols[ ctx0, names, opts ],
+        ##
+    ] &
+];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection:: *)
+(*Additional operations*)
+
+(* List created symbols: *)
+CreateResourceFunctionSymbols[
+    ctx0: $anyContext,
+    names: $nameOrNames,
+    "List"|List,
+    opts: OptionsPattern[ ]
+] := catchTop @ Enclose[
+    Module[ { ctx, res },
+        ctx = checkContext[ ctx0, None ];
+        res = listRFSymbols[ ctx, names ];
+        ConfirmMatch[ res, { ___String? fullNameQ } ]
+    ],
+    throwInternalFailure[
+        CreateResourceFunctionSymbols[ ctx0, names, opts ],
+        ##
+    ] &
+];
+
+
+(* Remove created symbols: *)
+CreateResourceFunctionSymbols[
+    ctx0: $anyContext,
+    names: $nameOrNames,
+    "Remove"|Remove,
+    opts: OptionsPattern[ ]
+] := catchTop @ Enclose[
+    Module[ { before, removed, after },
+        before = CreateResourceFunctionSymbols[ ctx0, names, "List", opts ];
+        ConfirmMatch[ before, { ___String? fullNameQ } ];
+        removed = Remove @@ before;
+        after = CreateResourceFunctionSymbols[ ctx0, names, "List", opts ];
+        ConfirmMatch[ after, { ___String? fullNameQ } ];
+        If[ after === { },
+            Success[
+                "CreateResourceFunctionSymbols",
+                <|
+                    "MessageTemplate"   -> "Removed `1` symbols.",
+                    "MessageParameters" -> { Length @ before },
+                    "Tag"               -> "CreateResourceFunctionSymbols",
+                    "Removed"           -> before,
+                    "Failed"            -> after
+                |>
+            ],
+            Failure[
+                "CreateResourceFunctionSymbols",
+                <|
+                    "MessageTemplate"   -> "Failed to remove `1` symbols.",
+                    "MessageParameters" -> { Length @ after },
+                    "Tag"               -> "CreateResourceFunctionSymbols",
+                    "Removed"           -> before,
+                    "Failed"            -> after
+                |>
+            ]
         ]
     ],
     throwInternalFailure[
@@ -190,28 +284,167 @@ e: CreateResourceFunctionSymbols[ ___ ] :=
 (* ::Section::Closed:: *)
 (*Dependencies*)
 
-ClearAll[ $defaultContext, $existingNames, $wfrNames, $localNames ];
-
 $defaultContext := "RF`";
 $existingNames  := { };
-$wfrNames       := publicResourceInformation[ "Names" ][ "Function" ];
-$localNames     := Replace[ FunctionResource`Autocomplete`Private`$localNames,
-                            Except[ { ___String } ] -> { }
-                   ];
-
-
-$emptyDefPattern // ClearAll;
-$emptyDefPattern =
-    Block[ { x },
-        ReplaceAll[
-            Language`ExtendedDefinition[ x, "ExcludedContexts" -> { } ],
-            x -> _
-        ]
-    ];
+$localNames     := getLocalCachedNames[ ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Misc utilities*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*makeResult*)
+makeResult // beginDefinition;
+
+makeResult[ res: { ___, $failure, ___ } ] := Enclose[
+    Module[ { created, exists, failed, other },
+
+        created = Cases[ res, $symName ];
+        exists  = Cases[ res, Missing[ "SymbolExists", $symName ] ];
+        failed  = Cases[ res, $failure ];
+        other   = Complement[ res, created, exists, failed ];
+
+        ConfirmAssert[ other === { } ];
+
+        Failure[
+            "CreateResourceFunctionSymbols",
+            <|
+                "MessageTemplate"   -> "Failed to create `1` symbols.",
+                "MessageParameters" -> { Length @ failed },
+                "Created"           -> created,
+                "Exists"            -> exists,
+                "Failed"            -> failed
+            |>
+        ]
+    ],
+    throwInternalFailure[ makeResult @ res, ## ] &
+];
+
+makeResult[ res: { $result.. } ] := Enclose[
+    Module[ { created, exists, failed, other, createdC, existsC, failedC, msg },
+
+        created = Cases[ res, $symName ];
+        exists  = Cases[ res, Missing[ "SymbolExists", $symName ] ];
+        failed  = ConfirmMatch[ Cases[ res, $failure ], { } ];
+        other   = Complement[ res, created, exists, failed ];
+
+        ConfirmAssert[ other === { } ];
+
+        createdC = Length @ created;
+        existsC  = Length @ exists;
+        failedC  = Length @ failed;
+
+        msg = ConfirmBy[ successMsg[ createdC, existsC, failedC ], StringQ ];
+
+        Success[
+            "CreateResourceFunctionSymbols",
+            <|
+                "MessageTemplate"   -> msg,
+                "MessageParameters" -> { createdC, existsC, failedC },
+                "Tag"               -> "CreateResourceFunctionSymbols",
+                "Created"           -> created,
+                "Exists"            -> exists,
+                "Failed"            -> failed
+            |>
+        ]
+    ],
+    throwInternalFailure[ makeResult @ res, ##1 ] &
+];
+
+makeResult[ { } ] (* TODO *)
+
+makeResult // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*successMsg*)
+successMsg // beginDefinition;
+
+successMsg[ cr_Integer? NonNegative, ex_Integer? NonNegative, 0 ] :=
+    Module[ { msg1, msg2, msg },
+
+        msg1 = Replace[ cr,
+                        {
+                            1 -> "Created `1` symbol",
+                            _ :> "Created `1` symbols"
+                        }
+               ];
+
+        msg2 = Replace[ ex,
+                        {
+                            0 -> "",
+                            1 -> "(`2` symbol already exists)",
+                            _ :> "(`2` symbols already exist)"
+                        }
+               ];
+
+        StringTrim[ msg1 <> " " <> msg2 ] <> "."
+    ];
+
+
+successMsg // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*listRFSymbols*)
+listRFSymbols // beginDefinition;
+
+listRFSymbols[ ctx_? contextQ, allowed0: $names ] := Enclose[
+    Module[ { allowed, names, ov, assoc },
+        FirstCase[
+            allowed,
+            name_String /; StringContainsQ[ name, "`" ] :>
+                throwFailure[ "invname", name ]
+        ];
+        allowed = ConfirmMatch[ ctx <> #& /@ allowed0, { $symName... } ];
+        names   = ConfirmMatch[ fullNames[ ctx <> "*" ], { ___String } ];
+        names   = ConfirmMatch[ Intersection[ names, allowed ], { ___String } ];
+        ov      = ToExpression[ names, InputForm, OwnValues ];
+        assoc   = ConfirmBy[ AssociationThread[ names -> ov ], AssociationQ ];
+        Keys @ Select[ assoc, rfDefQ ]
+    ],
+    throwInternalFailure[ listRFSymbols @ ctx, ## ] &
+];
+
+listRFSymbols[ ctx_? contextQ, All|Automatic ] :=
+    listRFSymbols[ ctx, Last /@ StringSplit[ Names[ ctx <> "*" ], "`" ] ];
+
+listRFSymbols[ ctx_? contextQ, name: $name ] :=
+    listRFSymbols[ ctx, { name } ];
+
+listRFSymbols // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fullNames*)
+fullNames // beginDefinition;
+
+fullNames[ args___ ] :=
+    With[ { ctx = "$" <> StringDelete[ CreateUUID[ ], "-" ] <> "`" },
+        Block[ { $Context = ctx, $ContextPath = { ctx } }, Names @ args ]
+    ];
+
+fullNames // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fullNameQ*)
+fullNameQ // beginDefinition;
+
+fullNameQ[ name_String? NameQ ] :=
+    StringMatchQ[ name, Except[ "`" ] ~~ ___ ~~ "`" ~~ ___ ];
+
+fullNameQ[ name_ ] := False;
+
+fullNameQ // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*rfDefQ*)
+rfDefQ // beginDefinition;
+rfDefQ[ def_ ] := ! FreeQ[ def, CreateResourceFunctionSymbols ];
+rfDefQ // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -247,9 +480,31 @@ checkContext // endDefinition;
 (* ::Subsubsection::Closed:: *)
 (*toNameList*)
 toNameList // beginDefinition;
-toNameList[ All|Automatic       ] := getResourceFunctionNames[ ];
-toNameList[ name: $name         ] := { name };
-toNameList[ names: { $name... } ] := names;
+
+toNameList[ _, _, inv: Except[ True|False ] ] := throwFailure[ "invunk", inv ];
+
+toNameList[ All | Automatic, rsb_, _ ] := getResourceFunctionNames @ rsb;
+
+toNameList[ name: $name, rsb_, unk_ ] := toNameList[ { name }, rsb, unk ];
+
+toNameList[ names: { $name... }, rsb_, True ] := names;
+
+toNameList[ names: { $name... }, rsb_, False ] :=
+    Module[ { known, unknown },
+        known = getResourceFunctionNames @ rsb;
+        unknown = Complement[ names, known ];
+        Replace[
+            unknown,
+            {
+                { }         :> names,
+                { unk_ }    :> throwFailure[ "unkname" , unk ],
+                unk: { __ } :> throwFailure[ "unknames", Short @ unk ],
+                ___         :> throwInternalFailure @
+                                   toNameList[ names, rsb, False ]
+            }
+        ]
+    ];
+
 toNameList // endDefinition;
 
 (* ::**********************************************************************:: *)
@@ -334,6 +589,14 @@ symbolNameQ // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*rfNameQ*)
+rfNameQ // beginDefinition;
+rfNameQ[ name_String? StringQ ] := Internal`SymbolNameQ[ name, False ];
+rfNameQ[ ___ ] := False;
+rfNameQ // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*contextQ*)
 contextQ // beginDefinition;
 contextQ[ c_String? StringQ ] := Internal`SymbolNameQ[ c<>"x", True ];
@@ -369,13 +632,15 @@ defineRFSymbol[ s_Symbol, n_String, c_String ] := (
     s // Unprotect;
     s // ClearAll;
 
-    s := With[ { f = ResourceFunction[ n, "Function" ] },
-                If[ FailureQ @ f,
+    s := With[ { rf = ResourceFunction[ n ] },
+                If[ FailureQ @ rf,
                     ResourceFunction[ "MessageFailure" ][
                         CreateResourceFunctionSymbols::loadfail,
                         n
                     ],
-                    s = f
+                    s // Clear;
+                    s /; (CreateResourceFunctionSymbols; True) =
+                        ResourceFunction[ n, "Function" ]
                 ]
             ];
 
@@ -392,14 +657,52 @@ defineRFSymbol // endDefinition;
 (*getResourceFunctionNames*)
 getResourceFunctionNames // beginDefinition;
 
-getResourceFunctionNames[ ] :=
-    Replace[ Quiet @ Union[ $wfrNames, $localNames ],
+getResourceFunctionNames[ rsb_ ] :=
+    Replace[ Quiet @ Union[ wfrNames @ rsb, $localNames ],
              Except[ { __String } ] :> throwFailure[ "names" ]
     ];
 
 getResourceFunctionNames // endDefinition;
 
-(* TODO: allow ResourceSystemBase option *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*wfrNames*)
+wfrNames // beginDefinition;
+
+wfrNames[ Automatic ] := wfrNames @ $ResourceSystemBase;
+
+wfrNames[ (URL|CloudObject)[ url_String? StringQ, ___ ] ] := wfrNames @ url;
+
+wfrNames[ rsb_String? StringQ ] := Enclose[
+    Module[ { all, names },
+        all = ConfirmBy[ publicResourceInformation[ "Names", rsb ],
+                         AssociationQ
+              ];
+        names = ConfirmMatch[ Lookup[ all, "Function" ], { __String } ];
+        wfrNames[ rsb ] = names
+    ],
+    throwFailure[ "rsbnames", rsb ] &
+];
+
+wfrNames // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*getLocalCachedNames*)
+getLocalCachedNames // beginDefinition;
+
+getLocalCachedNames[ ] :=
+    getLocalCachedNames[
+        FunctionResource`Autocomplete`Private`$resourceFunctionNames,
+        FunctionResource`Autocomplete`Private`$publicNames
+    ];
+
+getLocalCachedNames[ all_List, public_List ] :=
+    Select[ Complement[ all, public ], StringQ ];
+
+getLocalCachedNames[ ___ ] := { };
+
+getLocalCachedNames // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)

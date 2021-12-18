@@ -171,8 +171,8 @@ paramsAndOptions[ params___ ] :=
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*From MessageName*)
-MessageFailure[ msg: MessageName[ sym_, tag_, tags___ ], params___ ] /; 
-    messageNameQ @ msg := 
+MessageFailure[ msg: MessageName[ sym_, tag_, tags___ ], params___ ] /;
+    messageNameQ @ msg :=
         catch @ messageFailure @ Join[
             <|
                 "MessageTemplate" :> msg,
@@ -1245,7 +1245,7 @@ tagQ[ ___        ] := False;
 rfSymbolQ // ClearAll;
 rfSymbolQ // Attributes = { HoldAllComplete };
 
-rfSymbolQ[ MessageFailure|MessageFailureInternal ] := ! TrueQ @ $testMode;
+rfSymbolQ[ sym_Symbol? symbolQ ] /; $testMode := False;
 
 rfSymbolQ[ sym_Symbol? symbolQ ] :=
     TrueQ @ StringStartsQ[ Context @ sym, "FunctionRepository`" ];

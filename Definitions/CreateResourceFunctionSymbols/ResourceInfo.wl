@@ -39,5 +39,10 @@
         "CreateResourceObjectGallery"
     }
     ,
-    "Links" -> { }
+    "Links" -> {
+        Hyperlink[
+            "CreateResourceFunctionSymbols | rhennigan/ResourceFunctions | GitHub",
+            "https://github.com/rhennigan/ResourceFunctions/tree/main/Definitions/CreateResourceFunctionSymbols"
+        ]
+    }
 |>

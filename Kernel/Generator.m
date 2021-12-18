@@ -1,24 +1,33 @@
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Package header*)
-BeginPackage[ "RH`ResourceFunctions`Generate`" ];
 
-GenerateDefinitionNotebook;
+Package[ "RH`ResourceFunctions`" ]
 
-Begin[ "`Private`" ];
+PackageExport[ "GenerateDefinitionNotebook" ]
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*GenerateDefinitionNotebook*)
-GenerateDefinitionNotebook // ClearAll;
+GenerateDefinitionNotebook[ name_String? buildableNameQ ] :=
+    GenerateDefinitionNotebook @ FileNameJoin @ {
+        $ResourceFunctionDirectory,
+        name
+    };
 
-GenerateDefinitionNotebook[ dir_ ] :=
+GenerateDefinitionNotebook[ dir_? DirectoryQ ] :=
     With[ { nb = generateDefinitionNotebook @ dir },
         If[ MatchQ[ nb, Notebook[ { ___Cell }, ___ ] ],
             nb,
             Failure[ GenerateDefinitionNotebook, <| |> ]
         ]
     ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*buildableNameQ*)
+buildableNameQ[ name_ ] := MemberQ[ $BuildableNames, name ];
+buildableNameQ[ ___   ] := False;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -135,10 +144,21 @@ makeUsageGroup[ { usage_, desc_ } ] :=
 makeUsageInput // ClearAll;
 
 makeUsageInput[ usage_String ] :=
-    Cell[ BoxData @ ResourceFunction[ "StringTemplateInput" ][ usage ],
-          "UsageInputs",
-          FontFamily -> "Source Sans Pro"
+    Module[ { str, templated },
+        str = eliminateNewLineWhitespace @ usage;
+        templated = ResourceFunction[ "StringTemplateInput" ][ str ];
+        usageInputCell @ templated
     ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*usageInputCell*)
+usageInputCell // ClearAll;
+
+usageInputCell[ BoxData[ boxes_ ] ] := usageInputCell @ boxes;
+
+usageInputCell[ boxes_ ] :=
+    Cell[ BoxData @ boxes, "UsageInputs", FontFamily -> "Source Sans Pro" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -146,7 +166,10 @@ makeUsageInput[ usage_String ] :=
 makeUsageDesc // ClearAll;
 
 makeUsageDesc[ desc_String ] :=
-    autoTemplateStrings @ Cell[ desc, "UsageDescription" ];
+    autoTemplateStrings @ Cell[
+        eliminateNewLineWhitespace @ desc,
+        "UsageDescription"
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -201,7 +224,8 @@ findNotesFile[ dir_ ] :=
 (*makeNotesCell*)
 makeNotesCell // ClearAll;
 
-makeNotesCell[ str_String ] := autoTemplateStrings @ Cell[ str, "Notes" ];
+makeNotesCell[ str_String ] :=
+    autoTemplateStrings @ Cell[ eliminateNewLineWhitespace @ str, "Notes" ];
 
 makeNotesCell[ table_ /; MatrixQ[ table, StringQ ] ] :=
     With[ { grid = Map[ notesTableItem, table, { 2 } ] },
@@ -211,10 +235,23 @@ makeNotesCell[ table_ /; MatrixQ[ table, StringQ ] ] :=
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*eliminateNewLineWhitespace*)
+eliminateNewLineWhitespace[ str_String ] :=
+    StringReplace[ str, Longest[ $newLineWhitespace.. ] :> " " ];
+
+$newLine           = "\r\n" | "\n";
+$newLineWhitespace = WhitespaceCharacter...~~$newLine~~WhitespaceCharacter...;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*notesTableItem*)
 notesTableItem // ClearAll;
 notesTableItem[ str_String ] :=
-    Sequence @@ Flatten[ { autoTemplateStrings @ Cell[ str, "TableText" ] } ];
+    Module[ { cell, templated },
+        cell      = Cell[ eliminateNewLineWhitespace @ str, "TableText" ];
+        templated = Flatten @ { autoTemplateStrings @ cell };
+        Sequence @@ templated
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -238,14 +275,16 @@ generateExamples[ ___ ] := Missing[ ];
 findExamplesFile // ClearAll;
 
 findExamplesFile[ info: KeyValuePattern @ { }, dir_ ] :=
-    Module[ { name, base, patt1, patt2, files1, files2 },
+    Module[ { name, base, patt1, patt2, patt3, files1, files2, files3 },
         name   = Lookup[ info, "Name", FileBaseName @ dir ];
         base   = ("examples"|"examplenotebook");
         patt1  = base~~(".wl"|".m");
-        patt2  = (name|base|"definitionnotebook")~~(".nb");
+        patt2  = base~~(".nb");
+        patt3  = (name|"definitionnotebook"|"definition")~~(".nb");
         files1 = FileNames[ patt1, dir, IgnoreCase -> True ];
         files2 = FileNames[ patt2, dir, IgnoreCase -> True ];
-        SelectFirst[ Join[ files1, files2 ], FileExistsQ ]
+        files3 = FileNames[ patt3, dir, IgnoreCase -> True ];
+        SelectFirst[ Join[ files1, files2, files3 ], FileExistsQ ]
     ];
 
 (* ::**********************************************************************:: *)
@@ -523,7 +562,7 @@ vtCellsFromPackage[ dir_, info_, file_ ] :=
             ReplaceAll[
                 generateDefinitionCells[ info, tmp ],
                 Cell[ a_, "Code", b___ ] :>
-                    Cell[ a, "Code", InitializationCell -> False, b ]
+                    Cell[ a, "Input", "Code", InitializationCell -> False, b ]
             ]
             ,
             DeleteFile @ tmp
@@ -824,10 +863,10 @@ $defCellRules := $defCellRules = Dispatch @ {
         },
         b___
     ] :>
-        Sequence[
+        Sequence @@ Flatten[ {
             Cell[ BoxData @ RowBox @ { a }, b ],
             autoTemplateStrings @ Cell[ comment, "Text" ]
-        ]
+        } ]
     ,
     Cell[
         BoxData @ RowBox @ {
@@ -837,10 +876,10 @@ $defCellRules := $defCellRules = Dispatch @ {
         },
         b___
     ] :>
-        Sequence[
+        Sequence @@ Flatten[ {
             autoTemplateStrings @ Cell[ comment, "Text" ],
             Cell[ BoxData @ RowBox @ { a }, b ]
-        ]
+        } ]
     ,
     Cell[
         BoxData @ RowBox @ {
@@ -852,11 +891,11 @@ $defCellRules := $defCellRules = Dispatch @ {
         },
         c___
     ] :>
-        Sequence[
+        Sequence @@ Flatten[ {
             Cell[ BoxData @ RowBox @ { a }, c ],
             autoTemplateStrings @ Cell[ comment, "Text" ],
             Cell[ BoxData @ RowBox @ { b }, c ]
-        ]
+        } ]
     ,
     commentWrapper[ comment_String ] :>
         "(* "<>comment<>" *)"
@@ -880,6 +919,9 @@ $defCellRules := $defCellRules = Dispatch @ {
     ,
     RowBox @ { evaluate__, "//", "EvaluateInPlace" } :>
         evaluateInPlace @ evaluate
+    ,
+    CellGroupData[ a: { ___, _List, ___ }, b_ ] :>
+        CellGroupData[ Flatten @ a, b ]
 };
 
 (* ::**********************************************************************:: *)
@@ -917,13 +959,53 @@ commentWrapper[ str_String ] /;
 createPackageNotebook // ClearAll;
 
 createPackageNotebook[ file_ ] :=
+    createPackageNotebook[ file, $notebookGroupingMethod ];
+
+createPackageNotebook[ file_, None ] :=
+    createPackageNotebook0[ file, False ];
+
+createPackageNotebook[ file_, Automatic ] :=
+    createPackageNotebook0[ file, True ];
+
+createPackageNotebook[ file_, HoldPattern @ RemoteEvaluate ] :=
+    RemoteEvaluate[
+        "localhost",
+        UsingFrontEnd @ createPackageNotebook0[ file, True ]
+    ];
+
+createPackageNotebook[ file_, CloudEvaluate ] :=
+    With[ { bytes = ReadByteArray @ file },
+        CloudEvaluate @ Module[ { tmp },
+            WithCleanup[
+                tmp =
+                    Export[
+                        FileNameJoin @ {
+                            $TemporaryDirectory,
+                            FileNameTake @ file
+                        },
+                        bytes,
+                        "Binary"
+                    ],
+                UsingFrontEnd @ createPackageNotebook0[ file, True ],
+                DeleteFile @ tmp
+            ]
+        ]
+    ];
+
+
+createPackageNotebook0[ file_, visible_ ] :=
     Module[ { exNB },
         WithCleanup[
-            exNB = NotebookOpen[ file, Visible -> False ],
-            NotebookGet @ exNB,
+            exNB = NotebookOpen[ file, Visible -> visible ],
+            DeleteCases[ NotebookGet @ exNB, Visible -> False ],
             NotebookClose @ exNB
         ]
     ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$notebookGroupingMethod*)
+$notebookGroupingMethod = Automatic;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -1217,9 +1299,3 @@ firstMatchingFile[ { patt_, rest___ }, args___ ] :=
 
 firstMatchingFile[ { }, ___ ] := Missing[ "NotFound" ];
 
-(* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
-(*End Package*)
-End[ ];
-
-EndPackage[ ];

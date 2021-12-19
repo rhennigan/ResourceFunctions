@@ -1,0 +1,31 @@
+Notebook[
+    {
+        Cell[
+            BoxData[
+                "Get @ FileNameJoin @ { NotebookDirectory[ ], \"Definition.wl\" };\nTestReport @ FileNameJoin @ { NotebookDirectory[ ], \"Tests.wlt\" }"
+            ],
+            "Code",
+            "Excluded"
+        ],
+        Cell[ "Basic Examples"          , "Subsection" ],
+        Cell[ "Scope"                   , "Subsection" ],
+        Cell[ "Options"                 , "Subsection" ],
+        Cell[ "Applications"            , "Subsection" ],
+        Cell[ "Properties and Relations", "Subsection" ],
+        Cell[ "Possible Issues"         , "Subsection" ],
+        Cell[ "Neat Examples"           , "Subsection" ]
+    },
+    DockedCells -> {
+        Cell[ BoxData @ TemplateBox[ { }, "ToolsGridTemplate" ],
+              "DockedCell",
+              CellFrameMargins -> { { 0, 0 }, { 2, 2 } },
+              CellFrame        -> { { 0, 0 }, { 1, 0 } }
+        ]
+    },
+    StyleDefinitions ->
+        FrontEnd`FileName[
+            { "Wolfram" },
+            "FunctionResourceDefinitionStyles.nb",
+            CharacterEncoding -> "UTF-8"
+        ]
+]

@@ -1,17 +1,27 @@
 <|
-    "Name"        -> "$$Function",
-    "Description" -> $$Description,
-    "Author"      -> $$Author
+    "Name"        -> "AssociationOuter",
+    "Description" -> "Compute the generalized outer product of lists and return as an association keyed by arguments",
+    "Author"      -> "Richard Hennigan (Wolfram Research)"
     ,
     "Keywords" -> {
-        $$Keywords
+        "Cartesian products",
+        "direct products",
+        "direct products tensors",
+        "dyadic products",
+        "exterior products",
+        "Kronecker products tensors",
+        "levels",
+        "matrices",
+        "outer products",
+        "tensor products",
+        "tensors",
+        "wedge product"
     }
     ,
     "Categories" -> {
-        $$Categories
         (* "Cloud & Deployment", *)
-        (* "Core Language & Structure", *)
-        (* "Data Manipulation & Analysis", *)
+        "Core Language & Structure",
+        "Data Manipulation & Analysis",
         (* "Engineering Data & Computation", *)
         (* "External Interfaces & Connections", *)
         (* "Financial Data & Computation", *)
@@ -24,7 +34,7 @@
         (* "Knowledge Representation & Natural Language", *)
         (* "Machine Learning", *)
         (* "Notebook Documents & Presentation", *)
-        (* "Programming Utilities", *)
+        "Programming Utilities"
         (* "Repository Tools", *)
         (* "Scientific and Medical Data & Computation", *)
         (* "Social, Cultural & Linguistic Data", *)
@@ -39,14 +49,28 @@
     }
     ,
     "RelatedSymbols" -> {
-        $$RelatedSymbols
+        "Tuples",
+        "Inner",
+        "Distribute",
+        "KroneckerProduct",
+        "Cross",
+        "Dot",
+        "Norm",
+        "DistanceMatrix"
     }
     ,
     "RelatedResourceObjects" -> {
-        $$RelatedResourceObjects
+        "ParallelOuter",
+        "Unthread",
+        "AssociationKeyFlatten",
+        "AssociationKeyDeflatten",
+        "UnevaluatedAssociation"
     }
     ,
     "Links" -> {
-        $$Links
+        Hyperlink[
+            "AssociationOuter | rhennigan/ResourceFunctions | GitHub",
+            "https://github.com/rhennigan/ResourceFunctions/tree/main/Definitions/AssociationOuter"
+        ]
     }
 |>

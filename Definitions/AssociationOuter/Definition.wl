@@ -66,7 +66,7 @@ endDefinition // endDefinition;
 (* ::Section::Closed:: *)
 (*Messages*)
 AssociationOuter::internal =
-"`1`";
+"An unexpected error occurred. `1`";
 
 AssociationOuter::rffail =
 "Failed to retrieve definitions for the required resource function `1`.";
@@ -90,7 +90,7 @@ AssociationOuter // Options = { };
 $list = _List | _SparseArray? SparseArrayQ;
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Main definition*)
 AssociationOuter[ f_, args: $list... ] :=
     catchTop @ Module[ { rules, assoc },
@@ -100,7 +100,7 @@ AssociationOuter[ f_, args: $list... ] :=
     ];
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Error cases*)
 
 (*Invalid argument count:*)

@@ -2,9 +2,10 @@
 "Usage" -> {
     {
         "AssociationOuter[f,list$1,list$2,$$]",
-        "gives the generalized outer product of the <+list$i+>, forming all
-            possible combinations of the lowest-level elements in each of them,
-            and feeding them as arguments to <+f+>."
+        "gives the generalized outer product of the <+list$i+> as a nested
+            association, forming all possible combinations of the lowest-level
+            elements in each of them as keys, and feeding them as arguments to
+            <+f+> for values."
     },
     {
         "AssociationOuter[f,list$1,list$2,$$,n]",
@@ -18,11 +19,12 @@
     }
 },
 "Notes" -> {
+    "<+AssociationOuter[f,list$1,list$2,$$]+> computes all the same <+f[$$]+> as
+        <+Outer[f,list$1,list$2,$$]+>",
+
     "<+AssociationOuter[Times,list$1,list$2]+> gives an outer product.",
 
     "Unlike <+Outer+>, the heads of all <+list$i+> must be <+List+>.",
-
-    "<+AssociationOuter[f]+> returns <+f[]+>.",
 
     "The <+list$i+> need not necessarily be cuboidal arrays.",
 
@@ -35,6 +37,9 @@
         <+list$i+> will be used.",
 
     "<+AssociationOuter+> can be used on <+SparseArray+> objects, returning a
-        <+SparseArray+> object when possible."
+        <+SparseArray+> object when possible.",
+
+    "<+AssociationOuter[f,list]+> is effectively equivalent to
+        <+AssociationMap[f,list]+>."
 }
 |>

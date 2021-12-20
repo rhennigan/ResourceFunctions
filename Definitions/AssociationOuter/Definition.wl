@@ -87,14 +87,16 @@ AssociationOuter // Options = { };
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Argument patterns*)
-$list = _List | _SparseArray? SparseArrayQ;
+$list  = _List | _SparseArray? SparseArrayQ;
+$level = _Integer? Positive | Infinity;
+$arg   = $list | $level;
 
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Main definition*)
-AssociationOuter[ f_, args: $list... ] :=
+AssociationOuter[ f_, lists: $list.., level: $level... ] :=
     catchTop @ Module[ { rules, assoc },
-        rules = makeRules[ f, args ];
+        rules = makeRules[ f, lists, level ];
         assoc = makeAssoc @ rules;
         AssociationKeyDeflatten @ assoc
     ];
@@ -103,12 +105,24 @@ AssociationOuter[ f_, args: $list... ] :=
 (* ::Section:: *)
 (*Error cases*)
 
-(*Invalid argument count:*)
+(* Invalid argument count: *)
 AssociationOuter[ ] :=
-    catchTop @ throwFailure[ "argm", AssociationOuter, 0, 1 ];
+    catchTop @ throwFailure[ "argm", AssociationOuter, 0, 2 ];
 
-(*Invalid list arguments:*)
-AssociationOuter[ f_, a___, b: Except[ $list ], c___ ] :=
+(* AssociationOuter cannot replicate the one-argument behavior of <+Outer+>: *)
+AssociationOuter[ f_ ] :=
+    catchTop @ throwFailure[ "argm", AssociationOuter, 1, 2 ];
+
+(* Invalid level spec: *)
+AssociationOuter[ f_, a: $list.., b: $level..., c: Except[ $arg ], d___ ] :=
+    catchTop @ throwFailure[
+        "ipnfm",
+        HoldForm @ AssociationOuter[ f, a, b, c, d ],
+        Length @ HoldComplete[ f, a, b, c ]
+    ];
+
+(* Invalid list arguments: *)
+AssociationOuter[ f_, a: $list..., b: Except[ $arg ], c___ ] :=
     catchTop @ With[ { tag = If[ AtomQ @ Unevaluated @ b, "normal", "list" ] },
         throwFailure[
             tag,
@@ -116,6 +130,10 @@ AssociationOuter[ f_, a___, b: Except[ $list ], c___ ] :=
             HoldForm @ AssociationOuter[ f, a, b, c ]
         ]
     ];
+
+(* Missed something that needs to be fixed: *)
+e: AssociationOuter[ ___ ] :=
+    catchTop @ throwInternalFailure @ e;
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)

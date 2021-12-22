@@ -11,6 +11,12 @@
 },
 "Notes" -> {
     "<+PrincipalAxisClustering[points]+> is equivalent to <+PrincipalAxisClustering[points, Automatic]+>.",
-    "If <+n+> is a power of two, the clusters will be approximately equal-sized."
+    "If <+n+> is a power of two, the clusters will be approximately equal-sized.",
+    "<+PrincipalAxisClustering+> accepts a <+Method+> option which decides how to separate points according to their projected values on the principal axis.",
+    "The value for <+Method+> can be one of the following:",
+    {
+        { "<+Median+>", "separate points into approximately equal-sized clusters" },
+        { "<+Mean+>"  , "separate points at the center of mass"                   }
+    }
 }
 |>

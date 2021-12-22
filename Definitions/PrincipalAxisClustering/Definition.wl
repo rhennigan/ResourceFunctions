@@ -1,31 +1,98 @@
-
 PrincipalAxisClustering // ClearAll;
+(* ::**********************************************************************:: *)
+(* ::Section::Closed:: *)
+(*Initialization*)
+$inDef = False;
+$debug = True;
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*beginDefinition*)
+beginDefinition // ClearAll;
+beginDefinition // Attributes = { HoldFirst };
+beginDefinition::unfinished = "\
+Starting definition for `1` without ending the current one.";
+
+(* :!CodeAnalysis::BeginBlock:: *)
+(* :!CodeAnalysis::Disable::SuspiciousSessionSymbol:: *)
+beginDefinition[ s_Symbol ] /; $debug && $inDef :=
+    WithCleanup[
+        $inDef = False
+        ,
+        Print @ TemplateApply[ beginDefinition::unfinished, HoldForm @ s ];
+        beginDefinition @ s
+        ,
+        $inDef = True
+    ];
+(* :!CodeAnalysis::EndBlock:: *)
+
+beginDefinition[ s_Symbol ] :=
+    WithCleanup[ Unprotect @ s; ClearAll @ s, $inDef = True ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*endDefinition*)
+endDefinition // beginDefinition;
+endDefinition // Attributes = { HoldFirst };
+
+endDefinition[ s_Symbol ] := endDefinition[ s, DownValues ];
+
+endDefinition[ s_Symbol, None ] := $inDef = False;
+
+endDefinition[ s_Symbol, DownValues ] :=
+    WithCleanup[
+        AppendTo[ DownValues @ s,
+                  e: HoldPattern @ s[ ___ ] :>
+                      throwInternalFailure @ HoldForm @ e
+        ],
+        $inDef = False
+    ];
+
+endDefinition[ s_Symbol, SubValues  ] :=
+    WithCleanup[
+        AppendTo[ SubValues @ s,
+                  e: HoldPattern @ s[ ___ ][ ___ ] :>
+                      throwInternalFailure @ HoldForm @ e
+        ],
+        $inDef = False
+    ];
+
+endDefinition[ s_Symbol, list_List ] :=
+    endDefinition[ s, # ] & /@ list;
+
+endDefinition // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Section:: *)
+(*Messages*)
+PrincipalAxisClustering::internal =
+"An unexpected error occurred. `1`";
+
+PrincipalAxisClustering::matrix =
+"The argument `1` is not a rectangular matrix of numeric values.";
+
+PrincipalAxisClustering::invnarr =
+"The array `1` is not valid.";
+
+PrincipalAxisClustering::invspd =
+"`1` is not a valid SpatialPointData object.";
+
+PrincipalAxisClustering::invspdp =
+"`1` does not contain valid point data.";
+
+PrincipalAxisClustering::invcount =
+"Non-negative integer or Automatic expected for the cluster count instead of
+`1`.";
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
-(*Messages*)
-PrincipalAxisClustering::matrix = "\
-The argument `1` is not a rectangular matrix of numeric values.";
-
-PrincipalAxisClustering::invnarr = "\
-The array `1` is not valid.";
-
-PrincipalAxisClustering::invspd = "\
-`1` is not a valid SpatialPointData object.";
-
-PrincipalAxisClustering::invspdp = "\
-`1` does not contain valid point data.";
-
-PrincipalAxisClustering::invcount = "\
-Non-negative integer or Automatic expected for the cluster count instead of `1`.";
+(*Attributes*)
+PrincipalAxisClustering // Attributes = { };
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Options*)
-
-PrincipalAxisClustering // Options = {
-    Method -> Median
-};
+PrincipalAxisClustering // Options = { Method -> Median };
 
 (*
     TODO: Possible options to implement (from FindClusters):
@@ -34,7 +101,6 @@ PrincipalAxisClustering // Options = {
         FeatureExtractor
         FeatureNames
         FeatureTypes
-        Method
         MissingValueSynthesis
         PerformanceGoal
         RandomSeeding
@@ -42,7 +108,7 @@ PrincipalAxisClustering // Options = {
 *)
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Main definition*)
 PrincipalAxisClustering[ points_, opts: OptionsPattern[ ] ] :=
     catchTop @ PrincipalAxisClustering[ points, Automatic, opts ];
@@ -55,9 +121,9 @@ PrincipalAxisClustering[ points_, maxItems_, opts: OptionsPattern[ ] ] :=
     ];
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*principalAxisClustering*)
-principalAxisClustering // ClearAll;
+principalAxisClustering // beginDefinition;
 
 e: principalAxisClustering[ arr_NumericArray, maxItems_, method_ ] :=
     Module[ { points, clusters, type, result },
@@ -65,7 +131,7 @@ e: principalAxisClustering[ arr_NumericArray, maxItems_, method_ ] :=
         If[ Dimensions @ points =!= 2, throwFailure[ "matrix", arr ] ];
         If[ ! pointsQ @ points, throwFailure[ "invnarr", arr ] ];
         clusters = principalAxisClustering[ points, maxItems, method ];
-        If[ ! TrueQ @ clustersQ @ clusters, internalFailure @ e ];
+        If[ ! TrueQ @ clustersQ @ clusters, throwInternalFailure @ e ];
         type = NumericArrayType @ arr;
         result = NumericArray[ #, type ] & /@ clusters
     ];
@@ -75,14 +141,40 @@ principalAxisClustering[ points_? pointsQ, maxItems_, method_ ] :=
         paClusters[ points, maxItems ]
     ];
 
+principalAxisClustering // endDefinition;
+
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
-(*Argument Validation*)
+(* ::Section:: *)
+(*Error cases*)
+
+(* Invalid argument count: *)
+PrincipalAxisClustering[ ] :=
+    catchTop @ throwFailure[ "argm", PrincipalAxisClustering, 0, 2 ];
+
+PrincipalAxisClustering[ a_, b_, c: Except[ OptionsPattern[ ] ], d___ ] :=
+    catchTop @ throwFailure[
+        "nonopt",
+        c,
+        2,
+        HoldForm @ PrincipalAxisClustering[ a, b, c, d ]
+    ];
+
+(* Missed something that needs to be fixed: *)
+e: PrincipalAxisClustering[ ___ ] :=
+    catchTop @ throwInternalFailure @ e;
+
+(* ::**********************************************************************:: *)
+(* ::Section:: *)
+(*Dependencies*)
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
+(*Argument Validation*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*checkPoints*)
-checkPoints // ClearAll;
+checkPoints // beginDefinition;
 
 checkPoints[ points_? pointsQ ] :=
     points;
@@ -109,37 +201,42 @@ checkPoints[ spd_SpatialPointData ] := (
 
 checkPoints[ other_ ] := throwFailure[ "matrix", other ];
 
+checkPoints // endDefinition;
+
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*pointsQ*)
-pointsQ // ClearAll;
+pointsQ // beginDefinition;
 pointsQ[ points_ ] := ArrayQ[ points, 2, NumericQ ];
 pointsQ[ ___     ] := False;
+pointsQ // endDefinition;
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*clustersQ*)
-clustersQ // ClearAll;
+clustersQ // beginDefinition;
 clustersQ[ clusters_List ] := AllTrue[ clusters, pointsQ ];
 clustersQ[ ___           ] := False;
+clustersQ // endDefinition;
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*checkMaxItems*)
-checkMaxItems // ClearAll;
+checkMaxItems // beginDefinition;
 checkMaxItems[ n_Integer? Positive ] := n;
 checkMaxItems[ UpTo[ n_Integer? Positive ] ] := n;
 checkMaxItems[ Automatic ] := Automatic;
 checkMaxItems[ other_ ] := throwFailure[ "invcount", other ];
-
-(* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
-(*Recursive Clustering*)
+checkMaxItems // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
+(*Clustering*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*paClusters*)
-paClusters // ClearAll;
+paClusters // beginDefinition;
 
 paClusters[ points_, Automatic ] :=
     paClusters[ points, 2 ^ Floor[ Log2 @ Length @ points / 2 ] ];
@@ -155,10 +252,12 @@ paClusters[ points_, maxItems_ ] :=
         partialSplit[ clusters, remaining ]
     ];
 
+paClusters // endDefinition;
+
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*split*)
-split // ClearAll;
+split // beginDefinition;
 
 split[ points_ /; Length @ points < 2 ] := { points };
 
@@ -173,13 +272,15 @@ split[ points_ ] :=
         { left, right }
     ];
 
+split // endDefinition;
+
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*partialSplit*)
-partialSplit // ClearAll;
+partialSplit // beginDefinition;
 
 partialSplit[ clusters_, rem_ ] /; Less[ 0, rem, Length @ clusters ] :=
-    Module[ { lens, largest, pos, splitter },
+    Module[ { pos, splitter },
 
         pos = Keys @ TakeLargestBy[
                   Association @ MapIndexed[ #2 -> #1 &, clusters ],
@@ -194,37 +295,43 @@ partialSplit[ clusters_, rem_ ] /; Less[ 0, rem, Length @ clusters ] :=
 
 partialSplit[ clusters_, _ ] := clusters;
 
+partialSplit // endDefinition;
+
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Subsection::Closed:: *)
 (*Principal Axis*)
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*principalAxis*)
-principalAxis // ClearAll;
+principalAxis // beginDefinition;
 
 principalAxis[ points_ ] :=
     First[ Eigenvectors[ Covariance @ points, UpTo[ 1 ] ],
-           internalFailure @ principalAxis @ points
+           throwInternalFailure @ principalAxis @ points
     ];
 
-(* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
-(*getAxisSignFunc*)
-getAxisSignFunc // ClearAll;
-getAxisSignFunc[ Mean   ] := axisMeanSign;
-getAxisSignFunc[ Median ] := axisMedianSign;
-getAxisSignFunc[ other_ ] := throwFailure[ "invmethod", other ];
+principalAxis // endDefinition;
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
+(*getAxisSignFunc*)
+getAxisSignFunc // beginDefinition;
+getAxisSignFunc[ Mean      ] := axisMeanSign;
+getAxisSignFunc[ Median    ] := axisMedianSign;
+getAxisSignFunc[ Automatic ] := axisMedianSign;
+getAxisSignFunc[ other_    ] := throwFailure[ "invmethod", other ];
+getAxisSignFunc // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*axisSign*)
 axisSign // ClearAll;
 axisSign := getAxisSignFunc @ OptionValue[ PrincipalAxisClustering, Method ];
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
-(*axisSign*)
+(* ::Subsubsection::Closed:: *)
+(*axisMedianSign*)
 axisMedianSign // ClearAll;
 
 axisMedianSign := axisMedianSign =
@@ -247,7 +354,7 @@ axisMedianSign := axisMedianSign =
     ];
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*axisMeanSign*)
 axisMeanSign // ClearAll;
 
@@ -269,19 +376,20 @@ axisMeanSign := axisMeanSign =
     ];
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
-(*Compiled code utilities*)
+(* ::Subsection::Closed:: *)
+(*Compilation*)
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*$compilationTarget*)
 $compilationTarget // ClearAll;
 $compilationTarget := $compilationTarget = If[ noCCompilerQ[ ], "WVM", "C" ];
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*noCCompilerQ*)
-noCCompilerQ // ClearAll;
+noCCompilerQ // beginDefinition;
+
 noCCompilerQ[ ] :=
     TrueQ @ Quiet @ Check[
         Compile[ { }, 1 + 1, CompilationTarget -> "C" ],
@@ -293,25 +401,29 @@ noCCompilerQ[ ] :=
         }
     ];
 
-(* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
-(*Error handling*)
+noCCompilerQ // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
+(*Error handling*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*catchTop*)
-catchTop // ClearAll;
+catchTop // beginDefinition;
 catchTop // Attributes = { HoldFirst };
 
 catchTop[ eval_ ] :=
     Block[ { $catching = True, $failed = False, catchTop = # & },
-        Enclose[ eval, internalFailure @ eval & ]
-    ] ~Catch~ $top;
+        Catch[ eval, $top ]
+    ];
+
+catchTop // endDefinition;
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*throwFailure*)
-throwFailure // ClearAll;
+throwFailure // beginDefinition;
 throwFailure // Attributes = { HoldFirst };
 
 throwFailure[ tag_String, params___ ] :=
@@ -326,11 +438,14 @@ throwFailure[ msg_, args___ ] :=
         ]
     ];
 
+throwFailure // endDefinition;
+
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
+(* ::Subsubsection::Closed:: *)
 (*messageFailure*)
-messageFailure // ClearAll;
+messageFailure // beginDefinition;
 messageFailure // Attributes = { HoldFirst };
+
 messageFailure[ args___ ] :=
     Module[ { quiet },
         quiet = If[ TrueQ @ $failed, Quiet, Identity ];
@@ -340,11 +455,33 @@ messageFailure[ args___ ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
-(*internalFailure*)
-internalFailure // ClearAll;
-internalFailure // Attributes = { HoldFirst };
+messageFailure // endDefinition;
 
-internalFailure[ eval_ ] :=
-    throwFailure[ PrincipalAxisClustering::internal, HoldForm @ eval ];
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*throwInternalFailure*)
+throwInternalFailure // beginDefinition;
+throwInternalFailure // Attributes = { HoldFirst };
+
+throwInternalFailure[ eval_, a___ ] :=
+    throwFailure[
+        PrincipalAxisClustering::internal,
+        $bugReportLink,
+        HoldForm @ eval,
+        a
+    ];
+
+throwInternalFailure // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$bugReportLink*)
+$bugReportLink := $bugReportLink = Hyperlink[
+    "Report this issue \[RightGuillemet]",
+    URLBuild @ <|
+        "Scheme"   -> "https",
+        "Domain"   -> "resources.wolframcloud.com",
+        "Path"     -> { "FunctionRepository", "feedback-form" },
+        "Fragment" -> SymbolName @ PrincipalAxisClustering
+    |>
+];

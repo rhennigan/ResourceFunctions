@@ -166,7 +166,7 @@ usageInputCell[ boxes_ ] :=
 makeUsageDesc // ClearAll;
 
 makeUsageDesc[ desc_String ] :=
-    autoTemplateStrings @ Cell[
+    AutoTemplateStrings @ Cell[
         eliminateNewLineWhitespace @ desc,
         "UsageDescription"
     ];
@@ -225,7 +225,7 @@ findNotesFile[ dir_ ] :=
 makeNotesCell // ClearAll;
 
 makeNotesCell[ str_String ] :=
-    autoTemplateStrings @ Cell[ eliminateNewLineWhitespace @ str, "Notes" ];
+    AutoTemplateStrings @ Cell[ eliminateNewLineWhitespace @ str, "Notes" ];
 
 makeNotesCell[ table_ /; MatrixQ[ table, StringQ ] ] :=
     With[ { grid = Map[ notesTableItem, table, { 2 } ] },
@@ -249,7 +249,7 @@ notesTableItem // ClearAll;
 notesTableItem[ str_String ] :=
     Module[ { cell, templated },
         cell      = Cell[ eliminateNewLineWhitespace @ str, "TableText" ];
-        templated = Flatten @ { autoTemplateStrings @ cell };
+        templated = Flatten @ { AutoTemplateStrings @ cell };
         Sequence @@ templated
     ];
 
@@ -653,7 +653,7 @@ generateDefinitionCells[ info_, file_? FileExistsQ ] :=
             cells //= fixDelimiters;
             cells //= demoteHeaders;
             cells //= evaluateInputs;
-            cells //= autoTemplateStrings;
+            cells //= AutoTemplateStrings;
             cells //= Flatten;
             before = cells;
             Flatten[ cells //. $defCellRules ]
@@ -707,74 +707,14 @@ toSimpleString[ list_List ] :=
     ];
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
-(*autoTemplateStrings*)
-autoTemplateStrings // ClearAll;
-
-autoTemplateStrings[ cell_Cell ] :=
-    Replace[ autoTemplateStrings @ { cell },
-             Cell[ b_BoxData ] :> Cell[ b, "InlineFormula" ],
-             { 4 }
-    ];
-
-autoTemplateStrings[ cells_ ] :=
-    Module[ { eval, temp },
-        eval = evaluateStringTemplates @ cells;
-        temp = DefinitionNotebookAuthoring`AutoTemplateStrings @ eval;
-        If[ Head @ temp === DefinitionNotebookAuthoring`AutoTemplateStrings,
-            First @ temp,
-            temp
-        ]
-    ];
-
-(* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*evaluateStringTemplates*)
-evaluateStringTemplates // ClearAll;
 
-evaluateStringTemplates[ cells_ ] :=
-    ReplaceAll[
-        cells,
-        {
-            Cell[ str_String, a___ ] /;
-                StringContainsQ[ str, StringExpression[ "<*", __, "*>" ] ] :>
-                    Cell[ stringTemplateEvaluate[ str, TextData ], a ]
-            ,
-            str_String /;
-                StringContainsQ[ str, StringExpression[ "<*", __, "*>" ] ] :>
-                    stringTemplateEvaluate @ str
-        }
-    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*stringTemplateEvaluate*)
-stringTemplateEvaluate // ClearAll;
 
-stringTemplateEvaluate[ str_String, TextData ] :=
-    TextData @ Replace[
-        stringTemplateEvaluate[ str, List ],
-        insertEvaluated[ expr_ ] :>
-            Cell[
-                BoxData @ ToBoxes @ expr,
-                "Input",
-                FontFamily -> "Source Sans Pro"
-            ],
-        { 1 }
-    ];
-
-stringTemplateEvaluate[ str_String, List ] :=
-    TemplateApply @ StringTemplate[
-        str,
-        CombinerFunction -> Identity,
-        InsertionFunction -> insertEvaluated
-    ];
-
-stringTemplateEvaluate[ str_String ] :=
-    TemplateApply @ StringTemplate[
-        str,
-        InsertionFunction -> Function[ ToString[ #, StandardForm ] ]
-    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -865,7 +805,7 @@ $defCellRules := $defCellRules = Dispatch @ {
     ] :>
         Sequence @@ Flatten[ {
             Cell[ BoxData @ RowBox @ { a }, b ],
-            autoTemplateStrings @ Cell[ comment, "Text" ]
+            AutoTemplateStrings @ Cell[ comment, "Text" ]
         } ]
     ,
     Cell[
@@ -877,7 +817,7 @@ $defCellRules := $defCellRules = Dispatch @ {
         b___
     ] :>
         Sequence @@ Flatten[ {
-            autoTemplateStrings @ Cell[ comment, "Text" ],
+            AutoTemplateStrings @ Cell[ comment, "Text" ],
             Cell[ BoxData @ RowBox @ { a }, b ]
         } ]
     ,
@@ -893,7 +833,7 @@ $defCellRules := $defCellRules = Dispatch @ {
     ] :>
         Sequence @@ Flatten[ {
             Cell[ BoxData @ RowBox @ { a }, c ],
-            autoTemplateStrings @ Cell[ comment, "Text" ],
+            AutoTemplateStrings @ Cell[ comment, "Text" ],
             Cell[ BoxData @ RowBox @ { b }, c ]
         } ]
     ,
@@ -1013,7 +953,7 @@ $notebookGroupingMethod = Automatic;
 packageNotebookToCells // ClearAll;
 
 packageNotebookToCells[ Notebook[ cells_, ___ ] ] :=
-    Flatten @ DefinitionNotebookAuthoring`AutoTemplateStrings @ evaluateInputs @
+    Flatten @ AutoTemplateStrings @ evaluateInputs @
         demoteHeaders @ fixDelimiters @ DeleteCases[
             cells,
             Cell[ _, s_String /; StringMatchQ[ s, Verbatim[ "*" ].. ], ___ ],

@@ -9,13 +9,20 @@
         "defines symbols in the given context."
     },
     {
-        "CreateResourceFunctionSymbols[\"ctx`\", {name$1, name$2, $$}]",
+        "CreateResourceFunctionSymbols[\"ctx`\", {\"name$1\", \"name$2\", $$}]",
         "only defines symbols for the given names."
+    },
+    {
+        "CreateResourceFunctionSymbols[\"ctx`\", names, \"op\"]",
+        "performs the operation specified by <+\"op\"+> on <+names+>."
     }
 },
 "Notes" -> {
     "<+CreateResourceFunctionSymbols[]+> is equivalent to
         <+CreateResourceFunctionSymbols[Automatic]+>."
+    ,
+    "<+CreateResourceFunctionSymbols[context]+> is equivalent to
+        <+CreateResourceFunctionSymbols[context, All]+>."
     ,
     "<+CreateResourceFunctionSymbols+> accepts the following options:",
     {
@@ -55,5 +62,13 @@
         <+CreateResourceFunctionSymbols[\"ctx`\", names]+> will define symbols
         for all <+names+>, even if they do not correspond to a known resource
         function name."
+    ,
+    "The operation specified by <+\"op\"+> can be one of the following:"
+    ,
+    {
+        { "\"List\""  , "list the symbols created"            },
+        { "\"Remove\"", "remove the symbols created"          },
+        { "\"Create\"", "equivalent to the two-argument form" }
+    }
 }
 |>

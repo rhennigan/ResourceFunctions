@@ -11,7 +11,9 @@
         "resource function",
         "resource names",
         "symbols",
-        "wfr symbols"
+        "wfr symbols",
+        "import resource function",
+        "resourcefunction"
     }
     ,
     "Categories" -> {

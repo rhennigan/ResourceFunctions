@@ -260,6 +260,15 @@ CreateResourceFunctionSymbols[
     ] &
 ];
 
+(* Equivalent to the two-argument form: *)
+CreateResourceFunctionSymbols[
+    ctx0: $anyContext,
+    names: $nameOrNames,
+    "Create",
+    opts: OptionsPattern[ ]
+] :=
+    catchTop @ CreateResourceFunctionSymbols[ ctx0, names, opts ];
+
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Error cases*)

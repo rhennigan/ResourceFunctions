@@ -1,0 +1,3823 @@
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Get", " ", "@", " ", 
+   RowBox[{"FileNameJoin", " ", "@", " ", 
+    RowBox[{"{", " ", 
+     RowBox[{
+      RowBox[{"NotebookDirectory", "[", " ", "]"}], ",", " ", 
+      "\"\<Definition.wl\>\""}], " ", "}"}]}]}], ";"}], "\n", 
+ RowBox[{"TestReport", " ", "@", " ", 
+  RowBox[{"FileNameJoin", " ", "@", " ", 
+   RowBox[{"{", " ", 
+    RowBox[{
+     RowBox[{"NotebookDirectory", "[", " ", "]"}], ",", " ", 
+     "\"\<Tests.wlt\>\""}], " ", "}"}]}]}]}], "Code", "Excluded",
+ CellChangeTimes->{{3.853843637593218*^9, 3.8538436400480256`*^9}, {
+  3.8538557973283887`*^9, 3.8538557974874077`*^9}},
+ CellLabel->"In[19]:=",ExpressionUUID->"67a5bf1a-3805-4738-a981-5e88130bb28b"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["TestReportObject",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              InsetBox[
+               BoxData[
+                FormBox[
+                 PaneBox[
+                  DynamicBox[
+                   FEPrivate`FrontEndResource[
+                   "MUnitExpressions", "SuccessIcon"]], Alignment -> Center, 
+                  ImageSize -> 
+                  Dynamic[{
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], TraditionalForm]]]}, 
+             PlotRange -> {{0, 1}, {0, 1}}, Background -> GrayLevel[0.93], 
+             Axes -> False, AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.55]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Title: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]}], 
+               "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Success rate: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   InterpretationBox[
+                    StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
+                    AutoDelete -> True], PercentForm], "SummaryItem"]}], 
+               RowBox[{
+                 TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["30", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            GraphicsBox[{
+              InsetBox[
+               BoxData[
+                FormBox[
+                 PaneBox[
+                  DynamicBox[
+                   FEPrivate`FrontEndResource[
+                   "MUnitExpressions", "SuccessIcon"]], Alignment -> Center, 
+                  ImageSize -> 
+                  Dynamic[{
+                    Automatic, 
+                    3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                    Magnification])}]], TraditionalForm]]]}, 
+             PlotRange -> {{0, 1}, {0, 1}}, Background -> GrayLevel[0.93], 
+             Axes -> False, AspectRatio -> 1, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}], Frame -> True, FrameTicks -> None, 
+             FrameStyle -> Directive[
+               Thickness[Tiny], 
+               GrayLevel[0.55]]], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Title: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]}], 
+               "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Success rate: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   InterpretationBox[
+                    StyleBox["\"100%\"", ShowStringCharacters -> False], 1., 
+                    AutoDelete -> True], PercentForm], "SummaryItem"]}], 
+               RowBox[{
+                 TagBox["\"Tests run: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["30", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Succeeded: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["30", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Failed: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox[
+                 "\"Failed with wrong results: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox[
+                 "\"Failed with messages: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Failed with errors: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["0", "SummaryItem"]}], "\[SpanFromLeft]"}, {
+               RowBox[{
+                 TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                  
+                  TemplateBox[{
+                   "0.0069993`", "\"s\"", "seconds", "\"Seconds\""}, 
+                   "Quantity", SyntaxForm -> Mod], "SummaryItem"]}], 
+               "\[SpanFromLeft]"}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  TestReportObject[<|
+   "Title" -> "Test Report: Tests.wlt", "Aborted" -> False, 
+    "TestResults" -> <|
+     6116944650591474205 -> 
+      TestResultObject[<|
+        "TestKey" -> 6116944650591474205, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           SetOptions[
+            ResourceFunction["MessageFailure"], "TestMode" -> True]], 
+         "ExpectedOutput" -> HoldForm[
+           KeyValuePattern["TestMode" -> True]], "ActualOutput" -> 
+         HoldForm[{
+           "MessageFunction" -> Automatic, "Verbose" -> False, "Stack" -> 
+            False, "TestMode" -> True}], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8538557981954856`*^9, 
+         "AbsoluteTimeUsed" -> 0.001001`4.150949075311305, "CPUTimeUsed" -> 
+         0.016000000000000014`, "MemoryUsed" -> 1992|>], 5118616503974050398 -> 
+      TestResultObject[<|
+        "TestKey" -> 5118616503974050398, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           
+           ClearAll[$CellContext`AddOne, $CellContext`AddTwo, \
+$CellContext`Add2, $CellContext`Add3, $CellContext`$value, \
+$CellContext`$condition, $CellContext`symbol, $CellContext`MyFunction]], 
+         "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
+          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
+         "AbsoluteTime" -> 3.8538557981964865`*^9, "AbsoluteTimeUsed" -> 
+         0``7.150514997831988, "CPUTimeUsed" -> 0., "MemoryUsed" -> 2824|>], 
+      398378330351404967 -> 
+      TestResultObject[<|
+        "TestKey" -> 398378330351404967, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[ClearAll[$CellContext`AddOne]; $CellContext`AddOne[
+              PatternTest[
+               Pattern[$CellContext`x, 
+                Blank[]], NumberQ]] := $CellContext`x + 
+             1; $CellContext`FailWhenUndefined[$CellContext`AddOne]], 
+         "ExpectedOutput" -> HoldForm[
+           Blank[RuleDelayed]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`AddOne[
+               BlankNullSequence[]]]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`AddOne, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`AddOne]}, "Type" -> DownValues, 
+               "Symbol" :> $CellContext`AddOne, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.8538557981974864`*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 4184|>], 5756539322317276526 -> 
+      TestResultObject[<|
+        "TestKey" -> 5756539322317276526, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`AddOne[5]], "ExpectedOutput" -> HoldForm[6], 
+         "ActualOutput" -> HoldForm[6], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8538557981974864`*^9, 
+         "AbsoluteTimeUsed" -> 0``7.150514997831988, "CPUTimeUsed" -> 0., 
+         "MemoryUsed" -> 2688|>], 7475570617266960054 -> 
+      TestResultObject[<|
+        "TestKey" -> 7475570617266960054, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`AddOne["test"]], "ExpectedOutput" -> HoldForm[
+           Failure["Undefined", 
+            Blank[]]], "ActualOutput" -> HoldForm[
+           Failure["Undefined", <|"MessageParameters" :> {
+               HoldForm[$CellContext`AddOne]}, "MessageTemplate" :> 
+             MessageName[$CellContext`AddOne, "undefined"], "Type" :> 
+             DownValues, "Symbol" :> $CellContext`AddOne, 
+             "Input" :> $CellContext`AddOne["test"]|>]], "ExpectedMessages" -> 
+         HoldForm[{
+            MessageName[$CellContext`AddOne, "undefined"]}], "ActualMessages" -> {
+           HoldForm[
+            Message[
+             MessageName[$CellContext`AddOne, "undefined"], 
+             HoldForm[$CellContext`AddOne]]]}, "AbsoluteTime" -> 
+         3.853855798198486*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 11168|>], 6631418494503423650 -> 
+      TestResultObject[<|
+        "TestKey" -> 6631418494503423650, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`AddOne[1, 2, 3]], "ExpectedOutput" -> HoldForm[
+           Failure["Undefined", 
+            Blank[]]], "ActualOutput" -> HoldForm[
+           Failure["Undefined", <|"MessageParameters" :> {
+               HoldForm[$CellContext`AddOne]}, "MessageTemplate" :> 
+             MessageName[$CellContext`AddOne, "undefined"], "Type" :> 
+             DownValues, "Symbol" :> $CellContext`AddOne, 
+             "Input" :> $CellContext`AddOne[1, 2, 3]|>]], "ExpectedMessages" -> 
+         HoldForm[{
+            MessageName[$CellContext`AddOne, "undefined"]}], "ActualMessages" -> {
+           HoldForm[
+            Message[
+             MessageName[$CellContext`AddOne, "undefined"], 
+             HoldForm[$CellContext`AddOne]]]}, "AbsoluteTime" -> 
+         3.853855798199486*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 10432|>], 555868828905685021 -> 
+      TestResultObject[<|
+        "TestKey" -> 555868828905685021, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[ClearAll[$CellContext`AddTwo]; $CellContext`AddTwo[
+              PatternTest[
+               Pattern[$CellContext`x, 
+                Blank[]], NumberQ]] := $CellContext`x + 
+             2; $CellContext`FailWhenUndefined[$CellContext`AddTwo, Throw]], 
+         "ExpectedOutput" -> HoldForm[
+           Blank[RuleDelayed]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`AddTwo[
+               BlankNullSequence[]]]] :> Throw[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`AddTwo, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`AddTwo]}, "Type" -> DownValues, 
+               "Symbol" :> $CellContext`AddTwo, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.8538557982004857`*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 4176|>], 169868140422492484 -> 
+      TestResultObject[<|
+        "TestKey" -> 169868140422492484, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           Catch[
+            Map[$CellContext`AddTwo, {1, 2, 3}]]], "ExpectedOutput" -> 
+         HoldForm[{3, 4, 5}], "ActualOutput" -> HoldForm[{3, 4, 5}], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
+         "AbsoluteTime" -> 3.8538557982004857`*^9, "AbsoluteTimeUsed" -> 
+         0``7.150514997831988, "CPUTimeUsed" -> 0., "MemoryUsed" -> 2840|>], 
+      8330200634038990327 -> 
+      TestResultObject[<|
+        "TestKey" -> 8330200634038990327, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           Catch[
+            Map[$CellContext`AddTwo, {1, 2, "three"}]]], "ExpectedOutput" -> 
+         HoldForm[
+           Failure["Undefined", 
+            Blank[]]], "ActualOutput" -> HoldForm[
+           Failure["Undefined", <|"MessageParameters" :> {
+               HoldForm[$CellContext`AddTwo]}, "MessageTemplate" :> 
+             MessageName[$CellContext`AddTwo, "undefined"], "Type" :> 
+             DownValues, "Symbol" :> $CellContext`AddTwo, 
+             "Input" :> $CellContext`AddTwo["three"]|>]], "ExpectedMessages" -> 
+         HoldForm[{
+            MessageName[$CellContext`AddTwo, "undefined"]}], "ActualMessages" -> {
+           HoldForm[
+            Message[
+             MessageName[$CellContext`AddTwo, "undefined"], 
+             HoldForm[$CellContext`AddTwo]]]}, "AbsoluteTime" -> 
+         3.8538557982004857`*^9, "AbsoluteTimeUsed" -> 
+         0.0009997`4.150384689940255, "CPUTimeUsed" -> 0., "MemoryUsed" -> 
+         10752|>], 6140858317014460480 -> 
+      TestResultObject[<|
+        "TestKey" -> 6140858317014460480, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[$CellContext`Add2[
+              PatternTest[
+               Pattern[$CellContext`x, 
+                Blank[]], NumberQ]][
+              PatternTest[
+               Pattern[$CellContext`y, 
+                Blank[]], 
+               NumberQ]] := $CellContext`x + $CellContext`y; \
+$CellContext`FailWhenUndefined[$CellContext`Add2, Identity, SubValues]], 
+         "ExpectedOutput" -> HoldForm[
+           Blank[RuleDelayed]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`Add2[
+               BlankNullSequence[]][
+               BlankNullSequence[]]]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`Add2, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`Add2]}, "Type" -> SubValues, 
+               "Symbol" :> $CellContext`Add2, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.8538557982014856`*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 4528|>], 7165482274490615923 -> 
+      TestResultObject[<|
+        "TestKey" -> 7165482274490615923, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`Add2[5]], "ExpectedOutput" -> HoldForm[
+           HoldPattern[
+            $CellContext`Add2[5]]], "ActualOutput" -> HoldForm[
+           $CellContext`Add2[5]], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8538557982024865`*^9, 
+         "AbsoluteTimeUsed" -> 0``7.150514997831988, "CPUTimeUsed" -> 0., 
+         "MemoryUsed" -> 2696|>], 7449091811520774738 -> 
+      TestResultObject[<|
+        "TestKey" -> 7449091811520774738, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`Add2[5][6]], "ExpectedOutput" -> HoldForm[11], 
+         "ActualOutput" -> HoldForm[11], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8538557982024865`*^9, 
+         "AbsoluteTimeUsed" -> 0``7.150514997831988, "CPUTimeUsed" -> 0., 
+         "MemoryUsed" -> 2688|>], 7192504112339999803 -> 
+      TestResultObject[<|
+        "TestKey" -> 7192504112339999803, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`Add2["hello"]], "ExpectedOutput" -> HoldForm[
+           HoldPattern[
+            $CellContext`Add2["hello"]]], "ActualOutput" -> HoldForm[
+           $CellContext`Add2["hello"]], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8538557982024865`*^9, 
+         "AbsoluteTimeUsed" -> 0``7.150514997831988, "CPUTimeUsed" -> 0., 
+         "MemoryUsed" -> 2696|>], 2799234371731302208 -> 
+      TestResultObject[<|
+        "TestKey" -> 2799234371731302208, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`Add2["hello"]["world"]], "ExpectedOutput" -> HoldForm[
+           Failure["Undefined", 
+            Blank[]]], "ActualOutput" -> HoldForm[
+           Failure["Undefined", <|"MessageParameters" :> {
+               HoldForm[$CellContext`Add2]}, "MessageTemplate" :> 
+             MessageName[$CellContext`Add2, "undefined"], "Type" :> SubValues,
+              "Symbol" :> $CellContext`Add2, 
+             "Input" :> $CellContext`Add2["hello"]["world"]|>]], 
+         "ExpectedMessages" -> HoldForm[{
+            MessageName[$CellContext`Add2, "undefined"]}], "ActualMessages" -> {
+           HoldForm[
+            Message[
+             MessageName[$CellContext`Add2, "undefined"], 
+             HoldForm[$CellContext`Add2]]]}, "AbsoluteTime" -> 
+         3.8538557982024865`*^9, "AbsoluteTimeUsed" -> 
+         0.0009989`4.150037010960891, "CPUTimeUsed" -> 0., "MemoryUsed" -> 
+         10480|>], 6223038011046498139 -> 
+      TestResultObject[<|
+        "TestKey" -> 6223038011046498139, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[$CellContext`Add3[
+              PatternTest[
+               Pattern[$CellContext`x, 
+                Blank[]], NumberQ]][
+              PatternTest[
+               Pattern[$CellContext`y, 
+                Blank[]], NumberQ]][
+              PatternTest[
+               Pattern[$CellContext`z, 
+                Blank[]], 
+               NumberQ]] := $CellContext`x + $CellContext`y + $CellContext`z; \
+$CellContext`FailWhenUndefined[$CellContext`Add3, Identity, {SubValues, 3}]], 
+         "ExpectedOutput" -> HoldForm[
+           Blank[RuleDelayed]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`Add3[
+               BlankNullSequence[]][
+               BlankNullSequence[]][
+               BlankNullSequence[]]]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`Add3, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`Add3]}, "Type" -> SubValues, 
+               "Symbol" :> $CellContext`Add3, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.8538557982034855`*^9, "AbsoluteTimeUsed" -> 
+         0.0010004`4.150688680890452, "CPUTimeUsed" -> 0., "MemoryUsed" -> 
+         5016|>], 7660874404656269069 -> 
+      TestResultObject[<|
+        "TestKey" -> 7660874404656269069, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`Add3[5][6][7]], "ExpectedOutput" -> HoldForm[18], 
+         "ActualOutput" -> HoldForm[18], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.853855798204486*^9, 
+         "AbsoluteTimeUsed" -> 0``7.150514997831988, "CPUTimeUsed" -> 0., 
+         "MemoryUsed" -> 2688|>], 7586029201050729783 -> 
+      TestResultObject[<|
+        "TestKey" -> 7586029201050729783, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`Add3[5][6]["hello"]], "ExpectedOutput" -> HoldForm[
+           Failure["Undefined", 
+            Blank[]]], "ActualOutput" -> HoldForm[
+           Failure["Undefined", <|"MessageParameters" :> {
+               HoldForm[$CellContext`Add3]}, "MessageTemplate" :> 
+             MessageName[$CellContext`Add3, "undefined"], "Type" :> SubValues,
+              "Symbol" :> $CellContext`Add3, 
+             "Input" :> $CellContext`Add3[5][6]["hello"]|>]], 
+         "ExpectedMessages" -> HoldForm[{
+            MessageName[$CellContext`Add3, "undefined"]}], "ActualMessages" -> {
+           HoldForm[
+            Message[
+             MessageName[$CellContext`Add3, "undefined"], 
+             HoldForm[$CellContext`Add3]]]}, "AbsoluteTime" -> 
+         3.853855798204486*^9, "AbsoluteTimeUsed" -> 
+         0.0009999`4.15047156621218, "CPUTimeUsed" -> 0., "MemoryUsed" -> 
+         10440|>], 2976972612836095718 -> 
+      TestResultObject[<|
+        "TestKey" -> 2976972612836095718, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[
+          Condition[$CellContext`$value, $CellContext`$condition] := 
+            "The condition is True"; Condition[$CellContext`$value, 
+              Not[$CellContext`$condition]] := 
+            "The condition is False"; \
+$CellContext`FailWhenUndefined[$CellContext`$value, Identity, OwnValues]], 
+         "ExpectedOutput" -> HoldForm[
+           Blank[RuleDelayed]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[$CellContext`$value]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`$value, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`$value]}, "Type" -> OwnValues, 
+               "Symbol" :> $CellContext`$value, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.853855798205486*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 4056|>], 2845188654777067967 -> 
+      TestResultObject[<|
+        "TestKey" -> 2845188654777067967, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[$CellContext`$condition = True; $CellContext`$value], 
+         "ExpectedOutput" -> HoldForm["The condition is True"], 
+         "ActualOutput" -> HoldForm["The condition is True"], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
+         "AbsoluteTime" -> 3.853855798205486*^9, "AbsoluteTimeUsed" -> 
+         0``7.150514997831988, "CPUTimeUsed" -> 0., "MemoryUsed" -> 1504|>], 
+      6425272711493696882 -> 
+      TestResultObject[<|
+        "TestKey" -> 6425272711493696882, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[$CellContext`$condition = False; $CellContext`$value], 
+         "ExpectedOutput" -> HoldForm["The condition is False"], 
+         "ActualOutput" -> HoldForm["The condition is False"], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
+         "AbsoluteTime" -> 3.853855798206486*^9, "AbsoluteTimeUsed" -> 
+         0``7.150514997831988, "CPUTimeUsed" -> 0., "MemoryUsed" -> 1504|>], 
+      6502200433810336666 -> 
+      TestResultObject[<|
+        "TestKey" -> 6502200433810336666, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[$CellContext`$condition = "hello"; $CellContext`$value], 
+         "ExpectedOutput" -> HoldForm[
+           Failure["Undefined", 
+            Blank[]]], "ActualOutput" -> HoldForm[
+           Failure["Undefined", <|"MessageParameters" :> {
+               HoldForm[$CellContext`$value]}, "MessageTemplate" :> 
+             MessageName[$CellContext`$value, "undefined"], "Type" :> 
+             OwnValues, "Symbol" :> $CellContext`$value, 
+             "Input" :> $CellContext`$value|>]], "ExpectedMessages" -> 
+         HoldForm[{
+            MessageName[$CellContext`$value, "undefined"]}], "ActualMessages" -> {
+           HoldForm[
+            Message[
+             MessageName[$CellContext`$value, "undefined"], 
+             HoldForm[$CellContext`$value]]]}, "AbsoluteTime" -> 
+         3.853855798206486*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 10712|>], 4926952763826714990 -> 
+      TestResultObject[<|
+        "TestKey" -> 4926952763826714990, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[
+          ClearAll[$CellContext`symbol]; \
+$CellContext`FailWhenUndefined[$CellContext`symbol, Identity, 3]], 
+         "ExpectedOutput" -> HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`symbol[
+               BlankNullSequence[]][
+               BlankNullSequence[]][
+               BlankNullSequence[]]]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`symbol, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`symbol]}, "Type" -> SubValues, 
+               "Symbol" :> $CellContext`symbol, 
+               "Input" :> $CellContext`expr$|>]]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`symbol[
+               BlankNullSequence[]][
+               BlankNullSequence[]][
+               BlankNullSequence[]]]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`symbol, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`symbol]}, "Type" -> SubValues, 
+               "Symbol" :> $CellContext`symbol, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.8538557982074857`*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 3824|>], 3709976361625323871 -> 
+      TestResultObject[<|
+        "TestKey" -> 3709976361625323871, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[ClearAll[$CellContext`MyFunction]; $CellContext`MyFunction[
+              Pattern[$CellContext`x, 
+               Blank[]]] := $CellContext`x + 
+             1; $CellContext`FailWhenUndefined[$CellContext`MyFunction, 
+             "Message" -> False]], "ExpectedOutput" -> HoldForm[
+           Blank[RuleDelayed]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`MyFunction[
+               BlankNullSequence[]]]] :> Identity[
+             Failure[
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`MyFunction, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`MyFunction]}, "Type" -> DownValues, 
+               "Symbol" :> $CellContext`MyFunction, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.8538557982074857`*^9, "AbsoluteTimeUsed" -> 
+         0.0009997`4.150384689940255, "CPUTimeUsed" -> 0., "MemoryUsed" -> 
+         4056|>], 7595466324565823252 -> 
+      TestResultObject[<|
+        "TestKey" -> 7595466324565823252, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`MyFunction[1, 2]], "ExpectedOutput" -> HoldForm[
+           Failure["Undefined", 
+            Blank[]]], "ActualOutput" -> HoldForm[
+           Failure[
+           "Undefined", <|
+            "MessageTemplate" :> 
+             MessageName[$CellContext`MyFunction, "undefined"], 
+             "MessageParameters" -> {
+               HoldForm[$CellContext`MyFunction]}, "Type" -> DownValues, 
+             "Symbol" :> $CellContext`MyFunction, 
+             "Input" :> $CellContext`MyFunction[1, 2]|>]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.853855798208485*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 3344|>], 5260195248089360222 -> 
+      TestResultObject[<|
+        "TestKey" -> 5260195248089360222, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[
+          ClearAll[$CellContext`symbol]; \
+$CellContext`FailWhenUndefined[$CellContext`symbol, Identity, {
+             SubValues, 1}]], "ExpectedOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`symbol[
+               BlankNullSequence[]]]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`symbol, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`symbol]}, "Type" -> DownValues, 
+               "Symbol" :> $CellContext`symbol, 
+               "Input" :> $CellContext`expr$|>]]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`symbol[
+               BlankNullSequence[]]]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`symbol, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`symbol]}, "Type" -> DownValues, 
+               "Symbol" :> $CellContext`symbol, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.853855798208485*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 3112|>], 7183787679477633809 -> 
+      TestResultObject[<|
+        "TestKey" -> 7183787679477633809, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[
+          ClearAll[$CellContext`symbol]; \
+$CellContext`FailWhenUndefined[$CellContext`symbol, Identity, {
+             SubValues, 0}]], "ExpectedOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[$CellContext`symbol]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`symbol, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`symbol]}, "Type" -> OwnValues, 
+               "Symbol" :> $CellContext`symbol, 
+               "Input" :> $CellContext`expr$|>]]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[$CellContext`symbol]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`symbol, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`symbol]}, "Type" -> OwnValues, 
+               "Symbol" :> $CellContext`symbol, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.8538557982094874`*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 2896|>], 3899124440734596786 -> 
+      TestResultObject[<|
+        "TestKey" -> 3899124440734596786, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> 
+         HoldForm[ClearAll[$CellContext`MyFunction]; $CellContext`MyFunction[
+              Pattern[$CellContext`x, 
+               Blank[]]] := $CellContext`x + 1; Pattern[$CellContext`expr$, 
+              HoldPattern[
+               $CellContext`MyFunction[
+                BlankNullSequence[]]]] := 
+            Failure["MyFailure", <|
+              "Expression" :> $CellContext`expr$|>]; \
+$CellContext`FailWhenUndefined[$CellContext`MyFunction]], "ExpectedOutput" -> 
+         HoldForm[
+           Blank[RuleDelayed]], "ActualOutput" -> 
+         HoldForm[Pattern[$CellContext`expr$, 
+             HoldPattern[
+              $CellContext`MyFunction[
+               BlankNullSequence[]]]] :> Identity[
+             ResourceFunction["MessageFailure"][
+             "Undefined", <|
+              "MessageTemplate" :> 
+               MessageName[$CellContext`MyFunction, "undefined"], 
+               "MessageParameters" -> {
+                 HoldForm[$CellContext`MyFunction]}, "Type" -> DownValues, 
+               "Symbol" :> $CellContext`MyFunction, 
+               "Input" :> $CellContext`expr$|>]]], "ExpectedMessages" -> 
+         HoldForm[{}], "ActualMessages" -> {}, "AbsoluteTime" -> 
+         3.8538557982094874`*^9, "AbsoluteTimeUsed" -> 0``7.150514997831988, 
+         "CPUTimeUsed" -> 0., "MemoryUsed" -> 3760|>], 3657143125777277576 -> 
+      TestResultObject[<|
+        "TestKey" -> 3657143125777277576, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           $CellContext`MyFunction[1, 2]], "ExpectedOutput" -> HoldForm[
+           Failure["MyFailure", 
+            Blank[]]], "ActualOutput" -> HoldForm[
+           Failure[
+           "MyFailure", <|"Expression" :> $CellContext`MyFunction[1, 2]|>]], 
+         "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
+         "AbsoluteTime" -> 3.8538557982104855`*^9, "AbsoluteTimeUsed" -> 
+         0``7.150514997831988, "CPUTimeUsed" -> 0., "MemoryUsed" -> 3008|>], 
+      1869597357737173126 -> 
+      TestResultObject[<|
+        "TestKey" -> 1869597357737173126, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> SameQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           
+           ClearAll[$CellContext`AddOne, $CellContext`AddTwo, \
+$CellContext`Add2, $CellContext`Add3, $CellContext`$value, \
+$CellContext`$condition, $CellContext`symbol, $CellContext`MyFunction]], 
+         "ExpectedOutput" -> HoldForm[Null], "ActualOutput" -> HoldForm[Null],
+          "ExpectedMessages" -> HoldForm[{}], "ActualMessages" -> {}, 
+         "AbsoluteTime" -> 3.8538557982104855`*^9, "AbsoluteTimeUsed" -> 
+         0``7.150514997831988, "CPUTimeUsed" -> 0., "MemoryUsed" -> -5192|>], 
+      7883712313693227582 -> 
+      TestResultObject[<|
+        "TestKey" -> 7883712313693227582, "TestID" -> None, "TestFileName" -> 
+         "H:\\Documents\\ResourceFunctions\\Definitions\\FailWhenUndefined\\\
+Tests.wlt", "SameTest" -> MatchQ, "SameMessages" -> Testing`MessageMatchQ, 
+         "MemoryConstraint" -> DirectedInfinity[1], "TimeConstraint" -> 
+         DirectedInfinity[1], "Outcome" -> "Success", "Input" -> HoldForm[
+           SetOptions[
+            ResourceFunction["MessageFailure"], "TestMode" -> False]], 
+         "ExpectedOutput" -> HoldForm[
+           KeyValuePattern["TestMode" -> False]], "ActualOutput" -> 
+         HoldForm[{
+           "MessageFunction" -> Automatic, "Verbose" -> False, "Stack" -> 
+            False, "TestMode" -> False}], "ExpectedMessages" -> HoldForm[{}], 
+         "ActualMessages" -> {}, "AbsoluteTime" -> 3.8538557982104855`*^9, 
+         "AbsoluteTimeUsed" -> 0.0009997`4.150384689940255, "CPUTimeUsed" -> 
+         0.016000000000000014`, "MemoryUsed" -> 1976|>]|>, 
+    "TestsSucceededKeys" -> {6116944650591474205, 5118616503974050398, 
+     398378330351404967, 5756539322317276526, 7475570617266960054, 
+     6631418494503423650, 555868828905685021, 169868140422492484, 
+     8330200634038990327, 6140858317014460480, 7165482274490615923, 
+     7449091811520774738, 7192504112339999803, 2799234371731302208, 
+     6223038011046498139, 7660874404656269069, 7586029201050729783, 
+     2976972612836095718, 2845188654777067967, 6425272711493696882, 
+     6502200433810336666, 4926952763826714990, 3709976361625323871, 
+     7595466324565823252, 5260195248089360222, 7183787679477633809, 
+     3899124440734596786, 3657143125777277576, 1869597357737173126, 
+     7883712313693227582}, "TestsFailedWrongResultsKeys" -> {}, 
+    "TestsFailedWithMessagesKeys" -> {}, "TestsFailedWithErrorsKeys" -> {}|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output", "Excluded",
+ CellChangeTimes->{
+  3.853842818710678*^9, {3.8538436203366823`*^9, 3.853843640766121*^9}, 
+   3.8538491484899535`*^9, 3.85384948948109*^9, 3.853849663123648*^9, 
+   3.853849707210498*^9, 3.8538502475807667`*^9, {3.853850490321316*^9, 
+   3.853850519293342*^9}, {3.8538507346738644`*^9, 3.8538507516727*^9}, 
+   3.8538508197445607`*^9, 3.853850897709442*^9, 3.8538514366285715`*^9, 
+   3.8538515053002925`*^9, 3.8538515607261195`*^9, 3.8538516346442623`*^9, 
+   3.853851759251849*^9, 3.8538518153617115`*^9, 3.8538519905556545`*^9, 
+   3.8538521649439545`*^9, 3.8538522028867817`*^9, 3.8538525549054112`*^9, 
+   3.853852682447055*^9, 3.8538528316050887`*^9, 3.8538528869079285`*^9, 
+   3.8538533613454943`*^9, 3.853854266098817*^9, 3.8538550838184147`*^9, 
+   3.8538556791811533`*^9, {3.8538557942527847`*^9, 3.853855798228486*^9}},
+ CellLabel->"Out[20]=",ExpressionUUID->"26a2d8e2-1489-478d-bef8-67a18c18b43c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Basic Examples", "Subsection",
+ CellLabel->"In[9]:=",ExpressionUUID->"df3bcca9-a2f9-486b-9e0e-f5c7d99923b5"],
+
+Cell["\<\
+Define a function so that it fails when given undefined arguments:\
+\>", "Text",
+ CellChangeTimes->{{3.85385286279041*^9, 
+  3.8538528846644*^9}},ExpressionUUID->"53230238-afd5-4f40-932a-3115ec7ffc41"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"AddOne", "[", 
+    RowBox[{"x_", "?", "NumberQ"}], "]"}], ":=", 
+   RowBox[{"x", "+", "1"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "AddOne", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8538428312227325`*^9, 3.853842853505919*^9}, {
+   3.85385073974961*^9, 3.853850749430928*^9}, 3.853852827465865*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"e61cc4fc-b971-436f-bdae-ef3744c922e0"],
+
+Cell["Check the definition:", "Text",
+ CellChangeTimes->{{3.853852891480633*^9, 
+  3.853852893695909*^9}},ExpressionUUID->"0aa1da9c-1f28-4172-92cd-\
+998b0144ed0f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Definition", "[", "AddOne", "]"}]], "Input",
+ CellChangeTimes->{{3.853852833827016*^9, 3.8538528362702646`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"00f3035e-75a5-49eb-9576-4bfbe799bfcc"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"AddOne", "[", 
+          RowBox[{"x_", "?", "NumberQ"}], "]"}], ":=", 
+         RowBox[{"x", "+", "1"}]}]},
+       {" "},
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"AddOne", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"AddOne", "::", "undefined"}], "MessageName"]}], ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "AddOne", "]"}], "}"}]}], 
+              ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "AddOne"}], ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`AddOne],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.8538528367642684`*^9, 3.8538528954148674`*^9, 
+  3.8538542720673285`*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"d07983dd-8ffc-4c92-91cd-b4ea9d1252ef"]
+}, Open  ]],
+
+Cell["Defined behavior:", "Text",
+ CellChangeTimes->{{3.8538529021899195`*^9, 
+  3.853852904267928*^9}},ExpressionUUID->"7de2037c-9f5c-4cb5-97c4-\
+06d053ab3063"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AddOne", "[", "5", "]"}]], "Input",
+ CellChangeTimes->{{3.8538429076984076`*^9, 3.853842910007045*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"0747b95d-7571-45e5-bcde-201a38f80de1"],
+
+Cell[BoxData["6"], "Output",
+ CellChangeTimes->{
+  3.8538429103831863`*^9, 3.853843660998094*^9, 3.8538491520198464`*^9, 
+   3.853849720436429*^9, 3.8538502502254095`*^9, 3.8538505358294573`*^9, {
+   3.853850741335856*^9, 3.8538507637342033`*^9}, 3.85385082371768*^9, 
+   3.853850909108604*^9, 3.853851443998108*^9, 3.8538515080929794`*^9, 
+   3.853851560803119*^9, 3.853852211728154*^9, 3.8538525606323256`*^9, 
+   3.8538529054189587`*^9, 3.8538542720813303`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"5e51fac3-7612-4ab2-b44b-efc50fb56e8b"]
+}, Open  ]],
+
+Cell["Undefined behavior:", "Text",
+ CellChangeTimes->{{3.853852906842456*^9, 
+  3.8538529100121517`*^9}},ExpressionUUID->"9091f5dd-9a8a-485b-8238-\
+3db34ff3f2bb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AddOne", "[", "\"\<test\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.853849163682849*^9, 3.8538491640128927`*^9}, {
+  3.8538529179232583`*^9, 3.8538529189825077`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"9d339b47-2de7-4d41-b696-004852699672"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "AddOne", "undefined", 
+   "\"Encountered an undefined pattern for \
+\\!\\(\\*RowBox[{\\\"AddOne\\\"}]\\).\"", 2, 5, 23, 33988181256692735228, 
+   "Local", "Global`AddOne"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{
+  3.853849164718893*^9, 3.8538497225419936`*^9, 3.853850251078388*^9, 
+   3.853850536703535*^9, {3.8538507421423006`*^9, 3.853850764908308*^9}, 
+   3.8538508237346783`*^9, 3.8538509101106997`*^9, 3.853851444869785*^9, 
+   3.853851508097982*^9, 3.8538515608181195`*^9, 3.8538522117431583`*^9, 
+   3.8538525606473293`*^9, 3.853852921794651*^9, 3.8538542720863285`*^9},
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"b8fd8af0-2ea5-4a4b-b1f5-f1941ef7b65e"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"AddOne\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"AddOne\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["DownValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["AddOne", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{"AddOne", "[", "\"test\"", "]"}], HoldForm], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["Undefined", <|"MessageParameters" :> {
+      HoldForm[$CellContext`AddOne]}, "MessageTemplate" :> 
+    MessageName[$CellContext`AddOne, "undefined"], "Type" :> DownValues, 
+    "Symbol" :> $CellContext`AddOne, "Input" :> $CellContext`AddOne["test"]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{
+  3.8538491647298927`*^9, 3.853849722550991*^9, 3.8538502510873857`*^9, 
+   3.8538505367115326`*^9, {3.853850742150302*^9, 3.8538507649173064`*^9}, 
+   3.853850823743676*^9, 3.8538509101196985`*^9, 3.8538514448777866`*^9, 
+   3.85385150810598*^9, 3.853851560827119*^9, 3.853852211752158*^9, 
+   3.8538525606573257`*^9, 3.8538529218026485`*^9, 3.8538542720973287`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"fef65fcc-dfed-4bdb-b447-cf0d9cdd9552"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"AddOne", "[", 
+  RowBox[{"1", ",", "2", ",", "3"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8538529260851383`*^9, 3.8538529265273895`*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"7ec9b9fb-e785-40e9-be5a-2cfca5378c66"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "AddOne", "undefined", 
+   "\"Encountered an undefined pattern for \
+\\!\\(\\*RowBox[{\\\"AddOne\\\"}]\\).\"", 2, 6, 24, 33988181256692735228, 
+   "Local", "Global`AddOne"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.8538529271342287`*^9, 3.85385427211633*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"2dde2116-d228-4c67-bfc0-3418ae76ea83"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"AddOne\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"AddOne\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["DownValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["AddOne", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{"AddOne", "[", 
+                    RowBox[{"1", ",", "2", ",", "3"}], "]"}], HoldForm], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["Undefined", <|"MessageParameters" :> {
+      HoldForm[$CellContext`AddOne]}, "MessageTemplate" :> 
+    MessageName[$CellContext`AddOne, "undefined"], "Type" :> DownValues, 
+    "Symbol" :> $CellContext`AddOne, 
+    "Input" :> $CellContext`AddOne[1, 2, 3]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.853852927144226*^9, 3.853854272125329*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"45e18d05-2690-4cfc-8331-b550b7d02c0b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "2a54a9de-3a84-402d-af45-362a91f9fe06"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"d23d213f-0401-43c3-ac8a-\
+e30d6a4883ba"],
+
+Cell["\<\
+Specify a function to apply to the failure object at the time of failure:\
+\>", "Text",
+ CellChangeTimes->{{3.8538529593313923`*^9, 
+  3.853852982415019*^9}},ExpressionUUID->"89818d03-3d33-4325-ae96-\
+4649348978a6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"AddTwo", "[", 
+    RowBox[{"x_", "?", "NumberQ"}], "]"}], ":=", 
+   RowBox[{"x", "+", "2"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"FailWhenUndefined", "[", 
+  RowBox[{"AddTwo", ",", "Throw"}], "]"}]}], "Input",
+ CellChangeTimes->{{3.853850300718017*^9, 3.8538503399844837`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"fd11b7af-f62e-4b45-9dd6-3b9ade01c079"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"expr$", ":", 
+   RowBox[{"HoldPattern", "[", 
+    RowBox[{"AddTwo", "[", "___", "]"}], "]"}]}], "\[RuleDelayed]", 
+  RowBox[{"Throw", "[", 
+   RowBox[{
+    RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], "[", 
+    RowBox[{"\<\"Undefined\"\>", ",", 
+     RowBox[{"Association", "[", 
+      RowBox[{
+       RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+        StyleBox[
+         RowBox[{"AddTwo", "::", "undefined"}], "MessageName"]}], ",", 
+       RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+        RowBox[{"{", 
+         TagBox["AddTwo",
+          HoldForm], "}"}]}], ",", 
+       RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+       RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "AddTwo"}], ",", 
+       RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}], "]"}],
+    "]"}]}]], "Output",
+ CellChangeTimes->{3.853850343880015*^9, 3.853850541113821*^9, 
+  3.853850768289261*^9, 3.8538508237646775`*^9, 3.8538509111972046`*^9, 
+  3.8538514559613285`*^9, 3.853851508127999*^9, 3.853851561752606*^9, 
+  3.8538522209490385`*^9, 3.853852564926646*^9, 3.8538529868860617`*^9, 
+  3.8538542721513295`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"54bd2dea-5f91-4501-b1f1-d83faee6c665"]
+}, Open  ]],
+
+Cell["Defined behavior:", "Text",
+ CellChangeTimes->{{3.853852993244792*^9, 
+  3.853852995475094*^9}},ExpressionUUID->"5ea57700-8485-460c-aa0f-\
+130e04449852"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Catch", "[", 
+  RowBox[{"AddTwo", "/@", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "3"}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.853849167750603*^9, 3.8538491698577514`*^9}, {
+  3.8538505538955407`*^9, 3.8538505870958357`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"aa395056-da36-4c34-9b8d-56dfae7a2350"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"3", ",", "4", ",", "5"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.853849170326769*^9, 3.8538502620152783`*^9, {3.8538505606845827`*^9, 
+   3.8538505881701064`*^9}, 3.8538507708051844`*^9, 3.853850823769678*^9, 
+   3.8538509126464367`*^9, 3.8538514572876635`*^9, 3.853851508133037*^9, 
+   3.8538515627058964`*^9, 3.853852220969159*^9, 3.8538525649466457`*^9, 
+   3.8538530036256075`*^9, 3.8538542721653304`*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"b7cf0c82-5e83-4a14-87ac-dc437ade7cbd"]
+}, Open  ]],
+
+Cell["Undefined behavior:", "Text",
+ CellChangeTimes->{{3.853852906842456*^9, 
+  3.8538529100121517`*^9}},ExpressionUUID->"cba33e16-c0a7-43c3-9d14-\
+29b3900e97ee"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Catch", "[", 
+  RowBox[{"AddTwo", "/@", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "2", ",", "\"\<three\>\""}], "}"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.8538505667141523`*^9, 3.8538505766829443`*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"a788f934-c912-4698-b72e-452deba49836"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "AddTwo", "undefined", 
+   "\"Encountered an undefined pattern for \
+\\!\\(\\*RowBox[{\\\"AddTwo\\\"}]\\).\"", 2, 4, 25, 33988181256692735228, 
+   "Local", "Global`AddTwo"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{{3.8538505782533298`*^9, 3.853850591436895*^9}, 
+   3.8538507717432585`*^9, 3.8538508237746773`*^9, 3.8538509140184526`*^9, 
+   3.853851458138897*^9, 3.85385150814805*^9, 3.853851563466118*^9, 
+   3.8538522209870396`*^9, 3.8538525649646454`*^9, 3.8538530064633226`*^9, 
+   3.8538542721783304`*^9},
+ CellLabel->
+  "During evaluation of \
+In[4]:=",ExpressionUUID->"0114555f-889b-431a-b1ef-2b506a7f2268"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"AddTwo\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"AddTwo\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["DownValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["AddTwo", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{"AddTwo", "[", "\"three\"", "]"}], HoldForm], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["Undefined", <|"MessageParameters" :> {
+      HoldForm[$CellContext`AddTwo]}, "MessageTemplate" :> 
+    MessageName[$CellContext`AddTwo, "undefined"], "Type" :> DownValues, 
+    "Symbol" :> $CellContext`AddTwo, 
+    "Input" :> $CellContext`AddTwo["three"]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{{3.8538505782633295`*^9, 3.853850591445894*^9}, 
+   3.853850771751254*^9, 3.853850823783925*^9, 3.853850914026452*^9, 
+   3.853851458147896*^9, 3.853851508157048*^9, 3.853851563474118*^9, 
+   3.8538522209960384`*^9, 3.8538525649736443`*^9, 3.8538530064743185`*^9, 
+   3.8538542721883287`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"af1233c2-4e79-4bc8-8ee4-ffa487a81634"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Scope", "Subsection",
+ CellLabel->"In[5]:=",ExpressionUUID->"03e9d086-b4a9-4c0e-adee-f4604c9d9acf"],
+
+Cell[TextData[{
+ "Catch undefined ",
+ Cell[BoxData[
+  TagBox[
+   ButtonBox[
+    StyleBox["SubValues", "SymbolsRefLink",
+     ShowStringCharacters->True,
+     FontFamily->"Source Sans Pro"],
+    BaseStyle->Dynamic[
+      FEPrivate`If[
+       CurrentValue["MouseOver"], {
+       "Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]}, {"Link"}]],
+    ButtonData->"paclet:ref/SubValues",
+    ContentPadding->False],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "dcabb4c9-0189-45c0-b794-c83e090290d5"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.8538530364189515`*^9, 
+  3.8538530443941383`*^9}},ExpressionUUID->"26daffc0-c19f-45e5-84ba-\
+db9c7e613105"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"Add2", "[", 
+     RowBox[{"x_", "?", "NumberQ"}], "]"}], "[", 
+    RowBox[{"y_", "?", "NumberQ"}], "]"}], ":=", 
+   RowBox[{"x", "+", "y"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", 
+   RowBox[{"Add2", ",", "Identity", ",", "SubValues"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.8538506221720285`*^9, 3.8538506516183834`*^9}, {
+   3.8538518480105314`*^9, 3.8538518494066334`*^9}, 3.853853033498205*^9, 
+   3.853853508992134*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"dea3987a-070c-4a99-98a0-68ef4e3b3b2a"],
+
+Cell["This allows undefined operator forms:", "Text",
+ CellChangeTimes->{{3.853853063591188*^9, 
+  3.853853069215754*^9}},ExpressionUUID->"2fe153fb-5944-401b-8580-\
+8cebd9158f21"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Add2", "[", "5", "]"}]], "Input",
+ CellChangeTimes->{{3.8538508351534877`*^9, 3.853850836626527*^9}, 
+   3.8538518534422054`*^9},
+ CellLabel->"In[3]:=",ExpressionUUID->"abdb38f3-2c06-45fc-8d51-31cc26b1ed09"],
+
+Cell[BoxData[
+ RowBox[{"Add2", "[", "5", "]"}]], "Output",
+ CellChangeTimes->{3.853850838265604*^9, 3.8538509168954525`*^9, 
+  3.8538515730010867`*^9, 3.8538518546264*^9, 3.8538522285779357`*^9, 
+  3.8538525692534213`*^9, 3.853853070997778*^9, 3.853854280212268*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"79bc491a-1ce4-44ef-ae6c-e483d37c37ff"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Add2", "[", "5", "]"}], "[", "6", "]"}]], "Input",
+ CellChangeTimes->{{3.853850840643216*^9, 3.853850842942402*^9}, 
+   3.853851857004227*^9},
+ CellLabel->"In[4]:=",ExpressionUUID->"e4142e75-6836-4531-ae7a-743720999fca"],
+
+Cell[BoxData["11"], "Output",
+ CellChangeTimes->{3.8538508439254436`*^9, 3.8538509179135313`*^9, 
+  3.8538515740834107`*^9, 3.8538518586854563`*^9, 3.853852228581937*^9, 
+  3.8538525692714233`*^9, 3.853853075424039*^9, 3.8538542802262697`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"a761d69d-303b-4b28-9249-d7ce16c192d6"]
+}, Open  ]],
+
+Cell["\<\
+Undefined behavior is caught when applying the operator form:\
+\>", "Text",
+ CellChangeTimes->{{3.853853091320527*^9, 
+  3.8538531044136744`*^9}},ExpressionUUID->"0813adb1-6368-491e-abee-\
+ce60f4564fa6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Add2", "[", "\"\<hello\>\"", "]"}]], "Input",
+ CellChangeTimes->{3.853853110695255*^9},
+ CellLabel->"In[5]:=",ExpressionUUID->"7852805a-d666-4f5c-abe7-02eaa48d7c39"],
+
+Cell[BoxData[
+ RowBox[{"Add2", "[", "\<\"hello\"\>", "]"}]], "Output",
+ CellChangeTimes->{3.8538531151757603`*^9, 3.8538542802392673`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"e0d2ee10-9cb1-4f81-add6-8332f8c5d416"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Add2", "[", "\"\<hello\>\"", "]"}], "[", "\"\<world\>\"", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.8538508449825788`*^9, 3.8538508495834684`*^9}, 
+   3.8538518604489822`*^9, {3.853853117900715*^9, 3.8538531201715364`*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"22bbe913-f842-4ed6-b29e-95ace064a8a8"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Add2", "undefined", 
+   "\"Encountered an undefined pattern for \
+\\!\\(\\*RowBox[{\\\"Add2\\\"}]\\).\"", 2, 6, 26, 33988181256692735228, 
+   "Local", "Global`Add2"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.853851861414797*^9, 3.8538522285989356`*^9, 
+  3.853852569286419*^9, 3.853853121363886*^9, 3.8538542802542686`*^9},
+ CellLabel->
+  "During evaluation of \
+In[6]:=",ExpressionUUID->"9c74c881-faff-45a2-be91-39d5ddab6512"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"Add2\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"Add2\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["SubValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["Add2", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{
+                    RowBox[{"Add2", "[", "\"hello\"", "]"}], "[", "\"world\"",
+                     "]"}], HoldForm], "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["Undefined", <|"MessageParameters" :> {
+      HoldForm[$CellContext`Add2]}, "MessageTemplate" :> 
+    MessageName[$CellContext`Add2, "undefined"], "Type" :> SubValues, 
+    "Symbol" :> $CellContext`Add2, 
+    "Input" :> $CellContext`Add2["hello"]["world"]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8538508504056253`*^9, 3.8538509195329685`*^9, 
+  3.853851575301862*^9, 3.8538518614257975`*^9, 3.853852228607936*^9, 
+  3.8538525692954197`*^9, 3.853853121373884*^9, 3.8538542802632675`*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"b3b97942-63f2-4769-b1d9-15b2d2984378"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "27a90275-fe8c-42cf-b7c1-0c42a2cc3a67"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"9446d377-8e00-47b5-a16d-\
+7aaa61f9da4a"],
+
+Cell[TextData[{
+ "Specify the number of ",
+ Cell[BoxData[
+  TagBox[
+   ButtonBox[
+    StyleBox["SubValues", "SymbolsRefLink",
+     ShowStringCharacters->True,
+     FontFamily->"Source Sans Pro"],
+    BaseStyle->Dynamic[
+      FEPrivate`If[
+       CurrentValue["MouseOver"], {
+       "Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]}, {"Link"}]],
+    ButtonData->"paclet:ref/SubValues",
+    ContentPadding->False],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "c5d86605-81b4-4181-a816-a55d29c185b1"],
+ " positions:"
+}], "Text",
+ CellChangeTimes->{{3.8538531329027596`*^9, 
+  3.8538531525464067`*^9}},ExpressionUUID->"31f95b30-4e9c-4bb1-b711-\
+099572f15cc0"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{"Add3", "[", 
+      RowBox[{"x_", "?", "NumberQ"}], "]"}], "[", 
+     RowBox[{"y_", "?", "NumberQ"}], "]"}], "[", 
+    RowBox[{"z_", "?", "NumberQ"}], "]"}], ":=", 
+   RowBox[{"x", "+", "y", "+", "z"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", 
+   RowBox[{"Add3", ",", "Identity", ",", 
+    RowBox[{"{", 
+     RowBox[{"SubValues", ",", "3"}], "}"}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8538506221720285`*^9, 3.8538506516183834`*^9}, {
+   3.8538518480105314`*^9, 3.853851886262849*^9}, 3.853852028090359*^9, 
+   3.8538531592016015`*^9, 3.853853506221726*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"c34222a2-4e92-41c8-b412-1320d4e59736"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Add3", "[", "5", "]"}], "[", "6", "]"}], "[", "7", "]"}]], "Input",
+ CellChangeTimes->{{3.853851908384519*^9, 3.8538519085595183`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"78844b1b-cec0-41ec-af54-e7076e3c810b"],
+
+Cell[BoxData["18"], "Output",
+ CellChangeTimes->{3.8538519092391205`*^9, 3.8538520332230864`*^9, 
+  3.8538522432281704`*^9, 3.8538525758208203`*^9, 3.8538531770200367`*^9, 
+  3.8538542802892685`*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"04a589ad-c6c4-4fcc-9c9e-39de15c33b1b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"Add3", "[", "5", "]"}], "[", "6", "]"}], "[", "\"\<hello\>\"", 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.8538508449825788`*^9, 3.8538508495834684`*^9}, 
+   3.8538518604489822`*^9, {3.853851915965222*^9, 3.853851919981431*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"36b5b849-86c4-47e8-b991-b2bc4d6c4a72"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Add3", "undefined", 
+   "\"Encountered an undefined pattern for \
+\\!\\(\\*RowBox[{\\\"Add3\\\"}]\\).\"", 2, 4, 27, 33988181256692735228, 
+   "Local", "Global`Add3"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.853851921166031*^9, 3.8538520340612726`*^9, 
+  3.853852244277689*^9, 3.85385257583582*^9, 3.853853179341512*^9, 
+  3.853854280304268*^9},
+ CellLabel->
+  "During evaluation of \
+In[4]:=",ExpressionUUID->"2b4b1a1f-855d-4fad-918e-1063d534027a"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"Add3\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"Add3\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["SubValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["Add3", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"Add3", "[", "5", "]"}], "[", "6", "]"}], "[", 
+                    "\"hello\"", "]"}], HoldForm], "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["Undefined", <|"MessageParameters" :> {
+      HoldForm[$CellContext`Add3]}, "MessageTemplate" :> 
+    MessageName[$CellContext`Add3, "undefined"], "Type" :> SubValues, 
+    "Symbol" :> $CellContext`Add3, 
+    "Input" :> $CellContext`Add3[5][6]["hello"]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{
+  3.8538508504056253`*^9, 3.8538509195329685`*^9, 3.853851575301862*^9, 
+   3.8538518614257975`*^9, {3.853851917064525*^9, 3.853851921175028*^9}, 
+   3.8538520340702705`*^9, 3.8538522442856865`*^9, 3.8538525758438177`*^9, 
+   3.8538531793505116`*^9, 3.8538542803132687`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"3594078a-c5bb-477e-907b-c9a3bd34867f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "41a0621f-9781-469f-b87e-6147d7892fbe"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"83e2d60b-6f02-4908-b648-\
+ef18b67df920"],
+
+Cell[TextData[{
+ "Fail for undefined ",
+ Cell[BoxData[
+  TagBox[
+   ButtonBox[
+    StyleBox["OwnValues", "SymbolsRefLink",
+     ShowStringCharacters->True,
+     FontFamily->"Source Sans Pro"],
+    BaseStyle->Dynamic[
+      FEPrivate`If[
+       CurrentValue["MouseOver"], {
+       "Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]}, {"Link"}]],
+    ButtonData->"paclet:ref/OwnValues",
+    ContentPadding->False],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "61df2a98-00af-4798-8785-c9db3f0e8e46"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.853853193010917*^9, 
+  3.8538532010592103`*^9}},ExpressionUUID->"25c75f89-754c-4498-a08a-\
+fe2e3eaff2d4"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"$value", "/;", "$condition"}], ":=", 
+   "\"\<The condition is True\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"$value", "/;", 
+    RowBox[{"!", "$condition"}]}], ":=", "\"\<The condition is False\>\""}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", 
+   RowBox[{"$value", ",", "Identity", ",", "OwnValues"}], "]"}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.853852584961414*^9, 3.853852605635723*^9}, {
+   3.853852648546133*^9, 3.853852670710415*^9}, 3.8538532057410994`*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"0f3d6a2b-4178-4761-96c7-28908be47589"],
+
+Cell["Defined behavior:", "Text",
+ CellChangeTimes->{{3.853853212304761*^9, 
+  3.853853214705697*^9}},ExpressionUUID->"27bb35ef-0ceb-4a6d-b4bd-\
+c8db2230314c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"$condition", "=", "True"}], 
+  ";"}], "\[IndentingNewLine]", "$value"}], "Input",
+ CellChangeTimes->{{3.8538526234895816`*^9, 3.853852627648629*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"adcc7850-9697-47e9-a6c0-ad9c3e5becd1"],
+
+Cell[BoxData["\<\"The condition is True\"\>"], "Output",
+ CellChangeTimes->{3.8538526282076674`*^9, 3.8538526983692627`*^9, 
+  3.853853218570817*^9, 3.8538542803362665`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"e04a65f7-0671-4162-92fe-69653543617e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"$condition", "=", "False"}], 
+  ";"}], "\[IndentingNewLine]", "$value"}], "Input",
+ CellChangeTimes->{{3.853852629160678*^9, 3.853852632826769*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"392dc811-8df6-410d-9fe9-5b86b3e9029e"],
+
+Cell[BoxData["\<\"The condition is False\"\>"], "Output",
+ CellChangeTimes->{3.8538526333297815`*^9, 3.8538527007035027`*^9, 
+  3.853853218596815*^9, 3.853854280352269*^9},
+ CellLabel->"Out[7]=",ExpressionUUID->"0e26a04a-d2c7-4725-9202-06a9b27746bb"]
+}, Open  ]],
+
+Cell["Undefined behavior:", "Text",
+ CellChangeTimes->{{3.8538532206718535`*^9, 
+  3.8538532233896523`*^9}},ExpressionUUID->"4431a917-9a6f-4d30-8245-\
+bdf906ccd350"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"$condition", "=", "\"\<hello\>\""}], 
+  ";"}], "\[IndentingNewLine]", "$value"}], "Input",
+ CellChangeTimes->{{3.853852708177322*^9, 3.8538527110985413`*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"372c24e4-c957-43d2-8945-5db19736365e"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "$value", "undefined", 
+   "\"Encountered an undefined pattern for \
+\\!\\(\\*RowBox[{\\\"$value\\\"}]\\).\"", 2, 9, 28, 33988181256692735228, 
+   "Local", "Global`$value"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.8538527118657017`*^9, 3.85385322682469*^9, 
+  3.853854280366269*^9},
+ CellLabel->
+  "During evaluation of \
+In[8]:=",ExpressionUUID->"801f43b7-25b5-40e2-8f7f-00931043b889"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"$value\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"$value\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["OwnValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["$value", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["$value", HoldForm], "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["Undefined", <|"MessageParameters" :> {
+      HoldForm[$CellContext`$value]}, "MessageTemplate" :> 
+    MessageName[$CellContext`$value, "undefined"], "Type" :> OwnValues, 
+    "Symbol" :> $CellContext`$value, "Input" :> $CellContext`$value|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.853852711875702*^9, 3.8538532268356895`*^9, 
+  3.853854280375267*^9},
+ CellLabel->"Out[9]=",ExpressionUUID->"cd91e5ce-10a7-467c-a02d-5aa28077f78f"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "984b7f2e-64f1-4fb8-bb08-bef1f3441abc"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"7af8b0dc-c719-434b-8ab7-\
+e577baedd67f"],
+
+Cell[TextData[{
+ "Use an integer as shorthand for ",
+ Cell[BoxData[
+  RowBox[{"{", 
+   RowBox[{
+    TagBox[
+     ButtonBox[
+      StyleBox["SubValues", "SymbolsRefLink",
+       ShowStringCharacters->True,
+       FontFamily->"Source Sans Pro"],
+      BaseStyle->Dynamic[
+        FEPrivate`If[
+         CurrentValue["MouseOver"], {
+         "Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]}, {"Link"}]],
+      ButtonData->"paclet:ref/SubValues",
+      ContentPadding->False],
+     MouseAppearanceTag["LinkHand"]], ",", 
+    StyleBox["n", "TI"]}], "}"}]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "c2c7311b-199a-433b-a96c-412d9ba2264b"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.853853450169228*^9, 
+  3.8538534663769026`*^9}},ExpressionUUID->"142d11c3-7b21-4e68-b060-\
+31919f749c33"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", 
+   RowBox[{"symbol", ",", "Identity", ",", "3"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Definition", "[", "symbol", "]"}]}], "Input",
+ CellChangeTimes->{{3.8538534337439356`*^9, 3.853853441144945*^9}, {
+   3.8538534722073703`*^9, 3.853853476219159*^9}, 3.8538535174827595`*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"9fdd5055-f036-45e2-886e-a34667cafc54"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"symbol", "[", "___", "]"}], "[", "___", "]"}], "[", 
+            "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"symbol", "::", "undefined"}], "MessageName"]}], ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "symbol", "]"}], "}"}]}], 
+              ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "SubValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "symbol"}], ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`symbol],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.8538534788052654`*^9, 3.85385428039727*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"7da3485d-baed-4cb4-bc74-ad5f904da857"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Options", "Subsection",
+ CellLabel->"In[3]:=",ExpressionUUID->"62e1130b-7ee9-43b3-8e42-dbc30ef6ef3a"],
+
+Cell[CellGroupData[{
+
+Cell["Message", "Subsubsection",
+ CellChangeTimes->{{3.853853747388489*^9, 3.85385374918771*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"928b0e59-721f-45cc-b499-3e9ff6e1389f"],
+
+Cell["Don't issue a message when failing:", "Text",
+ CellChangeTimes->{{3.853853757468752*^9, 
+  3.853853773077037*^9}},ExpressionUUID->"211b21f5-39eb-4ec0-b0ae-\
+eef131d0466a"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"MyFunction", "[", "x_", "]"}], ":=", 
+   RowBox[{"x", "+", "1"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", 
+   RowBox[{"MyFunction", ",", 
+    RowBox[{"\"\<Message\>\"", "->", "False"}]}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.853853667184661*^9, 3.8538537142488456`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"2c825277-6625-427c-a395-c357bf90cb3b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Definition", "[", "MyFunction", "]"}]], "Input",
+ CellChangeTimes->{{3.853853667184661*^9, 3.8538537142488456`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"502d6763-e04f-4e28-b739-1076e0990828"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"MyFunction", "[", "x_", "]"}], ":=", 
+         RowBox[{"x", "+", "1"}]}]},
+       {" "},
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"MyFunction", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{"Failure", "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"MyFunction", "::", "undefined"}], "MessageName"]}], 
+              ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "MyFunction", "]"}], "}"}]}],
+               ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "MyFunction"}], ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`MyFunction],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.853853717899775*^9, 3.8538542908652053`*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"626f6f65-c456-4a66-bc93-1c81814160c1"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MyFunction", "[", 
+  RowBox[{"1", ",", "2"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8538537239811525`*^9, 3.853853724356171*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"c2b2a326-5bcc-4419-8150-75bce2c16ea7"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"MyFunction\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"MyFunction\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["DownValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["MyFunction", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{"MyFunction", "[", 
+                    RowBox[{"1", ",", "2"}], "]"}], HoldForm], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure[
+  "Undefined", <|
+   "MessageTemplate" :> MessageName[$CellContext`MyFunction, "undefined"], 
+    "MessageParameters" -> {
+      HoldForm[$CellContext`MyFunction]}, "Type" -> DownValues, 
+    "Symbol" :> $CellContext`MyFunction, 
+    "Input" :> $CellContext`MyFunction[1, 2]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.853853724879217*^9, 3.853854290880206*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"6e286d87-7e02-400b-9c5b-b575832ec9fc"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell["Applications", "Subsection",
+ CellChangeTimes->{
+  3.853853665989587*^9},ExpressionUUID->"92f0fb8e-a9dc-48ea-9f18-\
+349020c6c672"],
+
+Cell[CellGroupData[{
+
+Cell["Properties and Relations", "Subsection",
+ CellLabel->"In[5]:=",ExpressionUUID->"208ea991-a48e-4fd2-8e1a-ff26cd33af9b"],
+
+Cell[TextData[{
+ "One level of ",
+ Cell[BoxData[
+  TagBox[
+   ButtonBox[
+    StyleBox["SubValues", "SymbolsRefLink",
+     ShowStringCharacters->True,
+     FontFamily->"Source Sans Pro"],
+    BaseStyle->Dynamic[
+      FEPrivate`If[
+       CurrentValue["MouseOver"], {
+       "Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]}, {"Link"}]],
+    ButtonData->"paclet:ref/SubValues",
+    ContentPadding->False],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "f18236ac-a6b2-49e7-a700-7bc8e0015b2a"],
+ " is equivalent to ",
+ Cell[BoxData[
+  TagBox[
+   ButtonBox[
+    StyleBox["DownValues", "SymbolsRefLink",
+     ShowStringCharacters->True,
+     FontFamily->"Source Sans Pro"],
+    BaseStyle->Dynamic[
+      FEPrivate`If[
+       CurrentValue["MouseOver"], {
+       "Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]}, {"Link"}]],
+    ButtonData->"paclet:ref/DownValues",
+    ContentPadding->False],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "cadf7cd6-ee99-407d-a5f3-a2375d0be523"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.853853300178873*^9, 
+  3.853853314442195*^9}},ExpressionUUID->"97426df1-86a9-4004-a3e4-\
+97911128c8ab"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", 
+   RowBox[{"MyFunction1", ",", "Identity", ",", 
+    RowBox[{"{", 
+     RowBox[{"SubValues", ",", "1"}], "}"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Definition", "[", "MyFunction1", "]"}]}], "Input",
+ CellChangeTimes->{{3.853853267909831*^9, 3.8538532850738907`*^9}, 
+   3.853853519796044*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"9d51623e-4684-430b-b81b-68ed19fff9a2"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"MyFunction1", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"MyFunction1", "::", "undefined"}], "MessageName"]}], 
+              ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "MyFunction1", "]"}], 
+                "}"}]}], ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "MyFunction1"}], 
+              ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`MyFunction1],
+  Editable->False]], "Output",
+ CellChangeTimes->{
+  3.8538532899455385`*^9, {3.8538533515060344`*^9, 3.8538533658177443`*^9}, 
+   3.853854296039548*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"128198f9-8b67-4161-b478-b57b5c7cc7a5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "119a0246-dda2-4cee-afa6-b27bb6305902"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"4a244b37-0af5-42dc-b746-\
+2a1551b7e1a6"],
+
+Cell[TextData[{
+ "Zero levels of ",
+ Cell[BoxData[
+  TagBox[
+   ButtonBox[
+    StyleBox["SubValues", "SymbolsRefLink",
+     ShowStringCharacters->True,
+     FontFamily->"Source Sans Pro"],
+    BaseStyle->Dynamic[
+      FEPrivate`If[
+       CurrentValue["MouseOver"], {
+       "Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]}, {"Link"}]],
+    ButtonData->"paclet:ref/SubValues",
+    ContentPadding->False],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "69864240-0167-4efd-b650-cfaab235a1be"],
+ " is equivalent to ",
+ Cell[BoxData[
+  TagBox[
+   ButtonBox[
+    StyleBox["OwnValues", "SymbolsRefLink",
+     ShowStringCharacters->True,
+     FontFamily->"Source Sans Pro"],
+    BaseStyle->Dynamic[
+      FEPrivate`If[
+       CurrentValue["MouseOver"], {
+       "Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]}, {"Link"}]],
+    ButtonData->"paclet:ref/OwnValues",
+    ContentPadding->False],
+   MouseAppearanceTag["LinkHand"]]], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "cc9cdc44-8275-4d5c-bbd1-9561ffd31f9e"],
+ ":"
+}], "Text",
+ CellChangeTimes->{{3.853853300178873*^9, 
+  3.853853338567359*^9}},ExpressionUUID->"148eb524-b5d3-4858-b45d-\
+5a19953b16da"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", 
+   RowBox[{"MyFunction0", ",", "Identity", ",", 
+    RowBox[{"{", 
+     RowBox[{"SubValues", ",", "0"}], "}"}]}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"Definition", "[", "MyFunction0", "]"}]}], "Input",
+ CellChangeTimes->{{3.853853267909831*^9, 3.8538532850738907`*^9}, 
+   3.8538533423128276`*^9, {3.8538533780834885`*^9, 3.853853381623914*^9}, 
+   3.8538535215298057`*^9},
+ CellLabel->"In[1]:=",ExpressionUUID->"bdf45a16-2c69-4d0c-b97c-a93dbbd89b1d"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", "MyFunction0", "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"MyFunction0", "::", "undefined"}], "MessageName"]}], 
+              ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "MyFunction0", "]"}], 
+                "}"}]}], ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "OwnValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "MyFunction0"}], 
+              ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`MyFunction0],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.8538532899455385`*^9, 3.8538533922695017`*^9, 
+  3.8538542960595493`*^9},
+ CellLabel->"Out[2]=",ExpressionUUID->"b1bcdcbf-f214-4229-894b-3eafd27c9c63"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "5c1b1bc9-e800-4e80-816f-a0adbecf41e7"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"a339fb49-ee7c-485e-9bce-\
+7b453cc42ae8"],
+
+Cell[TextData[{
+ Cell[BoxData["FailWhenUndefined"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "c8d64e82-cd92-4291-ab1a-4b144ff0e438"],
+ " always appends definitions so that it will not rewrite existing ones:"
+}], "Text",
+ CellChangeTimes->{{3.8538544297235146`*^9, 
+  3.853854461497794*^9}},ExpressionUUID->"3aff785e-0869-488b-96c5-\
+29c27b68390d"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "MyFunction", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"MyFunction", "[", "x_", "]"}], ":=", 
+   RowBox[{"x", "+", "1"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"expr$", ":", 
+    RowBox[{"HoldPattern", "[", 
+     RowBox[{"MyFunction", "[", "___", "]"}], "]"}]}], ":=", 
+   RowBox[{"Failure", "[", 
+    RowBox[{"\"\<MyFailure\>\"", ",", 
+     RowBox[{"<|", 
+      RowBox[{"\"\<Expression\>\"", ":>", "expr$"}], "|>"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "MyFunction", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8538543881457834`*^9, 3.8538544119456024`*^9}, {
+  3.853854469212685*^9, 3.8538544899837227`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"d5e693a7-74e4-4cd0-bbee-f866121a6849"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Definition", "[", "MyFunction", "]"}]], "Input",
+ CellChangeTimes->{{3.8538544170125737`*^9, 3.8538544182109423`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"94e27855-0bce-4e11-84f2-b874654436ac"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"MyFunction", "[", "x_", "]"}], ":=", 
+         RowBox[{"x", "+", "1"}]}]},
+       {" "},
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"MyFunction", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Failure", "[", 
+          RowBox[{"\<\"MyFailure\"\>", ",", 
+           RowBox[{"Association", "[", 
+            RowBox[{"\<\"Expression\"\>", "\[RuleDelayed]", "expr$"}], 
+            "]"}]}], "]"}]}]},
+       {" "},
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"MyFunction", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"MyFunction", "::", "undefined"}], "MessageName"]}], 
+              ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "MyFunction", "]"}], "}"}]}],
+               ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "MyFunction"}], ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`MyFunction],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.8538544187889447`*^9, 3.8538544958195105`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"7514a64d-f683-4d7a-b6de-6f99348abd93"]
+}, Open  ]],
+
+Cell[TextData[{
+ "In this case, the definition created by ",
+ Cell[BoxData["FailWhenUndefined"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "abdc2298-9a88-4718-9cd6-7644752265f0"],
+ " is unreachable:"
+}], "Text",
+ CellChangeTimes->{{3.8538545343372335`*^9, 
+  3.8538545504384146`*^9}},ExpressionUUID->"073ce8df-d102-4e0a-84cd-\
+2f53f5beef9c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MyFunction", "[", 
+  RowBox[{"1", ",", "2"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8538544992005177`*^9, 3.853854502067539*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"a613ac4a-30ce-4306-8450-06f05b7abe12"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Expression\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{"MyFunction", "[", 
+                    RowBox[{"1", ",", "2"}], "]"}], HoldForm], 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["\"MyFailure\"", HoldForm], "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Expression\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{"MyFunction", "[", 
+                    RowBox[{"1", ",", "2"}], "]"}], HoldForm], 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Tag\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["\"MyFailure\"", HoldForm], "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["MyFailure", <|"Expression" :> $CellContext`MyFunction[1, 2]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8538545031077614`*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"29071118-2b0f-46ca-9a65-c70587f33bfa"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Possible Issues", "Subsection",
+ CellLabel->"In[3]:=",ExpressionUUID->"62ae7414-3d10-46bc-8bed-25825706cc67"],
+
+Cell[TextData[{
+ "Definitions created by ",
+ Cell[BoxData["FailWhenUndefined"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "e6ae7f67-ea80-401f-b7f1-f190be78b2a7"],
+ " may be overwritten by other definitions, so it should be used after all \
+other definitions have been created for a symbol in order to avoid unexpected \
+results:"
+}], "Text",
+ CellChangeTimes->{{3.8538544297235146`*^9, 3.853854461497794*^9}, {
+  3.8538546331212444`*^9, 3.8538546590223656`*^9}, {3.8538546999508085`*^9, 
+  3.8538547206685405`*^9}},ExpressionUUID->"cc629468-f805-4dee-8257-\
+3689e6c4a655"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "MyFunction", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "MyFunction", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"MyFunction", "[", "x___", "]"}], ":=", 
+   RowBox[{"x", "+", "1"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8538543881457834`*^9, 3.8538544119456024`*^9}, {
+  3.853854469212685*^9, 3.8538544899837227`*^9}, {3.8538546090819016`*^9, 
+  3.8538546258423142`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"f4ab92a5-fc8f-4579-b623-718dc636c8aa"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Definition", "[", "MyFunction", "]"}]], "Input",
+ CellChangeTimes->{{3.8538544170125737`*^9, 3.8538544182109423`*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"f2a71b11-3bc3-43fd-bdaa-601c348d9527"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"MyFunction", "[", "x___", "]"}], ":=", 
+         RowBox[{"x", "+", "1"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`MyFunction],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.8538544187889447`*^9, 3.8538544958195105`*^9, 
+  3.853854666920071*^9, 3.8538547380936036`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"256c00ce-2491-4490-80eb-82727ad29522"]
+}, Open  ]],
+
+Cell[TextData[{
+ "Always apply ",
+ Cell[BoxData["FailWhenUndefined"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "cfdf67c2-441d-4793-994e-0e6024befeab"],
+ " last:"
+}], "Text",
+ CellChangeTimes->{{3.8538547592748384`*^9, 
+  3.853854765927766*^9}},ExpressionUUID->"bf209e1d-2820-4b18-8016-\
+e56a38cc2bde"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "MyFunction", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"MyFunction", "[", "x___", "]"}], ":=", 
+   RowBox[{"x", "+", "1"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "MyFunction", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8538543881457834`*^9, 3.8538544119456024`*^9}, {
+  3.853854469212685*^9, 3.8538544899837227`*^9}, {3.8538546090819016`*^9, 
+  3.8538546258423142`*^9}, {3.853854755052313*^9, 3.853854755914429*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"381a9f8d-f9c8-4802-a293-02bc58a873d8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Definition", "[", "MyFunction", "]"}]], "Input",
+ CellChangeTimes->{{3.8538544170125737`*^9, 3.8538544182109423`*^9}},
+ CellLabel->"In[8]:=",ExpressionUUID->"a67a4a7e-da89-4f76-87b9-49de7772a013"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"MyFunction", "[", "x___", "]"}], ":=", 
+         RowBox[{"x", "+", "1"}]}]},
+       {" "},
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"MyFunction", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"MyFunction", "::", "undefined"}], "MessageName"]}], 
+              ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "MyFunction", "]"}], "}"}]}],
+               ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "MyFunction"}], ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`MyFunction],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.8538544187889447`*^9, 3.8538544958195105`*^9, 
+  3.853854666920071*^9, 3.8538547380936036`*^9, 3.853854770405169*^9},
+ CellLabel->"Out[8]=",ExpressionUUID->"1f809734-98b5-4c85-a3ed-8a1fa0a167d5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "07d0bb91-0244-42bb-9a96-b8bed2dab28a"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"5e50a0ac-c39e-4483-94e1-\
+3bc22dbfafa3"],
+
+Cell[TextData[{
+ Cell[BoxData["FailWhenUndefined"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "5b70b2f2-a716-41ba-a349-eee17d481bd9"],
+ " defines a message for the given symbol:"
+}], "Text",
+ CellChangeTimes->{{3.8538539358010683`*^9, 
+  3.8538539500480237`*^9}},ExpressionUUID->"64feb704-7518-4fc1-ad0d-\
+abebb02f4354"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "MyFunction", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "MyFunction", "]"}], ";"}]}], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"1fecca4e-db75-4ac1-9ede-0ffaa3e77151"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Messages", "[", "MyFunction", "]"}]], "Input",
+ CellChangeTimes->{{3.853853923899218*^9, 3.8538539264490166`*^9}},
+ CellLabel->"In[3]:=",ExpressionUUID->"a91e51d7-0818-46c7-87bd-b6a43bf7c933"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"HoldPattern", "[", 
+    StyleBox[
+     RowBox[{"MyFunction", "::", "undefined"}], "MessageName"], "]"}], 
+   "\[RuleDelayed]", "\<\"Encountered an undefined pattern for `1`.\"\>"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{3.85385392683504*^9, 3.853854060769767*^9, 
+  3.8538543028658333`*^9},
+ CellLabel->"Out[3]=",ExpressionUUID->"01ebe46d-4cd6-4f9a-8e15-f8d2dd9ef64c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MyFunction", "[", 
+  RowBox[{"1", ",", "2", ",", "3"}], "]"}]], "Input",
+ CellChangeTimes->{{3.8538540625071545`*^9, 3.8538540644162407`*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"5ada8901-d5dc-4638-a228-94ff0ddbb7e4"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "MyFunction", "undefined", 
+   "\"Encountered an undefined pattern for \
+\\!\\(\\*RowBox[{\\\"MyFunction\\\"}]\\).\"", 2, 4, 29, 33988181256692735228, 
+   "Local", "Global`MyFunction"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.853854065000243*^9, 3.8538543028808346`*^9},
+ CellLabel->
+  "During evaluation of \
+In[4]:=",ExpressionUUID->"45389d8f-90c6-4dca-a059-294039ad7530"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"MyFunction\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"MyFunction\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["DownValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["MyFunction", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{"MyFunction", "[", 
+                    RowBox[{"1", ",", "2", ",", "3"}], "]"}], HoldForm], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["Undefined", <|"MessageParameters" :> {
+      HoldForm[$CellContext`MyFunction]}, "MessageTemplate" :> 
+    MessageName[$CellContext`MyFunction, "undefined"], "Type" :> DownValues, 
+    "Symbol" :> $CellContext`MyFunction, 
+    "Input" :> $CellContext`MyFunction[1, 2, 3]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8538540650112395`*^9, 3.8538543028898354`*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"f9242f18-2366-485b-82fb-e8e7969cd13a"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "f8751588-cd2a-4b00-8a15-1bd5e3ff3265"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"f9a6133e-e673-4706-aa31-\
+2d347d0ff82c"],
+
+Cell[TextData[{
+ "If the \"undefined\" message tag already exists for the given symbol, ",
+ Cell[BoxData["FailWhenUndefined"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "7bb6b4b0-09c6-4631-8032-33336fb9e6b6"],
+ " will be used instead:"
+}], "Text",
+ CellChangeTimes->{{3.853854071907025*^9, 
+  3.8538541307424517`*^9}},ExpressionUUID->"7f9b8936-924e-4add-bc2e-\
+3d9283c2a270"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "MyFunction", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"MyFunction", "::", "undefined"}], "=", 
+   "\"\<My custom message\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "MyFunction", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.853853803341696*^9, 3.8538538178237467`*^9}, {
+  3.85385401363631*^9, 3.8538540308006573`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"d6a75a72-a858-4a42-822a-d121c3fa42e1"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"MyFunction", "[", 
+  RowBox[{"1", ",", "2", ",", "3"}], "]"}]], "Input",
+ CellChangeTimes->{{3.85385405191859*^9, 3.8538540530059023`*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"fb0ce525-fa09-4352-ae53-28646a8a5178"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "FailWhenUndefined", "undefined", 
+   "\"Encountered an undefined pattern for \
+\\!\\(\\*RowBox[{\\\"MyFunction\\\"}]\\).\"", 2, 4, 30, 33988181256692735228, 
+   "Local", "Global`FailWhenUndefined"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellChangeTimes->{3.853854053849904*^9, 3.853854139876382*^9, 
+  3.853854302919835*^9},
+ CellLabel->
+  "During evaluation of \
+In[4]:=",ExpressionUUID->"1ebe6483-844f-4394-add9-028d74a590ba"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["Failure",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{
+      PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"MyFunction\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              BaseStyle -> {}, Evaluator -> Automatic, Method -> 
+              "Preemptive"], Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 
+                3.5 (CurrentValue["FontCapHeight"]/AbsoluteCurrentValue[
+                 Magnification])}]], 
+            FrameBox[
+             StyleBox["\"\[WarningSign]\"", 
+              Directive["Message", 35], StripOnInput -> False], 
+             ContentPadding -> False, FrameStyle -> None, 
+             FrameMargins -> {{0, 0}, {0, 0}}, StripOnInput -> False], 
+            GridBox[{{
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Message: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox[
+                   "\"Encountered an undefined pattern for \\!\\(\\*TagBox[\\\
+\"MyFunction\\\", Function[Short[Slot[1], 5]]]\\).\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               TagBox[
+                GridBox[{{
+                   TagBox["\"Tag: \"", "SummaryItemAnnotation"], 
+                   "\[InvisibleSpace]", 
+                   TagBox["\"Undefined\"", "SummaryItem"]}}, 
+                 GridBoxItemSize -> {"Columns" -> {6.5, All}}, 
+                 GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+                 GridBoxSpacings -> {"Columns" -> {{0}}}], "SummaryItem"]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Type\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["DownValues", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Symbol\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox["MyFunction", HoldForm], "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox[
+                  TemplateBox[{"\"Input\"", "\": \""}, "RowDefault"], 
+                  "SummaryItemAnnotation"], "\[InvisibleSpace]", 
+                 TagBox[
+                  TagBox[
+                   RowBox[{"MyFunction", "[", 
+                    RowBox[{"1", ",", "2", ",", "3"}], "]"}], HoldForm], 
+                  "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
+          AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel"],
+    DynamicModuleValues:>{}], "]"}],
+  Failure["Undefined", <|"MessageParameters" :> {
+      HoldForm[$CellContext`MyFunction]}, "MessageTemplate" :> 
+    MessageName[$CellContext`FailWhenUndefined, "undefined"], "Type" :> 
+    DownValues, "Symbol" :> $CellContext`MyFunction, 
+    "Input" :> $CellContext`MyFunction[1, 2, 3]|>],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.8538540538599005`*^9, 3.85385413988638*^9, 
+  3.853854302928835*^9},
+ CellLabel->"Out[4]=",ExpressionUUID->"c634f892-5593-4c61-bd18-542439ee4982"]
+}, Open  ]],
+
+Cell["The original message is unmodified:", "Text",
+ CellChangeTimes->{{3.8538541441770477`*^9, 
+  3.8538541499319687`*^9}},ExpressionUUID->"b9484e9b-69aa-438c-905e-\
+47c663eb8559"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Messages", "[", "MyFunction", "]"}]], "Input",
+ CellLabel->"In[5]:=",ExpressionUUID->"ae7c9ba1-f38c-4ca1-9dff-89a053761e0e"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"HoldPattern", "[", 
+    StyleBox[
+     RowBox[{"MyFunction", "::", "undefined"}], "MessageName"], "]"}], 
+   "\[RuleDelayed]", "\<\"My custom message\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.853854035403947*^9, 3.853854151018256*^9, 
+  3.853854302950837*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"ae9ae49b-ee11-44e5-8f58-f7e49af42ee8"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ InterpretationBox[Cell[
+  "\t", "ExampleDelimiter",ExpressionUUID->
+   "1537c930-d066-40c3-a568-86e75948ecce"],
+  $Line = 0; 
+  Null]], "ExampleDelimiter",ExpressionUUID->"9fa8bb0a-a756-4814-b7fd-\
+91c89ff42b90"],
+
+Cell[TextData[{
+ "Repeated applications of ",
+ Cell[BoxData["FailWhenUndefined"], "InlineFormula",
+  FontFamily->"Source Sans Pro",ExpressionUUID->
+  "ea333457-5530-4802-b7cd-7151cbb8aa7c"],
+ " will add unreachable definition rules:"
+}], "Text",
+ CellChangeTimes->{{3.8538541680629225`*^9, 
+  3.8538541953707347`*^9}},ExpressionUUID->"8b06476e-9d70-46a2-9010-\
+38c583985756"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"ClearAll", "[", "MyFunction", "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "MyFunction", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "MyFunction", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FailWhenUndefined", "[", "MyFunction", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.8538542038265076`*^9, 3.853854204643952*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"2164015c-68d5-41b3-9448-3bbef63865ed"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Definition", "[", "MyFunction", "]"}]], "Input",
+ CellChangeTimes->{{3.853854208688408*^9, 3.8538542109741497`*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"8f13e79f-96f0-41ac-90a0-6854ca6533fb"],
+
+Cell[BoxData[
+ InterpretationBox[GridBox[{
+    {GridBox[{
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"MyFunction", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"MyFunction", "::", "undefined"}], "MessageName"]}], 
+              ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "MyFunction", "]"}], "}"}]}],
+               ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "MyFunction"}], ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]},
+       {" "},
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"MyFunction", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"FailWhenUndefined", "::", "undefined"}], 
+                "MessageName"]}], ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "MyFunction", "]"}], "}"}]}],
+               ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "MyFunction"}], ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]},
+       {" "},
+       {
+        RowBox[{
+         RowBox[{"expr$", ":", 
+          RowBox[{"HoldPattern", "[", 
+           RowBox[{"MyFunction", "[", "___", "]"}], "]"}]}], ":=", 
+         RowBox[{"Identity", "[", 
+          RowBox[{
+           RowBox[{"ResourceFunction", "[", "\<\"MessageFailure\"\>", "]"}], 
+           "[", 
+           RowBox[{"\<\"Undefined\"\>", ",", 
+            RowBox[{"Association", "[", 
+             RowBox[{
+              RowBox[{"\<\"MessageTemplate\"\>", "\[RuleDelayed]", 
+               StyleBox[
+                RowBox[{"FailWhenUndefined", "::", "undefined"}], 
+                "MessageName"]}], ",", 
+              RowBox[{"\<\"MessageParameters\"\>", "\[Rule]", 
+               RowBox[{"{", 
+                RowBox[{"\<\"HoldForm\"\>", "[", "MyFunction", "]"}], "}"}]}],
+               ",", 
+              RowBox[{"\<\"Type\"\>", "\[Rule]", "DownValues"}], ",", 
+              RowBox[{"\<\"Symbol\"\>", "\[RuleDelayed]", "MyFunction"}], ",", 
+              RowBox[{"\<\"Input\"\>", "\[RuleDelayed]", "expr$"}]}], "]"}]}],
+            "]"}], "]"}]}]}
+      },
+      BaselinePosition->{Baseline, {1, 1}},
+      GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+      GridBoxItemSize->{"Columns" -> {{
+           Scaled[0.999]}}, "Rows" -> {{1.}}}]}
+   },
+   BaselinePosition->{Baseline, {1, 1}},
+   GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+  Definition[$CellContext`MyFunction],
+  Editable->False]], "Output",
+ CellChangeTimes->{3.8538542114451747`*^9, 3.853854302961838*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"f4cb07b9-c734-43c6-8107-393032df8e19"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell["Neat Examples", \
+"Subsection",ExpressionUUID->"3cc9f72f-e480-4715-bfe1-8fdb95eab882"]
+},
+WindowSize->{807., 655.5},
+WindowMargins->{{-1108, Automatic}, {166.5, Automatic}},
+WindowStatusArea->Automatic,
+DockedCells->{
+  Cell[
+   BoxData[
+    TemplateBox[{}, "ToolsGridTemplate"]], "DockedCell", 
+   CellFrameMargins -> {{0, 0}, {2, 2}}, CellFrame -> {{0, 0}, {1, 0}}]},
+TaggingRules-><|
+ "EvaluatedCells" -> <|$Failed -> True|>, "NotebookIndexQ" -> True, 
+  "NotebookLastIndexed" -> 
+  DateObject[{2022, 2, 14, 14, 29, 16.5045025`8.97017738331873}, "Instant", 
+    "Gregorian", -5.], "NotebookUUID" -> 
+  "4dc28550-b601-44f9-acdf-5655ca7b8c61", "AutoUpdate" -> True|>,
+FrontEndVersion->"13.1 for Microsoft Windows (64-bit) (February 13, 2022)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, 
+  "FunctionResourceDefinitionStyles.nb", CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"4dc28550-b601-44f9-acdf-5655ca7b8c61"
+]
+

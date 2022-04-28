@@ -58,9 +58,15 @@ VerificationTest @ verifyExpr[
     "StrictMode" -> True
 ]
 
+VerificationTest @ verifyExpr @ Apply[ Set, x, { 1 } ]
+
+VerificationTest @ verifyExpr @ MapApply[ Set, x ]
+
+VerificationTest @ verifyExpr @ <| "a" -> 1, "b" -> 2, "a" -> 3 |>;
+
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
-(*Expected ooutputs*)
+(*Expected outputs*)
 VerificationTest[
     ToString @ ReadableForm[
         Unevaluated[

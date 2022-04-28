@@ -1,31 +1,83 @@
-BeginPackage[ "RH`ReadableForm`" ];
-
-
-(*
-    TODO:
-
-    * fix `Now + -Quantity[12, "Hours"]`
-    * check `reqParenQ` to determine if Function should be full form
-    * fix excess line break after long Rule|RuleDelayed
-    * allow prefix for Slot, e.g. `func @ #`
-    * don't line break `func[ x ]` if x is only one or two chars
-*)
-
-
+ReadableForm // ClearAll;
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
-(*Definition*)
+(*Initialization*)
+$inDef = False;
+$debug = True;
 
-ReadableForm // ClearAll;
+System`MapApply;
 
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*beginDefinition*)
+beginDefinition // ClearAll;
+beginDefinition // Attributes = { HoldFirst };
+beginDefinition::unfinished = "\
+Starting definition for `1` without ending the current one.";
 
-Begin[ "`Private`" ];
+(* :!CodeAnalysis::BeginBlock:: *)
+(* :!CodeAnalysis::Disable::SuspiciousSessionSymbol:: *)
+beginDefinition[ s_Symbol ] /; $debug && $inDef :=
+    WithCleanup[
+        $inDef = False
+        ,
+        Print @ TemplateApply[ beginDefinition::unfinished, HoldForm @ s ];
+        beginDefinition @ s
+        ,
+        $inDef = True
+    ];
+(* :!CodeAnalysis::EndBlock:: *)
 
+beginDefinition[ s_Symbol ] :=
+    WithCleanup[ Unprotect @ s; ClearAll @ s, $inDef = True ];
 
-  (* ::********************************************************************:: *)
-  (* ::Subsection::Closed:: *)
-  (*Options*)
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*endDefinition*)
+endDefinition // beginDefinition;
+endDefinition // Attributes = { HoldFirst };
 
+endDefinition[ s_Symbol ] := endDefinition[ s, DownValues ];
+
+endDefinition[ s_Symbol, None ] := $inDef = False;
+
+endDefinition[ s_Symbol, DownValues ] :=
+    WithCleanup[
+        AppendTo[ DownValues @ s,
+                  e: HoldPattern @ s[ ___ ] :>
+                      throwInternalFailure @ HoldForm @ e
+        ],
+        $inDef = False
+    ];
+
+endDefinition[ s_Symbol, SubValues  ] :=
+    WithCleanup[
+        AppendTo[ SubValues @ s,
+                  e: HoldPattern @ s[ ___ ][ ___ ] :>
+                      throwInternalFailure @ HoldForm @ e
+        ],
+        $inDef = False
+    ];
+
+endDefinition[ s_Symbol, list_List ] :=
+    endDefinition[ s, # ] & /@ list;
+
+endDefinition // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Section:: *)
+(*Messages*)
+ReadableForm::internal =
+"An unexpected error occurred. `1`";
+
+(* ::**********************************************************************:: *)
+(* ::Section:: *)
+(*Attributes*)
+ReadableForm // Attributes = { };
+
+(* ::**********************************************************************:: *)
+(* ::Section:: *)
+(*Options*)
 $defaultTokens = <| "Comment" -> CommentToken |>;
 
 ReadableForm // Options = {
@@ -45,18 +97,16 @@ ReadableForm // Options = {
     Trace              -> False
 };
 
+(* ::**********************************************************************:: *)
+(* ::Section:: *)
+(*Main definition*)
 
-  (* ::********************************************************************:: *)
-  (* ::Subsection::Closed:: *)
-  (*Formatting*)
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*InputForm*)
-
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*InputForm*)
 ReadableForm /:
     Format[ ReadableForm[ expr_, opts: OptionsPattern[ ] ], InputForm ] :=
-        OutputForm @ formatDataString[
+        catchTop @ OutputForm @ formatDataString[
             expr,
             OptionValue[ ReadableForm, { opts }, "IndentSize"       ],
             OptionValue[ ReadableForm, { opts }, PageWidth          ],
@@ -73,14 +123,12 @@ ReadableForm /:
             OptionValue[ ReadableForm, { opts }, Trace              ]
         ];
 
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*OutputForm*)
-
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*OutputForm*)
 ReadableForm /:
     Format[ ReadableForm[ expr_, opts: OptionsPattern[ ] ], OutputForm ] :=
-        formatDataString[
+        catchTop @ formatDataString[
             expr,
             OptionValue[ ReadableForm, { opts }, "IndentSize"       ],
             OptionValue[ ReadableForm, { opts }, PageWidth          ],
@@ -97,14 +145,12 @@ ReadableForm /:
             OptionValue[ ReadableForm, { opts }, Trace              ]
         ];
 
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*StandardForm*)
-
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*StandardForm*)
 ReadableForm /:
     MakeBoxes[ ReadableForm[ expr_, opts: OptionsPattern[ ] ], StandardForm ] :=
-        Module[
+        catchTop @ Module[
             { boxes, formatNames, fSyms, $$c, n, held, dataString, newBoxes },
 
             formatNames = Cases[
@@ -214,26 +260,176 @@ ReadableForm /:
             newBoxes
         ];
 
-
-  (* ::********************************************************************:: *)
-  (* ::Subsection::Closed:: *)
-  (*UpValues*)
-
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*CopyToClipboard*)
 ReadableForm /:
     HoldPattern[ CopyToClipboard[ data_ReadableForm ] ] :=
-        CopyToClipboard @ ToString @ data;
+        catchTop @ CopyToClipboard @ ToString @ data;
 
-
-(* ::Subsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Section:: *)
 (*Dependencies*)
 
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Macros*)
 
-(* ::Subsubsection:: *)
+(* ::****************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*symbolQ*)
+symbolQ // ClearAll;
+symbolQ // Attributes = { HoldAllComplete };
+symbolQ[ sym_Symbol ] := AtomQ @ Unevaluated @ sym;
+symbolQ[ ___ ] := False;
+
+
+(* ::****************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*inline*)
+inline // beginDefinition;
+inline // Attributes = { HoldAllComplete };
+
+inline[ x_Symbol? symbolQ, expr_ ] :=
+    ReleaseHold[ HoldComplete[ expr ] /. OwnValues @ x ];
+
+inline[ { x_Symbol? symbolQ, xs___ }, expr_ ] :=
+    inline[ x, inline[ { xs }, expr ] ];
+
+inline[ { }, expr_ ] := expr;
+
+inline /: HoldPattern[ SetDelayed ][ lhs_, inline[ x_, rhs_ ] ] :=
+    inline[ x, SetDelayed[ lhs, rhs ] ];
+
+inline // endDefinition;
+
+(* ::****************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*defineLeftOp*)
+defineLeftOp // beginDefinition;
+
+defineLeftOp[ sym_, op_ ] := (
+    format[ e: Verbatim[ sym ][ arg_ ] ] /; fitsOnLineQ @ e :=
+        StringJoin[ op, formatArg[ sym, arg ] ]
+);
+
+defineLeftOp // endDefinition;
+
+(* ::****************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*defineRightOp*)
+defineRightOp // beginDefinition;
+
+defineRightOp[ sym_, op_ ] := (
+    format[ e: Verbatim[ sym ][ arg_ ] ] /; fitsOnLineQ @ e :=
+        StringJoin[ formatArg[ sym, arg ], op ]
+);
+
+defineRightOp // endDefinition;
+
+(* ::****************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*defineBinaryOp*)
+defineBinaryOp // beginDefinition;
+
+defineBinaryOp[ sym_, op_ ] := (
+    format[ e: Verbatim[ sym ][ lhs_, rhs_ ] ] /; fitsOnLineQ @ e :=
+        verifyLength[
+            StringJoin[ formatLHS[ sym, lhs ], op, formatRHS[ sym, rhs ] ],
+            cFormat @ e
+        ]
+);
+
+defineBinaryOp // endDefinition;
+
+(* ::****************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*defineMultiOp*)
+defineMultiOp // beginDefinition;
+
+defineMultiOp[ sym_, op_ ] := (
+    format[ e: Verbatim[ sym ][ first_, rest__ ] ] /; fitsOnLineQ @ e :=
+        StringJoin[
+            formatArg[ sym, first ],
+            op,
+            StringRiffle[ formatArgList[ sym, rest ], op ]
+        ]
+);
+
+defineMultiOp // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Caching*)
+
+(* ::******************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cached*)
+cached // beginDefinition;
+cached // Attributes = { HoldAllComplete };
+
+cached[ eval_ ] := With[ { st = $state }, cached[ st, eval ] ];
+cached[ state_, eval_ ] := cached[ state, Verbatim @ eval ] = eval;
+
+cached // endDefinition;
+
+(* ::******************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cFormat*)
+cFormat // beginDefinition;
+cFormat // Attributes = { HoldAllComplete };
+cFormat[ arg_ ] /; $fCache := cached @ trace @ format @ arg;
+cFormat[ arg_ ] := trace @ format @ arg;
+cFormat // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*trace*)
+trace // beginDefinition;
+trace // Attributes = { HoldFirst };
+
+trace[ eval_ ] /; $trace :=
+    With[ { uuid = CreateUUID[ ] },
+        Internal`StuffBag[ $traces, uuid -> HoldForm @ eval ];
+        With[ { res = eval },
+            Internal`StuffBag[ $traces, uuid -> HoldForm @ res ];
+            res
+        ]
+    ];
+
+trace[ eval_ ] := eval;
+
+$traces = Internal`Bag[ ];
+
+trace // endDefinition;
+
+(* ::******************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$state*)
+$state // ClearAll;
+
+$state := {
+    $fancyAlign,
+    $fastMode,
+    $formatEncoding,
+    $indentSize,
+    $level,
+    $pageWidth,
+    $prefix,
+    $prefixEnabled,
+    $relativeWidth,
+    $retry,
+    $trace
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Formatting*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*formatDataString*)
-
-
-formatDataString // ClearAll;
-
+formatDataString // beginDefinition;
 
 formatDataString[
     data_,
@@ -279,10 +475,13 @@ formatDataString[
         ]
     ];
 
+formatDataString // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*replaceTokens*)
+replaceTokens // beginDefinition;
+
 replaceTokens[ expr_, tokens_Association? AssociationQ ] :=
     ReplaceAll[
         expr,
@@ -291,165 +490,19 @@ replaceTokens[ expr_, tokens_Association? AssociationQ ] :=
 
 replaceTokens[ expr_, ___ ] := expr;
 
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*Macros*)
-
-
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*symbolQ*)
-
-symbolQ // ClearAll;
-symbolQ // Attributes = { HoldAllComplete };
-symbolQ[ sym_Symbol ] := AtomQ @ Unevaluated @ sym;
-
-
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*inline*)
-
-inline // ClearAll;
-inline // Attributes = { HoldAllComplete };
-
-inline[ x_Symbol? symbolQ, expr_ ] :=
-    ReleaseHold[ HoldComplete[ expr ] /. OwnValues @ x ];
-
-inline[ { x_Symbol? symbolQ, xs___ }, expr_ ] :=
-    inline[ x, inline[ { xs }, expr ] ];
-
-inline[ { }, expr_ ] := expr;
-
-inline /: HoldPattern[ SetDelayed ][ lhs_, inline[ x_, rhs_ ] ] :=
-    inline[ x, SetDelayed[ lhs, rhs ] ];
-
-
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*defineLeftOp*)
-
-defineLeftOp // ClearAll;
-defineLeftOp[ sym_, op_ ] := (
-    format[ e: Verbatim[ sym ][ arg_ ] ] /; fitsOnLineQ @ e :=
-        StringJoin[ op, formatArg[ sym, arg ] ]
-);
-
-
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*defineRightOp*)
-
-defineRightOp // ClearAll;
-defineRightOp[ sym_, op_ ] := (
-    format[ e: Verbatim[ sym ][ arg_ ] ] /; fitsOnLineQ @ e :=
-        StringJoin[ formatArg[ sym, arg ], op ]
-);
-
-
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*defineBinaryOp*)
-
-defineBinaryOp // ClearAll;
-defineBinaryOp[ sym_, op_ ] := (
-    format[ e: Verbatim[ sym ][ lhs_, rhs_ ] ] /; fitsOnLineQ @ e :=
-        verifyLength[
-            StringJoin[ formatLHS[ sym, lhs ], op, formatRHS[ sym, rhs ] ],
-            cFormat @ e
-        ]
-);
-
-
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*defineMultiOp*)
-
-defineMultiOp // ClearAll;
-defineMultiOp[ sym_, op_ ] := (
-    format[ e: Verbatim[ sym ][ first_, rest__ ] ] /; fitsOnLineQ @ e :=
-        StringJoin[
-            formatArg[ sym, first ],
-            op,
-            StringRiffle[ formatArgList[ sym, rest ], op ]
-        ]
-);
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*cached*)
-
-cached // ClearAll;
-cached // Attributes = { HoldAllComplete };
-
-cached[ eval_ ] := With[ { st = $state }, cached[ st, eval ] ];
-cached[ state_, eval_ ] := cached[ state, Verbatim @ eval ] = eval;
-
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*cFormat*)
-
-cFormat // ClearAll;
-cFormat // Attributes = { HoldAllComplete };
-cFormat[ arg_ ] /; $fCache := cached @ trace @ format @ arg;
-cFormat[ arg_ ] := trace @ format @ arg;
+replaceTokens // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
-(*trace*)
-trace // ClearAll;
-trace // Attributes = { HoldFirst };
-
-trace[ eval_ ] /; $trace :=
-    With[ { uuid = CreateUUID[ ] },
-        Internal`StuffBag[ $traces, uuid -> HoldForm @ eval ];
-        With[ { res = eval },
-            Internal`StuffBag[ $traces, uuid -> HoldForm @ res ];
-            res
-        ]
-    ];
-
-trace[ eval_ ] := eval;
-
-$traces = Internal`Bag[ ];
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*$state*)
-
-$state // ClearAll;
-
-
-$state :=
-    {
-        $fancyAlign,
-        $fastMode,
-        $formatEncoding,
-        $indentSize,
-        $level,
-        $pageWidth,
-        $prefix,
-        $prefixEnabled,
-        $relativeWidth,
-        $retry,
-        $trace
-    };
-
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*withIndent*)
-
-withIndent // ClearAll;
+(*withIndent*)
+withIndent // beginDefinition;
 withIndent // Attributes = { HoldAllComplete };
 withIndent[ eval_ ] := Internal`WithLocalSettings[ $level++, eval, $level-- ];
+withIndent // endDefinition;
 
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*formatArgLines*)
-
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*formatArgLines*)
 formatArgLines // ClearAll;
 formatArgLines // Attributes = { HoldAllComplete };
 formatArgLines[ args___ ] :=
@@ -457,19 +510,16 @@ formatArgLines[ args___ ] :=
            a_ :> StringJoin[ indent[ ], cFormat @ a ]
     ];
 
-
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*verifyLength*)
-
-verifyLength // ClearAll;
-
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*verifyLength*)
+verifyLength // beginDefinition;
 verifyLength // Attributes = { HoldRest };
 
 verifyLength[ str_, retry_ ] /; $retry := verifyLength[ str, retry, 0 ];
 
 verifyLength[ str_, retry_, n_ ] /; n <= 3 && $retryDepth <= 10 :=
-    Module[ { split, max, over, new, newWidth },
+    Module[ { split, max, over, newWidth },
         split = StringSplit[ str, "\n" ];
         max = Max[ StringLength /@ split ];
         over = max - currentLineWidth[ ];
@@ -485,13 +535,13 @@ verifyLength[ str_, retry_, n_ ] /; n <= 3 && $retryDepth <= 10 :=
 
 verifyLength[ str_, __ ] := str;
 
-
 $retryDepth = 0;
 
+verifyLength // endDefinition;
 
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*format*)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*format*)
 
 format // ClearAll;
 
@@ -522,9 +572,9 @@ With[ { a = <| |> },
 format[{}] := "{ }";
 
 
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*Symbol Definitions*)
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*Symbol Definitions*)
 
 (* !ClearAll *)
 format[ ClearAll[ s_Symbol? symbolQ ] ] :=
@@ -579,9 +629,9 @@ format[ TagSet[ sym_Symbol, lhs_, rhs_ ] ] :=
         ]
     ];
 
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*Patterns*)
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*Patterns*)
 
 $bHead = (Blank|BlankSequence|BlankNullSequence);
 $blank = $bHead[ _Symbol ] | $bHead[ ];
@@ -742,9 +792,9 @@ format[ Verbatim[ PatternTest ][ p_, f_ ] ] :=
     StringJoin[ formatLHS[ PatternTest, p ], "? (", cFormat @ f, ")" ];
 
 
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*Flow Control*)
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*Flow Control*)
 
 (*
     TODO:
@@ -845,9 +895,9 @@ format[ if: If[ cond_, then_, else_ ] ] :=
   ];
 
 
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*Scoping Constructs*)
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*Scoping Constructs*)
 
 
 $scopeFunc = Alternatives[
@@ -901,97 +951,12 @@ format[ (h: $scopeFunc)[ { syms___ }, args__ ] ] :=
     ];
 
 
-      (* ::****************************************************************:: *)
-      (* ::Subsubsubsection::Closed:: *)
-      (*Other*)
-
-(* format[ m: Map[ f_, l_ ] ] /; fitsOnLineQ @ m :=
-  Module[ { str, fF, lF, fStr, lStr },
-      str  = toString @ Map[ f, l ];
-      fF   = cFormat @ f;
-      lF   = cFormat @ l;
-      fStr = If[ StringStartsQ[ str, "(" ], StringJoin[ "(", fF, ")" ], fF ];
-      lStr = If[ StringEndsQ[   str, ")" ], StringJoin[ "(", lF, ")" ], lF ];
-      StringJoin[ fStr, " /@ ", lStr ]
-  ]; *)
-
-(* TODO: define bin op *)
-(* format[ m: Map[ f_, l_ ] ] /; fitsOnLineQ @ m :=
-    StringJoin[ formatLHS[ Map, f ], " /@ ", formatRHS[ Map, l ] ]; *)
-
-
-
-
-(* format[ expr: Function[ e_ ][ a___ ] ] /; fitsOnLineQ[ expr, 8 ] :=
-    StringJoin[
-        "Function[ ",
-        Block[ { $singleSlot = singleSlotQ @ Function[ e ] }, cFormat @ e ],
-        " ][ ",
-        Riffle[ formatArgList[ None, a ], ", " ],
-        " ]"
-    ];
-
-
-format[ expr: Function[ e_ ][ a___ ] ] :=
-    StringJoin[
-        Block[ { $singleSlot = singleSlotQ @ Function @ e }, cFormat @ Function @ e ],
-        "[\n",
-        Internal`WithLocalSettings[
-            $level++,
-            Riffle[
-                List @@ Map[
-                    Function[Null, StringJoin[indent[], cFormat[#1]], {HoldAllComplete}],
-                    HoldComplete @ a
-                ],
-                ",\n"
-            ],
-            $level--
-        ],
-        "\n",
-        indent[$level],
-        "]"
-    ];
-
-
-singleSlotQ[ func_ ] :=
-    FreeQ[ DeleteCases[ HoldComplete @ func,
-                        _Function,
-                        { 2, Infinity },
-                        Heads -> True
-           ],
-           ($$slot|Slot|SlotSequence)[ Except[ 1 ] ]
-    ];
-
-
-format[ f: Function[ e_ ] ] /; fitsOnLineQ[ f, 8 ] :=
-    Block[ { $singleSlot = singleSlotQ @ f },
-        StringJoin[ "Function[ ", cFormat @ e, " ]" ]
-    ];
-
-
-format[ f: Function[ e_ ] ] :=
-    Block[ { $singleSlot = singleSlotQ @ f },
-        StringJoin[
-            "Function[\n",
-            Internal`WithLocalSettings[
-                $level++,
-                StringJoin[ indent[], cFormat @ e ],
-                $level--
-            ],
-            "\n",
-            indent[$level],
-            "]"
-        ]
-    ]; *)
-
-
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*Other*)
 format[ $key[ k_ ] -> $value[ v_ ] ] := cFormat @ Rule[ k, v ];
-
-
 format[ $key[ k_ ] -> $delayed[ v_] ] := cFormat @ RuleDelayed[ k, v ];
 
-
-(* format[ ($key|$value|$delayed)[ expr_ ] ] := cFormat @ expr; *)
 format[ $key[     expr_ ] ] := formatLHS[ Rule, expr ];
 format[ $value[   expr_ ] ] := formatRHS[ Rule, expr ];
 format[ $delayed[ expr_ ] ] := formatRHS[ RuleDelayed, expr ];
@@ -1059,16 +1024,6 @@ format[ RuleDelayed[ a_, b_ ] ] :=
         "\n"
     ];
 
-
-(* format[ NumericArray[ array_List, args___ ] ] :=
-  With[ { compressed = Compress @ array },
-      format[ NumericArray[ CompressedData @ compressed, args ] ]
-  ] /; ArrayQ[ Unevaluated @ array,
-               2|3,
-               Function[ Null, NumericQ @ Unevaluated @ ##, HoldAllComplete ]
-       ]; *)
-
-
 format[ na_NumericArray? Developer`NumericArrayQHold ] :=
   ToExpression[ ToString[ na, InputForm ],
                 InputForm,
@@ -1079,25 +1034,6 @@ format[ na_NumericArray? Developer`NumericArrayQHold ] :=
 format[ PacletObject[ info_Association ] ] :=
     StringJoin[ "PacletObject[ ", cFormat @ info, " ]" ];
 
-
-(* format[ r: Set[ a_, b_ ] ] :=
-    Module[ { lhs, rhs },
-        lhs = Block[ { $prefix = False }, formatLHS[ Set, a ] ];
-        rhs = formatRHS[ Set, b ];
-        StringJoin[ lhs, " = ", rhs ]
-    ]; *)
-
-
-(* format[ CompoundExpression[ a_, Null ] ] :=
-    StringDelete[ cFormat[a], Longest[WhitespaceCharacter...]~~EndOfString ] <> ";";
-
-
-format[CompoundExpression[a__, b: Except[ Null ], Null]] :=
-  StringDelete[ cFormat[CompoundExpression[a, b]], Longest[WhitespaceCharacter...]~~EndOfString ] <> ";"; *)
-
-
-(* format[ CompoundExpression[ a_, b__, Null ] ] :=
-    StringRiffle[ formatArgList[ CompoundExpression, a, b ], "; " ] <> ";"; *)
 
 ceAppend // ClearAll;
 ceAppend[ str_ ] :=
@@ -1122,8 +1058,6 @@ format[ CompoundExpression[ a_, b__ ] ] :=
 ceFormat // ClearAll;
 ceFormat // Attributes = { HoldAllComplete };
 
-(* ceFormat[ ce: CompoundExpression[ a___ ] ] /; fitsOnLineQ @ ce  :=
-    StringRiffle[ formatArgList[ CompoundExpression, a ], "; " ]; *)
 
 ceFormat[ CompoundExpression[ a___ ] ] :=
     Module[ { strings, lines },
@@ -1149,6 +1083,8 @@ ceFormat[ CompoundExpression[ a___ ] ] :=
 (* ::**********************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*Arithmetic Weirdness*)
+
+(* !Plus *)
 format[ e: Verbatim[ Plus ][ a_ ] ] /; fitsOnLineQ @ e :=
     With[ { str = formatArg[ Plus, a ] },
         If[ StringStartsQ[ str, "-" ],
@@ -1162,6 +1098,13 @@ format[ e: Verbatim[ Plus ][ a_, b__ ] ] /; fitsOnLineQ @ e :=
         args = formatArgList[ Plus, a, b ];
         formatted = formatOrderlessStrings[ args, "+" ];
         StringJoin @ formatted /; MatchQ[ formatted, { __String } ]
+    ];
+
+(* !Times *)
+format[ e: Verbatim[ Times ][ a_, Power[ b_, -1 ] ] ] /; fitsOnLineQ @ e :=
+    verifyLength[
+        formatLHS[ Times, a ] <> " / " <> formatRHS[ Times, b ],
+        cFormat @ e
     ];
 
 format[ e: Verbatim[ Times ][ -1, a_ ] ] /; fitsOnLineQ @ e :=
@@ -1210,7 +1153,7 @@ formatPlusString[ x_String, op_String ] :=
 (*Misc Operators*)
 defineBinaryOp[ AddTo        , " += "  ]; (* !AddTo        *)
 defineBinaryOp[ Apply        , " @@ "  ]; (* !Apply        *)
-defineBinaryOp[ Apply1       , " @@@ " ]; (* !Apply1       *)
+defineBinaryOp[ MapApply     , " @@@ " ]; (* !MapApply     *)
 defineBinaryOp[ ApplyTo      , " //= " ]; (* !ApplyTo      *)
 defineBinaryOp[ DivideBy     , " /= "  ]; (* !DivideBy     *)
 defineBinaryOp[ Greater      , " > "   ]; (* !Greater      *)
@@ -1222,7 +1165,6 @@ defineBinaryOp[ ReplaceAll   , " /. "  ]; (* !ReplaceAll   *)
 defineBinaryOp[ SubtractFrom , " -= "  ]; (* !SubtractFrom *)
 defineBinaryOp[ TimesBy      , " *= "  ]; (* !TimesBy      *)
 
-
 defineMultiOp[ Alternatives    , " | "   ]; (* !Alternatives     *)
 defineMultiOp[ And             , " && "  ]; (* !And              *)
 defineMultiOp[ Plus            , " + "   ]; (* !Plus             *)
@@ -1231,7 +1173,6 @@ defineMultiOp[ Span            , ";;"    ]; (* !Span             *)
 defineMultiOp[ StringExpression, " ~~ "  ]; (* !StringExpression *)
 defineMultiOp[ StringJoin      , " <> "  ]; (* !StringJoin       *)
 defineMultiOp[ UnsameQ         , " =!= " ]; (* !UnsameQ          *)
-
 
 defineLeftOp[ Not         , "! " ]; (* !Not          *)
 defineLeftOp[ PreDecrement, "--" ]; (* !PreDecrement *)
@@ -1242,22 +1183,8 @@ defineRightOp[ Increment, "++" ]; (* !Increment *)
 defineRightOp[ Function , " &" ]; (* !Function  *)
 
 
-(* TODO: fix `a-b` ending up as `a + -b` on long lines *)
-format[ e: Times[ _, Power[ _, -1 ] ] ] /; fitsOnLineQ @ e := toString @ e;
-(* format[ e_Times ] /; fitsOnLineQ @ e := toString @ e; *)
 
 format[ e: Power[ ___ ] ] /; fitsOnLineQ @ e := toString @ e;
-
-(* Apply *)
-format[ e: Apply[ f_, x_, { 1 } ] ] /;
-    ! reqParenQ[ Apply, f ] && ! reqParenQ[ Apply, x ] && fitsOnLineQ @ e :=
-        With[ { str = cFormat @ Apply1[ f, x ] },
-            str /; stringFitsOnLineQ @ str
-        ];
-
-prec @ Apply1 = prec @ Apply;
-
-Apply1 /: Format[ Apply1, InputForm ] := Apply;
 
 
 (* !Part *)
@@ -1319,17 +1246,6 @@ format[ e: MessageName[ sym_? symbolQ, tag_String ] ] /;
             ]
         ];
 
-(* format[ Not[ expr_ ] ] :=
-  "! " <> formatArg[ Not, expr ] /; StringStartsQ[ toString @ Not @ expr, "!"|" !" ]; *)
-
-
-(* format[ and: And[ a_, b__ ] ] /; fitsOnLineQ @ and :=
-    StringRiffle[ formatArgList[ And, a, b ], " && " ];
-
-
-format[ sameQ: SameQ[ a_, b__ ] ] /; fitsOnLineQ @ sameQ :=
-    StringRiffle[ formatArgList[ SameQ, a, b ], " === " ]; *)
-
 
 format[ e: (f_[ a___ ])[ g_ ] ] /; prefixQ @ f @ a :=
   Module[ { fs, h, fas, gs },
@@ -1341,7 +1257,7 @@ format[ e: (f_[ a___ ])[ g_ ] ] /; prefixQ @ f @ a :=
 
 
 format[ e: f_[ g_[ args___ ] ] ] /; prefixQ @ e && AtomQ @ Unevaluated @ f :=
-  Module[ { full, fs, gs, hs, pform },
+  Module[ { full, fs, gs, hs },
       full = Block[ { $prefix = False }, cFormat @ e ];
       If[ stringFitsOnLineQ @ full, Throw[ makePrefix[ e, 0 ], $tag ]];
       fs = cFormat @ f;
@@ -1358,7 +1274,7 @@ format[ e: f_[ g_[ args___ ] ] ] /; prefixQ @ e && AtomQ @ Unevaluated @ f :=
 
 
 format[ e: f_[ x_ ] ] /; prefixQ @ e && AtomQ @ Unevaluated @ f && AtomQ @ Unevaluated @ x :=
-  Module[ { full, fs, gs, hs, pform },
+  Module[ { full },
       full = Block[ { $prefix = False }, cFormat @ e ];
       If[ stringFitsOnLineQ @ full,
           makePrefix[ e, 0 ],
@@ -1474,37 +1390,20 @@ format[assoc_Association /; AssociationQ@Unevaluated@assoc && fitsOnLineQ @ asso
     ];
 
 
-(* format[assoc_Association /; AssociationQ@Unevaluated@assoc] :=
-  With[ { tagged = Global`tagged = tagAssociations @ assoc },
-      Print @ formatAssoc @ tagged;
-      StringJoin[ "<|", "\n",
-          StringTrim[Internal`WithLocalSettings[
-              $level++,
-              StringRiffle[StringTrim[Map[StringJoin[indent[], cFormat[#]] &, Normal@tagged], "\n"], ",\n"],
-              $level--
-          ], "\n"],
-          "\n", indent[$level], "|>"
-      ]
-  ]; *)
-
-
-(* format[ Association[ rules: (_Rule | _RuleDelayed) .. ] ] :=
-  formatAssoc @ ReleaseHold @ Echo @ tagAssociations @ HoldComplete @ { rules }; *)
-
-
-
-format[ assoc: Association[ (_Rule | _RuleDelayed) .. ] ] :=
-    formatAssoc @ tagAssociations @ unevaluatedAssociation @ assoc;
+format[ Association[ rules: (Rule|RuleDelayed)[ _, _ ] ... ] ] :=
+    formatAssoc @ Replace[
+        unevaluatedAssociation @ rules,
+        {
+            Rule[ k_, v_ ] :> $key @ k -> $value @ v,
+            RuleDelayed[ k_, v_ ] :> $key @ k -> $delayed @ v
+        },
+        { 1 }
+    ];
 
 
 
 unevaluatedAssociation // ClearAll;
 unevaluatedAssociation // Attributes = { HoldAllComplete };
-unevaluatedAssociation[ assoc_ ] :=
-    Internal`InheritedBlock[ { Rule, RuleDelayed },
-        SetAttributes[ { Rule, RuleDelayed }, HoldAllComplete ];
-        assoc
-    ];
 
 
 formatAssoc // ClearAll;
@@ -1513,10 +1412,11 @@ formatAssoc[ tagged_ ] /; $fancyAlign :=
     Module[
         {
             normal, ind, indSize, maxKeySize, maxValSize, limit,
-            check, align, checked, aligned
+            check, align, aligned
         },
 
-        normal     = Normal[ tagged, Association ];
+        (* normal     = Normal[ tagged, Association ]; *)
+        normal     = tagged;
         ind        = indent[ ];
         indSize    = StringLength @ ind;
         maxKeySize = 0;
@@ -1557,7 +1457,7 @@ formatAssoc[ tagged_ ] /; $fancyAlign :=
             ];
 
         aligned = Catch[
-            withIndent @ StringRiffle[ align /@ check /@ normal, ",\n" ],
+            withIndent @ StringRiffle[ align /@ (List @@ (check /@ normal)), ",\n" ],
             $tag
         ];
 
@@ -1569,7 +1469,7 @@ formatAssoc[ tagged_ ] /; $fancyAlign :=
                     aligned,
                     withIndent @ StringRiffle[
                         StringTrim[
-                            Function[ StringJoin[ indent[ ], cFormat[ # ] ] ] /@ normal,
+                            List @@ (Function[ StringJoin[ indent[ ], cFormat[ # ] ] ] /@ normal),
                             "\n"..
                         ],
                         ",\n"
@@ -1593,7 +1493,7 @@ formatAssoc[ tagged_ ] :=
             StringTrim[
                 withIndent @ StringRiffle[
                         StringTrim[
-                            Function[ StringJoin[ indent[ ], cFormat[ # ] ] ] /@ Normal[ tagged, Association ],
+                            List @@ (Function[ StringJoin[ indent[ ], cFormat[ # ] ] ] /@ tagged),
                             "\n"..
                         ],
                         ",\n"
@@ -1616,78 +1516,49 @@ format[Association[rules : (_Rule | _RuleDelayed) ..] /; fitsOnLineQ @ Associati
     ];
 
 
-(* format[Association[rules : (_Rule | _RuleDelayed) ..]] :=
-  StringJoin[
-      "<|",
-      "\n",
-      StringTrim[Internal`WithLocalSettings[
-          $level++,
-          StringRiffle[List @@
-            Function[Null,
-                StringJoin[indent[], cFormat[#]], {HoldAllComplete}] /@
-              HoldComplete[rules], ",\n"],
-          $level--
-      ],"\n"],
-      "\n",
-      indent[$level],
-      "|>"
-  ]; *)
-
 (* !List *)
 format[ list_List ] /; fitsOnLineQ @ list :=
     StringJoin[ "{ ", StringRiffle[ cFormat /@ Unevaluated @ list, ", " ], " }" ];
 
 
 format[ { items___ } ] /; $fastMode :=
-  StringJoin[
-      "{", "\n",
-      StringTrim[Internal`WithLocalSettings[
-          $level++,
-          StringRiffle[
-              List @@ Map[
-                  Function[Null, StringJoin[indent[], cFormat[#1]], {HoldAllComplete}],
-                  HoldComplete @ items
-              ],
-              ",\n"
-          ],
-          $level--
-      ], "\n"],
-      "\n",
-      indent[$level],
-      "}"
-  ];
+    StringJoin[
+        "{",
+        "\n",
+        StringTrim[
+            Internal`WithLocalSettings[
+                $level++,
+                StringRiffle[
+                    StringTrim[
+                        Apply[
+                            List,
+                            Map[
+                                Function[
+                                    Null,
+                                    indent[ ] <> cFormat[ #1 ],
+                                    { HoldAllComplete }
+                                ],
+                                HoldComplete @ items
+                            ]
+                        ],
+                        Longest[ "\n".. ]
+                    ],
+                    ",\n"
+                ],
+                $level--
+            ],
+            "\n"
+        ],
+        "\n",
+        indent @ $level,
+        "}"
+    ];
 
 
-(* format[ { rules: (_Rule | _RuleDelayed).. } ] :=
+format[ { rules: (Rule|RuleDelayed)[ _, _ ]... } ] :=
     StringReplace[
-        cFormat @ Association[ rules ],
-        {
-            StartOfString~~"<|" :> "{",
-            "|>"~~EndOfString :> "}"
-        }
-    ]; *)
-
-format[ rules: { (_Rule|_RuleDelayed).. } ] :=
-    Module[ { tagged },
-        Internal`InheritedBlock[ { Rule, RuleDelayed },
-            SetAttributes[ { Rule, RuleDelayed }, HoldAllComplete ];
-            tagged =
-                Replace[
-                    rules,
-                    {
-                        Rule[ k_, v_ ] :> $key @ k -> $value @ v,
-                        RuleDelayed[ k_, v_ ] :> $key @ k -> $delayed @ v
-                    },
-                    { 1 }
-                ]
-        ];
-        StringReplace[
-            formatAssoc @ tagged,
-            {
-                StartOfString~~"<|" :> "{",
-                "|>"~~EndOfString :> "}"
-            }
-        ]
+        format @ Association @ rules,
+        { StartOfString ~~ "<|" :> "{", "|>" ~~ EndOfString :> "}" }
     ];
 
 
@@ -1726,6 +1597,7 @@ format[ { items___ } ] :=
         ]
     ];
 
+
 format[ f_[ args___ ] ] /; ! TrueQ @ $fastMode && fitsOnLineQ @ f @ args :=
     Module[ { h, a },
         $prefix = True;
@@ -1754,23 +1626,42 @@ format[ f_[ args___ ] ] /; ! TrueQ @ $fastMode :=
     ];
 
 
-format[f_[args___]] /; TrueQ @ $fastMode := StringJoin[
-    toString @ f, "[\n",
-    Internal`WithLocalSettings[
-        $level++,
-        Riffle[ List @@ Function[ Null, StringJoin[ indent[ ], cFormat[ #1 ] ], { HoldAllComplete } ] /@ HoldComplete[ args ], ",\n" ],
-        $level--
-    ],
-    "\n", indent[$level], "]"
-];
+format[ f_[ args___ ] ] /; TrueQ @ $fastMode :=
+    StringJoin[
+        toString @ f,
+        "[\n",
+        Internal`WithLocalSettings[
+            $level++,
+            Riffle[
+                StringTrim[
+                    Apply[
+                        List,
+                        Map[
+                            Function[
+                                Null,
+                                indent[ ] <> cFormat[ #1 ],
+                                { HoldAllComplete }
+                            ],
+                            HoldComplete @ args
+                        ]
+                    ],
+                    Longest[ "\n".. ]
+                ],
+                ",\n"
+            ],
+            $level--
+        ],
+        "\n",
+        indent @ $level,
+        "]"
+    ];
 
 
 format[other_] := toString @ other;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*numberForm*)
-
 numberForm // ClearAll;
 
 numberForm /:
@@ -1778,12 +1669,10 @@ numberForm /:
         OutputForm @ numberFormString[ r, a ];
 
 
-    (* ::******************************************************************:: *)
-    (* ::Subsubsection::Closed:: *)
-    (*numberFormString*)
-
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*numberFormString*)
 numberFormString // ClearAll;
-
 
 numberFormString[ r_Real, Except[ _Integer? NonNegative ] ] :=
     StringReplace[
@@ -1792,41 +1681,12 @@ numberFormString[ r_Real, Except[ _Integer? NonNegative ] ] :=
             ToString[ N @ ToExpression @ d, InputForm ]
     ];
 
-
-(* numberFormString[ r_Real, a_Integer ] :=
-    numberFormString[ RealDigits @ r, a ];
-
-
-numberFormString[ { digits_, offset_? NonNegative }, a_ ] :=
-    Module[ { split, decD, fracD, decS, fracS },
-
-        split = TakeDrop[ digits, offset ];
-        decD  = First @ split;
-        fracD = Last @ split;
-        decS  = IntegerString @ FromDigits @ decD;
-        fracS = IntegerString @ FromDigits @ Take[ fracD, UpTo @ a ];
-
-        StringJoin[ decS, ".", fracS ]
-    ];
-
-
-numberFormString[ { digits_, offset_ }, a_ ] :=
-    Module[ { padding, take, dStr },
-
-        padding = ConstantArray[ 0, Max[ 0, -offset ] ];
-        take    = Take[ Join[ padding, digits ], UpTo @ a ];
-        dStr    = StringRiffle[ take, "" ];
-
-        If[ StringMatchQ[ dStr, "0".. ],
-            "0.0",
-            StringJoin[ "0", StringTrim[ StringJoin[ ".", dStr ], "0".. ] ]
-        ]
-    ]; *)
-
-
 numberFormString[ r_Real, a_Integer ] :=
     realToString[ r, a ];
 
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*realToString*)
 realToString[ r_, m_: 6 ] :=
     StringReplace[
         realToString0[ r, m ],
@@ -1859,6 +1719,10 @@ realToString0[ r_, m_ ] :=
         ]
     ];
 
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*sciForm*)
+sciForm // ClearAll;
 
 sciForm[ r_, m_ ] :=
     sciForm[ r, m, Ceiling @ RealExponent @ r ];
@@ -1869,25 +1733,15 @@ sciForm[ r_, m_, id_ ] :=
         StringJoin[ realToString[ mant*10, m ], "*^", ToString[ exp + -1 ] ]
     ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*toString*)
-
-
 toString // ClearAll;
-
-
 toString // Attributes = { HoldAllComplete };
 
-
 toString[ $key[ k_ ] -> $value[ v_ ] ] := toString[ k -> v ];
-
-
 toString[ $key[ k_ ] -> $delayed[ v_ ] ] := toString[ k :> v ];
-
-
 toString[ ($key|$delayed|$value)[ a_ ] ] := toString @ a;
-
 
 toString[ expr_ /; ! FreeQ[ HoldComplete @ expr, $key|$delayed|$value ] ] :=
   With[ { untagged = untagAssociations @ HoldComplete @ expr },
@@ -1898,27 +1752,16 @@ toString[ expr_ /; ! FreeQ[ HoldComplete @ expr, $key|$delayed|$value ] ] :=
         FreeQ[ HoldComplete @ untagged, $key|$delayed|$value ]
   ];
 
-
 toString[ expr_ ] /; $sCache := toString[ Verbatim @ expr ] =
     toString0 @ expr;
 
-(* toString[ expr_ ] :=
-    If[ TrueQ @ symbolQ @ expr && MemberQ[ Attributes @ expr, Temporary ],
-        Global`stack= Stack[_]; Abort[],
-        toString0 @ expr
-    ]; *)
-
 toString[ expr_ ] := toString0 @ expr;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*toString0*)
-
 toString0 // ClearAll;
-
 toString0 // Attributes = { HoldAllComplete };
-
-
 toString0[ expr_ ] :=
     Replace[ HoldComplete[ expr ] /. { $$slot -> Slot },
              HoldComplete[ e_ ] :>
@@ -1928,46 +1771,29 @@ toString0[ expr_ ] :=
                 ]
     ] // StringTrim;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$key*)
-
-
 $key // ClearAll;
-
-
 $key // Attributes = { HoldAllComplete };
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$value*)
-
-
 $value // ClearAll;
-
-
 $value // Attributes = { HoldAllComplete };
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$delayed*)
-
-
 $delayed // ClearAll;
-
-
 $delayed // Attributes = { HoldAllComplete };
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*untagAssociations*)
-
-
 untagAssociations // ClearAll;
-
-
 untagAssociations // Attributes = { HoldAllComplete };
-
 
 untagAssociations[ expr_ ] :=
   expr //. {
@@ -1983,39 +1809,24 @@ untagAssociations[ expr_ ] :=
           ]
   };
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$formatEncoding*)
-
-
 $formatEncoding // ClearAll;
-
-
 $formatEncoding = "Unicode";
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*fitsOnLineQ*)
-
-
 fitsOnLineQ // ClearAll;
-
-
 fitsOnLineQ // Attributes = { HoldAllComplete };
-
-
 fitsOnLineQ[ expr_ ] := stringFitsOnLineQ @ toString @ expr;
-
-
 fitsOnLineQ[ expr_, offset_ ] := stringFitsOnLineQ[ toString @ expr, offset ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*stringFitsOnLineQ*)
-
-
 stringFitsOnLineQ // ClearAll;
-
 
 stringFitsOnLineQ[ string_String ] :=
     TrueQ @ And[
@@ -2023,23 +1834,18 @@ stringFitsOnLineQ[ string_String ] :=
         StringFreeQ[ string, "\n" ]
     ];
 
-
 stringFitsOnLineQ[ string_String, offset_ ] :=
     TrueQ @ And[
         StringLength @ string < currentLineWidth[ ] - offset,
         StringFreeQ[ string, "\n" ]
     ];
 
-
 stringFitsOnLineQ[ ___ ] := False;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*currentLineWidth*)
-
-
 currentLineWidth // ClearAll;
-
 
 currentLineWidth[ ] :=
   If[ $relativeWidth,
@@ -2047,51 +1853,33 @@ currentLineWidth[ ] :=
       $pageWidth - $level*$indentSize
   ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$relativeWidth*)
-
-
 $relativeWidth // ClearAll;
-
-
 $relativeWidth = False;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$pageWidth*)
-
-
 $pageWidth // ClearAll;
-
-
 $pageWidth = 80;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$level*)
-
-
 $level // ClearAll;
-
-
 $level = 0;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$indentSize*)
-
-
 $indentSize // ClearAll;
-
-
 $indentSize = 4;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$assocLeft*)
-
-
 $assocLeft = HoldPattern @ Alternatives[
     Part,
     Application,
@@ -2109,11 +1897,9 @@ $assocLeft = HoldPattern @ Alternatives[
     Because
 ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$assocRight*)
-
-
 $assocRight = HoldPattern @ Alternatives[
     Map,
     MapAll,
@@ -2139,7 +1925,6 @@ $assocRight = HoldPattern @ Alternatives[
     Function
 ];
 
-
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*headParenQ*)
@@ -2148,7 +1933,11 @@ headParenQ // Attributes = { HoldAllComplete };
 headParenQ[ sym_[ ___ ] ] := prec @ sym < 660;
 headParenQ[ ___  ] := False;
 
-
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*formatHead*)
+formatHead // ClearAll;
+formatHead // Attributes = { HoldAllComplete };
 
 $noFullFormHeads = Alternatives[
     CompoundExpression,
@@ -2156,11 +1945,6 @@ $noFullFormHeads = Alternatives[
     Optional,
     Pattern
 ];
-
-
-
-formatHead // ClearAll;
-formatHead // Attributes = { HoldAllComplete };
 
 formatHead[ s_Symbol? symbolQ ] := toString @ s;
 
@@ -2181,39 +1965,26 @@ formatHead[ h: f_[ a___ ] ] /; fitsOnLineQ @ h :=
 
 formatHead[ h_ ] := Block[ { $prefix = False }, cFormat @ h ];
 
-
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*lhsParenQ*)
-
-
 lhsParenQ // ClearAll;
-
-
 lhsParenQ // Attributes = { HoldAllComplete };
-
 
 With[ { la = $assocLeft, ra = $assocRight },
 lhsParenQ[ h:la, (h:la)[ ___ ] ] := False;
 lhsParenQ[ h:ra, (h:ra)[ ___ ] ] := True;
 ];
 
-
 lhsParenQ[ args___ ] := reqParenQ @ args;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*reqParenQ*)
-
-
 reqParenQ // ClearAll;
-
-
 reqParenQ // Attributes = { HoldAllComplete };
 
-
 reqParenQ[ f_, h_[ ___ ] ] := TrueQ[ prec @ f >= prec @ h ];
-
 
 reqParenQ[ f_ ] := Function[ e, reqParenQ[ f, e ], HoldAllComplete ];
 
@@ -2222,36 +1993,24 @@ reqParenQ[ Power|Times, neg_ ] :=
 
 reqParenQ[ _, __ ] := False;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*prec*)
-
-
 prec // ClearAll;
-
-
 prec // Attributes = { HoldAllComplete };
 
 (* prec[ Function ] = 1000.0; *)
 
 (* https://bugs.wolfram.com/show?number=408557 *)
-prec[ TagSetDelayed ] = 100.0; (* wtf? *)
-
+prec[ TagSetDelayed        ] := 100.0; (* ¯\_(ツ)_/¯ *)
 prec[ sym_Symbol ? symbolQ ] := Precedence @ Unevaluated @ sym;
-
-
 prec[ ___                  ] := 1000.0;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*rhsParenQ*)
-
-
 rhsParenQ // ClearAll;
-
-
 rhsParenQ // Attributes = { HoldAllComplete };
-
 
 With[ { la = $assocLeft, ra = $assocRight },
 rhsParenQ[ h:la, (h:la)[ ___ ] ] := True;
@@ -2261,26 +2020,18 @@ rhsParenQ[ h:ra, (h:ra)[ ___ ] ] := False;
 rhsParenQ[ SetDelayed, _Set ] := False;
 rhsParenQ[ args___ ] := reqParenQ @ args;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*indent*)
-
-
 indent // ClearAll;
-
-
 indent[n_] := StringJoin@ConstantArray[" ", {n, $indentSize}];
-
-
 indent[] := indent[$level];
 
 
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*equivStringsQ*)
-
-
 equivStringsQ // ClearAll;
-
 
 equivStringsQ[ s1_String, s2_String ] :=
   Quiet @ SameQ[
@@ -2289,25 +2040,17 @@ equivStringsQ[ s1_String, s2_String ] :=
   ];
 
 
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$prefix*)
-
-
 $prefix // ClearAll;
-
-
 $prefix = True;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*formatLHS*)
-
-
 formatLHS // ClearAll;
-
-
 formatLHS // Attributes = { HoldAllComplete };
-
 
 formatLHS[ parent_, expr_ ] :=
     If[ lhsParenQ[ parent, expr ],
@@ -2315,16 +2058,11 @@ formatLHS[ parent_, expr_ ] :=
         cFormat @ expr
     ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*formatRHS*)
-
-
 formatRHS // ClearAll;
-
-
 formatRHS // Attributes = { HoldAllComplete };
-
 
 formatRHS[ parent_, expr_ ] :=
     If[ rhsParenQ[ parent, expr ],
@@ -2332,13 +2070,10 @@ formatRHS[ parent_, expr_ ] :=
         cFormat @ expr
     ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$noPrefixHeads*)
-
-
 $noPrefixHeads // ClearAll;
-
 
 $noPrefixHeads = Alternatives[
     CompoundExpression,
@@ -2351,13 +2086,10 @@ $noPrefixHeads = Alternatives[
     OptionsPattern
 ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$noPrefixInner*)
-
-
 $noPrefixInner // ClearAll;
-
 
 $noPrefixInner = HoldPattern @ Alternatives[
     _Not,
@@ -2368,16 +2100,11 @@ $noPrefixInner = HoldPattern @ Alternatives[
     HoldPattern[ Repeated|RepeatedNull ][ _ ]
 ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*prefixQ*)
-
-
 prefixQ // ClearAll;
-
-
 prefixQ // Attributes = { HoldAllComplete };
-
 
 With[ { h = $noPrefixHeads, i = $noPrefixInner },
 prefixQ[ h[ ___ ] ] := False;
@@ -2398,23 +2125,16 @@ prefixQ[ (f_?symbolQ)[ (g_?symbolQ)[ a___ ] ] ] :=
 
 prefixQ[ ___ ] := TrueQ[ $prefix && $prefixEnabled ];
 
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$prefixEnabled*)
-
-
 $prefixEnabled // ClearAll;
-
-
 $prefixEnabled = True;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*makePrefix*)
-
-
 makePrefix // ClearAll;
-
-
 makePrefix // Attributes = { HoldAllComplete };
 
 
@@ -2531,16 +2251,11 @@ makePrefix[ f_[ x_ ], _ ] :=
       ]
   ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*tagAssociations*)
-
-
 tagAssociations // ClearAll;
-
-
 tagAssociations // Attributes = { HoldAllComplete };
-
 
 tagAssociations[ expr_ ] :=
   expr //. {
@@ -2556,13 +2271,10 @@ tagAssociations[ expr_ ] :=
           ]
   };
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*tighten*)
-
-
 tighten // ClearAll;
-
 
 tighten[ str_String ] :=
   StringReplace[
@@ -2573,16 +2285,11 @@ tighten[ str_String ] :=
       }
   ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*formatArg*)
-
-
 formatArg // ClearAll;
-
-
 formatArg // Attributes = { HoldAllComplete };
-
 
 formatArg[ parent_, expr_ ] :=
     Module[ { pref, paren, str },
@@ -2594,14 +2301,10 @@ formatArg[ parent_, expr_ ] :=
         If[ paren, StringJoin[ "(", str, ")" ], str ]
     ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*formatArgList*)
-
-
 formatArgList // ClearAll;
-
-
 formatArgList // Attributes = { HoldAllComplete };
 
 formatArgList[ None, args___ ] :=
@@ -2611,28 +2314,18 @@ formatArgList[ parent_, args___ ] :=
     Cases[ HoldComplete @ args, e_ :> formatArg[ parent, e ] ];
 
 
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*realQ*)
-
-
 realQ // ClearAll;
-
-
 realQ // Attributes = { HoldAllComplete };
-
-
 realQ[ r_Real ] := Developer`RealQ @ Unevaluated @ r;
-
-
 realQ[ ___ ] := False;
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$defaultFormatHeads*)
-
-
 $defaultFormatHeads // ClearAll;
-
 
 $defaultFormatHeads := {
     ByteArray,
@@ -2644,45 +2337,103 @@ $defaultFormatHeads := {
     CodeEquivalence`Types`TypedSymbol
 };
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*makeSpecialBoxes*)
-
-
 makeSpecialBoxes // ClearAll;
-
-
 makeSpecialBoxes // Attributes = { HoldAllComplete };
-
 
 makeSpecialBoxes[ x: DateObject[ ___? safeArg ] ] :=
   With[ { e = Quiet @ x }, MakeBoxes[ e, StandardForm ] /; DateObjectQ @ e ];
 
-
 makeSpecialBoxes[ x: ByteArray[ ___? safeArg ] ] :=
   With[ { e = Quiet @ x }, MakeBoxes[ e, StandardForm ] /; ByteArrayQ @ e ];
-
 
 makeSpecialBoxes[ e_ ] :=
   MakeBoxes[ e, StandardForm ];
 
-
-(* ::Subsubsection:: *)
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*safeArg*)
-
-
 safeArg // ClearAll;
-
-
 safeArg // Attributes = { HoldAllComplete };
-
-
 safeArg[ { ___? safeArg } ] := True;
-
-
 safeArg[ x: _Integer|_Real|_String ] := AtomQ @ Unevaluated @ x;
 
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Error handling*)
 
-End[ ];
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*catchTop*)
+catchTop // beginDefinition;
+catchTop // Attributes = { HoldFirst };
 
-EndPackage[ ];
+catchTop[ eval_ ] :=
+    Block[ { $catching = True, $failed = False, catchTop = # & },
+        Catch[ eval, $top ]
+    ];
+
+catchTop // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*throwFailure*)
+throwFailure // beginDefinition;
+throwFailure // Attributes = { HoldFirst };
+
+throwFailure[ tag_String, params___ ] :=
+    throwFailure[ MessageName[ ReadableForm, tag ], params ];
+
+throwFailure[ msg_, args___ ] :=
+    Module[ { failure },
+        failure = messageFailure[ msg, Sequence @@ HoldForm /@ { args } ];
+        If[ TrueQ @ $catching,
+            Throw[ failure, $top ],
+            failure
+        ]
+    ];
+
+throwFailure // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*messageFailure*)
+messageFailure // beginDefinition;
+messageFailure // Attributes = { HoldFirst };
+
+messageFailure[ args___ ] :=
+    Module[ { quiet },
+        quiet = If[ TrueQ @ $failed, Quiet, Identity ];
+        WithCleanup[
+            quiet @ ResourceFunction[ "MessageFailure" ][ args ],
+            $failed = True
+        ]
+    ];
+
+messageFailure // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*throwInternalFailure*)
+throwInternalFailure // beginDefinition;
+throwInternalFailure // Attributes = { HoldFirst };
+
+throwInternalFailure[ eval_, a___ ] :=
+    throwFailure[ ReadableForm::internal, $bugReportLink, HoldForm @ eval, a ];
+
+throwInternalFailure // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$bugReportLink*)
+$bugReportLink := $bugReportLink = Hyperlink[
+    "Report this issue \[RightGuillemet]",
+    URLBuild @ <|
+        "Scheme"   -> "https",
+        "Domain"   -> "resources.wolframcloud.com",
+        "Path"     -> { "FunctionRepository", "feedback-form" },
+        "Fragment" -> SymbolName @ ReadableForm
+    |>
+];

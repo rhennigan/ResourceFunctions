@@ -50,7 +50,7 @@ stringTemplateEvaluate // ClearAll;
 stringTemplateEvaluate[ str_String, TextData ] :=
     TextData @ Replace[
         stringTemplateEvaluate[ str, List ],
-        insertEvaluated[ expr_ ] :>
+        HoldPattern @ insertEvaluated[ expr_ ] :>
             Cell[
                 BoxData @ ToBoxes @ expr,
                 "Input",
@@ -71,6 +71,40 @@ stringTemplateEvaluate[ str_String ] :=
         str,
         InsertionFunction -> Function[ ToString[ #, StandardForm ] ]
     ];
+
+
+insertEvaluated[
+    Hyperlink[ name_String, ref_String ] /; StringStartsQ[ ref, "paclet:" ]
+] :=
+    Cell[
+        BoxData @ TagBox[
+            ButtonBox[
+                StyleBox[
+                    name,
+                    "SymbolsRefLink",
+                    ShowStringCharacters -> True,
+                    FontFamily -> "Source Sans Pro"
+                ],
+                BaseStyle ->
+                    Dynamic @ FEPrivate`If[
+                        CurrentValue[ "MouseOver" ],
+                        {
+                            "Link",
+                            FontColor -> RGBColor[ 0.8549, 0.39608, 0.1451 ]
+                        },
+                        { "Link" }
+                    ],
+                ButtonData -> ref,
+                ContentPadding -> False
+            ],
+            MouseAppearanceTag[ "LinkHand" ]
+        ],
+        "InlineFormula",
+        FontFamily -> "Source Sans Pro"
+    ];
+
+insertEvaluated[ expr_ ] :=
+    Cell[ BoxData @ ToBoxes @ expr, "Input", FontFamily -> "Source Sans Pro" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -103,10 +137,30 @@ templateStringQ // ClearAll;
 templateStringQ[ str_String? StringQ ] :=
   TrueQ @ Or[
       StringContainsQ[ str, "<+"~~__~~"+>" ],
-      StringContainsQ[ str, "<%"~~__~~"%>" ]
+      StringContainsQ[ str, "<%"~~__~~"%>" ],
+      StringContainsQ[ str, First @ urlPatternRule @ TextData ]
   ];
 
 templateStringQ[ ___ ] := False;
+
+
+$brace = "[" | "]" | "(" | ")";
+
+urlPatternRule[ String ] :=
+    "[" ~~ l: Except[ $brace ].. ~~ "](" ~~ u: Except[ $brace ].. ~~ ")" :>
+        ToString[ RawBoxes @ hyperlinkBox[ l, u ], StandardForm ];
+
+urlPatternRule[ _ ] :=
+    "[" ~~ l: Except[ $brace ].. ~~ "](" ~~ u: Except[ $brace ].. ~~ ")" :>
+        hyperlinkBox[ l, u ];
+
+hyperlinkBox[ label_, url_ ] :=
+    ButtonBox[
+        label,
+        BaseStyle  -> "Hyperlink",
+        ButtonData -> { URL @ url, None },
+        ButtonNote -> url
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -134,7 +188,8 @@ stringTemplateInput[ str_String ] :=
                         FontFamily -> "Source Sans Pro"
                     ],
                     StandardForm
-                ]
+                ],
+            urlPatternRule @ String
         }
     ];
 
@@ -153,7 +208,8 @@ stringTemplateInput[ str_String, TextData ] :=
                     literalString @ t,
                     ShowStringCharacters -> True,
                     FontFamily -> "Source Sans Pro"
-                ]
+                ],
+            urlPatternRule @ TextData
         }
     ];
 
@@ -163,7 +219,8 @@ stringTemplateInput[ str_String, BoxData ] :=
             str,
             {
                 "<+" ~~ t: Shortest[ __ ] ~~ "+>" :> templateString @ t,
-                "<%" ~~ t: Shortest[ __ ] ~~ "%>" :> literalString @ t
+                "<%" ~~ t: Shortest[ __ ] ~~ "%>" :> literalString @ t,
+                urlPatternRule @ BoxData
             }
         ],
         ShowStringCharacters -> True,

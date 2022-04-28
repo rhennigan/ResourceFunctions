@@ -1,3 +1,7 @@
+(* !Excluded
+This notebook was automatically generated from [Definitions/$$Function](https://github.com/rhennigan/ResourceFunctions/blob/main/Definitions/$$Function).
+*)
+
 $$Function // ClearAll;
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
@@ -10,8 +14,8 @@ $debug = True;
 (*beginDefinition*)
 beginDefinition // ClearAll;
 beginDefinition // Attributes = { HoldFirst };
-beginDefinition::unfinished = "\
-Starting definition for `1` without ending the current one.";
+beginDefinition::Unfinished =
+"Starting definition for `1` without ending the current one.";
 
 (* :!CodeAnalysis::BeginBlock:: *)
 (* :!CodeAnalysis::Disable::SuspiciousSessionSymbol:: *)
@@ -19,7 +23,7 @@ beginDefinition[ s_Symbol ] /; $debug && $inDef :=
     WithCleanup[
         $inDef = False
         ,
-        Print @ TemplateApply[ beginDefinition::unfinished, HoldForm @ s ];
+        Print @ TemplateApply[ beginDefinition::Unfinished, HoldForm @ s ];
         beginDefinition @ s
         ,
         $inDef = True
@@ -65,7 +69,7 @@ endDefinition // endDefinition;
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Messages*)
-$$Function::internal =
+$$Function::Internal =
 "An unexpected error occurred. `1`";
 
 $$Messages
@@ -167,7 +171,7 @@ throwInternalFailure // beginDefinition;
 throwInternalFailure // Attributes = { HoldFirst };
 
 throwInternalFailure[ eval_, a___ ] :=
-    throwFailure[ $$Function::internal, $bugReportLink, HoldForm @ eval, a ];
+    throwFailure[ $$Function::Internal, $bugReportLink, HoldForm @ eval, a ];
 
 throwInternalFailure // endDefinition;
 

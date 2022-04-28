@@ -1,0 +1,3773 @@
+Notebook[
+ {
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      BoxData[
+       {
+        RowBox[
+         {
+          RowBox[
+           {
+            "Get",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "FileNameJoin",
+              " ",
+              "@",
+              " ",
+              RowBox[
+               {
+                "{",
+                " ",
+                RowBox[
+                 {
+                  RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                  ",",
+                  " ",
+                  "\"Definition.wl\""
+                 }
+                ],
+                " ",
+                "}"
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          ";"
+         }
+        ],
+        "\n",
+        RowBox[
+         {
+          "TestReport",
+          " ",
+          "@",
+          " ",
+          RowBox[
+           {
+            "FileNameJoin",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "{",
+              " ",
+              RowBox[
+               {
+                RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                ",",
+                " ",
+                "\"Tests.wlt\""
+               }
+              ],
+              " ",
+              "}"
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ],
+      "Code",
+      "Excluded",
+      CellLabel -> "In[25]:="
+     ],
+     Cell[
+      BoxData[
+       InterpretationBox[
+        RowBox[
+         {
+          TagBox["TestReportObject", "SummaryHead"],
+          "[",
+          DynamicModuleBox[
+           {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+           TemplateBox[
+            {
+             PaneSelectorBox[
+              {
+               False -> GridBox[
+                {
+                 {
+                  PaneBox[
+                   ButtonBox[
+                    DynamicBox[
+                     FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]
+                    ],
+                    ButtonFunction :> (Typeset`open$$ = True),
+                    Appearance -> None,
+                    BaseStyle -> { },
+                    Evaluator -> Automatic,
+                    Method -> "Preemptive"
+                   ],
+                   Alignment -> {Center, Center},
+                   ImageSize -> Dynamic[
+                    {
+                     Automatic,
+                     Times[
+                      3.5,
+                      Times[
+                       CurrentValue["FontCapHeight"],
+                       AbsoluteCurrentValue[Magnification]^(-1)
+                      ]
+                     ]
+                    }
+                   ]
+                  ],
+                  GraphicsBox[
+                   {
+                    InsetBox[
+                     BoxData[
+                      FormBox[
+                       PaneBox[
+                        DynamicBox[
+                         FEPrivate`FrontEndResource[
+                          "MUnitExpressions",
+                          "SuccessIcon"
+                         ]
+                        ],
+                        Alignment -> Center,
+                        ImageSize -> Dynamic[
+                         {
+                          Automatic,
+                          Times[
+                           3.5,
+                           Times[
+                            CurrentValue["FontCapHeight"],
+                            AbsoluteCurrentValue[Magnification]^(-1)
+                           ]
+                          ]
+                         }
+                        ]
+                       ],
+                       TraditionalForm
+                      ]
+                     ]
+                    ]
+                   },
+                   PlotRange -> {{0, 1}, {0, 1}},
+                   Background -> GrayLevel[0.93],
+                   Axes -> False,
+                   AspectRatio -> 1,
+                   ImageSize -> Dynamic[
+                    {
+                     Automatic,
+                     Times[
+                      3.5,
+                      Times[
+                       CurrentValue["FontCapHeight"],
+                       AbsoluteCurrentValue[Magnification]^(-1)
+                      ]
+                     ]
+                    }
+                   ],
+                   Frame -> True,
+                   FrameTicks -> None,
+                   FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                  ],
+                  GridBox[
+                   {
+                    {
+                     RowBox[
+                      {
+                       TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                      }
+                     ],
+                     "\[SpanFromLeft]"
+                    },
+                    {
+                     RowBox[
+                      {
+                       TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox[
+                        TagBox[
+                         InterpretationBox[
+                          StyleBox["\"100%\"", ShowStringCharacters -> False],
+                          1.,
+                          AutoDelete -> True
+                         ],
+                         PercentForm
+                        ],
+                        "SummaryItem"
+                       ]
+                      }
+                     ],
+                     RowBox[
+                      {
+                       TagBox["\"Tests run: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox["10", "SummaryItem"]
+                      }
+                     ]
+                    }
+                   },
+                   GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                   AutoDelete -> False,
+                   GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                   GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                   BaseStyle -> {
+                    ShowStringCharacters -> False,
+                    NumberMarks -> False,
+                    PrintPrecision -> 3,
+                    ShowSyntaxStyles -> False
+                   }
+                  ]
+                 }
+                },
+                GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                BaselinePosition -> {1, 1}
+               ],
+               True -> GridBox[
+                {
+                 {
+                  PaneBox[
+                   ButtonBox[
+                    DynamicBox[
+                     FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]
+                    ],
+                    ButtonFunction :> (Typeset`open$$ = False),
+                    Appearance -> None,
+                    BaseStyle -> { },
+                    Evaluator -> Automatic,
+                    Method -> "Preemptive"
+                   ],
+                   Alignment -> {Center, Center},
+                   ImageSize -> Dynamic[
+                    {
+                     Automatic,
+                     Times[
+                      3.5,
+                      Times[
+                       CurrentValue["FontCapHeight"],
+                       AbsoluteCurrentValue[Magnification]^(-1)
+                      ]
+                     ]
+                    }
+                   ]
+                  ],
+                  GraphicsBox[
+                   {
+                    InsetBox[
+                     BoxData[
+                      FormBox[
+                       PaneBox[
+                        DynamicBox[
+                         FEPrivate`FrontEndResource[
+                          "MUnitExpressions",
+                          "SuccessIcon"
+                         ]
+                        ],
+                        Alignment -> Center,
+                        ImageSize -> Dynamic[
+                         {
+                          Automatic,
+                          Times[
+                           3.5,
+                           Times[
+                            CurrentValue["FontCapHeight"],
+                            AbsoluteCurrentValue[Magnification]^(-1)
+                           ]
+                          ]
+                         }
+                        ]
+                       ],
+                       TraditionalForm
+                      ]
+                     ]
+                    ]
+                   },
+                   PlotRange -> {{0, 1}, {0, 1}},
+                   Background -> GrayLevel[0.93],
+                   Axes -> False,
+                   AspectRatio -> 1,
+                   ImageSize -> Dynamic[
+                    {
+                     Automatic,
+                     Times[
+                      3.5,
+                      Times[
+                       CurrentValue["FontCapHeight"],
+                       AbsoluteCurrentValue[Magnification]^(-1)
+                      ]
+                     ]
+                    }
+                   ],
+                   Frame -> True,
+                   FrameTicks -> None,
+                   FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                  ],
+                  GridBox[
+                   {
+                    {
+                     RowBox[
+                      {
+                       TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                      }
+                     ],
+                     "\[SpanFromLeft]"
+                    },
+                    {
+                     RowBox[
+                      {
+                       TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox[
+                        TagBox[
+                         InterpretationBox[
+                          StyleBox["\"100%\"", ShowStringCharacters -> False],
+                          1.,
+                          AutoDelete -> True
+                         ],
+                         PercentForm
+                        ],
+                        "SummaryItem"
+                       ]
+                      }
+                     ],
+                     RowBox[
+                      {
+                       TagBox["\"Tests run: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox["10", "SummaryItem"]
+                      }
+                     ]
+                    },
+                    {
+                     RowBox[
+                      {
+                       TagBox["\"Succeeded: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox["10", "SummaryItem"]
+                      }
+                     ],
+                     "\[SpanFromLeft]"
+                    },
+                    {
+                     RowBox[
+                      {
+                       TagBox["\"Failed: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox["0", "SummaryItem"]
+                      }
+                     ],
+                     "\[SpanFromLeft]"
+                    },
+                    {
+                     RowBox[
+                      {
+                       TagBox[
+                        "\"Failed with wrong results: \"",
+                        "SummaryItemAnnotation"
+                       ],
+                       "\[InvisibleSpace]",
+                       TagBox["0", "SummaryItem"]
+                      }
+                     ],
+                     "\[SpanFromLeft]"
+                    },
+                    {
+                     RowBox[
+                      {
+                       TagBox[
+                        "\"Failed with messages: \"",
+                        "SummaryItemAnnotation"
+                       ],
+                       "\[InvisibleSpace]",
+                       TagBox["0", "SummaryItem"]
+                      }
+                     ],
+                     "\[SpanFromLeft]"
+                    },
+                    {
+                     RowBox[
+                      {
+                       TagBox["\"Failed with errors: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox["0", "SummaryItem"]
+                      }
+                     ],
+                     "\[SpanFromLeft]"
+                    },
+                    {
+                     RowBox[
+                      {
+                       TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"],
+                       "\[InvisibleSpace]",
+                       TagBox[
+                        TemplateBox[
+                         {"1.1105459`", "\"s\"", "seconds", "\"Seconds\""},
+                         "Quantity",
+                         SyntaxForm -> Mod
+                        ],
+                        "SummaryItem"
+                       ]
+                      }
+                     ],
+                     "\[SpanFromLeft]"
+                    }
+                   },
+                   GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                   AutoDelete -> False,
+                   GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                   GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                   BaseStyle -> {
+                    ShowStringCharacters -> False,
+                    NumberMarks -> False,
+                    PrintPrecision -> 3,
+                    ShowSyntaxStyles -> False
+                   }
+                  ]
+                 }
+                },
+                GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                BaselinePosition -> {1, 1}
+               ]
+              },
+              Dynamic[Typeset`open$$],
+              ImageSize -> Automatic
+             ]
+            },
+            "SummaryPanel"
+           ],
+           DynamicModuleValues :> { }
+          ],
+          "]"
+         }
+        ],
+        TestReportObject[
+         Association[
+          "Title" -> "Test Report: Tests.wlt",
+          "Aborted" -> False,
+          "TestResults" -> Association[
+           6247273547461253606 -> TestResultObject[
+            Association[
+             "TestKey" -> 6247273547461253606,
+             "TestID" -> None,
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              SetOptions[
+               ResourceFunction["MessageFailure"],
+               "TestMode" -> True
+              ]
+             ],
+             "ExpectedOutput" -> HoldForm[KeyValuePattern["TestMode" -> True]],
+             "ActualOutput" -> HoldForm[
+              {
+               "MessageFunction" -> Automatic,
+               "Verbose" -> False,
+               "Stack" -> False,
+               "TestMode" -> True
+              }
+             ],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.,
+             "CPUTimeUsed" -> 0.,
+             "MemoryUsed" -> 1968
+            ]
+           ],
+           6574290564975049032 -> TestResultObject[
+            Association[
+             "TestKey" -> 6574290564975049032,
+             "TestID" -> "Define-Temporary-File",
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              $tmp = FileNameJoin[{$TemporaryDirectory, "readable.nb"}]
+             ],
+             "ExpectedOutput" -> HoldForm[Blank[String]],
+             "ActualOutput" -> HoldForm[
+              "C:\\Users\\rhennigan\\AppData\\Local\\Temp\\readable.nb"
+             ],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.,
+             "CPUTimeUsed" -> 0.,
+             "MemoryUsed" -> 2864
+            ]
+           ],
+           8442684010343346620 -> TestResultObject[
+            Association[
+             "TestKey" -> 8442684010343346620,
+             "TestID" -> "Define-NotebookOpen-Test",
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> SameQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              saveAndOpenTest[
+               Pattern[nb, Blank[]],
+               Pattern[opts, BlankNullSequence[]]
+              ] :=
+               UsingFrontEnd[
+                Enclose[
+                 Module[
+                  {file, nbo},
+                  Quiet[DeleteFile[$tmp]];
+                  ConfirmAssert[Not[FileExistsQ[$tmp]]];
+                  file = ConfirmBy[
+                   SaveReadableNotebook[
+                    nb,
+                    $tmp,
+                    opts
+                   ],
+                   FileExistsQ
+                  ];
+                  WithCleanup[
+                   nbo = ConfirmMatch[
+                    NotebookOpen[file],
+                    Blank[NotebookObject]
+                   ];
+                   NotebookGet[nbo],
+                   NotebookClose[nbo]
+                  ]
+                 ]
+                ]
+               ]
+
+             ],
+             "ExpectedOutput" -> HoldForm[Null],
+             "ActualOutput" -> HoldForm[Null],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.,
+             "CPUTimeUsed" -> 0.,
+             "MemoryUsed" -> 2984
+            ]
+           ],
+           4814929588091756117 -> TestResultObject[
+            Association[
+             "TestKey" -> 4814929588091756117,
+             "TestID" -> "Save-NotebookObject-String",
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              UsingFrontEnd[
+               WithCleanup[
+                nb = CreateDocument[
+                 {
+                  TextCell["Test notebook", "Title"],
+                  TextCell["This is a test", "Text"],
+                  ExpressionCell[Defer[1 + 1], "Input"],
+                  ExpressionCell[2, "Output"]
+                 }
+                ],
+                ImportString[
+                 SaveReadableNotebook[nb, String],
+                 "NB"
+                ],
+                NotebookClose[nb]
+               ]
+              ]
+             ],
+             "ExpectedOutput" -> HoldForm[Blank[Notebook]],
+             "ActualOutput" -> HoldForm[
+              Notebook[
+               {
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Test notebook", "Title"],
+                   Cell["This is a test", "Text"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[BoxData[RowBox[{"1", "+", "1"}]], "Input"],
+                      Cell[BoxData["2"], "Output"]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ]
+               },
+               FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+               StyleDefinitions -> "Default.nb"
+              ]
+             ],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.2440006,
+             "CPUTimeUsed" -> 0.016,
+             "MemoryUsed" -> 18624
+            ]
+           ],
+           192989908670998257 -> TestResultObject[
+            Association[
+             "TestKey" -> 192989908670998257,
+             "TestID" -> "Save-Notebook-String",
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              ImportString[
+               SaveReadableNotebook[
+                Notebook[{Cell["Hello world", "Text"]}],
+                String
+               ],
+               "NB"
+              ]
+             ],
+             "ExpectedOutput" -> HoldForm[Blank[Notebook]],
+             "ActualOutput" -> HoldForm[Notebook[{Cell["Hello world", "Text"]}]],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.0040009,
+             "CPUTimeUsed" -> 0.016,
+             "MemoryUsed" -> 3416
+            ]
+           ],
+           8049361300898177033 -> TestResultObject[
+            Association[
+             "TestKey" -> 8049361300898177033,
+             "TestID" -> "Save-File-String",
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              ImportString[
+               SaveReadableNotebook[
+                FindFile["ExampleData/document.nb"],
+                String
+               ],
+               "NB"
+              ]
+             ],
+             "ExpectedOutput" -> HoldForm[Blank[Notebook]],
+             "ActualOutput" -> HoldForm[
+              Notebook[
+               {
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Text", "Section"],
+                   Cell["A line of text.", "Text"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell["Subsection", "Subsection"],
+                      Cell["one two three", "Text"],
+                      Cell["alpha beta gamma delta epsilon \[Ellipsis]", "Text"]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ],
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Expressions", "Section"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[RowBox[{"2", "+", "2"}]],
+                       "Input",
+                       CellLabel -> "In[1]:="
+                      ],
+                      Cell[BoxData["4"], "Output", CellLabel -> "Out[1]="]
+                     },
+                     Open
+                    ]
+                   ],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[{"N", "[", RowBox[{"GoldenRatio", ",", "80"}], "]"}]
+                       ],
+                       "Input",
+                       CellLabel -> "In[2]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        "1.618033988749894848204586834365638117720309179805762862135448622705260462818902449707207204189391`80."
+                       ],
+                       "Output",
+                       CellLabel -> "Out[2]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[
+                         {
+                          "Nest",
+                          "[",
+                          RowBox[
+                           {
+                            RowBox[
+                             {
+                              RowBox[
+                               {
+                                "Style",
+                                "[",
+                                RowBox[
+                                 {
+                                  RowBox[{"{", RowBox[{"#", ",", "y"}], "}"}],
+                                  ",",
+                                  RowBox[
+                                   {
+                                    "FontColor",
+                                    "->",
+                                    RowBox[
+                                     {
+                                      "Hue",
+                                      "[",
+                                      RowBox[
+                                       {
+                                        RowBox[{RowBox[{"Depth", "[", "#", "]"}], "/", "18"}],
+                                        ",",
+                                        "1",
+                                        ",",
+                                        ".5"
+                                       }
+                                      ],
+                                      "]"
+                                     }
+                                    ]
+                                   }
+                                  ]
+                                 }
+                                ],
+                                "]"
+                               }
+                              ],
+                              "&"
+                             }
+                            ],
+                            ",",
+                            "x",
+                            ",",
+                            "6"
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       ],
+                       "Input",
+                       CellLabel -> "In[3]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        StyleBox[
+                         RowBox[
+                          {
+                           "{",
+                           RowBox[
+                            {
+                             StyleBox[
+                              RowBox[
+                               {
+                                "{",
+                                RowBox[
+                                 {
+                                  StyleBox[
+                                   RowBox[
+                                    {
+                                     "{",
+                                     RowBox[
+                                      {
+                                       StyleBox[
+                                        RowBox[
+                                         {
+                                          "{",
+                                          RowBox[
+                                           {
+                                            StyleBox[
+                                             RowBox[
+                                              {
+                                               "{",
+                                               RowBox[
+                                                {
+                                                 StyleBox[
+                                                  RowBox[{"{", RowBox[{"x", ",", "y"}], "}"}],
+                                                  StripOnInput -> False,
+                                                  FontColor -> Hue[Rational[1, 18], 1, 0.5]
+                                                 ],
+                                                 ",",
+                                                 "y"
+                                                }
+                                               ],
+                                               "}"
+                                              }
+                                             ],
+                                             StripOnInput -> False,
+                                             FontColor -> Hue[Rational[2, 9], 1, 0.5]
+                                            ],
+                                            ",",
+                                            "y"
+                                           }
+                                          ],
+                                          "}"
+                                         }
+                                        ],
+                                        StripOnInput -> False,
+                                        FontColor -> Hue[Rational[1, 3], 1, 0.5]
+                                       ],
+                                       ",",
+                                       "y"
+                                      }
+                                     ],
+                                     "}"
+                                    }
+                                   ],
+                                   StripOnInput -> False,
+                                   FontColor -> Hue[Rational[4, 9], 1, 0.5]
+                                  ],
+                                  ",",
+                                  "y"
+                                 }
+                                ],
+                                "}"
+                               }
+                              ],
+                              StripOnInput -> False,
+                              FontColor -> Hue[Rational[5, 9], 1, 0.5]
+                             ],
+                             ",",
+                             "y"
+                            }
+                           ],
+                           "}"
+                          }
+                         ],
+                         StripOnInput -> False,
+                         FontColor -> Hue[Rational[2, 3], 1, 0.5]
+                        ]
+                       ],
+                       "Output",
+                       CellLabel -> "Out[3]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ],
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Graphics", "Section"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[
+                         {
+                          "Graphics3D",
+                          "[",
+                          RowBox[
+                           {
+                            RowBox[{"Sphere", "[", "]"}],
+                            ",",
+                            RowBox[{"ImageSize", "\[Rule]", "Tiny"}]
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       ],
+                       "Input",
+                       CellLabel -> "In[4]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        Graphics3DBox[SphereBox[{0, 0, 0}], ImageSize -> Tiny]
+                       ],
+                       "Output",
+                       CellLabel -> "Out[4]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[
+                         {
+                          "Plot",
+                          "[",
+                          RowBox[
+                           {
+                            RowBox[{"Abs", "[", "x", "]"}],
+                            ",",
+                            RowBox[
+                             {
+                              "{",
+                              RowBox[{"x", ",", RowBox[{"-", "2"}], ",", "2"}],
+                              "}"
+                             }
+                            ],
+                            ",",
+                            RowBox[{"ImageSize", "\[Rule]", "Small"}],
+                            ",",
+                            RowBox[{"AspectRatio", "\[Rule]", "Automatic"}]
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       ],
+                       "Input",
+                       CellLabel -> "In[5]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        GraphicsBox[
+                         {
+                          { },
+                          { },
+                          {
+                           Hue[0.67, 0.6, 0.6],
+                           LineBox[
+                            CompressedData[
+                             "\n1:eJwtxX1M1AUABmBSTDpdqKsJhLKKCStmATkKyFdPhCk3Gee5YrmYTsZCgXCK\ntcoVjUE0Jsw7nYqNUTjUEtuCQTJeCNRktz4cSmoCCRxf8qHe8eXhr9reP549\nL+7OtWYs8PHx2faf/z8essRjGAY1GrzL2z+dN6jx162Ao7NzBjWC7GsiH3kM\nalT4mbNdowY1Kh98NODsMqhxrs1140StQY2mzF/qo9MNamSNLPL0XnxCDf/e\nmJIXnn1CjTvr7hUU5cxTI/JKwMy+Vi81Prv2dntPiJca1sUTS50fPqZGSnVA\n43D7HDXM9a832UPnqMGnbsQ15s9SI6olc8XezhlqOLv3W7atm6HGZIxp4fni\naWqYfMuWOQanqHHBVHVy5s0panycF1FcWuqhRmxytbN2zE2NwvRzpckb3NS4\n4jpdfeCbR9Qor1kVu3LiITW+7Hg+atT8kBp7072fW6oeUOPu2lxLmHuSGpvz\n/sg5kjpJjbNhtuHUPRPUuPNPyPgh0zg15r74tbLh6n1qRBz/ynL/g1FqfL8v\njgUrRqgRGN7RE319iBon3s2b7cofpMbTuZ6WY1EuarRuzkppcPdTo6x8+qbz\nVB81ktt2LfWm3aNGYFZ/7Or5XmrUjBWtrc/poUZTUfhBz8Tf1JhaMvdDUNxt\najyzs9B88Kcuamw6tvFa3XQnNYJSe+5eSrpODXttdsX4179TY2P54V2RwR3U\nqDQt7O72u0yN2MKt+Sv9W6ixoWZwIMZaR43eEXNFxOEz1Ej77eerIX02alwY\nHp4+esRGDd9FgeF+8TZqXIw7VDxp304Nv7PRW1oTrdTIWZzmuGxLocYr++NP\nJfclUONmzcnH0fEJ1CjomXkv2LGJGrcsdcFjiWZqLEvZGb9qB6jhbIT52743\nqBEa5l1wwBFNjU/sDW0JSVHUsHXvLnHueI0a/lsSy6z9odRofpnL3UkvUeO2\nN3fNq++EUMORuT3ix4HnqOF6q+T9oTR/alR9l70nZ8iXGpdWV3UOjbmb9fqt\nGUN/tgxnNOv1/wLxEqQu\n                    "
+                            ]
+                           ],
+                           LineBox[
+                            CompressedData[
+                             "\n1:eJxNxW0s1HEcAPBzEWU7jsn+Z8eOUyuaJiNKp9iUx3losV2nyUMYyW5Dm3FG\nD7jWmunWkcetxLm4oxcScWlJHqL0cOfqul2XM045Og931Qvf3+/FZx9G6pX4\ndDKJRIr55/8R6drpoZ/pJ3e2DKXlK4kw1s5HGwX1EiIRjnw719NApMHn09YH\n7hJcWOFzI5RPVMBNTrHXq4hamGcjOXCLaIOTkpvF+hUpbGvmscNdB2HPuCXt\nSLUMLpwIZAlWX8POUuq8hcUk3KcKHZ888Q4ezm5wSV6chQ37g+1EuXMw2dhh\n7+L5GfY3X+xL6JLD4xV+E6OHlLDbHZ2xfekrrFtXzr8/ooLbFvrHKLe/wxT6\nw2W1Wg3XZPVmNDE18FpIh/py6Q+Y6yuT7hvRwsouWfU0YwHezJ4VHrymg71O\nWZsy+hfh8BZGZrfzElxIT3H/xl6GvRfP2c5F62FHO72NbANtOSgUe9SvwDl+\n/Z/2RP6CO86mNj1fQxt0NHtN3W+4NyF8V23YKlx6prJRqkEzFBEfWysNcFBA\nRS3huwazXSeNFjNowxhflc9bhwWWHG488w/sON/bQpahrUp4iYFXjTCpnSNW\nOWzABffFfIdh9IDXTRtq3iZMjSjwLqdswfLDUzPFz9BPHrCYas42fEHsT6Wb\n0GWVzTz5YxMs0tKFlCgzHEelHHu1ga6yIrvIsWVGw7Ye21+lGKFtomkSUWwe\ntioxOtNpC80V1NRd2kaLasqKi7A1ZVw2Hzspi+3+FDs4yLtrrwm9W/7mZTc2\na2rw0Sh2kUxS/QV7oVMYZ2VGT5TkKJKwrQtShnKxQzISWsuxe2KOZ3Vi6077\nRL3AZgZ4+HzA5ng5O+iw77nZGszYfwEIhpSQ\n                    "
+                            ]
+                           ]
+                          }
+                         },
+                         Axes -> True,
+                         AxesOrigin -> {0, 0},
+                         PlotRange -> {{-2, 2}, {0., 1.99999}},
+                         PlotRangeClipping -> True,
+                         PlotRangePadding -> {Scaled[0.2], Scaled[0.2]}
+                        ]
+                       ],
+                       "Output",
+                       GraphicsBoxOptions -> {ImageSize -> Small},
+                       CellLabel -> "Out[5]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ],
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Dynamic Objects", "Section"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[
+                         {"Slider", "[", RowBox[{"Dynamic", "[", "x", "]"}], "]"}
+                        ]
+                       ],
+                       "Input",
+                       CellLabel -> "In[6]:="
+                      ],
+                      Cell[
+                       BoxData[SliderBox[Dynamic[x]]],
+                       "Output",
+                       CellLabel -> "Out[6]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[RowBox[{"Dynamic", "[", "x", "]"}]],
+                       "Input",
+                       CellLabel -> "In[7]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        DynamicBox[
+                         ToBoxes[x, StandardForm],
+                         ImageSizeCache -> {16., {1., 9.}}
+                        ]
+                       ],
+                       "Output",
+                       CellLabel -> "Out[7]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ]
+               },
+               WindowTitle -> Automatic,
+               PrivateNotebookOptions -> {"VersionedStylesheet" -> {"Default.nb"[8.] -> False}},
+               CellLabelAutoDelete -> False,
+               Background -> GrayLevel[1.],
+               FrontEndVersion -> "11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, 2018)",
+               StyleDefinitions -> "Default.nb",
+               ClosingSaveDialog -> False,
+               TrackCellChangeTimes -> False
+              ]
+             ],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.0250024,
+             "CPUTimeUsed" -> 0.015,
+             "MemoryUsed" -> 25280
+            ]
+           ],
+           7082336399744949263 -> TestResultObject[
+            Association[
+             "TestKey" -> 7082336399744949263,
+             "TestID" -> "Save-NotebookObject-File",
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              UsingFrontEnd[
+               WithCleanup[
+                nb = CreateDocument[
+                 {
+                  TextCell["Test notebook", "Title"],
+                  TextCell["This is a test", "Text"],
+                  ExpressionCell[Defer[1 + 1], "Input"],
+                  ExpressionCell[2, "Output"]
+                 }
+                ],
+                saveAndOpenTest[nb],
+                NotebookClose[nb]
+               ]
+              ]
+             ],
+             "ExpectedOutput" -> HoldForm[Blank[Notebook]],
+             "ActualOutput" -> HoldForm[
+              Notebook[
+               {
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Test notebook", "Title"],
+                   Cell["This is a test", "Text"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[BoxData[RowBox[{"1", "+", "1"}]], "Input"],
+                      Cell[BoxData["2"], "Output"]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ]
+               },
+               FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+               StyleDefinitions -> "Default.nb"
+              ]
+             ],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.3990000,
+             "CPUTimeUsed" -> 0.,
+             "MemoryUsed" -> 4272
+            ]
+           ],
+           5792008177531633653 -> TestResultObject[
+            Association[
+             "TestKey" -> 5792008177531633653,
+             "TestID" -> "Save-Notebook-File",
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              saveAndOpenTest[
+               Notebook[{Cell["Hello world", "Text"]}]
+              ]
+             ],
+             "ExpectedOutput" -> HoldForm[Blank[Notebook]],
+             "ActualOutput" -> HoldForm[
+              Notebook[
+               {Cell["Hello world", "Text"]},
+               FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+               StyleDefinitions -> "Default.nb"
+              ]
+             ],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.1995423,
+             "CPUTimeUsed" -> 0.,
+             "MemoryUsed" -> 3176
+            ]
+           ],
+           5393094398031986935 -> TestResultObject[
+            Association[
+             "TestKey" -> 5393094398031986935,
+             "TestID" -> "Save-File-File",
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              saveAndOpenTest[
+               FindFile["ExampleData/document.nb"]
+              ]
+             ],
+             "ExpectedOutput" -> HoldForm[Blank[Notebook]],
+             "ActualOutput" -> HoldForm[
+              Notebook[
+               {
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Text", "Section"],
+                   Cell["A line of text.", "Text"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell["Subsection", "Subsection"],
+                      Cell["one two three", "Text"],
+                      Cell["alpha beta gamma delta epsilon \[Ellipsis]", "Text"]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ],
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Expressions", "Section"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[RowBox[{"2", "+", "2"}]],
+                       "Input",
+                       CellLabel -> "In[1]:="
+                      ],
+                      Cell[BoxData["4"], "Output", CellLabel -> "Out[1]="]
+                     },
+                     Open
+                    ]
+                   ],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[{"N", "[", RowBox[{"GoldenRatio", ",", "80"}], "]"}]
+                       ],
+                       "Input",
+                       CellLabel -> "In[2]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        "1.618033988749894848204586834365638117720309179805762862135448622705260462818902449707207204189391`80."
+                       ],
+                       "Output",
+                       CellLabel -> "Out[2]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[
+                         {
+                          "Nest",
+                          "[",
+                          RowBox[
+                           {
+                            RowBox[
+                             {
+                              RowBox[
+                               {
+                                "Style",
+                                "[",
+                                RowBox[
+                                 {
+                                  RowBox[{"{", RowBox[{"#", ",", "y"}], "}"}],
+                                  ",",
+                                  RowBox[
+                                   {
+                                    "FontColor",
+                                    "->",
+                                    RowBox[
+                                     {
+                                      "Hue",
+                                      "[",
+                                      RowBox[
+                                       {
+                                        RowBox[{RowBox[{"Depth", "[", "#", "]"}], "/", "18"}],
+                                        ",",
+                                        "1",
+                                        ",",
+                                        ".5"
+                                       }
+                                      ],
+                                      "]"
+                                     }
+                                    ]
+                                   }
+                                  ]
+                                 }
+                                ],
+                                "]"
+                               }
+                              ],
+                              "&"
+                             }
+                            ],
+                            ",",
+                            "x",
+                            ",",
+                            "6"
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       ],
+                       "Input",
+                       CellLabel -> "In[3]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        StyleBox[
+                         RowBox[
+                          {
+                           "{",
+                           RowBox[
+                            {
+                             StyleBox[
+                              RowBox[
+                               {
+                                "{",
+                                RowBox[
+                                 {
+                                  StyleBox[
+                                   RowBox[
+                                    {
+                                     "{",
+                                     RowBox[
+                                      {
+                                       StyleBox[
+                                        RowBox[
+                                         {
+                                          "{",
+                                          RowBox[
+                                           {
+                                            StyleBox[
+                                             RowBox[
+                                              {
+                                               "{",
+                                               RowBox[
+                                                {
+                                                 StyleBox[
+                                                  RowBox[{"{", RowBox[{"x", ",", "y"}], "}"}],
+                                                  StripOnInput -> False,
+                                                  FontColor -> Hue[Rational[1, 18], 1, 0.5]
+                                                 ],
+                                                 ",",
+                                                 "y"
+                                                }
+                                               ],
+                                               "}"
+                                              }
+                                             ],
+                                             StripOnInput -> False,
+                                             FontColor -> Hue[Rational[2, 9], 1, 0.5]
+                                            ],
+                                            ",",
+                                            "y"
+                                           }
+                                          ],
+                                          "}"
+                                         }
+                                        ],
+                                        StripOnInput -> False,
+                                        FontColor -> Hue[Rational[1, 3], 1, 0.5]
+                                       ],
+                                       ",",
+                                       "y"
+                                      }
+                                     ],
+                                     "}"
+                                    }
+                                   ],
+                                   StripOnInput -> False,
+                                   FontColor -> Hue[Rational[4, 9], 1, 0.5]
+                                  ],
+                                  ",",
+                                  "y"
+                                 }
+                                ],
+                                "}"
+                               }
+                              ],
+                              StripOnInput -> False,
+                              FontColor -> Hue[Rational[5, 9], 1, 0.5]
+                             ],
+                             ",",
+                             "y"
+                            }
+                           ],
+                           "}"
+                          }
+                         ],
+                         StripOnInput -> False,
+                         FontColor -> Hue[Rational[2, 3], 1, 0.5]
+                        ]
+                       ],
+                       "Output",
+                       CellLabel -> "Out[3]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ],
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Graphics", "Section"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[
+                         {
+                          "Graphics3D",
+                          "[",
+                          RowBox[
+                           {
+                            RowBox[{"Sphere", "[", "]"}],
+                            ",",
+                            RowBox[{"ImageSize", "\[Rule]", "Tiny"}]
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       ],
+                       "Input",
+                       CellLabel -> "In[4]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        Graphics3DBox[SphereBox[{0, 0, 0}], ImageSize -> Tiny]
+                       ],
+                       "Output",
+                       CellLabel -> "Out[4]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[
+                         {
+                          "Plot",
+                          "[",
+                          RowBox[
+                           {
+                            RowBox[{"Abs", "[", "x", "]"}],
+                            ",",
+                            RowBox[
+                             {
+                              "{",
+                              RowBox[{"x", ",", RowBox[{"-", "2"}], ",", "2"}],
+                              "}"
+                             }
+                            ],
+                            ",",
+                            RowBox[{"ImageSize", "\[Rule]", "Small"}],
+                            ",",
+                            RowBox[{"AspectRatio", "\[Rule]", "Automatic"}]
+                           }
+                          ],
+                          "]"
+                         }
+                        ]
+                       ],
+                       "Input",
+                       CellLabel -> "In[5]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        GraphicsBox[
+                         {
+                          { },
+                          { },
+                          {
+                           Hue[0.67, 0.6, 0.6],
+                           LineBox[
+                            CompressedData[
+                             "\n1:eJwtxX1M1AUABmBSTDpdqKsJhLKKCStmATkKyFdPhCk3Gee5YrmYTsZCgXCK\ntcoVjUE0Jsw7nYqNUTjUEtuCQTJeCNRktz4cSmoCCRxf8qHe8eXhr9reP549\nL+7OtWYs8PHx2faf/z8essRjGAY1GrzL2z+dN6jx162Ao7NzBjWC7GsiH3kM\nalT4mbNdowY1Kh98NODsMqhxrs1140StQY2mzF/qo9MNamSNLPL0XnxCDf/e\nmJIXnn1CjTvr7hUU5cxTI/JKwMy+Vi81Prv2dntPiJca1sUTS50fPqZGSnVA\n43D7HDXM9a832UPnqMGnbsQ15s9SI6olc8XezhlqOLv3W7atm6HGZIxp4fni\naWqYfMuWOQanqHHBVHVy5s0panycF1FcWuqhRmxytbN2zE2NwvRzpckb3NS4\n4jpdfeCbR9Qor1kVu3LiITW+7Hg+atT8kBp7072fW6oeUOPu2lxLmHuSGpvz\n/sg5kjpJjbNhtuHUPRPUuPNPyPgh0zg15r74tbLh6n1qRBz/ynL/g1FqfL8v\njgUrRqgRGN7RE319iBon3s2b7cofpMbTuZ6WY1EuarRuzkppcPdTo6x8+qbz\nVB81ktt2LfWm3aNGYFZ/7Or5XmrUjBWtrc/poUZTUfhBz8Tf1JhaMvdDUNxt\najyzs9B88Kcuamw6tvFa3XQnNYJSe+5eSrpODXttdsX4179TY2P54V2RwR3U\nqDQt7O72u0yN2MKt+Sv9W6ixoWZwIMZaR43eEXNFxOEz1Ej77eerIX02alwY\nHp4+esRGDd9FgeF+8TZqXIw7VDxp304Nv7PRW1oTrdTIWZzmuGxLocYr++NP\nJfclUONmzcnH0fEJ1CjomXkv2LGJGrcsdcFjiWZqLEvZGb9qB6jhbIT52743\nqBEa5l1wwBFNjU/sDW0JSVHUsHXvLnHueI0a/lsSy6z9odRofpnL3UkvUeO2\nN3fNq++EUMORuT3ix4HnqOF6q+T9oTR/alR9l70nZ8iXGpdWV3UOjbmb9fqt\nGUN/tgxnNOv1/wLxEqQu\n                    "
+                            ]
+                           ],
+                           LineBox[
+                            CompressedData[
+                             "\n1:eJxNxW0s1HEcAPBzEWU7jsn+Z8eOUyuaJiNKp9iUx3losV2nyUMYyW5Dm3FG\nD7jWmunWkcetxLm4oxcScWlJHqL0cOfqul2XM045Og931Qvf3+/FZx9G6pX4\ndDKJRIr55/8R6drpoZ/pJ3e2DKXlK4kw1s5HGwX1EiIRjnw719NApMHn09YH\n7hJcWOFzI5RPVMBNTrHXq4hamGcjOXCLaIOTkpvF+hUpbGvmscNdB2HPuCXt\nSLUMLpwIZAlWX8POUuq8hcUk3KcKHZ888Q4ezm5wSV6chQ37g+1EuXMw2dhh\n7+L5GfY3X+xL6JLD4xV+E6OHlLDbHZ2xfekrrFtXzr8/ooLbFvrHKLe/wxT6\nw2W1Wg3XZPVmNDE18FpIh/py6Q+Y6yuT7hvRwsouWfU0YwHezJ4VHrymg71O\nWZsy+hfh8BZGZrfzElxIT3H/xl6GvRfP2c5F62FHO72NbANtOSgUe9SvwDl+\n/Z/2RP6CO86mNj1fQxt0NHtN3W+4NyF8V23YKlx6prJRqkEzFBEfWysNcFBA\nRS3huwazXSeNFjNowxhflc9bhwWWHG488w/sON/bQpahrUp4iYFXjTCpnSNW\nOWzABffFfIdh9IDXTRtq3iZMjSjwLqdswfLDUzPFz9BPHrCYas42fEHsT6Wb\n0GWVzTz5YxMs0tKFlCgzHEelHHu1ga6yIrvIsWVGw7Ye21+lGKFtomkSUWwe\ntioxOtNpC80V1NRd2kaLasqKi7A1ZVw2Hzspi+3+FDs4yLtrrwm9W/7mZTc2\na2rw0Sh2kUxS/QV7oVMYZ2VGT5TkKJKwrQtShnKxQzISWsuxe2KOZ3Vi6077\nRL3AZgZ4+HzA5ng5O+iw77nZGszYfwEIhpSQ\n                    "
+                            ]
+                           ]
+                          }
+                         },
+                         Axes -> True,
+                         AxesOrigin -> {0, 0},
+                         PlotRange -> {{-2, 2}, {0., 1.99999}},
+                         PlotRangeClipping -> True,
+                         PlotRangePadding -> {Scaled[0.2], Scaled[0.2]}
+                        ]
+                       ],
+                       "Output",
+                       GraphicsBoxOptions -> {ImageSize -> Small},
+                       CellLabel -> "Out[5]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ],
+                Cell[
+                 CellGroupData[
+                  {
+                   Cell["Dynamic Objects", "Section"],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[
+                        RowBox[
+                         {"Slider", "[", RowBox[{"Dynamic", "[", "x", "]"}], "]"}
+                        ]
+                       ],
+                       "Input",
+                       CellLabel -> "In[6]:="
+                      ],
+                      Cell[
+                       BoxData[SliderBox[Dynamic[x]]],
+                       "Output",
+                       CellLabel -> "Out[6]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ],
+                   Cell[
+                    CellGroupData[
+                     {
+                      Cell[
+                       BoxData[RowBox[{"Dynamic", "[", "x", "]"}]],
+                       "Input",
+                       CellLabel -> "In[7]:="
+                      ],
+                      Cell[
+                       BoxData[
+                        DynamicBox[
+                         ToBoxes[x, StandardForm],
+                         ImageSizeCache -> {7.1474609375, {0., 7.}}
+                        ]
+                       ],
+                       "Output",
+                       CellLabel -> "Out[7]="
+                      ]
+                     },
+                     Open
+                    ]
+                   ]
+                  },
+                  Open
+                 ]
+                ]
+               },
+               ClosingSaveDialog -> False,
+               WindowTitle -> Automatic,
+               PrivateNotebookOptions -> {"VersionedStylesheet" -> {"Default.nb"[8.] -> False}},
+               CellLabelAutoDelete -> False,
+               TrackCellChangeTimes -> False,
+               Background -> GrayLevel[1.],
+               FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+               StyleDefinitions -> "Default.nb"
+              ]
+             ],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTimeUsed" -> 0.2380001,
+             "CPUTimeUsed" -> 0.016,
+             "MemoryUsed" -> 26952
+            ]
+           ],
+           5984383959435361265 -> TestResultObject[
+            Association[
+             "TestKey" -> 5984383959435361265,
+             "TestID" -> None,
+             "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
+             "SameTest" -> MatchQ,
+             "SameMessages" -> Testing`MessageMatchQ,
+             "MemoryConstraint" -> Infinity,
+             "TimeConstraint" -> Infinity,
+             "Outcome" -> "Success",
+             "Input" -> HoldForm[
+              SetOptions[
+               ResourceFunction["MessageFailure"],
+               "TestMode" -> False
+              ]
+             ],
+             "ExpectedOutput" -> HoldForm[KeyValuePattern["TestMode" -> False]],
+             "ActualOutput" -> HoldForm[
+              {
+               "MessageFunction" -> Automatic,
+               "Verbose" -> False,
+               "Stack" -> False,
+               "TestMode" -> False
+              }
+             ],
+             "ExpectedMessages" -> HoldForm[{}],
+             "ActualMessages" -> { },
+             "AbsoluteTime" -> 3860152094.,
+             "AbsoluteTimeUsed" -> 0.0009996,
+             "CPUTimeUsed" -> 0.,
+             "MemoryUsed" -> 1960
+            ]
+           ]
+          ],
+          "TestsSucceededKeys" -> {
+           6247273547461253606,
+           6574290564975049032,
+           8442684010343346620,
+           4814929588091756117,
+           192989908670998257,
+           8049361300898177033,
+           7082336399744949263,
+           5792008177531633653,
+           5393094398031986935,
+           5984383959435361265
+          },
+          "TestsFailedWrongResultsKeys" -> { },
+          "TestsFailedWithMessagesKeys" -> { },
+          "TestsFailedWithErrorsKeys" -> { }
+         ]
+        ],
+        Editable -> False,
+        SelectWithContents -> True,
+        Selectable -> False
+       ]
+      ],
+      "Output",
+      "Excluded",
+      CellLabel -> "Out[26]="
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Basic Examples",
+      "Subsection",
+      TaggingRules -> { },
+      CellLabel -> "In[11]:=",
+      CellID -> 462042388
+     ],
+     Cell[
+      TextData[
+       {
+        "Save a ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "NotebookObject",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle -> Dynamic[
+             FEPrivate`If[
+              CurrentValue["MouseOver"],
+              {
+               "Link",
+               FontColor -> RGBColor[0.854902, 0.396078, 0.145098]
+              },
+              {"Link"}
+             ]
+            ],
+            ButtonData -> "paclet:ref/NotebookObject",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro",
+         FontSize -> 0.9428571428571428*Inherited
+        ],
+        " to a human-readable file:"
+       }
+      ],
+      "Text",
+      TaggingRules -> { },
+      CellID -> 685696954
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "nb",
+            "=",
+            RowBox[
+             {
+              "CreateDocument",
+              "[",
+              RowBox[
+               {
+                "{",
+                "\[IndentingNewLine]",
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "TextCell",
+                    "[",
+                    RowBox[{"\"Test notebook\"", ",", "\"Title\""}],
+                    "]"
+                   }
+                  ],
+                  ",",
+                  "\[IndentingNewLine]",
+                  RowBox[
+                   {
+                    "TextCell",
+                    "[",
+                    RowBox[{"\"This is a test\"", ",", "\"Text\""}],
+                    "]"
+                   }
+                  ],
+                  ",",
+                  "\[IndentingNewLine]",
+                  RowBox[
+                   {
+                    "ExpressionCell",
+                    "[",
+                    RowBox[
+                     {
+                      RowBox[{"Defer", "[", RowBox[{"1", "+", "1"}], "]"}],
+                      ",",
+                      "\"Input\""
+                     }
+                    ],
+                    "]"
+                   }
+                  ],
+                  ",",
+                  "\[IndentingNewLine]",
+                  RowBox[
+                   {
+                    "ExpressionCell",
+                    "[",
+                    RowBox[{"2", ",", "\"Output\""}],
+                    "]"
+                   }
+                  ]
+                 }
+                ],
+                "\[IndentingNewLine]",
+                "}"
+               }
+              ],
+              "]"
+             }
+            ]
+           }
+          ]
+         ],
+         "Input",
+         TaggingRules -> { },
+         CellLabel -> "In[1]:=",
+         CellID -> 740814768
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           {
+            FrontEndObject[LinkObject["xzqf9_shm", 3, 1]],
+            82,
+            "FrontEndObject[LinkObject[\"xzqf9_shm\", 3, 1]]",
+            "82",
+            "\"Untitled-6\""
+           },
+           "NotebookObjectUnsaved"
+          ]
+         ],
+         "Output",
+         TaggingRules -> { },
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "SaveReadableNotebook",
+            "[",
+            RowBox[
+             {
+              "nb",
+              ",",
+              RowBox[
+               {
+                "FileNameJoin",
+                "[",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                  "}"
+                 }
+                ],
+                "]"
+               }
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         TaggingRules -> { },
+         CellLabel -> "In[2]:=",
+         CellID -> 108690559
+        ],
+        Cell[
+         BoxData[
+          "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+         ],
+         "Output",
+         TaggingRules -> { },
+         CellLabel -> "Out[2]=",
+         CellID -> 372033885
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"FilePrint", "[", "%", "]"}]],
+         "Input",
+         TaggingRules -> { },
+         CellLabel -> "In[3]:=",
+         CellID -> 284413394
+        ],
+        Cell[
+         "Notebook[\n {\n  Cell[\n   CellGroupData[\n    {\n     Cell[\"Test notebook\", \"Title\"],\n     Cell[\"This is a test\", \"Text\"],\n     Cell[\n      CellGroupData[\n       {\n        Cell[BoxData[RowBox[{\"1\", \"+\", \"1\"}]], \"Input\"],\n        Cell[BoxData[\"2\"], \"Output\"]\n       },\n       Open\n      ]\n     ]\n    },\n    Open\n   ]\n  ]\n },\n StyleDefinitions -> \"Default.nb\"\n]",
+         "Print",
+         TaggingRules -> { },
+         CellLabel -> "During evaluation of In[3]:=",
+         CellID -> 417399833
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+           Null
+          ]
+         ],
+         "ExampleDelimiter",
+         TaggingRules -> { },
+         CellID -> 227606795
+        ],
+        Cell[
+         TextData[
+          {
+           "Save a ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "Notebook",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle -> Dynamic[
+                FEPrivate`If[
+                 CurrentValue["MouseOver"],
+                 {
+                  "Link",
+                  FontColor -> RGBColor[0.854902, 0.396078, 0.145098]
+                 },
+                 {"Link"}
+                ]
+               ],
+               ButtonData -> "paclet:ref/Notebook",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro",
+            FontSize -> 0.9428571428571428*Inherited
+           ],
+           " expression:"
+          }
+         ],
+         "Text",
+         TaggingRules -> { },
+         CellID -> 683483807
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "SaveReadableNotebook",
+               "[",
+               "\[IndentingNewLine]",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "Notebook",
+                   "[",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[
+                      {
+                       "Cell",
+                       "[",
+                       RowBox[{"\"Hello world\"", ",", "\"Text\""}],
+                       "]"
+                      }
+                     ],
+                     "}"
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 ",",
+                 "\[IndentingNewLine]",
+                 RowBox[
+                  {
+                   "FileNameJoin",
+                   "[",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                     "}"
+                    }
+                   ],
+                   "]"
+                  }
+                 ]
+                }
+               ],
+               "\[IndentingNewLine]",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            TaggingRules -> { },
+            CellLabel -> "In[1]:=",
+            CellID -> 630643625
+           ],
+           Cell[
+            BoxData[
+             "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[RowBox[{"FilePrint", "[", "%", "]"}]],
+            "Input",
+            TaggingRules -> { },
+            CellLabel -> "In[2]:=",
+            CellID -> 509179413
+           ],
+           Cell[
+            "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+            "Print",
+            TaggingRules -> { },
+            CellLabel -> "During evaluation of In[2]:="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+           Null
+          ]
+         ],
+         "ExampleDelimiter",
+         TaggingRules -> { },
+         CellID -> 420287531
+        ],
+        Cell[
+         "Save a copy of a notebook file that already exists:",
+         "Text",
+         TaggingRules -> { },
+         CellID -> 559944176
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "SaveReadableNotebook",
+               "[",
+               "\[IndentingNewLine]",
+               RowBox[
+                {
+                 RowBox[
+                  {"FindFile", "[", "\"ExampleData/document.nb\"", "]"}
+                 ],
+                 ",",
+                 "\[IndentingNewLine]",
+                 RowBox[
+                  {
+                   "FileNameJoin",
+                   "[",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                     "}"
+                    }
+                   ],
+                   "]"
+                  }
+                 ]
+                }
+               ],
+               "\[IndentingNewLine]",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            TaggingRules -> { },
+            CellLabel -> "In[1]:=",
+            CellID -> 389480439
+           ],
+           Cell[
+            BoxData[
+             "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+            ],
+            "Output",
+            TaggingRules -> { },
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[{"FilePrint", "[", RowBox[{"%", ",", "15"}], "]"}]
+            ],
+            "Input",
+            TaggingRules -> { },
+            CellLabel -> "In[2]:=",
+            CellID -> 725790380
+           ],
+           Cell[
+            "Notebook[\n {\n  Cell[\n   CellGroupData[\n    {\n     Cell[\"Text\", \"Section\"],\n     Cell[\"A line of text.\", \"Text\"],\n     Cell[\n      CellGroupData[\n       {\n        Cell[\"Subsection\", \"Subsection\"],\n        Cell[\"one two three\", \"Text\"],\n        Cell[\"alpha beta gamma delta epsilon \[Ellipsis]\", \"Text\"]\n       },\n       Open",
+            "Print",
+            TaggingRules -> { },
+            CellLabel -> "During evaluation of In[2]:="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Options",
+      "Subsection",
+      TaggingRules -> { },
+      CellLabel -> "In[3]:=",
+      CellID -> 776923543
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         "ExcludedCellOptions",
+         "Subsubsection",
+         TaggingRules -> { },
+         CellLabel -> "In[1]:=",
+         CellID -> 333823883
+        ],
+        Cell[
+         "By default, some cell options are automatically stripped:",
+         "Text",
+         TaggingRules -> { },
+         CellID -> 791716280
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SaveReadableNotebook",
+                 "[",
+                 "\[IndentingNewLine]",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "Notebook",
+                     "[",
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[
+                        {
+                         "Cell",
+                         "[",
+                         RowBox[
+                          {
+                           "\"Hello world\"",
+                           ",",
+                           "\"Text\"",
+                           ",",
+                           RowBox[
+                            {
+                             "ExpressionUUID",
+                             "\[Rule]",
+                             RowBox[{"CreateUUID", "[", "]"}]
+                            }
+                           ]
+                          }
+                         ],
+                         "]"
+                        }
+                       ],
+                       "}"
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "\[IndentingNewLine]",
+                   RowBox[
+                    {
+                     "FileNameJoin",
+                     "[",
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                       "}"
+                      }
+                     ],
+                     "]"
+                    }
+                   ]
+                  }
+                 ],
+                 "\[IndentingNewLine]",
+                 "]"
+                }
+               ],
+               "//",
+               "FilePrint"
+              }
+             ]
+            ],
+            "Input",
+            TaggingRules -> { },
+            CellLabel -> "In[1]:=",
+            CellID -> 861976318
+           ],
+           Cell[
+            "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+            "Print",
+            TaggingRules -> { },
+            CellLabel -> "During evaluation of In[1]:=",
+            CellID -> 290379575
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             InterpretationBox[
+              Cell["\t", "ExampleDelimiter"],
+              $Line = 0;
+              Null
+             ]
+            ],
+            "ExampleDelimiter",
+            TaggingRules -> { },
+            CellID -> 545168825
+           ],
+           Cell[
+            "Preserve all cell options:",
+            "Text",
+            TaggingRules -> { },
+            CellID -> 794211369
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "SaveReadableNotebook",
+                    "[",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "Notebook",
+                        "[",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            "Cell",
+                            "[",
+                            RowBox[
+                             {
+                              "\"Hello world\"",
+                              ",",
+                              "\"Text\"",
+                              ",",
+                              RowBox[
+                               {
+                                "ExpressionUUID",
+                                "\[Rule]",
+                                RowBox[{"CreateUUID", "[", "]"}]
+                               }
+                              ]
+                             }
+                            ],
+                            "]"
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {
+                        "FileNameJoin",
+                        "[",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                          "}"
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {"\"ExcludedCellOptions\"", "\[Rule]", RowBox[{"{", "}"}]}
+                      ]
+                     }
+                    ],
+                    "\[IndentingNewLine]",
+                    "]"
+                   }
+                  ],
+                  "//",
+                  "FilePrint"
+                 }
+                ]
+               ],
+               "Input",
+               TaggingRules -> { },
+               CellLabel -> "In[1]:=",
+               CellID -> 407852026
+              ],
+              Cell[
+               "Notebook[\n {\n  Cell[\n   \"Hello world\",\n   \"Text\",\n   ExpressionUUID -> \"1afb2be5-e396-4d66-aee0-0b29b323bc77\"\n  ]\n }\n]",
+               "Print",
+               TaggingRules -> { },
+               CellLabel -> "During evaluation of In[1]:=",
+               CellID -> 81058198
+              ]
+             },
+             Open
+            ]
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             InterpretationBox[
+              Cell["\t", "ExampleDelimiter"],
+              $Line = 0;
+              Null
+             ]
+            ],
+            "ExampleDelimiter",
+            TaggingRules -> { },
+            CellID -> 4720729
+           ],
+           Cell[
+            "Ignore specific options:",
+            "Text",
+            TaggingRules -> { },
+            CellID -> 539135965
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "SaveReadableNotebook",
+                    "[",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "Notebook",
+                        "[",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[
+                           {
+                            "Cell",
+                            "[",
+                            RowBox[
+                             {
+                              "\"Hello world\"",
+                              ",",
+                              "\"Text\"",
+                              ",",
+                              RowBox[{"FontColor", "\[Rule]", "Red"}],
+                              ",",
+                              RowBox[{"FontSize", "\[Rule]", "14"}]
+                             }
+                            ],
+                            "]"
+                           }
+                          ],
+                          "}"
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {
+                        "FileNameJoin",
+                        "[",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                          "}"
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {
+                        "\"ExcludedCellOptions\"",
+                        "\[Rule]",
+                        RowBox[{"{", "FontColor", "}"}]
+                       }
+                      ]
+                     }
+                    ],
+                    "\[IndentingNewLine]",
+                    "]"
+                   }
+                  ],
+                  "//",
+                  "FilePrint"
+                 }
+                ]
+               ],
+               "Input",
+               TaggingRules -> { },
+               CellLabel -> "In[1]:=",
+               CellID -> 361824655
+              ],
+              Cell[
+               "Notebook[{Cell[\"Hello world\", \"Text\", FontSize -> 14]}]",
+               "Print",
+               TaggingRules -> { },
+               CellLabel -> "During evaluation of In[1]:=",
+               CellID -> 806874859
+              ]
+             },
+             Open
+            ]
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         "ExcludedNotebookOptions",
+         "Subsubsection",
+         TaggingRules -> { },
+         CellLabel -> "In[2]:=",
+         CellID -> 791210234
+        ],
+        Cell[
+         "By default, some notebook options are automatically stripped:",
+         "Text",
+         TaggingRules -> { },
+         CellID -> 856987833
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {
+                 "SaveReadableNotebook",
+                 "[",
+                 "\[IndentingNewLine]",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "Notebook",
+                     "[",
+                     RowBox[
+                      {
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[
+                          {
+                           "Cell",
+                           "[",
+                           RowBox[{"\"Hello world\"", ",", "\"Text\""}],
+                           "]"
+                          }
+                         ],
+                         "}"
+                        }
+                       ],
+                       ",",
+                       RowBox[
+                        {
+                         "WindowSize",
+                         "\[Rule]",
+                         RowBox[{"{", RowBox[{"1000", ",", "1000"}], "}"}]
+                        }
+                       ]
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "\[IndentingNewLine]",
+                   RowBox[
+                    {
+                     "FileNameJoin",
+                     "[",
+                     RowBox[
+                      {
+                       "{",
+                       RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                       "}"
+                      }
+                     ],
+                     "]"
+                    }
+                   ]
+                  }
+                 ],
+                 "\[IndentingNewLine]",
+                 "]"
+                }
+               ],
+               "//",
+               "FilePrint"
+              }
+             ]
+            ],
+            "Input",
+            TaggingRules -> { },
+            CellLabel -> "In[1]:=",
+            CellID -> 64169882
+           ],
+           Cell[
+            "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+            "Print",
+            TaggingRules -> { },
+            CellLabel -> "During evaluation of In[1]:=",
+            CellID -> 33860084
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             InterpretationBox[
+              Cell["\t", "ExampleDelimiter"],
+              $Line = 0;
+              Null
+             ]
+            ],
+            "ExampleDelimiter",
+            TaggingRules -> { },
+            CellID -> 96709844
+           ],
+           Cell[
+            "Preserve all notebook options:",
+            "Text",
+            TaggingRules -> { },
+            CellID -> 333749145
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "SaveReadableNotebook",
+                    "[",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "Notebook",
+                        "[",
+                        RowBox[
+                         {
+                          RowBox[
+                           {
+                            "{",
+                            RowBox[
+                             {
+                              "Cell",
+                              "[",
+                              RowBox[{"\"Hello world\"", ",", "\"Text\""}],
+                              "]"
+                             }
+                            ],
+                            "}"
+                           }
+                          ],
+                          ",",
+                          RowBox[
+                           {
+                            "WindowSize",
+                            "\[Rule]",
+                            RowBox[{"{", RowBox[{"1000", ",", "1000"}], "}"}]
+                           }
+                          ]
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {
+                        "FileNameJoin",
+                        "[",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                          "}"
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {
+                        "\"ExcludedNotebookOptions\"",
+                        "\[Rule]",
+                        RowBox[{"{", "}"}]
+                       }
+                      ]
+                     }
+                    ],
+                    "\[IndentingNewLine]",
+                    "]"
+                   }
+                  ],
+                  "//",
+                  "FilePrint"
+                 }
+                ]
+               ],
+               "Input",
+               TaggingRules -> { },
+               CellLabel -> "In[1]:=",
+               CellID -> 5088370
+              ],
+              Cell[
+               "Notebook[\n {Cell[\"Hello world\", \"Text\"]},\n WindowSize -> {1000, 1000}\n]",
+               "Print",
+               TaggingRules -> { },
+               CellLabel -> "During evaluation of In[1]:=",
+               CellID -> 481546763
+              ]
+             },
+             Open
+            ]
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             InterpretationBox[
+              Cell["\t", "ExampleDelimiter"],
+              $Line = 0;
+              Null
+             ]
+            ],
+            "ExampleDelimiter",
+            TaggingRules -> { },
+            CellID -> 269262761
+           ],
+           Cell[
+            "Ignore specific options:",
+            "Text",
+            TaggingRules -> { },
+            CellID -> 539135966
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    "SaveReadableNotebook",
+                    "[",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        "Notebook",
+                        "[",
+                        RowBox[
+                         {
+                          RowBox[
+                           {
+                            "{",
+                            RowBox[
+                             {
+                              "Cell",
+                              "[",
+                              RowBox[{"\"Hello world\"", ",", "\"Text\""}],
+                              "]"
+                             }
+                            ],
+                            "}"
+                           }
+                          ],
+                          ",",
+                          RowBox[{"Background", "\[Rule]", "Red"}]
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {
+                        "FileNameJoin",
+                        "[",
+                        RowBox[
+                         {
+                          "{",
+                          RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                          "}"
+                         }
+                        ],
+                        "]"
+                       }
+                      ],
+                      ",",
+                      "\[IndentingNewLine]",
+                      RowBox[
+                       {
+                        "\"ExcludedNotebookOptions\"",
+                        "\[Rule]",
+                        RowBox[{"{", "Background", "}"}]
+                       }
+                      ]
+                     }
+                    ],
+                    "\[IndentingNewLine]",
+                    "]"
+                   }
+                  ],
+                  "//",
+                  "FilePrint"
+                 }
+                ]
+               ],
+               "Input",
+               TaggingRules -> { },
+               CellLabel -> "In[1]:=",
+               CellID -> 603447991
+              ],
+              Cell[
+               "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+               "Print",
+               TaggingRules -> { },
+               CellLabel -> "During evaluation of In[1]:=",
+               CellID -> 169682995
+              ]
+             },
+             Open
+            ]
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Applications",
+      "Subsection",
+      TaggingRules -> { },
+      CellLabel -> "In[2]:=",
+      CellID -> 568056528
+     ],
+     Cell[
+      TextData[
+       {
+        Cell[
+         BoxData["SaveReadableNotebook"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro",
+         FontSize -> 0.9428571428571428*Inherited
+        ],
+        " can be used to create notebook files that are well suited for version control systems that look at changes to files on a line-by-line basis."
+       }
+      ],
+      "Text",
+      TaggingRules -> { },
+      CellID -> 363329758
+     ],
+     Cell[
+      "Here\[CloseCurlyQuote]s a test notebook:",
+      "Text",
+      TaggingRules -> { },
+      CellID -> 998029523
+     ],
+     Cell[
+      BoxData[
+       {
+        RowBox[
+         {
+          RowBox[
+           {
+            "nb",
+            "=",
+            RowBox[
+             {
+              "NotebookPut",
+              "@",
+              RowBox[
+               {
+                "Notebook",
+                "[",
+                RowBox[
+                 {
+                  "{",
+                  "\[IndentingNewLine]",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      "Cell",
+                      "[",
+                      RowBox[{"\"Test notebook\"", ",", "\"Title\""}],
+                      "]"
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      "Cell",
+                      "[",
+                      RowBox[{"\"This is a test.\"", ",", "\"Text\""}],
+                      "]"
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      "Cell",
+                      "[",
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          "BoxData",
+                          "[",
+                          RowBox[
+                           {
+                            "RowBox",
+                            "[",
+                            RowBox[
+                             {"{", RowBox[{"\"1\"", ",", "\"+\"", ",", "\"1\""}], "}"}
+                            ],
+                            "]"
+                           }
+                          ],
+                          "]"
+                         }
+                        ],
+                        ",",
+                        "\"Input\""
+                       }
+                      ],
+                      "]"
+                     }
+                    ],
+                    ",",
+                    "\[IndentingNewLine]",
+                    RowBox[
+                     {
+                      "Cell",
+                      "[",
+                      RowBox[
+                       {RowBox[{"BoxData", "[", "\"2\"", "]"}], ",", "\"Output\""}
+                      ],
+                      "]"
+                     }
+                    ]
+                   }
+                  ],
+                  "\[IndentingNewLine]",
+                  "}"
+                 }
+                ],
+                "]"
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          ";"
+         }
+        ],
+        "\[IndentingNewLine]",
+        RowBox[
+         {
+          RowBox[
+           {
+            "NotebookSave",
+            "[",
+            RowBox[
+             {
+              "nb",
+              ",",
+              RowBox[
+               {
+                "FileNameJoin",
+                "[",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[{"$TemporaryDirectory", ",", "\"original.nb\""}],
+                  "}"
+                 }
+                ],
+                "]"
+               }
+              ]
+             }
+            ],
+            "]"
+           }
+          ],
+          ";"
+         }
+        ]
+       }
+      ],
+      "Input",
+      TaggingRules -> { },
+      CellLabel -> "In[1]:=",
+      CellID -> 566223672
+     ],
+     Cell[
+      "Now make changes to the notebook, then save to a new file:",
+      "Text",
+      TaggingRules -> { },
+      CellID -> 174834280
+     ],
+     Cell[
+      BoxData[
+       RowBox[
+        {
+         RowBox[
+          {
+           "NotebookSave",
+           "[",
+           RowBox[
+            {
+             "nb",
+             ",",
+             RowBox[
+              {
+               "FileNameJoin",
+               "[",
+               RowBox[
+                {
+                 "{",
+                 RowBox[{"$TemporaryDirectory", ",", "\"changed.nb\""}],
+                 "}"
+                }
+               ],
+               "]"
+              }
+             ]
+            }
+           ],
+           "]"
+          }
+         ],
+         ";"
+        }
+       ]
+      ],
+      "Input",
+      TaggingRules -> { },
+      CellLabel -> "In[3]:=",
+      CellID -> 706947841
+     ],
+     Cell[
+      "It can be difficult to visualize what actually changed:",
+      "Text",
+      TaggingRules -> { },
+      CellID -> 500828813
+     ],
+     Cell[
+      BoxData[
+       RowBox[
+        {
+         RowBox[
+          {
+           RowBox[
+            {
+             "fileDiff",
+             "[",
+             RowBox[
+              {
+               "file1_",
+               ",",
+               "file2_",
+               ",",
+               RowBox[{"max_", ":", "Infinity"}]
+              }
+             ],
+             "]"
+            }
+           ],
+           ":=",
+           "\[IndentingNewLine]",
+           RowBox[
+            {
+             "Column",
+             "@",
+             RowBox[
+              {
+               "Take",
+               "[",
+               "\[IndentingNewLine]",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "Flatten",
+                   "@",
+                   RowBox[
+                    {
+                     "Replace",
+                     "[",
+                     "\[IndentingNewLine]",
+                     RowBox[
+                      {
+                       RowBox[
+                        {
+                         "SequenceAlignment",
+                         "[",
+                         RowBox[
+                          {
+                           RowBox[
+                            {"Import", "[", RowBox[{"file1", ",", "\"Lines\""}], "]"}
+                           ],
+                           ",",
+                           RowBox[
+                            {"Import", "[", RowBox[{"file2", ",", "\"Lines\""}], "]"}
+                           ]
+                          }
+                         ],
+                         "]"
+                        }
+                       ],
+                       ",",
+                       "\[IndentingNewLine]",
+                       RowBox[
+                        {
+                         RowBox[
+                          {
+                           "{",
+                           RowBox[
+                            {
+                             RowBox[{"{", "a___String", "}"}],
+                             ",",
+                             RowBox[{"{", "b___String", "}"}]
+                            }
+                           ],
+                           "}"
+                          }
+                         ],
+                         "\[RuleDelayed]",
+                         "\[IndentingNewLine]",
+                         RowBox[
+                          {
+                           "Grid",
+                           "[",
+                           RowBox[
+                            {
+                             "{",
+                             "\[IndentingNewLine]",
+                             RowBox[
+                              {
+                               RowBox[
+                                {
+                                 "{",
+                                 RowBox[
+                                  {
+                                   "Item",
+                                   "[",
+                                   RowBox[
+                                    {
+                                     RowBox[
+                                      {
+                                       "StringRiffle",
+                                       "[",
+                                       RowBox[{RowBox[{"{", "a", "}"}], ",", "\"\\n\""}],
+                                       "]"
+                                      }
+                                     ],
+                                     ",",
+                                     RowBox[{"Background", "\[Rule]", "LightRed"}]
+                                    }
+                                   ],
+                                   "]"
+                                  }
+                                 ],
+                                 "}"
+                                }
+                               ],
+                               ",",
+                               "\[IndentingNewLine]",
+                               RowBox[
+                                {
+                                 "{",
+                                 RowBox[
+                                  {
+                                   "Item",
+                                   "[",
+                                   RowBox[
+                                    {
+                                     RowBox[
+                                      {
+                                       "StringRiffle",
+                                       "[",
+                                       RowBox[{RowBox[{"{", "b", "}"}], ",", "\"\\n\""}],
+                                       "]"
+                                      }
+                                     ],
+                                     ",",
+                                     RowBox[{"Background", "\[Rule]", "LightGreen"}]
+                                    }
+                                   ],
+                                   "]"
+                                  }
+                                 ],
+                                 "}"
+                                }
+                               ]
+                              }
+                             ],
+                             "\[IndentingNewLine]",
+                             "}"
+                            }
+                           ],
+                           "]"
+                          }
+                         ]
+                        }
+                       ],
+                       ",",
+                       "\[IndentingNewLine]",
+                       RowBox[{"{", "1", "}"}]
+                      }
+                     ],
+                     "\[IndentingNewLine]",
+                     "]"
+                    }
+                   ]
+                  }
+                 ],
+                 ",",
+                 "\[IndentingNewLine]",
+                 RowBox[{"UpTo", "[", "max", "]"}]
+                }
+               ],
+               "\[IndentingNewLine]",
+               "]"
+              }
+             ]
+            }
+           ]
+          }
+         ],
+         ";"
+        }
+       ]
+      ],
+      "Input",
+      TaggingRules -> { },
+      CellLabel -> "In[4]:=",
+      CellID -> 108863512
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "fileDiff",
+            "[",
+            "\[IndentingNewLine]",
+            RowBox[
+             {
+              RowBox[
+               {
+                "FileNameJoin",
+                "[",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[{"$TemporaryDirectory", ",", "\"original.nb\""}],
+                  "}"
+                 }
+                ],
+                "]"
+               }
+              ],
+              ",",
+              "\[IndentingNewLine]",
+              RowBox[
+               {
+                "FileNameJoin",
+                "[",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[{"$TemporaryDirectory", ",", "\"changed.nb\""}],
+                  "}"
+                 }
+                ],
+                "]"
+               }
+              ],
+              ",",
+              "\[IndentingNewLine]",
+              "25"
+             }
+            ],
+            "\[IndentingNewLine]",
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         TaggingRules -> { },
+         CellLabel -> "In[5]:=",
+         CellID -> 394044315
+        ],
+        Cell[
+         BoxData[
+          TagBox[
+           GridBox[
+            {
+             {
+              "\"(* Content-type: application/vnd.wolfram.mathematica *)\""
+             },
+             {"\"\""},
+             {"\"(*** Wolfram Notebook File ***)\""},
+             {"\"(* http://www.wolfram.com/nb *)\""},
+             {"\"\""},
+             {"\"(* CreatedBy='Mathematica 13.0' *)\""},
+             {"\"\""},
+             {"\"(*CacheID: 234*)\""},
+             {"\"(* Internal cache information:\""},
+             {"\"NotebookFileLineBreakTest\""},
+             {"\"NotebookFileLineBreakTest\""},
+             {"\"NotebookDataPosition[       158,          7]\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\"NotebookDataLength[      1693,         56]\\nNotebookOptionsPosition[       997,         35]\\nNotebookOutlinePosition[      1407,         51]\\nCellTagsIndexPosition[      1364,         48]\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\"NotebookDataLength[      1740,         59]\\nNotebookOptionsPosition[      1043,         38]\\nNotebookOutlinePosition[      1453,         54]\\nCellTagsIndexPosition[      1410,         51]\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             },
+             {"\"WindowFrame->Normal*)\""},
+             {"\"\""},
+             {"\"(* Beginning of Notebook Content *)\""},
+             {"\"Notebook[{\""},
+             {"\"\""},
+             {"\"Cell[CellGroupData[{\""},
+             {
+              "\"Cell[\\\"Test notebook\\\", \\\"Title\\\",ExpressionUUID->\\\"4f644f4a-df5d-43fd-b118-ae5e2334cca4\\\"],\""
+             },
+             {"\"\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\"Cell[\\\"This is a test.\\\", \\\"Text\\\",ExpressionUUID->\\\"5e2d30c6-5535-4d51-8f21-0d5330457c66\\\"],\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\"Cell[\\\"This is a test\\\", \\\"Text\\\",\\n CellChangeTimes->{\\n  3.859458805130263*^9},ExpressionUUID->\\\"5e2d30c6-5535-4d51-8f21-\\\\\\n0d5330457c66\\\"],\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             },
+             {"\"\""},
+             {"\"Cell[CellGroupData[{\""},
+             {"\"\""}
+            },
+            DefaultBaseStyle -> "Column",
+            GridBoxAlignment -> {"Columns" -> {{Left}}},
+            GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+           ],
+           "Column"
+          ]
+         ],
+         "Output",
+         TaggingRules -> { },
+         CellLabel -> "Out[5]=",
+         CellID -> 561616960
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      "Create a formatted version of each notebook and view changes for those files instead:",
+      "Text",
+      TaggingRules -> { },
+      CellID -> 721063292
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          {
+           RowBox[
+            {
+             RowBox[
+              {
+               "SaveReadableNotebook",
+               "[",
+               "\[IndentingNewLine]",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "FileNameJoin",
+                   "[",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[{"$TemporaryDirectory", ",", "\"original.nb\""}],
+                     "}"
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 ",",
+                 "\[IndentingNewLine]",
+                 RowBox[
+                  {
+                   "FileNameJoin",
+                   "[",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[
+                      {"$TemporaryDirectory", ",", "\"original_readable.nb\""}
+                     ],
+                     "}"
+                    }
+                   ],
+                   "]"
+                  }
+                 ]
+                }
+               ],
+               "\[IndentingNewLine]",
+               "]"
+              }
+             ],
+             ";"
+            }
+           ],
+           "\[IndentingNewLine]",
+           RowBox[
+            {
+             RowBox[
+              {
+               "SaveReadableNotebook",
+               "[",
+               "\[IndentingNewLine]",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "FileNameJoin",
+                   "[",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[{"$TemporaryDirectory", ",", "\"changed.nb\""}],
+                     "}"
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 ",",
+                 "\[IndentingNewLine]",
+                 RowBox[
+                  {
+                   "FileNameJoin",
+                   "[",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[
+                      {"$TemporaryDirectory", ",", "\"changed_readable.nb\""}
+                     ],
+                     "}"
+                    }
+                   ],
+                   "]"
+                  }
+                 ]
+                }
+               ],
+               "\[IndentingNewLine]",
+               "]"
+              }
+             ],
+             ";"
+            }
+           ],
+           "\[IndentingNewLine]",
+           RowBox[
+            {
+             "fileDiff",
+             "[",
+             "\[IndentingNewLine]",
+             RowBox[
+              {
+               RowBox[
+                {
+                 "FileNameJoin",
+                 "[",
+                 RowBox[
+                  {
+                   "{",
+                   RowBox[
+                    {"$TemporaryDirectory", ",", "\"original_readable.nb\""}
+                   ],
+                   "}"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               ",",
+               "\[IndentingNewLine]",
+               RowBox[
+                {
+                 "FileNameJoin",
+                 "[",
+                 RowBox[
+                  {
+                   "{",
+                   RowBox[
+                    {"$TemporaryDirectory", ",", "\"changed_readable.nb\""}
+                   ],
+                   "}"
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ],
+             "\[IndentingNewLine]",
+             "]"
+            }
+           ]
+          }
+         ],
+         "Input",
+         TaggingRules -> { },
+         CellLabel -> "In[6]:=",
+         CellID -> 425899494
+        ],
+        Cell[
+         BoxData[
+          TagBox[
+           GridBox[
+            {
+             {"\"Notebook[\""},
+             {"\" {\""},
+             {"\"  Cell[\""},
+             {"\"   CellGroupData[\""},
+             {"\"    {\""},
+             {"\"     Cell[\\\"Test notebook\\\", \\\"Title\\\"],\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\"     Cell[\\\"This is a test.\\\", \\\"Text\\\"],\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\"     Cell[\\\"This is a test\\\", \\\"Text\\\"],\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             },
+             {"\"     Cell[\""},
+             {"\"      CellGroupData[\""},
+             {"\"       {\""},
+             {
+              "\"        Cell[BoxData[RowBox[{\\\"1\\\", \\\"+\\\", \\\"1\\\"}]], \\\"Input\\\"],\""
+             },
+             {"\"        Cell[BoxData[\\\"2\\\"], \\\"Output\\\"]\""},
+             {"\"       },\""},
+             {"\"       Open\""},
+             {"\"      ]\""},
+             {"\"     ]\""},
+             {"\"    },\""},
+             {"\"    Open\""},
+             {"\"   ]\""},
+             {"\"  ]\""},
+             {"\" },\""},
+             {"\" StyleDefinitions -> \\\"Default.nb\\\"\""},
+             {"\"]\""}
+            },
+            DefaultBaseStyle -> "Column",
+            GridBoxAlignment -> {"Columns" -> {{Left}}},
+            GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+           ],
+           "Column"
+          ]
+         ],
+         "Output",
+         TaggingRules -> { },
+         CellLabel -> "Out[8]=",
+         CellID -> 4208270
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      "The formatted notebook files still open normally:",
+      "Text",
+      TaggingRules -> { },
+      CellID -> 36573501
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "NotebookOpen",
+            "[",
+            RowBox[
+             {
+              "FileNameJoin",
+              "[",
+              RowBox[
+               {
+                "{",
+                RowBox[
+                 {"$TemporaryDirectory", ",", "\"changed_readable.nb\""}
+                ],
+                "}"
+               }
+              ],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         TaggingRules -> { },
+         CellLabel -> "In[9]:=",
+         CellID -> 177752958
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           {
+            FrontEndObject[LinkObject["tj5d8_shm", 3, 1]],
+            93,
+            "FrontEndObject[LinkObject[\"tj5d8_shm\", 3, 1]]",
+            "93",
+            "\"changed_readable.nb\"",
+            "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\changed_readable.nb\""
+           },
+           "NotebookObject"
+          ]
+         ],
+         "Output",
+         TaggingRules -> { },
+         CellLabel -> "Out[9]=",
+         CellID -> 364374466
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ]
+ },
+ WindowStatusArea -> Automatic,
+ DockedCells -> {
+  Cell[
+   BoxData[TemplateBox[{}, "ToolsGridTemplate"]],
+   "DockedCell",
+   CellFrameMargins -> {{0, 0}, {2, 2}},
+   CellFrame -> {{0, 0}, {1, 0}}
+  ]
+ },
+ TaggingRules -> {
+  "InformationPopupMenuItemAdded" -> True,
+  "NotebookIndexQ" -> True,
+  "NotebookLastIndexed" -> DateObject[
+   {2022, 4, 28, 12, 46, 26.513277`9.176038327420576},
+   "Instant",
+   "Gregorian",
+   -4.
+  ],
+  "NotebookUUID" -> "fd901a1e-dadd-497c-8a98-2a3272d073f8"
+ },
+ FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+ StyleDefinitions -> FrontEnd`FileName[
+  {"Wolfram"},
+  "FunctionResourceDefinitionStyles.nb",
+  CharacterEncoding -> "UTF-8"
+ ],
+ ExpressionUUID -> "fd901a1e-dadd-497c-8a98-2a3272d073f8"
+]

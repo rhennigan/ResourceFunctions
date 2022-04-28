@@ -1,14 +1,16 @@
 <|
-    "Name"        -> "$$Function",
-    "Description" -> $$Description,
-    "Author"      -> $$Author
+    "Name"        -> "SaveReadableNotebook",
+    "Description" -> "Save a notebook to a file that is formatted to maximize readability when viewing changes in version control systems",
+    "Author"      -> "Richard Hennigan (Wolfram Research)"
     ,
     "Keywords" -> {
-        $$Keywords
+        "save notebook",
+        "git diff",
+        "notebook diff",
+        "file changes"
     }
     ,
     "Categories" -> {
-        $$Categories
         (* "Cloud & Deployment", *)
         (* "Core Language & Structure", *)
         (* "Data Manipulation & Analysis", *)
@@ -23,7 +25,7 @@
         (* "Just For Fun", *)
         (* "Knowledge Representation & Natural Language", *)
         (* "Machine Learning", *)
-        (* "Notebook Documents & Presentation", *)
+        "Notebook Documents & Presentation",
         (* "Programming Utilities", *)
         (* "Repository Tools", *)
         (* "Scientific and Medical Data & Computation", *)
@@ -31,7 +33,7 @@
         (* "Sound", *)
         (* "Strings & Text", *)
         (* "Symbolic & Numeric Computation", *)
-        (* "System Operation & Setup", *)
+        "System Operation & Setup"
         (* "Time-Related Computation", *)
         (* "User Interface Construction", *)
         (* "Visualization & Graphics", *)
@@ -39,18 +41,24 @@
     }
     ,
     "RelatedSymbols" -> {
-        $$RelatedSymbols
+        "Export",
+        "NotebookSave",
+        "Notebook",
+        "NotebookObject",
+        "Put"
     }
     ,
     "RelatedResourceObjects" -> {
-        $$RelatedResourceObjects
+        "ReadableForm",
+        "PrettyForm",
+        "SaveAsString",
+        "WriteUnitTest"
     }
     ,
     "Links" -> {
-        $$Links,
         Hyperlink[
-            "$$Function | rhennigan/ResourceFunctions | GitHub",
-            "https://github.com/rhennigan/ResourceFunctions/tree/main/Definitions/$$Function"
+            "SaveReadableNotebook | rhennigan/ResourceFunctions | GitHub",
+            "https://github.com/rhennigan/ResourceFunctions/tree/main/Definitions/SaveReadableNotebook"
         ]
     }
 |>

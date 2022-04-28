@@ -169,7 +169,6 @@ makeReadable[ file_, hash_, HoldComplete[ overrides___ ] ] :=
         "ExcludedCellOptions" -> {
             CellChangeTimes,
             ExpressionUUID,
-            CellID,
             TaggingRules -> { }
         }
     ];

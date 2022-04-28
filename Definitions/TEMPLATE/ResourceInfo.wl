@@ -47,6 +47,10 @@
     }
     ,
     "Links" -> {
-        $$Links
+        $$Links,
+        Hyperlink[
+            "$$Function | rhennigan/ResourceFunctions | GitHub",
+            "https://github.com/rhennigan/ResourceFunctions/tree/main/Definitions/$$Function"
+        ]
     }
 |>

@@ -8,14 +8,14 @@ Notebook[
       "Title",
       TaggingRules -> { },
       CellTags -> {"Name", "TemplateCell", "Title"},
-      CellID -> 691364372
+      CellID -> 15465504
      ],
      Cell[
       "Save a notebook to a file that is formatted to maximize readability when viewing changes in version control systems",
       "Text",
       TaggingRules -> { },
       CellTags -> {"Description", "TemplateCell"},
-      CellID -> 12498530
+      CellID -> 220756
      ],
      Cell[
       CellGroupData[
@@ -95,7 +95,7 @@ Notebook[
          "Text",
          "Excluded",
          TaggingRules -> { },
-         CellID -> 161254484
+         CellID -> 8339501
         ],
         Cell[
          BoxData[
@@ -110,7 +110,7 @@ Notebook[
          ],
          "Code",
          TaggingRules -> { },
-         CellID -> 580634123
+         CellID -> 359347632
         ],
         Cell[
          CellGroupData[
@@ -119,7 +119,7 @@ Notebook[
             "Initialization",
             "Subsection",
             TaggingRules -> { },
-            CellID -> 199678379
+            CellID -> 584421806
            ],
            Cell[
             BoxData[
@@ -131,7 +131,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 133370
+            CellID -> 31922595
            ],
            Cell[
             CellGroupData[
@@ -140,7 +140,7 @@ Notebook[
                "beginDefinition",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 295668132
+               CellID -> 368918130
               ],
               Cell[
                BoxData[
@@ -153,7 +153,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 176430837
+               CellID -> 1137168
               ],
               Cell[
                BoxData[
@@ -174,7 +174,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 16419784
+               CellID -> 130081795
               ],
               Cell[
                BoxData[
@@ -195,19 +195,19 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 513950827
+               CellID -> 147310138
               ],
               Cell[
                ":!CodeAnalysis::BeginBlock::",
                "Text",
                TaggingRules -> { },
-               CellID -> 157242364
+               CellID -> 105422464
               ],
               Cell[
                ":!CodeAnalysis::Disable::SuspiciousSessionSymbol::",
                "Text",
                TaggingRules -> { },
-               CellID -> 177062485
+               CellID -> 150310975
               ],
               Cell[
                BoxData[
@@ -296,13 +296,13 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 259827774
+               CellID -> 13075648
               ],
               Cell[
                ":!CodeAnalysis::EndBlock::",
                "Text",
                TaggingRules -> { },
-               CellID -> 79774946
+               CellID -> 626540174
               ],
               Cell[
                BoxData[
@@ -347,7 +347,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 60239388
+               CellID -> 63078111
               ]
              },
              Closed
@@ -360,7 +360,7 @@ Notebook[
                "endDefinition",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 192420839
+               CellID -> 719230065
               ],
               Cell[
                BoxData[
@@ -375,7 +375,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 203122452
+               CellID -> 6940475
               ],
               Cell[
                BoxData[
@@ -396,7 +396,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 372617786
+               CellID -> 427899896
               ],
               Cell[
                BoxData[
@@ -426,7 +426,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 64847468
+               CellID -> 755137489
               ],
               Cell[
                BoxData[
@@ -456,7 +456,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 255628763
+               CellID -> 36592981
               ],
               Cell[
                BoxData[
@@ -556,7 +556,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 345608014
+               CellID -> 474054249
               ],
               Cell[
                BoxData[
@@ -665,7 +665,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 479992410
+               CellID -> 720017643
               ],
               Cell[
                BoxData[
@@ -719,7 +719,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 78967200
+               CellID -> 843565331
               ],
               Cell[
                BoxData[
@@ -732,7 +732,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 82121673
+               CellID -> 155552872
               ]
              },
              Closed
@@ -749,7 +749,7 @@ Notebook[
             "Messages",
             "Subsection",
             TaggingRules -> { },
-            CellID -> 238250783
+            CellID -> 1012722818
            ],
            Cell[
             BoxData[
@@ -770,7 +770,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 166879734
+            CellID -> 63202089
            ],
            Cell[
             BoxData[
@@ -791,7 +791,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 23167357
+            CellID -> 111209360
            ],
            Cell[
             BoxData[
@@ -814,7 +814,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 28676859
+            CellID -> 26028331
            ],
            Cell[
             BoxData[
@@ -835,7 +835,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 448853706
+            CellID -> 4444463
            ],
            Cell[
             BoxData[
@@ -856,7 +856,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 121296477
+            CellID -> 274404086
            ],
            Cell[
             BoxData[
@@ -879,7 +879,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 87258472
+            CellID -> 483723601
            ],
            Cell[
             BoxData[
@@ -900,7 +900,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 6561014
+            CellID -> 123531207
            ],
            Cell[
             BoxData[
@@ -921,7 +921,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 391895692
+            CellID -> 285576668
            ],
            Cell[
             BoxData[
@@ -944,7 +944,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 626673979
+            CellID -> 178696157
            ],
            Cell[
             BoxData[
@@ -965,7 +965,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 149959714
+            CellID -> 391809580
            ],
            Cell[
             BoxData[
@@ -986,7 +986,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 9078342
+            CellID -> 617719187
            ],
            Cell[
             BoxData[
@@ -1007,7 +1007,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 45295625
+            CellID -> 74663948
            ]
           },
           Closed
@@ -1020,7 +1020,7 @@ Notebook[
             "Attributes",
             "Subsection",
             TaggingRules -> { },
-            CellID -> 334410781
+            CellID -> 299024743
            ],
            Cell[
             BoxData[
@@ -1043,7 +1043,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 204860998
+            CellID -> 386816484
            ]
           },
           Closed
@@ -1056,7 +1056,7 @@ Notebook[
             "Options",
             "Subsection",
             TaggingRules -> { },
-            CellID -> 24354231
+            CellID -> 204769695
            ],
            Cell[
             BoxData[
@@ -1222,7 +1222,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 428917877
+            CellID -> 533971985
            ]
           },
           Open
@@ -1235,7 +1235,7 @@ Notebook[
             "Argument Patterns",
             "Subsection",
             TaggingRules -> { },
-            CellID -> 520845292
+            CellID -> 573888649
            ],
            Cell[
             BoxData[
@@ -1367,7 +1367,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 534489308
+            CellID -> 418202925
            ],
            Cell[
             CellGroupData[
@@ -1376,7 +1376,7 @@ Notebook[
                "notebookObjectQ",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 116240286
+               CellID -> 596797610
               ],
               Cell[
                BoxData[
@@ -1391,7 +1391,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 1667010
+               CellID -> 159359839
               ],
               Cell[
                BoxData[
@@ -1439,7 +1439,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 100939084
+               CellID -> 82295729
               ],
               Cell[
                BoxData[
@@ -1460,7 +1460,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 399460655
+               CellID -> 290551319
               ],
               Cell[
                BoxData[
@@ -1475,7 +1475,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 138560271
+               CellID -> 544298603
               ]
              },
              Closed
@@ -1492,7 +1492,7 @@ Notebook[
             "Main definition",
             "Subsection",
             TaggingRules -> { },
-            CellID -> 10751047
+            CellID -> 196206925
            ],
            Cell[
             TextData[
@@ -1533,7 +1533,7 @@ Notebook[
             ],
             "Text",
             TaggingRules -> { },
-            CellID -> 156474012
+            CellID -> 51957091
            ],
            Cell[
             BoxData[
@@ -1678,7 +1678,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 372660098
+            CellID -> 476567053
            ],
            Cell[
             TextData[
@@ -1719,7 +1719,7 @@ Notebook[
             ],
             "Text",
             TaggingRules -> { },
-            CellID -> 91310636
+            CellID -> 132437228
            ],
            Cell[
             BoxData[
@@ -1872,7 +1872,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 469530873
+            CellID -> 241161444
            ],
            Cell[
             TextData[
@@ -1913,7 +1913,7 @@ Notebook[
             ],
             "Text",
             TaggingRules -> { },
-            CellID -> 440341046
+            CellID -> 292920445
            ],
            Cell[
             BoxData[
@@ -2075,7 +2075,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 124904487
+            CellID -> 47420494
            ]
           },
           Open
@@ -2088,7 +2088,7 @@ Notebook[
             "Error cases",
             "Subsection",
             TaggingRules -> { },
-            CellID -> 231240768
+            CellID -> 247676552
            ],
            Cell[
             TextData[
@@ -2136,7 +2136,7 @@ Notebook[
             ],
             "Text",
             TaggingRules -> { },
-            CellID -> 69912596
+            CellID -> 39600837
            ],
            Cell[
             BoxData[
@@ -2184,7 +2184,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 144325696
+            CellID -> 158215827
            ],
            Cell[
             TextData[
@@ -2232,7 +2232,7 @@ Notebook[
             ],
             "Text",
             TaggingRules -> { },
-            CellID -> 113080702
+            CellID -> 647604764
            ],
            Cell[
             BoxData[
@@ -2280,13 +2280,13 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 122691995
+            CellID -> 520852177
            ],
            Cell[
             "Source file does not exist:",
             "Text",
             TaggingRules -> { },
-            CellID -> 128781963
+            CellID -> 216413051
            ],
            Cell[
             BoxData[
@@ -2336,13 +2336,13 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 462488230
+            CellID -> 133174788
            ],
            Cell[
             "Invalid notebook source argument:",
             "Text",
             TaggingRules -> { },
-            CellID -> 859121225
+            CellID -> 69527233
            ],
            Cell[
             BoxData[
@@ -2390,13 +2390,13 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 13649951
+            CellID -> 242084540
            ],
            Cell[
             "Invalid options specification:",
             "Text",
             TaggingRules -> { },
-            CellID -> 532333319
+            CellID -> 316036583
            ],
            Cell[
             BoxData[
@@ -2549,13 +2549,13 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 76650702
+            CellID -> 55245336
            ],
            Cell[
             "Wrong number of arguments:",
             "Text",
             TaggingRules -> { },
-            CellID -> 23367552
+            CellID -> 192367063
            ],
            Cell[
             BoxData[
@@ -2611,7 +2611,7 @@ Notebook[
             ],
             "Code",
             TaggingRules -> { },
-            CellID -> 94869708
+            CellID -> 361478691
            ]
           },
           Open
@@ -2624,7 +2624,7 @@ Notebook[
             "Dependencies",
             "Subsection",
             TaggingRules -> { },
-            CellID -> 14729926
+            CellID -> 361749488
            ],
            Cell[
             CellGroupData[
@@ -2633,7 +2633,7 @@ Notebook[
                "saveReadableNotebook",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 588600168
+               CellID -> 292259320
               ],
               Cell[
                BoxData[
@@ -2648,7 +2648,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 6889453
+               CellID -> 152298580
               ],
               Cell[
                BoxData[
@@ -3071,7 +3071,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 281775786
+               CellID -> 267588961
               ],
               Cell[
                BoxData[
@@ -3086,7 +3086,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 477794423
+               CellID -> 54625988
               ]
              },
              Closed
@@ -3099,7 +3099,7 @@ Notebook[
                "readableForm",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 344151104
+               CellID -> 531318179
               ],
               Cell[
                BoxData[
@@ -3143,7 +3143,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 131309829
+               CellID -> 339735663
               ]
              },
              Closed
@@ -3156,7 +3156,7 @@ Notebook[
                "excludeCellOptions",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 421897804
+               CellID -> 494428744
               ],
               Cell[
                BoxData[
@@ -3215,7 +3215,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 21058393
+               CellID -> 556426021
               ]
              },
              Closed
@@ -3228,7 +3228,7 @@ Notebook[
                "excludeNBOptions",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 698428877
+               CellID -> 9645344
               ],
               Cell[
                BoxData[
@@ -3287,7 +3287,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 285401824
+               CellID -> 379826154
               ]
              },
              Closed
@@ -3300,7 +3300,7 @@ Notebook[
                "excludeOptions",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 674793179
+               CellID -> 25882288
               ],
               Cell[
                BoxData[
@@ -3315,7 +3315,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 79239371
+               CellID -> 72176049
               ],
               Cell[
                BoxData[
@@ -3345,7 +3345,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 325611468
+               CellID -> 600040463
               ],
               Cell[
                BoxData[
@@ -3404,7 +3404,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 111708445
+               CellID -> 388006227
               ],
               Cell[
                BoxData[
@@ -3577,7 +3577,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 11591967
+               CellID -> 239225731
               ],
               Cell[
                BoxData[
@@ -3590,7 +3590,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 111939993
+               CellID -> 67701501
               ],
               Cell[
                CellGroupData[
@@ -3599,7 +3599,7 @@ Notebook[
                   "toExcludedOptionPattern",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 31776661
+                  CellID -> 227583923
                  ],
                  Cell[
                   BoxData[
@@ -3620,7 +3620,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 139487781
+                  CellID -> 623699584
                  ],
                  Cell[
                   BoxData[
@@ -3669,7 +3669,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 142844200
+                  CellID -> 59040770
                  ],
                  Cell[
                   BoxData[
@@ -3742,7 +3742,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 649914442
+                  CellID -> 145901329
                  ],
                  Cell[
                   BoxData[
@@ -3790,7 +3790,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 430076255
+                  CellID -> 24811688
                  ],
                  Cell[
                   BoxData[
@@ -3813,7 +3813,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 516526220
+                  CellID -> 614392428
                  ],
                  Cell[
                   BoxData[
@@ -3834,7 +3834,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 284083714
+                  CellID -> 265676406
                  ]
                 },
                 Closed
@@ -3847,7 +3847,7 @@ Notebook[
                   "toExcludedOptionName",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 58932106
+                  CellID -> 27293922
                  ],
                  Cell[
                   BoxData[
@@ -3862,7 +3862,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 56152402
+                  CellID -> 83983950
                  ],
                  Cell[
                   BoxData[
@@ -3885,7 +3885,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 64480158
+                  CellID -> 90019660
                  ],
                  Cell[
                   BoxData[
@@ -3925,7 +3925,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 85343718
+                  CellID -> 86982408
                  ],
                  Cell[
                   BoxData[
@@ -3983,7 +3983,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 72587670
+                  CellID -> 30407314
                  ],
                  Cell[
                   BoxData[
@@ -4006,7 +4006,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 483030263
+                  CellID -> 212697553
                  ],
                  Cell[
                   BoxData[
@@ -4021,7 +4021,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 434821081
+                  CellID -> 1614160
                  ]
                 },
                 Closed
@@ -4034,7 +4034,7 @@ Notebook[
                   "symbolNamedQ",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 182023649
+                  CellID -> 272279779
                  ],
                  Cell[
                   BoxData[
@@ -4047,7 +4047,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 836882261
+                  CellID -> 487500766
                  ],
                  Cell[
                   BoxData[
@@ -4104,7 +4104,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 521424852
+                  CellID -> 475715406
                  ],
                  Cell[
                   BoxData[
@@ -4117,7 +4117,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 10436557
+                  CellID -> 240920080
                  ]
                 },
                 Closed
@@ -4134,7 +4134,7 @@ Notebook[
                "createNBString",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 312357888
+               CellID -> 423594950
               ],
               Cell[
                BoxData[
@@ -4149,19 +4149,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 267400839
-              ],
-              Cell[
-               ":!CodeAnalysis::BeginBlock::",
-               "Text",
-               TaggingRules -> { },
-               CellID -> 184648834
-              ],
-              Cell[
-               ":!CodeAnalysis::Disable::VariableError::Block::",
-               "Text",
-               TaggingRules -> { },
-               CellID -> 2259866
+               CellID -> 59058964
               ],
               Cell[
                BoxData[
@@ -4197,7 +4185,9 @@ Notebook[
                     "    ",
                     RowBox[
                      {
-                      "Internal`InheritedBlock",
+                      RowBox[
+                       {"Identity", "[", " ", "Internal`InheritedBlock", " ", "]"}
+                      ],
                       "[",
                       " ",
                       RowBox[
@@ -4447,13 +4437,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 183707569
-              ],
-              Cell[
-               ":!CodeAnalysis::EndBlock::",
-               "Text",
-               TaggingRules -> { },
-               CellID -> 115050817
+               CellID -> 170259874
               ],
               Cell[
                BoxData[
@@ -4466,7 +4450,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 404733755
+               CellID -> 85570488
               ],
               Cell[
                CellGroupData[
@@ -4475,7 +4459,7 @@ Notebook[
                   "overrideFormat",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 283956425
+                  CellID -> 95051331
                  ],
                  Cell[
                   BoxData[
@@ -4490,7 +4474,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 506566318
+                  CellID -> 27509729
                  ],
                  Cell[
                   BoxData[
@@ -4511,7 +4495,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 149243
+                  CellID -> 89711163
                  ],
                  Cell[
                   BoxData[
@@ -4593,7 +4577,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 52597049
+                  CellID -> 89531099
                  ],
                  Cell[
                   BoxData[
@@ -4606,7 +4590,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 63797810
+                  CellID -> 426020034
                  ]
                 },
                 Closed
@@ -4619,7 +4603,7 @@ Notebook[
                   "rawArrayQ",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 891329574
+                  CellID -> 119267213
                  ],
                  Cell[
                   BoxData[
@@ -4679,7 +4663,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 653769677
+                  CellID -> 70479994
                  ]
                 },
                 Closed
@@ -4692,7 +4676,7 @@ Notebook[
                   "numericArrayQ",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 700646279
+                  CellID -> 347657633
                  ],
                  Cell[
                   BoxData[
@@ -4756,7 +4740,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 648427236
+                  CellID -> 319257903
                  ]
                 },
                 Closed
@@ -4769,7 +4753,7 @@ Notebook[
                   "$fullFormRules",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 217993696
+                  CellID -> 265040444
                  ],
                  Cell[
                   BoxData[
@@ -4782,7 +4766,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 667279916
+                  CellID -> 87257222
                  ],
                  Cell[
                   BoxData[
@@ -4859,7 +4843,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 196824124
+                  CellID -> 96694932
                  ]
                 },
                 Closed
@@ -4872,7 +4856,7 @@ Notebook[
                   "fullFormHead",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 139671926
+                  CellID -> 912582246
                  ],
                  Cell[
                   BoxData[
@@ -4978,7 +4962,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 146514404
+                  CellID -> 58879780
                  ]
                 },
                 Closed
@@ -4995,19 +4979,19 @@ Notebook[
                "$fullFormFormats",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 815607100
+               CellID -> 260548440
               ],
               Cell[
                ":!CodeAnalysis::BeginBlock::",
                "Text",
                TaggingRules -> { },
-               CellID -> 244646919
+               CellID -> 378856398
               ],
               Cell[
                ":!CodeAnalysis::Disable::SuspiciousSessionSymbol::",
                "Text",
                TaggingRules -> { },
-               CellID -> 368674148
+               CellID -> 26608353
               ],
               Cell[
                BoxData[
@@ -5199,13 +5183,13 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 119598675
+               CellID -> 330020240
               ],
               Cell[
                ":!CodeAnalysis::EndBlock::",
                "Text",
                TaggingRules -> { },
-               CellID -> 173473974
+               CellID -> 133181650
               ]
              },
              Closed
@@ -5218,7 +5202,7 @@ Notebook[
                "validNotebookStringQ",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 93675700
+               CellID -> 22946671
               ],
               Cell[
                BoxData[
@@ -5233,7 +5217,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 306105163
+               CellID -> 180981660
               ],
               Cell[
                BoxData[
@@ -5306,7 +5290,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 292682916
+               CellID -> 63042848
               ],
               Cell[
                BoxData[
@@ -5321,7 +5305,7 @@ Notebook[
                ],
                "Code",
                TaggingRules -> { },
-               CellID -> 87105864
+               CellID -> 254602521
               ]
              },
              Closed
@@ -5334,7 +5318,7 @@ Notebook[
                "Error handling",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 850833442
+               CellID -> 193946082
               ],
               Cell[
                CellGroupData[
@@ -5343,7 +5327,7 @@ Notebook[
                   "catchTop",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 13142353
+                  CellID -> 37635890
                  ],
                  Cell[
                   BoxData[
@@ -5356,7 +5340,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 16620931
+                  CellID -> 407067632
                  ],
                  Cell[
                   BoxData[
@@ -5377,7 +5361,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 169678007
+                  CellID -> 545530524
                  ],
                  Cell[
                   BoxData[
@@ -5446,7 +5430,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 532759489
+                  CellID -> 79691712
                  ],
                  Cell[
                   BoxData[
@@ -5459,7 +5443,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 27453140
+                  CellID -> 6111309
                  ]
                 },
                 Closed
@@ -5472,7 +5456,7 @@ Notebook[
                   "throwFailure",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 35064040
+                  CellID -> 3884058
                  ],
                  Cell[
                   BoxData[
@@ -5485,7 +5469,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 207429572
+                  CellID -> 678529510
                  ],
                  Cell[
                   BoxData[
@@ -5506,7 +5490,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 540310274
+                  CellID -> 830433837
                  ],
                  Cell[
                   BoxData[
@@ -5562,7 +5546,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 311332053
+                  CellID -> 255560384
                  ],
                  Cell[
                   BoxData[
@@ -5690,7 +5674,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 279651396
+                  CellID -> 409318375
                  ],
                  Cell[
                   BoxData[
@@ -5703,7 +5687,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 631858313
+                  CellID -> 64773000
                  ]
                 },
                 Closed
@@ -5716,7 +5700,7 @@ Notebook[
                   "messageFailure",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 89982028
+                  CellID -> 66968583
                  ],
                  Cell[
                   BoxData[
@@ -5731,7 +5715,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 521774237
+                  CellID -> 433007998
                  ],
                  Cell[
                   BoxData[
@@ -5752,7 +5736,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 376963148
+                  CellID -> 304884206
                  ],
                  Cell[
                   BoxData[
@@ -5872,7 +5856,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 121894743
+                  CellID -> 420062500
                  ],
                  Cell[
                   BoxData[
@@ -5885,7 +5869,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 211023553
+                  CellID -> 20602092
                  ]
                 },
                 Closed
@@ -5898,7 +5882,7 @@ Notebook[
                   "throwInternalFailure",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 490992382
+                  CellID -> 325670068
                  ],
                  Cell[
                   BoxData[
@@ -5913,7 +5897,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 647386374
+                  CellID -> 358286269
                  ],
                  Cell[
                   BoxData[
@@ -5936,7 +5920,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 132462480
+                  CellID -> 405306857
                  ],
                  Cell[
                   BoxData[
@@ -5994,7 +5978,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 19098881
+                  CellID -> 343440963
                  ],
                  Cell[
                   BoxData[
@@ -6009,7 +5993,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 99781445
+                  CellID -> 16187645
                  ]
                 },
                 Closed
@@ -6022,7 +6006,7 @@ Notebook[
                   "$bugReportLink",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 4654570
+                  CellID -> 322688607
                  ],
                  Cell[
                   BoxData[
@@ -6139,7 +6123,7 @@ Notebook[
                   ],
                   "Code",
                   TaggingRules -> { },
-                  CellID -> 40731292
+                  CellID -> 73715915
                  ]
                 },
                 Closed
@@ -6293,7 +6277,7 @@ Notebook[
                "UsageInputs",
                TaggingRules -> { },
                FontFamily -> "Source Sans Pro",
-               CellID -> 5937304
+               CellID -> 137484856
               ],
               Cell[
                TextData[
@@ -6358,7 +6342,7 @@ Notebook[
                ],
                "UsageDescription",
                TaggingRules -> { },
-               CellID -> 331062381
+               CellID -> 73163260
               ]
              },
              Open
@@ -6470,7 +6454,7 @@ Notebook[
             ],
             "Notes",
             TaggingRules -> { },
-            CellID -> 168941481
+            CellID -> 353928821
            ],
            Cell[
             BoxData[
@@ -6590,7 +6574,7 @@ Notebook[
             ],
             "TableNotes",
             TaggingRules -> { },
-            CellID -> 673314098
+            CellID -> 87754166
            ],
            Cell[
             TextData[
@@ -6623,7 +6607,7 @@ Notebook[
             ],
             "Notes",
             TaggingRules -> { },
-            CellID -> 339319959
+            CellID -> 373108004
            ],
            Cell[
             BoxData[
@@ -6780,7 +6764,7 @@ Notebook[
             ],
             "TableNotes",
             TaggingRules -> { },
-            CellID -> 437958320
+            CellID -> 246395283
            ]
           },
           Open
@@ -7108,28 +7092,21 @@ Notebook[
                 RowBox[
                  {
                   "Get",
-                  " ",
                   "@",
-                  " ",
                   RowBox[
                    {
                     "FileNameJoin",
-                    " ",
                     "@",
-                    " ",
                     RowBox[
                      {
                       "{",
-                      " ",
                       RowBox[
                        {
-                        RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                        RowBox[{"NotebookDirectory", "[", "]"}],
                         ",",
-                        " ",
                         "\"Definition.wl\""
                        }
                       ],
-                      " ",
                       "}"
                      }
                     ]
@@ -7144,28 +7121,21 @@ Notebook[
               RowBox[
                {
                 "TestReport",
-                " ",
                 "@",
-                " ",
                 RowBox[
                  {
                   "FileNameJoin",
-                  " ",
                   "@",
-                  " ",
                   RowBox[
                    {
                     "{",
-                    " ",
                     RowBox[
                      {
-                      RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                      RowBox[{"NotebookDirectory", "[", "]"}],
                       ",",
-                      " ",
                       "\"Tests.wlt\""
                      }
                     ],
-                    " ",
                     "}"
                    }
                   ]
@@ -7175,11 +7145,9 @@ Notebook[
               ]
              }
             ],
-            "Code",
-            "Excluded",
+            "Input",
             TaggingRules -> { },
-            CellLabel -> "In[25]:=",
-            CellID -> 209142714
+            CellID -> 81266211
            ],
            Cell[
             BoxData[
@@ -7600,7 +7568,7 @@ Notebook[
                    "TimeConstraint" -> Infinity,
                    "Outcome" -> "Success",
                    "Input" -> HoldForm[
-                    $tmp = FileNameJoin[{$TemporaryDirectory, "readable.nb"}]
+                    DefinitionNotebookGenerator`$tmp = FileNameJoin[{$TemporaryDirectory, "readable.nb"}]
                    ],
                    "ExpectedOutput" -> HoldForm[Blank[String]],
                    "ActualOutput" -> HoldForm[
@@ -7625,31 +7593,39 @@ Notebook[
                    "TimeConstraint" -> Infinity,
                    "Outcome" -> "Success",
                    "Input" -> HoldForm[
-                    saveAndOpenTest[
-                     Pattern[nb, Blank[]],
-                     Pattern[opts, BlankNullSequence[]]
+                    DefinitionNotebookGenerator`saveAndOpenTest[
+                     Pattern[DefinitionNotebookGenerator`nb, Blank[]],
+                     Pattern[
+                      DefinitionNotebookGenerator`opts,
+                      BlankNullSequence[]
+                     ]
                     ] :=
                      UsingFrontEnd[
                       Enclose[
                        Module[
-                        {file, nbo},
-                        Quiet[DeleteFile[$tmp]];
-                        ConfirmAssert[Not[FileExistsQ[$tmp]]];
-                        file = ConfirmBy[
-                         SaveReadableNotebook[
-                          nb,
-                          $tmp,
-                          opts
+                        {
+                         DefinitionNotebookGenerator`file,
+                         DefinitionNotebookGenerator`nbo
+                        },
+                        Quiet[DeleteFile[DefinitionNotebookGenerator`$tmp]];
+                        ConfirmAssert[
+                         Not[FileExistsQ[DefinitionNotebookGenerator`$tmp]]
+                        ];
+                        DefinitionNotebookGenerator`file = ConfirmBy[
+                         DefinitionNotebookGenerator`SaveReadableNotebook[
+                          DefinitionNotebookGenerator`nb,
+                          DefinitionNotebookGenerator`$tmp,
+                          DefinitionNotebookGenerator`opts
                          ],
                          FileExistsQ
                         ];
                         WithCleanup[
-                         nbo = ConfirmMatch[
-                          NotebookOpen[file],
+                         DefinitionNotebookGenerator`nbo = ConfirmMatch[
+                          NotebookOpen[DefinitionNotebookGenerator`file],
                           Blank[NotebookObject]
                          ];
-                         NotebookGet[nbo],
-                         NotebookClose[nbo]
+                         NotebookGet[DefinitionNotebookGenerator`nbo],
+                         NotebookClose[DefinitionNotebookGenerator`nbo]
                         ]
                        ]
                       ]
@@ -7679,7 +7655,7 @@ Notebook[
                    "Input" -> HoldForm[
                     UsingFrontEnd[
                      WithCleanup[
-                      nb = CreateDocument[
+                      DefinitionNotebookGenerator`nb = CreateDocument[
                        {
                         TextCell["Test notebook", "Title"],
                         TextCell["This is a test", "Text"],
@@ -7688,10 +7664,13 @@ Notebook[
                        }
                       ],
                       ImportString[
-                       SaveReadableNotebook[nb, String],
+                       DefinitionNotebookGenerator`SaveReadableNotebook[
+                        DefinitionNotebookGenerator`nb,
+                        String
+                       ],
                        "NB"
                       ],
-                      NotebookClose[nb]
+                      NotebookClose[DefinitionNotebookGenerator`nb]
                      ]
                     ]
                    ],
@@ -7725,7 +7704,7 @@ Notebook[
                    "ExpectedMessages" -> HoldForm[{}],
                    "ActualMessages" -> { },
                    "AbsoluteTime" -> 3860152093.,
-                   "AbsoluteTimeUsed" -> 0.2440006,
+                   "AbsoluteTimeUsed" -> 0.244001,
                    "CPUTimeUsed" -> 0.016,
                    "MemoryUsed" -> 18624
                   ]
@@ -7742,7 +7721,7 @@ Notebook[
                    "Outcome" -> "Success",
                    "Input" -> HoldForm[
                     ImportString[
-                     SaveReadableNotebook[
+                     DefinitionNotebookGenerator`SaveReadableNotebook[
                       Notebook[{Cell["Hello world", "Text"]}],
                       String
                      ],
@@ -7771,7 +7750,7 @@ Notebook[
                    "Outcome" -> "Success",
                    "Input" -> HoldForm[
                     ImportString[
-                     SaveReadableNotebook[
+                     DefinitionNotebookGenerator`SaveReadableNotebook[
                       FindFile["ExampleData/document.nb"],
                       String
                      ],
@@ -7785,12 +7764,12 @@ Notebook[
                       Cell[
                        CellGroupData[
                         {
-                         Cell["Text", "Section"],
+                         Cell["Text", "Subsection"],
                          Cell["A line of text.", "Text"],
                          Cell[
                           CellGroupData[
                            {
-                            Cell["Subsection", "Subsection"],
+                            Cell["Subsection", "Subsubsection"],
                             Cell["one two three", "Text"],
                             Cell["alpha beta gamma delta epsilon \[Ellipsis]", "Text"]
                            },
@@ -7804,7 +7783,7 @@ Notebook[
                       Cell[
                        CellGroupData[
                         {
-                         Cell["Expressions", "Section"],
+                         Cell["Expressions", "Subsection"],
                          Cell[
                           CellGroupData[
                            {
@@ -8005,7 +7984,7 @@ Notebook[
                       Cell[
                        CellGroupData[
                         {
-                         Cell["Graphics", "Section"],
+                         Cell["Graphics", "Subsection"],
                          Cell[
                           CellGroupData[
                            {
@@ -8115,7 +8094,7 @@ Notebook[
                       Cell[
                        CellGroupData[
                         {
-                         Cell["Dynamic Objects", "Section"],
+                         Cell["Dynamic Objects", "Subsection"],
                          Cell[
                           CellGroupData[
                            {
@@ -8129,7 +8108,7 @@ Notebook[
                              CellLabel -> "In[6]:="
                             ],
                             Cell[
-                             BoxData[SliderBox[Dynamic[x]]],
+                             BoxData[SliderBox[Dynamic[DefinitionNotebookGenerator`x]]],
                              "Output",
                              CellLabel -> "Out[6]="
                             ]
@@ -8148,7 +8127,7 @@ Notebook[
                             Cell[
                              BoxData[
                               DynamicBox[
-                               ToBoxes[x, StandardForm],
+                               ToBoxes[DefinitionNotebookGenerator`x, StandardForm],
                                ImageSizeCache -> {16., {1., 9.}}
                               ]
                              ],
@@ -8195,7 +8174,7 @@ Notebook[
                    "Input" -> HoldForm[
                     UsingFrontEnd[
                      WithCleanup[
-                      nb = CreateDocument[
+                      DefinitionNotebookGenerator`nb = CreateDocument[
                        {
                         TextCell["Test notebook", "Title"],
                         TextCell["This is a test", "Text"],
@@ -8203,8 +8182,10 @@ Notebook[
                         ExpressionCell[2, "Output"]
                        }
                       ],
-                      saveAndOpenTest[nb],
-                      NotebookClose[nb]
+                      DefinitionNotebookGenerator`saveAndOpenTest[
+                       DefinitionNotebookGenerator`nb
+                      ],
+                      NotebookClose[DefinitionNotebookGenerator`nb]
                      ]
                     ]
                    ],
@@ -8238,7 +8219,7 @@ Notebook[
                    "ExpectedMessages" -> HoldForm[{}],
                    "ActualMessages" -> { },
                    "AbsoluteTime" -> 3860152093.,
-                   "AbsoluteTimeUsed" -> 0.3990000,
+                   "AbsoluteTimeUsed" -> 0.399,
                    "CPUTimeUsed" -> 0.,
                    "MemoryUsed" -> 4272
                   ]
@@ -8254,7 +8235,7 @@ Notebook[
                    "TimeConstraint" -> Infinity,
                    "Outcome" -> "Success",
                    "Input" -> HoldForm[
-                    saveAndOpenTest[
+                    DefinitionNotebookGenerator`saveAndOpenTest[
                      Notebook[{Cell["Hello world", "Text"]}]
                     ]
                    ],
@@ -8269,7 +8250,7 @@ Notebook[
                    "ExpectedMessages" -> HoldForm[{}],
                    "ActualMessages" -> { },
                    "AbsoluteTime" -> 3860152093.,
-                   "AbsoluteTimeUsed" -> 0.1995423,
+                   "AbsoluteTimeUsed" -> 0.199542,
                    "CPUTimeUsed" -> 0.,
                    "MemoryUsed" -> 3176
                   ]
@@ -8285,7 +8266,7 @@ Notebook[
                    "TimeConstraint" -> Infinity,
                    "Outcome" -> "Success",
                    "Input" -> HoldForm[
-                    saveAndOpenTest[
+                    DefinitionNotebookGenerator`saveAndOpenTest[
                      FindFile["ExampleData/document.nb"]
                     ]
                    ],
@@ -8296,12 +8277,12 @@ Notebook[
                       Cell[
                        CellGroupData[
                         {
-                         Cell["Text", "Section"],
+                         Cell["Text", "Subsection"],
                          Cell["A line of text.", "Text"],
                          Cell[
                           CellGroupData[
                            {
-                            Cell["Subsection", "Subsection"],
+                            Cell["Subsection", "Subsubsection"],
                             Cell["one two three", "Text"],
                             Cell["alpha beta gamma delta epsilon \[Ellipsis]", "Text"]
                            },
@@ -8315,7 +8296,7 @@ Notebook[
                       Cell[
                        CellGroupData[
                         {
-                         Cell["Expressions", "Section"],
+                         Cell["Expressions", "Subsection"],
                          Cell[
                           CellGroupData[
                            {
@@ -8516,7 +8497,7 @@ Notebook[
                       Cell[
                        CellGroupData[
                         {
-                         Cell["Graphics", "Section"],
+                         Cell["Graphics", "Subsection"],
                          Cell[
                           CellGroupData[
                            {
@@ -8626,7 +8607,7 @@ Notebook[
                       Cell[
                        CellGroupData[
                         {
-                         Cell["Dynamic Objects", "Section"],
+                         Cell["Dynamic Objects", "Subsection"],
                          Cell[
                           CellGroupData[
                            {
@@ -8640,7 +8621,7 @@ Notebook[
                              CellLabel -> "In[6]:="
                             ],
                             Cell[
-                             BoxData[SliderBox[Dynamic[x]]],
+                             BoxData[SliderBox[Dynamic[DefinitionNotebookGenerator`x]]],
                              "Output",
                              CellLabel -> "Out[6]="
                             ]
@@ -8659,7 +8640,7 @@ Notebook[
                             Cell[
                              BoxData[
                               DynamicBox[
-                               ToBoxes[x, StandardForm],
+                               ToBoxes[DefinitionNotebookGenerator`x, StandardForm],
                                ImageSizeCache -> {7.1474609375, {0., 7.}}
                               ]
                              ],
@@ -8688,7 +8669,7 @@ Notebook[
                    "ExpectedMessages" -> HoldForm[{}],
                    "ActualMessages" -> { },
                    "AbsoluteTime" -> 3860152093.,
-                   "AbsoluteTimeUsed" -> 0.2380001,
+                   "AbsoluteTimeUsed" -> 0.238,
                    "CPUTimeUsed" -> 0.016,
                    "MemoryUsed" -> 26952
                   ]
@@ -8753,7 +8734,7 @@ Notebook[
             "Excluded",
             TaggingRules -> { },
             CellLabel -> "Out[26]=",
-            CellID -> 113093766
+            CellID -> 34392833
            ]
           },
           Open
@@ -8764,7 +8745,7 @@ Notebook[
           {
            Cell[
             "Basic Examples",
-            "Subsection",
+            "Subsubsection",
             TaggingRules -> { },
             CellLabel -> "In[11]:=",
             CellID -> 462042388
@@ -8906,7 +8887,7 @@ Notebook[
                "Output",
                TaggingRules -> { },
                CellLabel -> "Out[1]=",
-               CellID -> 539792057
+               CellID -> 373082572
               ]
              },
              Open
@@ -9108,7 +9089,7 @@ Notebook[
                   "Output",
                   TaggingRules -> { },
                   CellLabel -> "Out[1]=",
-                  CellID -> 52051687
+                  CellID -> 312468441
                  ]
                 },
                 Open
@@ -9129,7 +9110,7 @@ Notebook[
                   "Print",
                   TaggingRules -> { },
                   CellLabel -> "During evaluation of In[2]:=",
-                  CellID -> 74650993
+                  CellID -> 221267614
                  ]
                 },
                 Open
@@ -9210,7 +9191,7 @@ Notebook[
                   "Output",
                   TaggingRules -> { },
                   CellLabel -> "Out[1]=",
-                  CellID -> 463319360
+                  CellID -> 633830944
                  ]
                 },
                 Open
@@ -9233,7 +9214,7 @@ Notebook[
                   "Print",
                   TaggingRules -> { },
                   CellLabel -> "During evaluation of In[2]:=",
-                  CellID -> 651904949
+                  CellID -> 192825904
                  ]
                 },
                 Open
@@ -9252,7 +9233,7 @@ Notebook[
           {
            Cell[
             "Options",
-            "Subsection",
+            "Subsubsection",
             TaggingRules -> { },
             CellLabel -> "In[3]:=",
             CellID -> 776923543
@@ -9262,7 +9243,7 @@ Notebook[
              {
               Cell[
                "ExcludedCellOptions",
-               "Subsubsection",
+               "Subsubsubsection",
                TaggingRules -> { },
                CellLabel -> "In[1]:=",
                CellID -> 333823883
@@ -9364,250 +9345,6 @@ Notebook[
                 },
                 Open
                ]
-              ],
-              Cell[
-               CellGroupData[
-                {
-                 Cell[
-                  BoxData[
-                   InterpretationBox[
-                    Cell["\t", "ExampleDelimiter"],
-                    $Line = 0;
-                    Null
-                   ]
-                  ],
-                  "ExampleDelimiter",
-                  TaggingRules -> { },
-                  CellID -> 545168825
-                 ],
-                 Cell[
-                  "Preserve all cell options:",
-                  "Text",
-                  TaggingRules -> { },
-                  CellID -> 794211369
-                 ],
-                 Cell[
-                  CellGroupData[
-                   {
-                    Cell[
-                     BoxData[
-                      RowBox[
-                       {
-                        RowBox[
-                         {
-                          "SaveReadableNotebook",
-                          "[",
-                          "\[IndentingNewLine]",
-                          RowBox[
-                           {
-                            RowBox[
-                             {
-                              "Notebook",
-                              "[",
-                              RowBox[
-                               {
-                                "{",
-                                RowBox[
-                                 {
-                                  "Cell",
-                                  "[",
-                                  RowBox[
-                                   {
-                                    "\"Hello world\"",
-                                    ",",
-                                    "\"Text\"",
-                                    ",",
-                                    RowBox[
-                                     {
-                                      "ExpressionUUID",
-                                      "\[Rule]",
-                                      RowBox[{"CreateUUID", "[", "]"}]
-                                     }
-                                    ]
-                                   }
-                                  ],
-                                  "]"
-                                 }
-                                ],
-                                "}"
-                               }
-                              ],
-                              "]"
-                             }
-                            ],
-                            ",",
-                            "\[IndentingNewLine]",
-                            RowBox[
-                             {
-                              "FileNameJoin",
-                              "[",
-                              RowBox[
-                               {
-                                "{",
-                                RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
-                                "}"
-                               }
-                              ],
-                              "]"
-                             }
-                            ],
-                            ",",
-                            "\[IndentingNewLine]",
-                            RowBox[
-                             {"\"ExcludedCellOptions\"", "\[Rule]", RowBox[{"{", "}"}]}
-                            ]
-                           }
-                          ],
-                          "\[IndentingNewLine]",
-                          "]"
-                         }
-                        ],
-                        "//",
-                        "FilePrint"
-                       }
-                      ]
-                     ],
-                     "Input",
-                     TaggingRules -> { },
-                     CellLabel -> "In[1]:=",
-                     CellID -> 407852026
-                    ],
-                    Cell[
-                     "Notebook[\n {\n  Cell[\n   \"Hello world\",\n   \"Text\",\n   ExpressionUUID -> \"1afb2be5-e396-4d66-aee0-0b29b323bc77\"\n  ]\n }\n]",
-                     "Print",
-                     TaggingRules -> { },
-                     CellLabel -> "During evaluation of In[1]:=",
-                     CellID -> 81058198
-                    ]
-                   },
-                   Open
-                  ]
-                 ]
-                },
-                Open
-               ]
-              ],
-              Cell[
-               CellGroupData[
-                {
-                 Cell[
-                  BoxData[
-                   InterpretationBox[
-                    Cell["\t", "ExampleDelimiter"],
-                    $Line = 0;
-                    Null
-                   ]
-                  ],
-                  "ExampleDelimiter",
-                  TaggingRules -> { },
-                  CellID -> 4720729
-                 ],
-                 Cell[
-                  "Ignore specific options:",
-                  "Text",
-                  TaggingRules -> { },
-                  CellID -> 539135965
-                 ],
-                 Cell[
-                  CellGroupData[
-                   {
-                    Cell[
-                     BoxData[
-                      RowBox[
-                       {
-                        RowBox[
-                         {
-                          "SaveReadableNotebook",
-                          "[",
-                          "\[IndentingNewLine]",
-                          RowBox[
-                           {
-                            RowBox[
-                             {
-                              "Notebook",
-                              "[",
-                              RowBox[
-                               {
-                                "{",
-                                RowBox[
-                                 {
-                                  "Cell",
-                                  "[",
-                                  RowBox[
-                                   {
-                                    "\"Hello world\"",
-                                    ",",
-                                    "\"Text\"",
-                                    ",",
-                                    RowBox[{"FontColor", "\[Rule]", "Red"}],
-                                    ",",
-                                    RowBox[{"FontSize", "\[Rule]", "14"}]
-                                   }
-                                  ],
-                                  "]"
-                                 }
-                                ],
-                                "}"
-                               }
-                              ],
-                              "]"
-                             }
-                            ],
-                            ",",
-                            "\[IndentingNewLine]",
-                            RowBox[
-                             {
-                              "FileNameJoin",
-                              "[",
-                              RowBox[
-                               {
-                                "{",
-                                RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
-                                "}"
-                               }
-                              ],
-                              "]"
-                             }
-                            ],
-                            ",",
-                            "\[IndentingNewLine]",
-                            RowBox[
-                             {
-                              "\"ExcludedCellOptions\"",
-                              "\[Rule]",
-                              RowBox[{"{", "FontColor", "}"}]
-                             }
-                            ]
-                           }
-                          ],
-                          "\[IndentingNewLine]",
-                          "]"
-                         }
-                        ],
-                        "//",
-                        "FilePrint"
-                       }
-                      ]
-                     ],
-                     "Input",
-                     TaggingRules -> { },
-                     CellLabel -> "In[1]:=",
-                     CellID -> 361824655
-                    ],
-                    Cell[
-                     "Notebook[{Cell[\"Hello world\", \"Text\", FontSize -> 14]}]",
-                     "Print",
-                     TaggingRules -> { },
-                     CellLabel -> "During evaluation of In[1]:=",
-                     CellID -> 806874859
-                    ]
-                   },
-                   Open
-                  ]
-                 ]
-                },
-                Open
-               ]
               ]
              },
              Open
@@ -9617,17 +9354,22 @@ Notebook[
             CellGroupData[
              {
               Cell[
-               "ExcludedNotebookOptions",
-               "Subsubsection",
+               BoxData[
+                InterpretationBox[
+                 Cell["\t", "ExampleDelimiter"],
+                 $Line = 0;
+                 Null
+                ]
+               ],
+               "ExampleDelimiter",
                TaggingRules -> { },
-               CellLabel -> "In[2]:=",
-               CellID -> 791210234
+               CellID -> 545168825
               ],
               Cell[
-               "By default, some notebook options are automatically stripped:",
+               "Preserve all cell options:",
                "Text",
                TaggingRules -> { },
-               CellID -> 856987833
+               CellID -> 794211369
               ],
               Cell[
                CellGroupData[
@@ -9649,28 +9391,30 @@ Notebook[
                            "[",
                            RowBox[
                             {
+                             "{",
                              RowBox[
                               {
-                               "{",
+                               "Cell",
+                               "[",
                                RowBox[
                                 {
-                                 "Cell",
-                                 "[",
-                                 RowBox[{"\"Hello world\"", ",", "\"Text\""}],
-                                 "]"
+                                 "\"Hello world\"",
+                                 ",",
+                                 "\"Text\"",
+                                 ",",
+                                 RowBox[
+                                  {
+                                   "ExpressionUUID",
+                                   "\[Rule]",
+                                   RowBox[{"CreateUUID", "[", "]"}]
+                                  }
+                                 ]
                                 }
                                ],
-                               "}"
+                               "]"
                               }
                              ],
-                             ",",
-                             RowBox[
-                              {
-                               "WindowSize",
-                               "\[Rule]",
-                               RowBox[{"{", RowBox[{"1000", ",", "1000"}], "}"}]
-                              }
-                             ]
+                             "}"
                             }
                            ],
                            "]"
@@ -9691,6 +9435,11 @@ Notebook[
                            ],
                            "]"
                           }
+                         ],
+                         ",",
+                         "\[IndentingNewLine]",
+                         RowBox[
+                          {"\"ExcludedCellOptions\"", "\[Rule]", RowBox[{"{", "}"}]}
                          ]
                         }
                        ],
@@ -9706,14 +9455,136 @@ Notebook[
                   "Input",
                   TaggingRules -> { },
                   CellLabel -> "In[1]:=",
-                  CellID -> 64169882
+                  CellID -> 407852026
                  ],
                  Cell[
-                  "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+                  "Notebook[\n {\n  Cell[\n   \"Hello world\",\n   \"Text\",\n   ExpressionUUID -> \"1afb2be5-e396-4d66-aee0-0b29b323bc77\"\n  ]\n }\n]",
                   "Print",
                   TaggingRules -> { },
                   CellLabel -> "During evaluation of In[1]:=",
-                  CellID -> 33860084
+                  CellID -> 81058198
+                 ]
+                },
+                Open
+               ]
+              ]
+             },
+             Open
+            ]
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData[
+                InterpretationBox[
+                 Cell["\t", "ExampleDelimiter"],
+                 $Line = 0;
+                 Null
+                ]
+               ],
+               "ExampleDelimiter",
+               TaggingRules -> { },
+               CellID -> 4720729
+              ],
+              Cell[
+               "Ignore specific options:",
+               "Text",
+               TaggingRules -> { },
+               CellID -> 539135965
+              ],
+              Cell[
+               CellGroupData[
+                {
+                 Cell[
+                  BoxData[
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "SaveReadableNotebook",
+                       "[",
+                       "\[IndentingNewLine]",
+                       RowBox[
+                        {
+                         RowBox[
+                          {
+                           "Notebook",
+                           "[",
+                           RowBox[
+                            {
+                             "{",
+                             RowBox[
+                              {
+                               "Cell",
+                               "[",
+                               RowBox[
+                                {
+                                 "\"Hello world\"",
+                                 ",",
+                                 "\"Text\"",
+                                 ",",
+                                 RowBox[{"FontColor", "\[Rule]", "Red"}],
+                                 ",",
+                                 RowBox[{"FontSize", "\[Rule]", "14"}]
+                                }
+                               ],
+                               "]"
+                              }
+                             ],
+                             "}"
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         ",",
+                         "\[IndentingNewLine]",
+                         RowBox[
+                          {
+                           "FileNameJoin",
+                           "[",
+                           RowBox[
+                            {
+                             "{",
+                             RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                             "}"
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         ",",
+                         "\[IndentingNewLine]",
+                         RowBox[
+                          {
+                           "\"ExcludedCellOptions\"",
+                           "\[Rule]",
+                           RowBox[{"{", "FontColor", "}"}]
+                          }
+                         ]
+                        }
+                       ],
+                       "\[IndentingNewLine]",
+                       "]"
+                      }
+                     ],
+                     "//",
+                     "FilePrint"
+                    }
+                   ]
+                  ],
+                  "Input",
+                  TaggingRules -> { },
+                  CellLabel -> "In[1]:=",
+                  CellID -> 361824655
+                 ],
+                 Cell[
+                  "Notebook[{Cell[\"Hello world\", \"Text\", FontSize -> 14]}]",
+                  "Print",
+                  TaggingRules -> { },
+                  CellLabel -> "During evaluation of In[1]:=",
+                  CellID -> 806874859
                  ]
                 },
                 Open
@@ -9723,22 +9594,17 @@ Notebook[
                CellGroupData[
                 {
                  Cell[
-                  BoxData[
-                   InterpretationBox[
-                    Cell["\t", "ExampleDelimiter"],
-                    $Line = 0;
-                    Null
-                   ]
-                  ],
-                  "ExampleDelimiter",
+                  "ExcludedNotebookOptions",
+                  "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 96709844
+                  CellLabel -> "In[2]:=",
+                  CellID -> 791210234
                  ],
                  Cell[
-                  "Preserve all notebook options:",
+                  "By default, some notebook options are automatically stripped:",
                   "Text",
                   TaggingRules -> { },
-                  CellID -> 333749145
+                  CellID -> 856987833
                  ],
                  Cell[
                   CellGroupData[
@@ -9802,15 +9668,6 @@ Notebook[
                               ],
                               "]"
                              }
-                            ],
-                            ",",
-                            "\[IndentingNewLine]",
-                            RowBox[
-                             {
-                              "\"ExcludedNotebookOptions\"",
-                              "\[Rule]",
-                              RowBox[{"{", "}"}]
-                             }
                             ]
                            }
                           ],
@@ -9826,14 +9683,14 @@ Notebook[
                      "Input",
                      TaggingRules -> { },
                      CellLabel -> "In[1]:=",
-                     CellID -> 5088370
+                     CellID -> 64169882
                     ],
                     Cell[
-                     "Notebook[\n {Cell[\"Hello world\", \"Text\"]},\n WindowSize -> {1000, 1000}\n]",
+                     "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
                      "Print",
                      TaggingRules -> { },
                      CellLabel -> "During evaluation of In[1]:=",
-                     CellID -> 481546763
+                     CellID -> 33860084
                     ]
                    },
                    Open
@@ -9842,120 +9699,244 @@ Notebook[
                 },
                 Open
                ]
+              ]
+             },
+             Open
+            ]
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData[
+                InterpretationBox[
+                 Cell["\t", "ExampleDelimiter"],
+                 $Line = 0;
+                 Null
+                ]
+               ],
+               "ExampleDelimiter",
+               TaggingRules -> { },
+               CellID -> 96709844
+              ],
+              Cell[
+               "Preserve all notebook options:",
+               "Text",
+               TaggingRules -> { },
+               CellID -> 333749145
               ],
               Cell[
                CellGroupData[
                 {
                  Cell[
                   BoxData[
-                   InterpretationBox[
-                    Cell["\t", "ExampleDelimiter"],
-                    $Line = 0;
-                    Null
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "SaveReadableNotebook",
+                       "[",
+                       "\[IndentingNewLine]",
+                       RowBox[
+                        {
+                         RowBox[
+                          {
+                           "Notebook",
+                           "[",
+                           RowBox[
+                            {
+                             RowBox[
+                              {
+                               "{",
+                               RowBox[
+                                {
+                                 "Cell",
+                                 "[",
+                                 RowBox[{"\"Hello world\"", ",", "\"Text\""}],
+                                 "]"
+                                }
+                               ],
+                               "}"
+                              }
+                             ],
+                             ",",
+                             RowBox[
+                              {
+                               "WindowSize",
+                               "\[Rule]",
+                               RowBox[{"{", RowBox[{"1000", ",", "1000"}], "}"}]
+                              }
+                             ]
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         ",",
+                         "\[IndentingNewLine]",
+                         RowBox[
+                          {
+                           "FileNameJoin",
+                           "[",
+                           RowBox[
+                            {
+                             "{",
+                             RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                             "}"
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         ",",
+                         "\[IndentingNewLine]",
+                         RowBox[
+                          {
+                           "\"ExcludedNotebookOptions\"",
+                           "\[Rule]",
+                           RowBox[{"{", "}"}]
+                          }
+                         ]
+                        }
+                       ],
+                       "\[IndentingNewLine]",
+                       "]"
+                      }
+                     ],
+                     "//",
+                     "FilePrint"
+                    }
                    ]
                   ],
-                  "ExampleDelimiter",
+                  "Input",
                   TaggingRules -> { },
-                  CellID -> 269262761
+                  CellLabel -> "In[1]:=",
+                  CellID -> 5088370
                  ],
                  Cell[
-                  "Ignore specific options:",
-                  "Text",
+                  "Notebook[\n {Cell[\"Hello world\", \"Text\"]},\n WindowSize -> {1000, 1000}\n]",
+                  "Print",
                   TaggingRules -> { },
-                  CellID -> 539135966
-                 ],
+                  CellLabel -> "During evaluation of In[1]:=",
+                  CellID -> 481546763
+                 ]
+                },
+                Open
+               ]
+              ]
+             },
+             Open
+            ]
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData[
+                InterpretationBox[
+                 Cell["\t", "ExampleDelimiter"],
+                 $Line = 0;
+                 Null
+                ]
+               ],
+               "ExampleDelimiter",
+               TaggingRules -> { },
+               CellID -> 269262761
+              ],
+              Cell[
+               "Ignore specific options:",
+               "Text",
+               TaggingRules -> { },
+               CellID -> 539135966
+              ],
+              Cell[
+               CellGroupData[
+                {
                  Cell[
-                  CellGroupData[
-                   {
-                    Cell[
-                     BoxData[
-                      RowBox[
-                       {
-                        RowBox[
-                         {
-                          "SaveReadableNotebook",
-                          "[",
-                          "\[IndentingNewLine]",
-                          RowBox[
-                           {
-                            RowBox[
-                             {
-                              "Notebook",
-                              "[",
-                              RowBox[
-                               {
-                                RowBox[
-                                 {
-                                  "{",
-                                  RowBox[
-                                   {
-                                    "Cell",
-                                    "[",
-                                    RowBox[{"\"Hello world\"", ",", "\"Text\""}],
-                                    "]"
-                                   }
-                                  ],
-                                  "}"
-                                 }
-                                ],
-                                ",",
-                                RowBox[{"Background", "\[Rule]", "Red"}]
-                               }
-                              ],
-                              "]"
-                             }
-                            ],
-                            ",",
-                            "\[IndentingNewLine]",
-                            RowBox[
-                             {
-                              "FileNameJoin",
-                              "[",
-                              RowBox[
-                               {
-                                "{",
-                                RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
-                                "}"
-                               }
-                              ],
-                              "]"
-                             }
-                            ],
-                            ",",
-                            "\[IndentingNewLine]",
-                            RowBox[
-                             {
-                              "\"ExcludedNotebookOptions\"",
-                              "\[Rule]",
-                              RowBox[{"{", "Background", "}"}]
-                             }
-                            ]
-                           }
-                          ],
-                          "\[IndentingNewLine]",
-                          "]"
-                         }
-                        ],
-                        "//",
-                        "FilePrint"
-                       }
-                      ]
+                  BoxData[
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "SaveReadableNotebook",
+                       "[",
+                       "\[IndentingNewLine]",
+                       RowBox[
+                        {
+                         RowBox[
+                          {
+                           "Notebook",
+                           "[",
+                           RowBox[
+                            {
+                             RowBox[
+                              {
+                               "{",
+                               RowBox[
+                                {
+                                 "Cell",
+                                 "[",
+                                 RowBox[{"\"Hello world\"", ",", "\"Text\""}],
+                                 "]"
+                                }
+                               ],
+                               "}"
+                              }
+                             ],
+                             ",",
+                             RowBox[{"Background", "\[Rule]", "Red"}]
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         ",",
+                         "\[IndentingNewLine]",
+                         RowBox[
+                          {
+                           "FileNameJoin",
+                           "[",
+                           RowBox[
+                            {
+                             "{",
+                             RowBox[{"$TemporaryDirectory", ",", "\"readable.nb\""}],
+                             "}"
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         ",",
+                         "\[IndentingNewLine]",
+                         RowBox[
+                          {
+                           "\"ExcludedNotebookOptions\"",
+                           "\[Rule]",
+                           RowBox[{"{", "Background", "}"}]
+                          }
+                         ]
+                        }
+                       ],
+                       "\[IndentingNewLine]",
+                       "]"
+                      }
                      ],
-                     "Input",
-                     TaggingRules -> { },
-                     CellLabel -> "In[1]:=",
-                     CellID -> 603447991
-                    ],
-                    Cell[
-                     "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
-                     "Print",
-                     TaggingRules -> { },
-                     CellLabel -> "During evaluation of In[1]:=",
-                     CellID -> 169682995
-                    ]
-                   },
-                   Open
-                  ]
+                     "//",
+                     "FilePrint"
+                    }
+                   ]
+                  ],
+                  "Input",
+                  TaggingRules -> { },
+                  CellLabel -> "In[1]:=",
+                  CellID -> 603447991
+                 ],
+                 Cell[
+                  "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+                  "Print",
+                  TaggingRules -> { },
+                  CellLabel -> "During evaluation of In[1]:=",
+                  CellID -> 169682995
                  ]
                 },
                 Open
@@ -9974,7 +9955,7 @@ Notebook[
           {
            Cell[
             "Applications",
-            "Subsection",
+            "Subsubsection",
             TaggingRules -> { },
             CellLabel -> "In[2]:=",
             CellID -> 568056528
@@ -10930,7 +10911,7 @@ Notebook[
             "Richard Hennigan (Wolfram Research)",
             "Text",
             TaggingRules -> { },
-            CellID -> 256427698
+            CellID -> 522241318
            ]
           },
           Open
@@ -10997,25 +10978,25 @@ Notebook[
             "save notebook",
             "Item",
             TaggingRules -> { },
-            CellID -> 548167216
+            CellID -> 90626683
            ],
            Cell[
             "git diff",
             "Item",
             TaggingRules -> { },
-            CellID -> 69438701
+            CellID -> 24942053
            ],
            Cell[
             "notebook diff",
             "Item",
             TaggingRules -> { },
-            CellID -> 382345070
+            CellID -> 30276781
            ],
            Cell[
             "file changes",
             "Item",
             TaggingRules -> { },
-            CellID -> 70807151
+            CellID -> 634669701
            ]
           },
           Open
@@ -11487,7 +11468,7 @@ Notebook[
              "CheckboxData" -> "OEM6eJxVj81Ow0AMhCVEIUEVZ47hwi0PEfVHqoRIVfMCyXaAqJv1am0f9u3ZIEBwsuVv7Bl3VUsr0uxBN71pNG3pdvMBd8H57UqunydRenxhxch8abbsbEZQaZ6aY4KUdtCJAz1QFsXc9BHpa1IEBLVYzh8KEKk7U54Lcy1Vx8RFqJnuNoPindMEKcZ9XFblx3ipJ/OQaneedBhLt9oPXvAL6i08/pIlPXubw3/D+0NQpJjwHbfuQiYbBeXd9QnClhxecwRVewtu0XwCtCFixQ=="
             },
             CellTags -> {"Categories", "Categories-Checkboxes", "CheckboxCell"},
-            CellID -> 35538193
+            CellID -> 399898442
            ]
           },
           Open
@@ -11554,31 +11535,31 @@ Notebook[
             "Export",
             "Item",
             TaggingRules -> { },
-            CellID -> 62072823
+            CellID -> 16322161
            ],
            Cell[
             "NotebookSave",
             "Item",
             TaggingRules -> { },
-            CellID -> 226992986
+            CellID -> 165809570
            ],
            Cell[
             "Notebook",
             "Item",
             TaggingRules -> { },
-            CellID -> 222582779
+            CellID -> 44425766
            ],
            Cell[
             "NotebookObject",
             "Item",
             TaggingRules -> { },
-            CellID -> 397870662
+            CellID -> 707163888
            ],
            Cell[
             "Put",
             "Item",
             TaggingRules -> { },
-            CellID -> 251812864
+            CellID -> 351644715
            ]
           },
           Open
@@ -11645,25 +11626,25 @@ Notebook[
             "ReadableForm",
             "Item",
             TaggingRules -> { },
-            CellID -> 225179536
+            CellID -> 12865163
            ],
            Cell[
             "PrettyForm",
             "Item",
             TaggingRules -> { },
-            CellID -> 89781672
+            CellID -> 232041989
            ],
            Cell[
             "SaveAsString",
             "Item",
             TaggingRules -> { },
-            CellID -> 69578637
+            CellID -> 14223839
            ],
            Cell[
             "WriteUnitTest",
             "Item",
             TaggingRules -> { },
-            CellID -> 18916418
+            CellID -> 159324565
            ]
           },
           Open
@@ -11831,7 +11812,7 @@ Notebook[
             ],
             "Item",
             TaggingRules -> { },
-            CellID -> 4537486
+            CellID -> 96863008
            ]
           },
           Open
@@ -11934,7 +11915,7 @@ Notebook[
                "Initialization",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 391865435
+               CellID -> 23644696
               ],
               Cell[
                BoxData[
@@ -12000,7 +11981,7 @@ Notebook[
                "Code",
                TaggingRules -> { },
                InitializationCell -> False,
-               CellID -> 2073439
+               CellID -> 394841301
               ],
               Cell[
                BoxData[
@@ -12064,7 +12045,7 @@ Notebook[
                "Code",
                TaggingRules -> { },
                InitializationCell -> False,
-               CellID -> 720931875
+               CellID -> 438505588
               ],
               Cell[
                BoxData[
@@ -12276,7 +12257,7 @@ Notebook[
                "Code",
                TaggingRules -> { },
                InitializationCell -> False,
-               CellID -> 18323047
+               CellID -> 16092417
               ]
              },
              Closed
@@ -12289,7 +12270,7 @@ Notebook[
                "Tests",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 591687714
+               CellID -> 740851059
               ],
               Cell[
                CellGroupData[
@@ -12298,7 +12279,7 @@ Notebook[
                   "Convert to String",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 57971731
+                  CellID -> 45273971
                  ],
                  Cell[
                   BoxData[
@@ -12492,7 +12473,7 @@ Notebook[
                   "Code",
                   TaggingRules -> { },
                   InitializationCell -> False,
-                  CellID -> 594002492
+                  CellID -> 9157760
                  ],
                  Cell[
                   BoxData[
@@ -12593,7 +12574,7 @@ Notebook[
                   "Code",
                   TaggingRules -> { },
                   InitializationCell -> False,
-                  CellID -> 108094389
+                  CellID -> 79889192
                  ],
                  Cell[
                   BoxData[
@@ -12678,7 +12659,7 @@ Notebook[
                   "Code",
                   TaggingRules -> { },
                   InitializationCell -> False,
-                  CellID -> 99760154
+                  CellID -> 250732550
                  ]
                 },
                 Closed
@@ -12691,7 +12672,7 @@ Notebook[
                   "Save to File",
                   "Subsubsubsection",
                   TaggingRules -> { },
-                  CellID -> 3964198
+                  CellID -> 1026993653
                  ],
                  Cell[
                   BoxData[
@@ -12860,7 +12841,7 @@ Notebook[
                   "Code",
                   TaggingRules -> { },
                   InitializationCell -> False,
-                  CellID -> 183877575
+                  CellID -> 87489338
                  ],
                  Cell[
                   BoxData[
@@ -12931,7 +12912,7 @@ Notebook[
                   "Code",
                   TaggingRules -> { },
                   InitializationCell -> False,
-                  CellID -> 849479477
+                  CellID -> 110896982
                  ],
                  Cell[
                   BoxData[
@@ -12984,7 +12965,7 @@ Notebook[
                   "Code",
                   TaggingRules -> { },
                   InitializationCell -> False,
-                  CellID -> 176546344
+                  CellID -> 146281844
                  ]
                 },
                 Closed
@@ -12994,7 +12975,7 @@ Notebook[
                "Error Cases",
                "Subsubsubsection",
                TaggingRules -> { },
-               CellID -> 492709245
+               CellID -> 363084837
               ]
              },
              Open
@@ -13007,7 +12988,7 @@ Notebook[
                "Cleanup",
                "Subsubsection",
                TaggingRules -> { },
-               CellID -> 102574460
+               CellID -> 146760687
               ],
               Cell[
                BoxData[
@@ -13073,7 +13054,7 @@ Notebook[
                "Code",
                TaggingRules -> { },
                InitializationCell -> False,
-               CellID -> 591184487
+               CellID -> 166450981
               ]
              },
              Closed
@@ -13375,7 +13356,7 @@ Notebook[
                 "CompatibilityOperatingSystem",
                 "CompatibilityOperatingSystem-Checkboxes"
                },
-               CellID -> 160068962
+               CellID -> 10918939
               ]
              },
              Closed
@@ -13558,7 +13539,7 @@ Notebook[
                 "CompatibilityFeatures",
                 "CompatibilityFeatures-Checkboxes"
                },
-               CellID -> 530930547
+               CellID -> 157520333
               ]
              },
              Closed
@@ -13844,7 +13825,7 @@ Notebook[
                 "CompatibilityEvaluationEnvironment",
                 "CompatibilityEvaluationEnvironment-Checkboxes"
                },
-               CellID -> 183234359
+               CellID -> 798421649
               ]
              },
              Closed
@@ -13965,7 +13946,7 @@ Notebook[
                 "CompatibilityCloudSupport",
                 "CompatibilityCloudSupport-Checkboxes"
                },
-               CellID -> 534252235
+               CellID -> 30067015
               ]
              },
              Closed
@@ -14198,7 +14179,7 @@ Notebook[
     ]
    ]
   ],
-  "CreationTimestamp" -> 3860155115.1716464,
+  "CreationTimestamp" -> 3860155531.3906164,
   "DefinitionNotebookFramework" -> "DefinitionNotebookClient",
   "ResourceCreateNotebook" -> True,
   "ResourceType" -> "Function",
@@ -14213,7 +14194,7 @@ Notebook[
   },
   "SubmissionReviewData" -> {"Review" -> False},
   "ToolsOpen" -> False,
-  "UpdatedTimestamp" -> 3860155116.2794332,
+  "UpdatedTimestamp" -> 3860155532.4340360,
   "TemplateVersion" -> "1.6.3",
   "StatusMessage" -> ""
  },
@@ -18225,5 +18206,5 @@ Notebook[
   FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
   StyleDefinitions -> "PrivateStylesheetFormatting.nb"
  ],
- ExpressionUUID -> "d416f84f-1467-4511-a6e2-c3da8d39c332"
+ ExpressionUUID -> "f6305ebc-1f7a-480d-9f20-35a2627c2e3f"
 ]

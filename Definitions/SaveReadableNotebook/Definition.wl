@@ -366,10 +366,8 @@ symbolNamedQ // endDefinition;
 (*createNBString*)
 createNBString // beginDefinition;
 
-(* :!CodeAnalysis::BeginBlock:: *)
-(* :!CodeAnalysis::Disable::VariableError::Block:: *)
 createNBString[ nb_, HoldComplete[ overrides___ ], { opts___ } ] :=
-    Internal`InheritedBlock[ { RawArray, NumericArray, overrides },
+    Identity[ Internal`InheritedBlock ][ { RawArray, NumericArray, overrides },
 
         Unprotect[ RawArray, NumericArray, overrides ];
         ReleaseHold[ overrideFormat /@ HoldComplete @ overrides ];
@@ -388,7 +386,6 @@ createNBString[ nb_, HoldComplete[ overrides___ ], { opts___ } ] :=
             "$CellContext`"
         ]
     ];
-(* :!CodeAnalysis::EndBlock:: *)
 
 createNBString // endDefinition;
 

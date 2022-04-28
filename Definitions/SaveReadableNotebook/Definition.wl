@@ -378,7 +378,7 @@ createNBString[ nb_, HoldComplete[ overrides___ ], { opts___ } ] :=
         Format[ x_NumericArray? numericArrayQ, InputForm ] :=
             OutputForm[ "CompressedData[\"" <> Compress @ x <> "\"]" ];
 
-        StringDelete[
+        $nbStringHeader <> StringDelete[
             ToString @ ResourceFunction[ "ReadableForm" ][
                 nb /. $fullFormRules,
                 opts
@@ -388,6 +388,17 @@ createNBString[ nb_, HoldComplete[ overrides___ ], { opts___ } ] :=
     ];
 
 createNBString // endDefinition;
+
+$nbStringHeader = "\
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* Created By: SaveReadableNotebook *)
+(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)
+
+";
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)

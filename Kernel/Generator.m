@@ -293,12 +293,19 @@ findExamplesFile[ info: KeyValuePattern @ { }, dir_ ] :=
 generateExampleCells // ClearAll;
 
 generateExampleCells[ dir_, info_, def_, ex_? FileExistsQ ] :=
-    If[ FileFormat @ ex === "NB",
+    If[ fileFormat @ ex === "NB",
         examplesFromNotebook[ dir, info, def, ex ],
         examplesFromPackage[ dir, info, def, ex ]
     ];
 
 generateExampleCells[ ___ ] := Missing[ ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsubsection::Closed:: *)
+(*fileFormat*)
+fileFormat[ file_ ] := fileFormat[ file, ToUpperCase @ FileExtension @ file ];
+fileFormat[ file_, "NB" ] := "NB";
+fileFormat[ file_, _ ] := FileFormat @ file;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)

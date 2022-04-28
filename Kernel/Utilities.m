@@ -11,6 +11,20 @@ PackageScope[ "AutoTemplateStrings" ]
 (*AutoTemplateStrings*)
 AutoTemplateStrings // ClearAll;
 
+AutoTemplateStrings[
+    Cell[
+        str_String? excludedStringQ,
+        style__String,
+        opts: OptionsPattern[ ]
+    ]
+] :=
+    AutoTemplateStrings @ Cell[
+        StringTrim @ StringDelete[ str, StartOfString ~~ $exclusionPrefix ],
+        style,
+        "Excluded",
+        opts
+    ];
+
 AutoTemplateStrings[ cell_Cell ] :=
     Replace[ AutoTemplateStrings @ { cell },
              Cell[ b_BoxData ] :> Cell[ b, "InlineFormula" ],
@@ -22,6 +36,16 @@ AutoTemplateStrings[ cells_ ] :=
         eval = evaluateStringTemplates @ cells;
         eval /. $autoTemplateRules
     ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*excludedStringQ*)
+excludedStringQ[ str_String? StringQ ] :=
+    StringStartsQ[ str, $exclusionPrefix ];
+
+excludedStringQ[ ___ ] := False;
+
+$exclusionPrefix = WhitespaceCharacter... ~~ "!Excluded" ~~ WhitespaceCharacter;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)

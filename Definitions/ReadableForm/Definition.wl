@@ -1,3 +1,7 @@
+(* !Excluded
+This notebook was automatically generated from [Definitions/ReadableForm](https://github.com/rhennigan/ResourceFunctions/blob/main/Definitions/ReadableForm).
+*)
+
 ReadableForm // ClearAll;
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)

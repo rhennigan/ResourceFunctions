@@ -4,7 +4,29 @@
 
 Package[ "RH`ResourceFunctions`" ]
 
+PackageExport[ "BuildDefinitionNotebook"    ]
 PackageExport[ "GenerateDefinitionNotebook" ]
+
+(* ::**********************************************************************:: *)
+(* ::Section::Closed:: *)
+(*BuildDefinitionNotebook*)
+BuildDefinitionNotebook[ name_String? buildableNameQ ] :=
+    Enclose @ Module[ { nb, tgt, nbo },
+        nb  = ConfirmMatch[ GenerateDefinitionNotebook @ name, _Notebook ];
+        tgt = FileNameJoin @ { $ResourceFunctionDirectory, name, name<>".nb" };
+        WithCleanup[
+            nbo = ConfirmMatch[
+                DefinitionNotebookClient`UpdateDefinitionNotebook[
+                    NotebookPut @ nb,
+                    "CreateNewNotebook" -> False,
+                    "DisplayStripe"     -> False
+                ],
+                _NotebookObject
+            ],
+            Export[ tgt, nbo, "NB" ],
+            NotebookClose @ nbo
+        ]
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
@@ -18,7 +40,7 @@ GenerateDefinitionNotebook[ name_String? buildableNameQ ] :=
 GenerateDefinitionNotebook[ dir_? DirectoryQ ] :=
     With[ { nb = generateDefinitionNotebook @ dir },
         If[ MatchQ[ nb, Notebook[ { ___Cell }, ___ ] ],
-            nb,
+            reassignCellIDs @ nb,
             Failure[ GenerateDefinitionNotebook, <| |> ]
         ]
     ];
@@ -1246,3 +1268,36 @@ firstMatchingFile[ { patt_, rest___ }, args___ ] :=
 
 firstMatchingFile[ { }, ___ ] := Missing[ "NotFound" ];
 
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*reassignCellIDs*)
+reassignCellIDs[ expr_ ] :=
+    Block[ { $UsedCellIDs = <| |>, $hashed },
+        ReplaceAll[
+            ReplaceAll[
+                expr,
+                cell: Cell[
+                    Except[ _CellGroupData ],
+                    Except[ CellID -> _$hashed ]...
+                ] :>
+                    With[ { new = cellHash @ cell },
+                        Append[
+                            DeleteCases[ cell, CellID -> _ ],
+                            CellID -> $hashed @ new
+                        ] /; True
+                    ]
+            ],
+            $hashed[ id_ ] :> id
+        ]
+    ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellHash*)
+cellHash[ Cell[ content_, ___ ] ] :=
+    Module[ { hash },
+        hash = Mod[ Hash @ content, 10^9, 1 ];
+        While[ TrueQ @ $UsedCellIDs @ hash, hash = Mod[ hash + 1, 10^9, 1 ] ];
+        $UsedCellIDs[ hash ] = True;
+        hash
+    ];

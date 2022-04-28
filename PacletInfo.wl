@@ -15,6 +15,7 @@ PacletObject[ <|
             "Symbols" -> {
                 "RH`ResourceFunctions`$BuildableNames",
                 "RH`ResourceFunctions`$ResourceFunctionDirectory",
+                "RH`ResourceFunctions`BuildDefinitionNotebook",
                 "RH`ResourceFunctions`GenerateDefinitionNotebook"
             }
         },

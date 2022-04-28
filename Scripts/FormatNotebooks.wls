@@ -12,6 +12,15 @@
 Get @ FileNameJoin @ {
     DirectoryName[ $InputFileName, 2 ],
     "Definitions",
+    "ReadableForm",
+    "Definition.wl"
+};
+
+DefineResourceFunction[ ReadableForm ];
+
+Get @ FileNameJoin @ {
+    DirectoryName[ $InputFileName, 2 ],
+    "Definitions",
     "SaveReadableNotebook",
     "Definition.wl"
 };
@@ -156,7 +165,13 @@ makeReadable[ file_, hash_, HoldComplete[ overrides___ ] ] :=
     SaveReadableNotebook[
         Import[ file, "NB" ],
         file,
-        "ExcludedNotebookOptions" -> { WindowMargins, WindowSize }
+        "ExcludedNotebookOptions" -> { WindowMargins, WindowSize },
+        "ExcludedCellOptions" -> {
+            CellChangeTimes,
+            ExpressionUUID,
+            CellID,
+            TaggingRules -> { }
+        }
     ];
 
 (* ::**********************************************************************:: *)

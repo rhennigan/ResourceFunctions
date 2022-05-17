@@ -9,6 +9,22 @@
     ```
 *)
 
+Get @ FileNameJoin @ {
+    DirectoryName[ $InputFileName, 2 ],
+    "Definitions",
+    "ReadableForm",
+    "Definition.wl"
+};
+
+DefineResourceFunction[ ReadableForm ];
+
+Get @ FileNameJoin @ {
+    DirectoryName[ $InputFileName, 2 ],
+    "Definitions",
+    "SaveReadableNotebook",
+    "Definition.wl"
+};
+
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Defaults*)
@@ -145,31 +161,17 @@ makeReadable[ file_, hash_Integer ] := enclose[
 ];
 (* :!CodeAnalysis::EndBlock:: *)
 
-(* :!CodeAnalysis::BeginBlock:: *)
-(* :!CodeAnalysis::Disable::VariableError::Block:: *)
 makeReadable[ file_, hash_, HoldComplete[ overrides___ ] ] :=
-    Internal`InheritedBlock[ { RawArray, NumericArray, overrides },
-        Unprotect[ RawArray, NumericArray, overrides ];
-        ReleaseHold[ overrideFormat /@ HoldComplete @ overrides ];
-
-        Format[ x_RawArray? rawArrayQ, InputForm ] :=
-            OutputForm[ "CompressedData[\"" <> Compress @ x <> "\"]" ];
-
-
-        Format[ x_NumericArray? numericArrayQ, InputForm ] :=
-            OutputForm[ "CompressedData[\"" <> Compress @ x <> "\"]" ];
-
-        ResourceFunction[ "SaveReadableNotebook" ][
-            ReplaceAll[
-                Import @ file,
-                a: _RawArray | _NumericArray :>
-                    With[ { b = Check[ a, $Failed ] }, b /; ! FailureQ @ b ]
-            ],
-            file,
-            "ExcludedNotebookOptions" -> { WindowMargins, WindowSize }
-        ]
+    SaveReadableNotebook[
+        Import[ file, "NB" ],
+        file,
+        "ExcludedNotebookOptions" -> { WindowMargins, WindowSize },
+        "ExcludedCellOptions" -> {
+            CellChangeTimes,
+            ExpressionUUID,
+            TaggingRules -> { }
+        }
     ];
-(* :!CodeAnalysis::EndBlock:: *)
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)

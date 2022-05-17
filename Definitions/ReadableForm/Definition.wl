@@ -581,17 +581,17 @@ format[{}] := "{ }";
 (*Symbol Definitions*)
 
 (* !ClearAll *)
-format[ ClearAll[ s_Symbol? symbolQ ] ] :=
+format[ ClearAll[ s_Symbol? symbolQ ] ] /; ! $fastMode :=
     StringJoin[ toString @ s, " // ClearAll" ];
 
 
 (* !Attributes *)
-format[ Attributes[ s_Symbol? symbolQ ] = attrs_ ] :=
+format[ Attributes[ s_Symbol? symbolQ ] = attrs_ ] /; ! $fastMode :=
     StringJoin[ toString @ s, " // Attributes = ", cFormat @ attrs ];
 
 
 (* !Options *)
-format[ Options[ s_Symbol? symbolQ ] = opts_ ] :=
+format[ Options[ s_Symbol? symbolQ ] = opts_ ] /; ! $fastMode :=
     StringJoin[ toString @ s, " // Options = ", cFormat @ opts ];
 
 

@@ -80,7 +80,7 @@ Notebook[
       ],
       "Code",
       "Excluded",
-      CellLabel -> "In[25]:="
+      CellLabel -> "In[6]:="
      ],
      Cell[
       BoxData[
@@ -411,7 +411,7 @@ Notebook[
                        "\[InvisibleSpace]",
                        TagBox[
                         TemplateBox[
-                         {"1.1105459`", "\"s\"", "seconds", "\"Seconds\""},
+                         {"1.2488671`", "\"s\"", "seconds", "\"Seconds\""},
                          "Quantity",
                          SyntaxForm -> Mod
                         ],
@@ -457,9 +457,9 @@ Notebook[
           "Title" -> "Test Report: Tests.wlt",
           "Aborted" -> False,
           "TestResults" -> Association[
-           6247273547461253606 -> TestResultObject[
+           1817552309348361116 -> TestResultObject[
             Association[
-             "TestKey" -> 6247273547461253606,
+             "TestKey" -> 1817552309348361116,
              "TestID" -> None,
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -484,15 +484,15 @@ Notebook[
              ],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
-             "AbsoluteTimeUsed" -> 0.,
+             "AbsoluteTime" -> 3860161711.7871209,
+             "AbsoluteTimeUsed" -> 0.0010011,
              "CPUTimeUsed" -> 0.,
-             "MemoryUsed" -> 1968
+             "MemoryUsed" -> 3344
             ]
            ],
-           6574290564975049032 -> TestResultObject[
+           8890822285518251143 -> TestResultObject[
             Association[
-             "TestKey" -> 6574290564975049032,
+             "TestKey" -> 8890822285518251143,
              "TestID" -> "Define-Temporary-File",
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -509,15 +509,15 @@ Notebook[
              ],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
-             "AbsoluteTimeUsed" -> 0.,
+             "AbsoluteTime" -> 3860161711.7881220,
+             "AbsoluteTimeUsed" -> 0.0009999,
              "CPUTimeUsed" -> 0.,
-             "MemoryUsed" -> 2864
+             "MemoryUsed" -> 3120
             ]
            ],
-           8442684010343346620 -> TestResultObject[
+           7947975422113709506 -> TestResultObject[
             Association[
-             "TestKey" -> 8442684010343346620,
+             "TestKey" -> 7947975422113709506,
              "TestID" -> "Define-NotebookOpen-Test",
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> SameQ,
@@ -561,15 +561,15 @@ Notebook[
              "ActualOutput" -> HoldForm[Null],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
+             "AbsoluteTime" -> 3860161711.7891219,
              "AbsoluteTimeUsed" -> 0.,
              "CPUTimeUsed" -> 0.,
-             "MemoryUsed" -> 2984
+             "MemoryUsed" -> 1840
             ]
            ],
-           4814929588091756117 -> TestResultObject[
+           1658525173735497444 -> TestResultObject[
             Association[
-             "TestKey" -> 4814929588091756117,
+             "TestKey" -> 1658525173735497444,
              "TestID" -> "Save-NotebookObject-String",
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -619,21 +619,21 @@ Notebook[
                  ]
                 ]
                },
-               FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+               FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
                StyleDefinitions -> "Default.nb"
               ]
              ],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
-             "AbsoluteTimeUsed" -> 0.2440006,
-             "CPUTimeUsed" -> 0.016,
-             "MemoryUsed" -> 18624
+             "AbsoluteTime" -> 3860161711.7891219,
+             "AbsoluteTimeUsed" -> 0.2270008,
+             "CPUTimeUsed" -> 0.,
+             "MemoryUsed" -> 21168
             ]
            ],
-           192989908670998257 -> TestResultObject[
+           7754196178782004462 -> TestResultObject[
             Association[
-             "TestKey" -> 192989908670998257,
+             "TestKey" -> 7754196178782004462,
              "TestID" -> "Save-Notebook-String",
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -654,15 +654,15 @@ Notebook[
              "ActualOutput" -> HoldForm[Notebook[{Cell["Hello world", "Text"]}]],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
-             "AbsoluteTimeUsed" -> 0.0040009,
-             "CPUTimeUsed" -> 0.016,
-             "MemoryUsed" -> 3416
+             "AbsoluteTime" -> 3860161712.0171221,
+             "AbsoluteTimeUsed" -> 0.0039993,
+             "CPUTimeUsed" -> 0.,
+             "MemoryUsed" -> 5080
             ]
            ],
-           8049361300898177033 -> TestResultObject[
+           9027419046748466814 -> TestResultObject[
             Association[
-             "TestKey" -> 8049361300898177033,
+             "TestKey" -> 9027419046748466814,
              "TestID" -> "Save-File-String",
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -1077,15 +1077,15 @@ Notebook[
              ],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
-             "AbsoluteTimeUsed" -> 0.0250024,
-             "CPUTimeUsed" -> 0.015,
-             "MemoryUsed" -> 25280
+             "AbsoluteTime" -> 3860161712.0221241,
+             "AbsoluteTimeUsed" -> 0.0279982,
+             "CPUTimeUsed" -> 0.031,
+             "MemoryUsed" -> 26872
             ]
            ],
-           7082336399744949263 -> TestResultObject[
+           8514849950599632174 -> TestResultObject[
             Association[
-             "TestKey" -> 7082336399744949263,
+             "TestKey" -> 8514849950599632174,
              "TestID" -> "Save-NotebookObject-File",
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -1132,21 +1132,21 @@ Notebook[
                  ]
                 ]
                },
-               FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+               FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
                StyleDefinitions -> "Default.nb"
               ]
              ],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
-             "AbsoluteTimeUsed" -> 0.3990000,
-             "CPUTimeUsed" -> 0.,
-             "MemoryUsed" -> 4272
+             "AbsoluteTime" -> 3860161712.0501223,
+             "AbsoluteTimeUsed" -> 0.4682692,
+             "CPUTimeUsed" -> 0.016,
+             "MemoryUsed" -> 6032
             ]
            ],
-           5792008177531633653 -> TestResultObject[
+           8446389697594196871 -> TestResultObject[
             Association[
-             "TestKey" -> 5792008177531633653,
+             "TestKey" -> 8446389697594196871,
              "TestID" -> "Save-Notebook-File",
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -1163,21 +1163,21 @@ Notebook[
              "ActualOutput" -> HoldForm[
               Notebook[
                {Cell["Hello world", "Text"]},
-               FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+               FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
                StyleDefinitions -> "Default.nb"
               ]
              ],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
-             "AbsoluteTimeUsed" -> 0.1995423,
+             "AbsoluteTime" -> 3860161712.5183915,
+             "AbsoluteTimeUsed" -> 0.2316700,
              "CPUTimeUsed" -> 0.,
-             "MemoryUsed" -> 3176
+             "MemoryUsed" -> 4856
             ]
            ],
-           5393094398031986935 -> TestResultObject[
+           6912987794581844471 -> TestResultObject[
             Association[
-             "TestKey" -> 5393094398031986935,
+             "TestKey" -> 6912987794581844471,
              "TestID" -> "Save-File-File",
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -1561,7 +1561,7 @@ Notebook[
                        BoxData[
                         DynamicBox[
                          ToBoxes[x, StandardForm],
-                         ImageSizeCache -> {7.1474609375, {0., 7.}}
+                         ImageSizeCache -> {14.294921875, {0., 9.}}
                         ]
                        ],
                        "Output",
@@ -1582,21 +1582,21 @@ Notebook[
                CellLabelAutoDelete -> False,
                TrackCellChangeTimes -> False,
                Background -> GrayLevel[1.],
-               FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+               FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
                StyleDefinitions -> "Default.nb"
               ]
              ],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152093.,
-             "AbsoluteTimeUsed" -> 0.2380001,
-             "CPUTimeUsed" -> 0.016,
-             "MemoryUsed" -> 26952
+             "AbsoluteTime" -> 3860161712.7500615,
+             "AbsoluteTimeUsed" -> 0.2869275,
+             "CPUTimeUsed" -> 0.015,
+             "MemoryUsed" -> 28496
             ]
            ],
-           5984383959435361265 -> TestResultObject[
+           6101120573063167852 -> TestResultObject[
             Association[
-             "TestKey" -> 5984383959435361265,
+             "TestKey" -> 6101120573063167852,
              "TestID" -> None,
              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SaveReadableNotebook\\Tests.wlt",
              "SameTest" -> MatchQ,
@@ -1621,24 +1621,24 @@ Notebook[
              ],
              "ExpectedMessages" -> HoldForm[{}],
              "ActualMessages" -> { },
-             "AbsoluteTime" -> 3860152094.,
-             "AbsoluteTimeUsed" -> 0.0009996,
+             "AbsoluteTime" -> 3860161713.0369890,
+             "AbsoluteTimeUsed" -> 0.0010011,
              "CPUTimeUsed" -> 0.,
-             "MemoryUsed" -> 1960
+             "MemoryUsed" -> 3640
             ]
            ]
           ],
           "TestsSucceededKeys" -> {
-           6247273547461253606,
-           6574290564975049032,
-           8442684010343346620,
-           4814929588091756117,
-           192989908670998257,
-           8049361300898177033,
-           7082336399744949263,
-           5792008177531633653,
-           5393094398031986935,
-           5984383959435361265
+           1817552309348361116,
+           8890822285518251143,
+           7947975422113709506,
+           1658525173735497444,
+           7754196178782004462,
+           9027419046748466814,
+           8514849950599632174,
+           8446389697594196871,
+           6912987794581844471,
+           6101120573063167852
           },
           "TestsFailedWrongResultsKeys" -> { },
           "TestsFailedWithMessagesKeys" -> { },
@@ -1652,7 +1652,7 @@ Notebook[
       ],
       "Output",
       "Excluded",
-      CellLabel -> "Out[26]="
+      CellLabel -> "Out[7]="
      ]
     },
     Open
@@ -1665,7 +1665,7 @@ Notebook[
       "Basic Examples",
       "Subsection",
       TaggingRules -> { },
-      CellLabel -> "In[11]:=",
+      CellLabel -> "In[8]:=",
       CellID -> 462042388
      ],
      Cell[
@@ -1793,11 +1793,11 @@ Notebook[
          BoxData[
           TemplateBox[
            {
-            FrontEndObject[LinkObject["xzqf9_shm", 3, 1]],
-            82,
-            "FrontEndObject[LinkObject[\"xzqf9_shm\", 3, 1]]",
-            "82",
-            "\"Untitled-6\""
+            FrontEndObject[LinkObject["3dcc5_shm", 3, 1]],
+            258,
+            "FrontEndObject[LinkObject[\"3dcc5_shm\", 3, 1]]",
+            "258",
+            "\"Untitled-22\""
            },
            "NotebookObjectUnsaved"
           ]
@@ -1850,12 +1850,23 @@ Notebook[
         ],
         Cell[
          BoxData[
-          "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+          RowBox[
+           {
+            "File",
+            "[",
+            TemplateBox[
+             {
+              "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+             },
+             "FileArgument"
+            ],
+            "]"
+           }
+          ]
          ],
          "Output",
          TaggingRules -> { },
-         CellLabel -> "Out[2]=",
-         CellID -> 372033885
+         CellLabel -> "Out[2]="
         ]
        },
        Open
@@ -1872,11 +1883,10 @@ Notebook[
          CellID -> 284413394
         ],
         Cell[
-         "Notebook[\n {\n  Cell[\n   CellGroupData[\n    {\n     Cell[\"Test notebook\", \"Title\"],\n     Cell[\"This is a test\", \"Text\"],\n     Cell[\n      CellGroupData[\n       {\n        Cell[BoxData[RowBox[{\"1\", \"+\", \"1\"}]], \"Input\"],\n        Cell[BoxData[\"2\"], \"Output\"]\n       },\n       Open\n      ]\n     ]\n    },\n    Open\n   ]\n  ]\n },\n StyleDefinitions -> \"Default.nb\"\n]",
+         "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[\n {\n  Cell[\n   CellGroupData[\n    {\n     Cell[\"Test notebook\", \"Title\"],\n     Cell[\"This is a test\", \"Text\"],\n     Cell[\n      CellGroupData[\n       {\n        Cell[BoxData[RowBox[{\"1\", \"+\", \"1\"}]], \"Input\"],\n        Cell[BoxData[\"2\"], \"Output\"]\n       },\n       Open\n      ]\n     ]\n    },\n    Open\n   ]\n  ]\n },\n FrontEndVersion -> \"13.0 for Microsoft Windows (64-bit) (January 26, 2022)\",\n StyleDefinitions -> \"Default.nb\"\n]",
          "Print",
          TaggingRules -> { },
-         CellLabel -> "During evaluation of In[3]:=",
-         CellID -> 417399833
+         CellLabel -> "During evaluation of In[3]:="
         ]
        },
        Open
@@ -2001,7 +2011,19 @@ Notebook[
            ],
            Cell[
             BoxData[
-             "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+             RowBox[
+              {
+               "File",
+               "[",
+               TemplateBox[
+                {
+                 "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+                },
+                "FileArgument"
+               ],
+               "]"
+              }
+             ]
             ],
             "Output",
             CellLabel -> "Out[1]="
@@ -2021,7 +2043,7 @@ Notebook[
             CellID -> 509179413
            ],
            Cell[
-            "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+            "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[{Cell[\"Hello world\", \"Text\"]}]",
             "Print",
             TaggingRules -> { },
             CellLabel -> "During evaluation of In[2]:="
@@ -2100,7 +2122,19 @@ Notebook[
            ],
            Cell[
             BoxData[
-             "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+             RowBox[
+              {
+               "File",
+               "[",
+               TemplateBox[
+                {
+                 "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\readable.nb\""
+                },
+                "FileArgument"
+               ],
+               "]"
+              }
+             ]
             ],
             "Output",
             TaggingRules -> { },
@@ -2115,7 +2149,7 @@ Notebook[
           {
            Cell[
             BoxData[
-             RowBox[{"FilePrint", "[", RowBox[{"%", ",", "15"}], "]"}]
+             RowBox[{"FilePrint", "[", RowBox[{"%", ",", "20"}], "]"}]
             ],
             "Input",
             TaggingRules -> { },
@@ -2123,7 +2157,7 @@ Notebook[
             CellID -> 725790380
            ],
            Cell[
-            "Notebook[\n {\n  Cell[\n   CellGroupData[\n    {\n     Cell[\"Text\", \"Section\"],\n     Cell[\"A line of text.\", \"Text\"],\n     Cell[\n      CellGroupData[\n       {\n        Cell[\"Subsection\", \"Subsection\"],\n        Cell[\"one two three\", \"Text\"],\n        Cell[\"alpha beta gamma delta epsilon \[Ellipsis]\", \"Text\"]\n       },\n       Open",
+            "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[\n {\n  Cell[\n   CellGroupData[\n    {\n     Cell[\"Text\", \"Section\"],\n     Cell[\"A line of text.\", \"Text\"],\n     Cell[\n      CellGroupData[\n       {\n        Cell[\"Subsection\", \"Subsection\"],\n        Cell[\"one two three\", \"Text\"],",
             "Print",
             TaggingRules -> { },
             CellLabel -> "During evaluation of In[2]:="
@@ -2248,11 +2282,10 @@ Notebook[
             CellID -> 861976318
            ],
            Cell[
-            "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+            "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[{Cell[\"Hello world\", \"Text\"]}]",
             "Print",
             TaggingRules -> { },
-            CellLabel -> "During evaluation of In[1]:=",
-            CellID -> 290379575
+            CellLabel -> "During evaluation of In[1]:="
            ]
           },
           Open
@@ -2366,11 +2399,10 @@ Notebook[
                CellID -> 407852026
               ],
               Cell[
-               "Notebook[\n {\n  Cell[\n   \"Hello world\",\n   \"Text\",\n   ExpressionUUID -> \"1afb2be5-e396-4d66-aee0-0b29b323bc77\"\n  ]\n }\n]",
+               "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[\n {\n  Cell[\n   \"Hello world\",\n   \"Text\",\n   ExpressionUUID -> \"95875d12-8fb8-459d-bddb-38bc4b207f18\"\n  ]\n }\n]",
                "Print",
                TaggingRules -> { },
-               CellLabel -> "During evaluation of In[1]:=",
-               CellID -> 81058198
+               CellLabel -> "During evaluation of In[1]:="
               ]
              },
              Open
@@ -2488,11 +2520,10 @@ Notebook[
                CellID -> 361824655
               ],
               Cell[
-               "Notebook[{Cell[\"Hello world\", \"Text\", FontSize -> 14]}]",
+               "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[{Cell[\"Hello world\", \"Text\", FontSize -> 14]}]",
                "Print",
                TaggingRules -> { },
-               CellLabel -> "During evaluation of In[1]:=",
-               CellID -> 806874859
+               CellLabel -> "During evaluation of In[1]:="
               ]
              },
              Open
@@ -2602,11 +2633,10 @@ Notebook[
             CellID -> 64169882
            ],
            Cell[
-            "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+            "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[{Cell[\"Hello world\", \"Text\"]}]",
             "Print",
             TaggingRules -> { },
-            CellLabel -> "During evaluation of In[1]:=",
-            CellID -> 33860084
+            CellLabel -> "During evaluation of In[1]:="
            ]
           },
           Open
@@ -2722,11 +2752,10 @@ Notebook[
                CellID -> 5088370
               ],
               Cell[
-               "Notebook[\n {Cell[\"Hello world\", \"Text\"]},\n WindowSize -> {1000, 1000}\n]",
+               "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[\n {Cell[\"Hello world\", \"Text\"]},\n WindowSize -> {1000, 1000}\n]",
                "Print",
                TaggingRules -> { },
-               CellLabel -> "During evaluation of In[1]:=",
-               CellID -> 481546763
+               CellLabel -> "During evaluation of In[1]:="
               ]
              },
              Open
@@ -2840,11 +2869,10 @@ Notebook[
                CellID -> 603447991
               ],
               Cell[
-               "Notebook[{Cell[\"Hello world\", \"Text\"]}]",
+               "(* Content-type: application/vnd.wolfram.mathematica *)\n\n(*** Wolfram Notebook File ***)\n(* http://www.wolfram.com/nb *)\n\n(* Created By: SaveReadableNotebook *)\n(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\n\nNotebook[{Cell[\"Hello world\", \"Text\"]}]",
                "Print",
                TaggingRules -> { },
-               CellLabel -> "During evaluation of In[1]:=",
-               CellID -> 169682995
+               CellLabel -> "During evaluation of In[1]:="
               ]
              },
              Open
@@ -3321,10 +3349,7 @@ Notebook[
                 ],
                 "]"
                }
-              ],
-              ",",
-              "\[IndentingNewLine]",
-              "25"
+              ]
              }
             ],
             "\[IndentingNewLine]",
@@ -3334,7 +3359,7 @@ Notebook[
          ],
          "Input",
          TaggingRules -> { },
-         CellLabel -> "In[5]:=",
+         CellLabel -> "In[7]:=",
          CellID -> 394044315
         ],
         Cell[
@@ -3369,7 +3394,7 @@ Notebook[
                  },
                  {
                   ItemBox[
-                   "\"NotebookDataLength[      1740,         59]\\nNotebookOptionsPosition[      1043,         38]\\nNotebookOutlinePosition[      1453,         54]\\nCellTagsIndexPosition[      1410,         51]\"",
+                   "\"NotebookDataLength[      1791,         61]\\nNotebookOptionsPosition[      1094,         40]\\nNotebookOutlinePosition[      1504,         56]\\nCellTagsIndexPosition[      1461,         53]\"",
                    Background -> RGBColor[0.88, 1, 0.88],
                    StripOnInput -> False
                   ]
@@ -3388,7 +3413,7 @@ Notebook[
              {"\"\""},
              {"\"Cell[CellGroupData[{\""},
              {
-              "\"Cell[\\\"Test notebook\\\", \\\"Title\\\",ExpressionUUID->\\\"4f644f4a-df5d-43fd-b118-ae5e2334cca4\\\"],\""
+              "\"Cell[\\\"Test notebook\\\", \\\"Title\\\",ExpressionUUID->\\\"60ab15ea-8c56-4a84-a6cd-f5cd8f777723\\\"],\""
              },
              {"\"\""},
              {
@@ -3397,14 +3422,14 @@ Notebook[
                 {
                  {
                   ItemBox[
-                   "\"Cell[\\\"This is a test.\\\", \\\"Text\\\",ExpressionUUID->\\\"5e2d30c6-5535-4d51-8f21-0d5330457c66\\\"],\"",
+                   "\"Cell[\\\"This is a test.\\\", \\\"Text\\\",ExpressionUUID->\\\"a66eee7c-7421-443b-bc4f-46b7460f0185\\\"],\"",
                    Background -> RGBColor[1, 0.85, 0.85],
                    StripOnInput -> False
                   ]
                  },
                  {
                   ItemBox[
-                   "\"Cell[\\\"This is a test\\\", \\\"Text\\\",\\n CellChangeTimes->{\\n  3.859458805130263*^9},ExpressionUUID->\\\"5e2d30c6-5535-4d51-8f21-\\\\\\n0d5330457c66\\\"],\"",
+                   "\"Cell[\\\"This is a test\\\", \\\"Text\\\",\\n CellChangeTimes->{\\n  3.8601618091753645`*^9},ExpressionUUID->\\\"a66eee7c-7421-443b-bc4f-\\\\\\n46b7460f0185\\\"],\"",
                    Background -> RGBColor[0.88, 1, 0.88],
                    StripOnInput -> False
                   ]
@@ -3418,7 +3443,167 @@ Notebook[
              },
              {"\"\""},
              {"\"Cell[CellGroupData[{\""},
-             {"\"\""}
+             {"\"\""},
+             {"\"Cell[BoxData[\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\" RowBox[{\\\"1\\\", \\\"+\\\", \\\"1\\\"}]], \\\"Input\\\",ExpressionUUID->\\\"85b824ea-ed4d-48c3-ab41-a431986a5c61\\\"],\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\" RowBox[{\\\"1\\\", \\\"+\\\", \\\"1\\\", \\\" \\\"}]], \\\"Input\\\",\\n CellChangeTimes->{\\n  3.86016181792327*^9},ExpressionUUID->\\\"85b824ea-ed4d-48c3-ab41-a431986a5c61\\\"],\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             },
+             {"\"\""},
+             {
+              "\"Cell[BoxData[\\\"2\\\"], \\\"Output\\\",ExpressionUUID->\\\"3033d6ac-df46-4aa6-8291-8c010daea13c\\\"]\""
+             },
+             {"\"}, Open  ]]\""},
+             {"\"}, Open  ]]\""},
+             {"\"},\""},
+             {"\"WindowSize->{582., 655.5},\""},
+             {
+              "\"WindowMargins->{{663.5, Automatic}, {Automatic, 172.5}},\""
+             },
+             {
+              "\"FrontEndVersion->\\\"13.0 for Microsoft Windows (64-bit) (January 26, 2022)\\\",\""
+             },
+             {"\"StyleDefinitions->\\\"Default.nb\\\",\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\"ExpressionUUID->\\\"893c73e4-e77d-4a30-a7f8-a9f58842e24b\\\"\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\"ExpressionUUID->\\\"2e3c226c-98f9-4ec4-9f89-da7993685ee8\\\"\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             },
+             {"\"]\""},
+             {"\"(* End of Notebook Content *)\""},
+             {"\"\""},
+             {"\"(* Internal cache information *)\""},
+             {"\"(*CellTagsOutline\""},
+             {"\"CellTagsIndex->{}\""},
+             {"\"*)\""},
+             {"\"(*CellTagsIndex\""},
+             {"\"CellTagsIndex->{}\""},
+             {"\"*)\""},
+             {"\"(*NotebookFileOutline\""},
+             {"\"Notebook[{\""},
+             {"\"Cell[CellGroupData[{\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\"Cell[580, 22, 85, 0, 70, \\\"Title\\\",ExpressionUUID->\\\"60ab15ea-8c56-4a84-a6cd-f5cd8f777723\\\"],\\nCell[668, 24, 86, 0, 70, \\\"Text\\\",ExpressionUUID->\\\"a66eee7c-7421-443b-bc4f-46b7460f0185\\\"],\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\"Cell[580, 22, 85, 0, 98, \\\"Title\\\",ExpressionUUID->\\\"60ab15ea-8c56-4a84-a6cd-f5cd8f777723\\\"],\\nCell[668, 24, 134, 3, 35, \\\"Text\\\",ExpressionUUID->\\\"a66eee7c-7421-443b-bc4f-46b7460f0185\\\"],\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             },
+             {"\"Cell[CellGroupData[{\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\"Cell[779, 28, 104, 1, 70, \\\"Input\\\",ExpressionUUID->\\\"85b824ea-ed4d-48c3-ab41-a431986a5c61\\\"],\\nCell[886, 31, 83, 0, 70, \\\"Output\\\",ExpressionUUID->\\\"3033d6ac-df46-4aa6-8291-8c010daea13c\\\"]\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\"Cell[827, 31, 153, 3, 28, \\\"Input\\\",ExpressionUUID->\\\"85b824ea-ed4d-48c3-ab41-a431986a5c61\\\"],\\nCell[983, 36, 83, 0, 32, \\\"Output\\\",ExpressionUUID->\\\"3033d6ac-df46-4aa6-8291-8c010daea13c\\\"]\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             },
+             {"\"}, Open  ]]\""},
+             {"\"}, Open  ]]\""},
+             {"\"}\""},
+             {"\"]\""},
+             {"\"*)\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\"\\n(* End of internal cache information *)\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\"\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             }
             },
             DefaultBaseStyle -> "Column",
             GridBoxAlignment -> {"Columns" -> {{Left}}},
@@ -3429,8 +3614,7 @@ Notebook[
          ],
          "Output",
          TaggingRules -> { },
-         CellLabel -> "Out[5]=",
-         CellID -> 561616960
+         CellLabel -> "Out[7]="
         ]
        },
        Open
@@ -3601,7 +3785,7 @@ Notebook[
          ],
          "Input",
          TaggingRules -> { },
-         CellLabel -> "In[6]:=",
+         CellLabel -> "In[8]:=",
          CellID -> 425899494
         ],
         Cell[
@@ -3609,6 +3793,18 @@ Notebook[
           TagBox[
            GridBox[
             {
+             {
+              "\"(* Content-type: application/vnd.wolfram.mathematica *)\""
+             },
+             {"\"\""},
+             {"\"(*** Wolfram Notebook File ***)\""},
+             {"\"(* http://www.wolfram.com/nb *)\""},
+             {"\"\""},
+             {"\"(* Created By: SaveReadableNotebook *)\""},
+             {
+              "\"(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)\""
+             },
+             {"\"\""},
              {"\"Notebook[\""},
              {"\" {\""},
              {"\"  Cell[\""},
@@ -3644,7 +3840,29 @@ Notebook[
              {"\"      CellGroupData[\""},
              {"\"       {\""},
              {
-              "\"        Cell[BoxData[RowBox[{\\\"1\\\", \\\"+\\\", \\\"1\\\"}]], \\\"Input\\\"],\""
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\"        Cell[BoxData[RowBox[{\\\"1\\\", \\\"+\\\", \\\"1\\\"}]], \\\"Input\\\"],\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\"        Cell[BoxData[RowBox[{\\\"1\\\", \\\"+\\\", \\\"1\\\", \\\" \\\"}]], \\\"Input\\\"],\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
              },
              {"\"        Cell[BoxData[\\\"2\\\"], \\\"Output\\\"]\""},
              {"\"       },\""},
@@ -3656,7 +3874,35 @@ Notebook[
              {"\"   ]\""},
              {"\"  ]\""},
              {"\" },\""},
-             {"\" StyleDefinitions -> \\\"Default.nb\\\"\""},
+             {
+              "\" FrontEndVersion -> \\\"13.0 for Microsoft Windows (64-bit) (January 26, 2022)\\\",\""
+             },
+             {"\" StyleDefinitions -> \\\"Default.nb\\\",\""},
+             {
+              TagBox[
+               GridBox[
+                {
+                 {
+                  ItemBox[
+                   "\" ExpressionUUID -> \\\"893c73e4-e77d-4a30-a7f8-a9f58842e24b\\\"\"",
+                   Background -> RGBColor[1, 0.85, 0.85],
+                   StripOnInput -> False
+                  ]
+                 },
+                 {
+                  ItemBox[
+                   "\" ExpressionUUID -> \\\"2e3c226c-98f9-4ec4-9f89-da7993685ee8\\\"\"",
+                   Background -> RGBColor[0.88, 1, 0.88],
+                   StripOnInput -> False
+                  ]
+                 }
+                },
+                AutoDelete -> False,
+                GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}
+               ],
+               "Grid"
+              ]
+             },
              {"\"]\""}
             },
             DefaultBaseStyle -> "Column",
@@ -3668,8 +3914,7 @@ Notebook[
          ],
          "Output",
          TaggingRules -> { },
-         CellLabel -> "Out[8]=",
-         CellID -> 4208270
+         CellLabel -> "Out[10]="
         ]
        },
        Open
@@ -3712,17 +3957,17 @@ Notebook[
          ],
          "Input",
          TaggingRules -> { },
-         CellLabel -> "In[9]:=",
+         CellLabel -> "In[13]:=",
          CellID -> 177752958
         ],
         Cell[
          BoxData[
           TemplateBox[
            {
-            FrontEndObject[LinkObject["tj5d8_shm", 3, 1]],
-            93,
-            "FrontEndObject[LinkObject[\"tj5d8_shm\", 3, 1]]",
-            "93",
+            FrontEndObject[LinkObject["3dcc5_shm", 3, 1]],
+            262,
+            "FrontEndObject[LinkObject[\"3dcc5_shm\", 3, 1]]",
+            "262",
             "\"changed_readable.nb\"",
             "\"C:\\\\Users\\\\rhennigan\\\\AppData\\\\Local\\\\Temp\\\\changed_readable.nb\""
            },
@@ -3731,8 +3976,7 @@ Notebook[
          ],
          "Output",
          TaggingRules -> { },
-         CellLabel -> "Out[9]=",
-         CellID -> 364374466
+         CellLabel -> "Out[13]="
         ]
        },
        Open
@@ -3756,14 +4000,14 @@ Notebook[
   "InformationPopupMenuItemAdded" -> True,
   "NotebookIndexQ" -> True,
   "NotebookLastIndexed" -> DateObject[
-   {2022, 4, 28, 12, 46, 26.513277`9.176038327420576},
+   {2022, 4, 28, 15, 13, 10.0531114`8.754875456947024},
    "Instant",
    "Gregorian",
    -4.
   ],
   "NotebookUUID" -> "fd901a1e-dadd-497c-8a98-2a3272d073f8"
  },
- FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (April 26, 2022)",
+ FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
  StyleDefinitions -> FrontEnd`FileName[
   {"Wolfram"},
   "FunctionResourceDefinitionStyles.nb",

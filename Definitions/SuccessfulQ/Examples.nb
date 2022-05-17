@@ -1,0 +1,2275 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* Created By: SaveReadableNotebook *)
+(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)
+
+Notebook[
+ {
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      BoxData[
+       {
+        RowBox[
+         {
+          RowBox[
+           {
+            "Get",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "FileNameJoin",
+              " ",
+              "@",
+              " ",
+              RowBox[
+               {
+                "{",
+                " ",
+                RowBox[
+                 {
+                  RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                  ",",
+                  " ",
+                  "\"Definition.wl\""
+                 }
+                ],
+                " ",
+                "}"
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          ";"
+         }
+        ],
+        "\n",
+        RowBox[
+         {
+          "TestReport",
+          " ",
+          "@",
+          " ",
+          RowBox[
+           {
+            "FileNameJoin",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "{",
+              " ",
+              RowBox[
+               {
+                RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                ",",
+                " ",
+                "\"Tests.wlt\""
+               }
+              ],
+              " ",
+              "}"
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ],
+      "Code",
+      "Excluded",
+      CellLabel -> "In[13]:="
+     ],
+     Cell[
+      BoxData[
+       InterpretationBox[
+        RowBox[
+         {
+          TagBox["TestReportObject", "SummaryHead"],
+          "[",
+          DynamicModuleBox[
+           {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+           TemplateBox[
+            {
+             PaneSelectorBox[
+              {
+               False ->
+                GridBox[
+                 {
+                  {
+                   PaneBox[
+                    ButtonBox[
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]
+                     ],
+                     ButtonFunction :> (Typeset`open$$ = True),
+                     Appearance -> None,
+                     BaseStyle -> { },
+                     Evaluator -> Automatic,
+                     Method -> "Preemptive"
+                    ],
+                    Alignment -> {Center, Center},
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ]
+                   ],
+                   GraphicsBox[
+                    {
+                     InsetBox[
+                      BoxData[
+                       FormBox[
+                        PaneBox[
+                         DynamicBox[
+                          FEPrivate`FrontEndResource[
+                           "MUnitExpressions",
+                           "SuccessIcon"
+                          ]
+                         ],
+                         Alignment -> Center,
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        TraditionalForm
+                       ]
+                      ]
+                     ]
+                    },
+                    PlotRange -> {{0, 1}, {0, 1}},
+                    Background -> GrayLevel[0.93],
+                    Axes -> False,
+                    AspectRatio -> 1,
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ],
+                    Frame -> True,
+                    FrameTicks -> None,
+                    FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TagBox[
+                          InterpretationBox[
+                           StyleBox["\"100%\"", ShowStringCharacters -> False],
+                           1.0,
+                           AutoDelete -> True
+                          ],
+                          PercentForm
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      RowBox[
+                       {
+                        TagBox["\"Tests run: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["10", "SummaryItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                    BaseStyle -> {
+                     ShowStringCharacters -> False,
+                     NumberMarks -> False,
+                     PrintPrecision -> 3,
+                     ShowSyntaxStyles -> False
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                 AutoDelete -> False,
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                 BaselinePosition -> {1, 1}
+                ],
+               True ->
+                GridBox[
+                 {
+                  {
+                   PaneBox[
+                    ButtonBox[
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]
+                     ],
+                     ButtonFunction :> (Typeset`open$$ = False),
+                     Appearance -> None,
+                     BaseStyle -> { },
+                     Evaluator -> Automatic,
+                     Method -> "Preemptive"
+                    ],
+                    Alignment -> {Center, Center},
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ]
+                   ],
+                   GraphicsBox[
+                    {
+                     InsetBox[
+                      BoxData[
+                       FormBox[
+                        PaneBox[
+                         DynamicBox[
+                          FEPrivate`FrontEndResource[
+                           "MUnitExpressions",
+                           "SuccessIcon"
+                          ]
+                         ],
+                         Alignment -> Center,
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        TraditionalForm
+                       ]
+                      ]
+                     ]
+                    },
+                    PlotRange -> {{0, 1}, {0, 1}},
+                    Background -> GrayLevel[0.93],
+                    Axes -> False,
+                    AspectRatio -> 1,
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ],
+                    Frame -> True,
+                    FrameTicks -> None,
+                    FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TagBox[
+                          InterpretationBox[
+                           StyleBox["\"100%\"", ShowStringCharacters -> False],
+                           1.0,
+                           AutoDelete -> True
+                          ],
+                          PercentForm
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      RowBox[
+                       {
+                        TagBox["\"Tests run: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["10", "SummaryItem"]
+                       }
+                      ]
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Succeeded: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["10", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Failed: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox[
+                         "\"Failed with wrong results: \"",
+                         "SummaryItemAnnotation"
+                        ],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox[
+                         "\"Failed with messages: \"",
+                         "SummaryItemAnnotation"
+                        ],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Failed with errors: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TemplateBox[
+                          {"0.0019998`", "\"s\"", "seconds", "\"Seconds\""},
+                          "Quantity",
+                          SyntaxForm -> Mod
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                    BaseStyle -> {
+                     ShowStringCharacters -> False,
+                     NumberMarks -> False,
+                     PrintPrecision -> 3,
+                     ShowSyntaxStyles -> False
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                 AutoDelete -> False,
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                 BaselinePosition -> {1, 1}
+                ]
+              },
+              Dynamic[Typeset`open$$],
+              ImageSize -> Automatic
+             ]
+            },
+            "SummaryPanel"
+           ],
+           DynamicModuleValues :> { }
+          ],
+          "]"
+         }
+        ],
+        TestReportObject[
+         <|
+          "Title" -> "Test Report: Tests.wlt",
+          "Aborted" -> False,
+          "TestResults" -> <|
+           2752387056447882494 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 2752387056447882494,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SetOptions[
+                 ResourceFunction["MessageFailure"],
+                 "TestMode" -> True
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["TestMode" -> True]],
+              "ActualOutput" ->
+               HoldForm[
+                {
+                 "MessageFunction" -> Automatic,
+                 "Verbose" -> False,
+                 "Stack" -> False,
+                 "TestMode" -> True
+                }
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0009999,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 1928
+             |>
+            ],
+           6784525978668511968 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 6784525978668511968,
+              "TestID" -> "SuccessfulQ-Symbol",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[SuccessfulQ[x]],
+              "ExpectedOutput" -> HoldForm[True],
+              "ActualOutput" -> HoldForm[True],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2720
+             |>
+            ],
+           586517830630002494 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 586517830630002494,
+              "TestID" -> "SuccessfulQ-Number",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" -> HoldForm[SuccessfulQ[1 + 1]],
+              "ExpectedOutput" -> HoldForm[True],
+              "ActualOutput" -> HoldForm[True],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2720
+             |>
+            ],
+           1867785989002455166 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 1867785989002455166,
+              "TestID" -> "SuccessfulQ-$Failed",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" -> HoldForm[SuccessfulQ[$Failed]],
+              "ExpectedOutput" -> HoldForm[False],
+              "ActualOutput" -> HoldForm[False],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2720
+             |>
+            ],
+           2996974985378882273 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 2996974985378882273,
+              "TestID" -> "SuccessfulQ-Failure",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SuccessfulQ[Interpreter["Integer"]["invalid"]]
+               ],
+              "ExpectedOutput" -> HoldForm[False],
+              "ActualOutput" -> HoldForm[False],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2616
+             |>
+            ],
+           8676749877084499903 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 8676749877084499903,
+              "TestID" -> "SuccessfulQ-Missing",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SuccessfulQ[Lookup[Association[], "x"]]
+               ],
+              "ExpectedOutput" -> HoldForm[False],
+              "ActualOutput" -> HoldForm[False],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2720
+             |>
+            ],
+           5942322573919658106 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 5942322573919658106,
+              "TestID" -> "SuccessfulQ-$Canceled",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" -> HoldForm[SuccessfulQ[$Canceled]],
+              "ExpectedOutput" -> HoldForm[False],
+              "ActualOutput" -> HoldForm[False],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2720
+             |>
+            ],
+           6792952994249658322 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 6792952994249658322,
+              "TestID" -> "SuccessfulQ-$Aborted",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" -> HoldForm[SuccessfulQ[$Aborted]],
+              "ExpectedOutput" -> HoldForm[False],
+              "ActualOutput" -> HoldForm[False],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2720
+             |>
+            ],
+           6247266182539658846 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 6247266182539658846,
+              "TestID" -> "SuccessfulQ-OneArgumentExpected",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SuccessfulQ[a, b]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[
+                Failure["SuccessfulQ::OneArgumentExpected", Blank[]]
+               ],
+              "ActualOutput" ->
+               HoldForm[
+                Failure[
+                 "SuccessfulQ::OneArgumentExpected",
+                 <|
+                  "MessageParameters" :> {HoldForm[2]},
+                  "MessageTemplate" :>
+                   MessageName[
+                    SuccessfulQ,
+                    "OneArgumentExpected"
+                   ]
+                 |>
+                ]
+               ],
+              "ExpectedMessages" ->
+               HoldForm[
+                {
+                 MessageName[
+                  SuccessfulQ,
+                  "OneArgumentExpected"
+                 ]
+                }
+               ],
+              "ActualMessages" -> {
+               HoldForm[
+                Message[
+                 MessageName[
+                  SuccessfulQ,
+                  "OneArgumentExpected"
+                 ],
+                 HoldForm[2]
+                ]
+               ]
+              },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0009999,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 12472
+             |>
+            ],
+           5221945864241188006 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 5221945864241188006,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\SuccessfulQ\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SetOptions[
+                 ResourceFunction["MessageFailure"],
+                 "TestMode" -> False
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["TestMode" -> False]],
+              "ActualOutput" ->
+               HoldForm[
+                {
+                 "MessageFunction" -> Automatic,
+                 "Verbose" -> False,
+                 "Stack" -> False,
+                 "TestMode" -> False
+                }
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8618*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 1904
+             |>
+            ]
+          |>,
+          "TestsSucceededKeys" -> {
+           2752387056447882494,
+           6784525978668511968,
+           586517830630002494,
+           1867785989002455166,
+           2996974985378882273,
+           8676749877084499903,
+           5942322573919658106,
+           6792952994249658322,
+           6247266182539658846,
+           5221945864241188006
+          },
+          "TestsFailedWrongResultsKeys" -> { },
+          "TestsFailedWithMessagesKeys" -> { },
+          "TestsFailedWithErrorsKeys" -> { }
+         |>
+        ],
+        Editable -> False,
+        SelectWithContents -> True,
+        Selectable -> False
+       ]
+      ],
+      "Output",
+      "Excluded",
+      CellLabel -> "Out[14]="
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Basic Examples",
+      "Subsection",
+      CellLabel -> "In[5]:="
+     ],
+     Cell["Test if an expression is successful:", "Text"],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"SuccessfulQ", "[", "x", "]"}]],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[BoxData["True"], "Output", CellLabel -> "Out[1]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[{"SuccessfulQ", "[", RowBox[{"1", "+", "1"}], "]"}]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[BoxData["True"], "Output", CellLabel -> "Out[2]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"SuccessfulQ", "[", "$Failed", "]"}]],
+         "Input",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[BoxData["False"], "Output", CellLabel -> "Out[3]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "SuccessfulQ",
+            "[",
+            RowBox[{"Missing", "[", "\"NotFound\"", "]"}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[4]:="
+        ],
+        Cell[BoxData["False"], "Output", CellLabel -> "Out[4]="]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell["Scope", "Subsection", CellLabel -> "In[17]:="],
+     Cell[
+      TextData[
+       {
+        Cell[
+         BoxData["SuccessfulQ"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " gives ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "False",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/False",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " for any expression that would be considered a failure by ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Confirm",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Confirm",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ":"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "SuccessfulQ",
+            "[",
+            RowBox[
+             {
+              "Failure",
+              "[",
+              RowBox[{"\"Tag\"", ",", RowBox[{"<|", "|>"}]}],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[BoxData["False"], "Output", CellLabel -> "Out[1]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "SuccessfulQ",
+            "[",
+            RowBox[{"Missing", "[", "\"NotFound\"", "]"}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[BoxData["False"], "Output", CellLabel -> "Out[2]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"SuccessfulQ", "[", "$Canceled", "]"}]],
+         "Input",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[BoxData["False"], "Output", CellLabel -> "Out[3]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"SuccessfulQ", "[", "$Aborted", "]"}]],
+         "Input",
+         CellLabel -> "In[4]:="
+        ],
+        Cell[BoxData["False"], "Output", CellLabel -> "Out[4]="]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell["Options", "Subsection"],
+  Cell["Applications", "Subsection"],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Properties and Relations",
+      "Subsection",
+      CellLabel -> "In[3]:="
+     ],
+     Cell[
+      TextData[
+       {
+        Cell[
+         BoxData["SuccessfulQ"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " has the attribute ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "SequenceHold",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/SequenceHold",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ":"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "SuccessfulQ",
+            "[",
+            RowBox[{"Sequence", "[", RowBox[{"a", ",", "b"}], "]"}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[BoxData["True"], "Output", CellLabel -> "Out[1]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "SuccessfulQ",
+            "[",
+            RowBox[{"Sequence", "[", "$Failed", "]"}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[BoxData["True"], "Output", CellLabel -> "Out[2]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "SuccessfulQ",
+            "[",
+            RowBox[
+             {
+              "Evaluate",
+              "[",
+              RowBox[{"Sequence", "[", "$Failed", "]"}],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[BoxData["False"], "Output", CellLabel -> "Out[3]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               TagBox[
+                ButtonBox[
+                 StyleBox[
+                  "Confirm",
+                  "SymbolsRefLink",
+                  ShowStringCharacters -> True,
+                  FontFamily -> "Source Sans Pro"
+                 ],
+                 BaseStyle ->
+                  Dynamic[
+                   FEPrivate`If[
+                    CurrentValue["MouseOver"],
+                    {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                    {"Link"}
+                   ]
+                  ],
+                 ButtonData -> "paclet:ref/Confirm",
+                 ContentPadding -> False
+                ],
+                MouseAppearanceTag["LinkHand"]
+               ],
+               "[",
+               StyleBox["expr", "TI"],
+               "]"
+              }
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " is effectively equivalent to ",
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               TagBox[
+                ButtonBox[
+                 StyleBox[
+                  "ConfirmBy",
+                  "SymbolsRefLink",
+                  ShowStringCharacters -> True,
+                  FontFamily -> "Source Sans Pro"
+                 ],
+                 BaseStyle ->
+                  Dynamic[
+                   FEPrivate`If[
+                    CurrentValue["MouseOver"],
+                    {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                    {"Link"}
+                   ]
+                  ],
+                 ButtonData -> "paclet:ref/ConfirmBy",
+                 ContentPadding -> False
+                ],
+                MouseAppearanceTag["LinkHand"]
+               ],
+               "[",
+               RowBox[{StyleBox["expr", "TI"], ",", "SuccessfulQ"}],
+               "]"
+              }
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           ":"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Enclose",
+               "[",
+               RowBox[
+                {
+                 "f",
+                 "[",
+                 RowBox[
+                  {"x", ",", RowBox[{"Confirm", "[", "y", "]"}], ",", "z"}
+                 ],
+                 "]"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[{"f", "[", RowBox[{"x", ",", "y", ",", "z"}], "]"}]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Enclose",
+               "[",
+               RowBox[
+                {
+                 "f",
+                 "[",
+                 RowBox[
+                  {
+                   "x",
+                   ",",
+                   RowBox[
+                    {"ConfirmBy", "[", RowBox[{"y", ",", "SuccessfulQ"}], "]"}
+                   ],
+                   ",",
+                   "z"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[2]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[{"f", "[", RowBox[{"x", ",", "y", ",", "z"}], "]"}]
+            ],
+            "Output",
+            CellLabel -> "Out[2]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Enclose",
+               "[",
+               RowBox[
+                {
+                 "f",
+                 "[",
+                 RowBox[
+                  {
+                   "x",
+                   ",",
+                   RowBox[{"Confirm", "[", "$Failed", "]"}],
+                   ",",
+                   "z"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[3]:="
+           ],
+           Cell[
+            BoxData[
+             InterpretationBox[
+              RowBox[
+               {
+                TagBox["Failure", "SummaryHead"],
+                "[",
+                DynamicModuleBox[
+                 {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+                 TemplateBox[
+                  {
+                   PaneSelectorBox[
+                    {
+                     False ->
+                      GridBox[
+                       {
+                        {
+                         PaneBox[
+                          ButtonBox[
+                           DynamicBox[
+                            FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]
+                           ],
+                           ButtonFunction :> (Typeset`open$$ = True),
+                           Appearance -> None,
+                           BaseStyle -> { },
+                           Evaluator -> Automatic,
+                           Method -> "Preemptive"
+                          ],
+                          Alignment -> {Center, Center},
+                          ImageSize ->
+                           Dynamic[
+                            {
+                             Automatic,
+                             Times[
+                              3.5,
+                              Times[
+                               CurrentValue["FontCapHeight"],
+                               AbsoluteCurrentValue[Magnification]^(-1)
+                              ]
+                             ]
+                            }
+                           ]
+                         ],
+                         FrameBox[
+                          StyleBox[
+                           "\"\[WarningSign]\"",
+                           Directive["Message", 35],
+                           StripOnInput -> False
+                          ],
+                          ContentPadding -> False,
+                          FrameStyle -> None,
+                          FrameMargins -> {{0, 0}, {0, 0}},
+                          StripOnInput -> False
+                         ],
+                         GridBox[
+                          {
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Message: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox[
+                                 "\"\\!\\(\\*TagBox[\\\"$Failed\\\", Function[Short[Slot[1], 5]]]\\) encountered.\"",
+                                 "SummaryItem"
+                                ]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           },
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Tag: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox["\"ConfirmationFailed\"", "SummaryItem"]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           }
+                          },
+                          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                          AutoDelete -> False,
+                          GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                          GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                          BaseStyle -> {
+                           ShowStringCharacters -> False,
+                           NumberMarks -> False,
+                           PrintPrecision -> 3,
+                           ShowSyntaxStyles -> False
+                          }
+                         ]
+                        }
+                       },
+                       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                       AutoDelete -> False,
+                       GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                       BaselinePosition -> {1, 1}
+                      ],
+                     True ->
+                      GridBox[
+                       {
+                        {
+                         PaneBox[
+                          ButtonBox[
+                           DynamicBox[
+                            FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]
+                           ],
+                           ButtonFunction :> (Typeset`open$$ = False),
+                           Appearance -> None,
+                           BaseStyle -> { },
+                           Evaluator -> Automatic,
+                           Method -> "Preemptive"
+                          ],
+                          Alignment -> {Center, Center},
+                          ImageSize ->
+                           Dynamic[
+                            {
+                             Automatic,
+                             Times[
+                              3.5,
+                              Times[
+                               CurrentValue["FontCapHeight"],
+                               AbsoluteCurrentValue[Magnification]^(-1)
+                              ]
+                             ]
+                            }
+                           ]
+                         ],
+                         FrameBox[
+                          StyleBox[
+                           "\"\[WarningSign]\"",
+                           Directive["Message", 35],
+                           StripOnInput -> False
+                          ],
+                          ContentPadding -> False,
+                          FrameStyle -> None,
+                          FrameMargins -> {{0, 0}, {0, 0}},
+                          StripOnInput -> False
+                         ],
+                         GridBox[
+                          {
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Message: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox[
+                                 "\"\\!\\(\\*TagBox[\\\"$Failed\\\", Function[Short[Slot[1], 5]]]\\) encountered.\"",
+                                 "SummaryItem"
+                                ]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           },
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Tag: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox["\"ConfirmationFailed\"", "SummaryItem"]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           },
+                           {
+                            RowBox[
+                             {
+                              TagBox[
+                               TemplateBox[
+                                {"\"ConfirmationType\"", "\": \""},
+                                "RowDefault"
+                               ],
+                               "SummaryItemAnnotation"
+                              ],
+                              "\[InvisibleSpace]",
+                              TagBox[TagBox["\"Confirm\"", HoldForm], "SummaryItem"]
+                             }
+                            ]
+                           },
+                           {
+                            RowBox[
+                             {
+                              TagBox[
+                               TemplateBox[{"\"Expression\"", "\": \""}, "RowDefault"],
+                               "SummaryItemAnnotation"
+                              ],
+                              "\[InvisibleSpace]",
+                              TagBox[TagBox["$Failed", HoldForm], "SummaryItem"]
+                             }
+                            ]
+                           },
+                           {
+                            RowBox[
+                             {
+                              TagBox[
+                               TemplateBox[{"\"Information\"", "\": \""}, "RowDefault"],
+                               "SummaryItemAnnotation"
+                              ],
+                              "\[InvisibleSpace]",
+                              TagBox[TagBox["Null", HoldForm], "SummaryItem"]
+                             }
+                            ]
+                           }
+                          },
+                          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                          AutoDelete -> False,
+                          GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                          GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                          BaseStyle -> {
+                           ShowStringCharacters -> False,
+                           NumberMarks -> False,
+                           PrintPrecision -> 3,
+                           ShowSyntaxStyles -> False
+                          }
+                         ]
+                        }
+                       },
+                       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                       AutoDelete -> False,
+                       GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                       BaselinePosition -> {1, 1}
+                      ]
+                    },
+                    Dynamic[Typeset`open$$],
+                    ImageSize -> Automatic
+                   ]
+                  },
+                  "SummaryPanel"
+                 ],
+                 DynamicModuleValues :> { }
+                ],
+                "]"
+               }
+              ],
+              Failure[
+               "ConfirmationFailed",
+               <|
+                "MessageTemplate" -> "`` encountered.",
+                "MessageParameters" -> {$Failed},
+                "ConfirmationType" -> "Confirm",
+                "Expression" -> $Failed,
+                "Information" -> Null
+               |>
+              ],
+              Editable -> False,
+              SelectWithContents -> True,
+              Selectable -> False
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[3]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Enclose",
+               "[",
+               RowBox[
+                {
+                 "f",
+                 "[",
+                 RowBox[
+                  {
+                   "x",
+                   ",",
+                   RowBox[
+                    {
+                     "ConfirmBy",
+                     "[",
+                     RowBox[{"$Failed", ",", "SuccessfulQ"}],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "z"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[4]:="
+           ],
+           Cell[
+            BoxData[
+             InterpretationBox[
+              RowBox[
+               {
+                TagBox["Failure", "SummaryHead"],
+                "[",
+                DynamicModuleBox[
+                 {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+                 TemplateBox[
+                  {
+                   PaneSelectorBox[
+                    {
+                     False ->
+                      GridBox[
+                       {
+                        {
+                         PaneBox[
+                          ButtonBox[
+                           DynamicBox[
+                            FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]
+                           ],
+                           ButtonFunction :> (Typeset`open$$ = True),
+                           Appearance -> None,
+                           BaseStyle -> { },
+                           Evaluator -> Automatic,
+                           Method -> "Preemptive"
+                          ],
+                          Alignment -> {Center, Center},
+                          ImageSize ->
+                           Dynamic[
+                            {
+                             Automatic,
+                             Times[
+                              3.5,
+                              Times[
+                               CurrentValue["FontCapHeight"],
+                               AbsoluteCurrentValue[Magnification]^(-1)
+                              ]
+                             ]
+                            }
+                           ]
+                         ],
+                         FrameBox[
+                          StyleBox[
+                           "\"\[WarningSign]\"",
+                           Directive["Message", 35],
+                           StripOnInput -> False
+                          ],
+                          ContentPadding -> False,
+                          FrameStyle -> None,
+                          FrameMargins -> {{0, 0}, {0, 0}},
+                          StripOnInput -> False
+                         ],
+                         GridBox[
+                          {
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Message: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox[
+                                 "\"\\!\\(\\*TagBox[\\\"SuccessfulQ\\\", Function[Short[Slot[1], 5]]]\\)[\\!\\(\\*TagBox[\\\"$Failed\\\", Function[Short[Slot[1], 5]]]\\)] did not return True.\"",
+                                 "SummaryItem"
+                                ]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           },
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Tag: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox["\"ConfirmationFailed\"", "SummaryItem"]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           }
+                          },
+                          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                          AutoDelete -> False,
+                          GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                          GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                          BaseStyle -> {
+                           ShowStringCharacters -> False,
+                           NumberMarks -> False,
+                           PrintPrecision -> 3,
+                           ShowSyntaxStyles -> False
+                          }
+                         ]
+                        }
+                       },
+                       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                       AutoDelete -> False,
+                       GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                       BaselinePosition -> {1, 1}
+                      ],
+                     True ->
+                      GridBox[
+                       {
+                        {
+                         PaneBox[
+                          ButtonBox[
+                           DynamicBox[
+                            FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]
+                           ],
+                           ButtonFunction :> (Typeset`open$$ = False),
+                           Appearance -> None,
+                           BaseStyle -> { },
+                           Evaluator -> Automatic,
+                           Method -> "Preemptive"
+                          ],
+                          Alignment -> {Center, Center},
+                          ImageSize ->
+                           Dynamic[
+                            {
+                             Automatic,
+                             Times[
+                              3.5,
+                              Times[
+                               CurrentValue["FontCapHeight"],
+                               AbsoluteCurrentValue[Magnification]^(-1)
+                              ]
+                             ]
+                            }
+                           ]
+                         ],
+                         FrameBox[
+                          StyleBox[
+                           "\"\[WarningSign]\"",
+                           Directive["Message", 35],
+                           StripOnInput -> False
+                          ],
+                          ContentPadding -> False,
+                          FrameStyle -> None,
+                          FrameMargins -> {{0, 0}, {0, 0}},
+                          StripOnInput -> False
+                         ],
+                         GridBox[
+                          {
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Message: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox[
+                                 "\"\\!\\(\\*TagBox[\\\"SuccessfulQ\\\", Function[Short[Slot[1], 5]]]\\)[\\!\\(\\*TagBox[\\\"$Failed\\\", Function[Short[Slot[1], 5]]]\\)] did not return True.\"",
+                                 "SummaryItem"
+                                ]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           },
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Tag: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox["\"ConfirmationFailed\"", "SummaryItem"]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           },
+                           {
+                            RowBox[
+                             {
+                              TagBox[
+                               TemplateBox[
+                                {"\"ConfirmationType\"", "\": \""},
+                                "RowDefault"
+                               ],
+                               "SummaryItemAnnotation"
+                              ],
+                              "\[InvisibleSpace]",
+                              TagBox[TagBox["\"ConfirmBy\"", HoldForm], "SummaryItem"]
+                             }
+                            ]
+                           },
+                           {
+                            RowBox[
+                             {
+                              TagBox[
+                               TemplateBox[{"\"Expression\"", "\": \""}, "RowDefault"],
+                               "SummaryItemAnnotation"
+                              ],
+                              "\[InvisibleSpace]",
+                              TagBox[TagBox["$Failed", HoldForm], "SummaryItem"]
+                             }
+                            ]
+                           },
+                           {
+                            RowBox[
+                             {
+                              TagBox[
+                               TemplateBox[{"\"Function\"", "\": \""}, "RowDefault"],
+                               "SummaryItemAnnotation"
+                              ],
+                              "\[InvisibleSpace]",
+                              TagBox[TagBox["SuccessfulQ", HoldForm], "SummaryItem"]
+                             }
+                            ]
+                           },
+                           {
+                            RowBox[
+                             {
+                              TagBox[
+                               TemplateBox[{"\"Information\"", "\": \""}, "RowDefault"],
+                               "SummaryItemAnnotation"
+                              ],
+                              "\[InvisibleSpace]",
+                              TagBox[TagBox["Null", HoldForm], "SummaryItem"]
+                             }
+                            ]
+                           }
+                          },
+                          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                          AutoDelete -> False,
+                          GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                          GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                          BaseStyle -> {
+                           ShowStringCharacters -> False,
+                           NumberMarks -> False,
+                           PrintPrecision -> 3,
+                           ShowSyntaxStyles -> False
+                          }
+                         ]
+                        }
+                       },
+                       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                       AutoDelete -> False,
+                       GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                       BaselinePosition -> {1, 1}
+                      ]
+                    },
+                    Dynamic[Typeset`open$$],
+                    ImageSize -> Automatic
+                   ]
+                  },
+                  "SummaryPanel"
+                 ],
+                 DynamicModuleValues :> { }
+                ],
+                "]"
+               }
+              ],
+              Failure[
+               "ConfirmationFailed",
+               <|
+                "MessageTemplate" -> "``[``] did not return True.",
+                "MessageParameters" -> {SuccessfulQ, $Failed},
+                "ConfirmationType" -> "ConfirmBy",
+                "Expression" -> $Failed,
+                "Function" -> SuccessfulQ,
+                "Information" -> Null
+               |>
+              ],
+              Editable -> False,
+              SelectWithContents -> True,
+              Selectable -> False
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[4]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Possible Issues",
+      "Subsection",
+      CellLabel -> "In[9]:="
+     ],
+     Cell[
+      TextData[
+       {
+        Cell[
+         BoxData["SuccessfulQ"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " expects a single argument:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[{"SuccessfulQ", "[", RowBox[{"a", ",", "b"}], "]"}]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           {
+            "SuccessfulQ",
+            "OneArgumentExpected",
+            "\"SuccessfulQ called with \\!\\(\\*RowBox[{\\\"2\\\"}]\\) arguments; 1 argument is expected.\"",
+            2,
+            1,
+            12,
+            34040325597817453004,
+            "Local",
+            "Global`SuccessfulQ"
+           },
+           "MessageTemplate2"
+          ]
+         ],
+         "Message",
+         "MSG",
+         CellLabel -> "During evaluation of In[1]:="
+        ],
+        Cell[
+         BoxData[
+          InterpretationBox[
+           RowBox[
+            {
+             TagBox["Failure", "SummaryHead"],
+             "[",
+             DynamicModuleBox[
+              {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+              TemplateBox[
+               {
+                PaneSelectorBox[
+                 {
+                  False ->
+                   GridBox[
+                    {
+                     {
+                      FrameBox[
+                       StyleBox[
+                        "\"\[WarningSign]\"",
+                        Directive["Message", 35],
+                        StripOnInput -> False
+                       ],
+                       ContentPadding -> False,
+                       FrameStyle -> None,
+                       FrameMargins -> {{0, 0}, {0, 0}},
+                       StripOnInput -> False
+                      ],
+                      GridBox[
+                       {
+                        {
+                         TagBox[
+                          GridBox[
+                           {
+                            {
+                             TagBox["\"Message: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox[
+                              "\"SuccessfulQ called with \\!\\(\\*TagBox[\\\"2\\\", Function[Short[Slot[1], 5]]]\\) arguments; 1 argument is expected.\"",
+                              "SummaryItem"
+                             ]
+                            }
+                           },
+                           GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                           GridBoxAlignment -> {"Columns" -> {{Left}}},
+                           GridBoxSpacings -> {"Columns" -> {{0}}}
+                          ],
+                          "SummaryItem"
+                         ]
+                        },
+                        {
+                         TagBox[
+                          GridBox[
+                           {
+                            {
+                             TagBox["\"Tag: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox[
+                              "\"SuccessfulQ::OneArgumentExpected\"",
+                              "SummaryItem"
+                             ]
+                            }
+                           },
+                           GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                           GridBoxAlignment -> {"Columns" -> {{Left}}},
+                           GridBoxSpacings -> {"Columns" -> {{0}}}
+                          ],
+                          "SummaryItem"
+                         ]
+                        }
+                       },
+                       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                       AutoDelete -> False,
+                       GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                       GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                       BaseStyle -> {
+                        ShowStringCharacters -> False,
+                        NumberMarks -> False,
+                        PrintPrecision -> 3,
+                        ShowSyntaxStyles -> False
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    BaselinePosition -> {1, 1}
+                   ],
+                  True ->
+                   GridBox[
+                    {
+                     {
+                      FrameBox[
+                       StyleBox[
+                        "\"\[WarningSign]\"",
+                        Directive["Message", 35],
+                        StripOnInput -> False
+                       ],
+                       ContentPadding -> False,
+                       FrameStyle -> None,
+                       FrameMargins -> {{0, 0}, {0, 0}},
+                       StripOnInput -> False
+                      ],
+                      GridBox[
+                       {
+                        {
+                         TagBox[
+                          GridBox[
+                           {
+                            {
+                             TagBox["\"Message: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox[
+                              "\"SuccessfulQ called with \\!\\(\\*TagBox[\\\"2\\\", Function[Short[Slot[1], 5]]]\\) arguments; 1 argument is expected.\"",
+                              "SummaryItem"
+                             ]
+                            }
+                           },
+                           GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                           GridBoxAlignment -> {"Columns" -> {{Left}}},
+                           GridBoxSpacings -> {"Columns" -> {{0}}}
+                          ],
+                          "SummaryItem"
+                         ]
+                        },
+                        {
+                         TagBox[
+                          GridBox[
+                           {
+                            {
+                             TagBox["\"Tag: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox[
+                              "\"SuccessfulQ::OneArgumentExpected\"",
+                              "SummaryItem"
+                             ]
+                            }
+                           },
+                           GridBoxItemSize -> {"Columns" -> {6.5, All}},
+                           GridBoxAlignment -> {"Columns" -> {{Left}}},
+                           GridBoxSpacings -> {"Columns" -> {{0}}}
+                          ],
+                          "SummaryItem"
+                         ]
+                        }
+                       },
+                       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                       AutoDelete -> False,
+                       GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                       GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                       BaseStyle -> {
+                        ShowStringCharacters -> False,
+                        NumberMarks -> False,
+                        PrintPrecision -> 3,
+                        ShowSyntaxStyles -> False
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    BaselinePosition -> {1, 1}
+                   ]
+                 },
+                 Dynamic[Typeset`open$$],
+                 ImageSize -> Automatic
+                ]
+               },
+               "SummaryPanel"
+              ],
+              DynamicModuleValues :> { }
+             ],
+             "]"
+            }
+           ],
+           Failure[
+            "SuccessfulQ::OneArgumentExpected",
+            <|
+             "MessageParameters" :> {HoldForm[2]},
+             "MessageTemplate" :>
+              MessageName[
+               SuccessfulQ,
+               "OneArgumentExpected"
+              ]
+            |>
+           ],
+           Editable -> False,
+           SelectWithContents -> True,
+           Selectable -> False
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell["Neat Examples", "Subsection"]
+ },
+ WindowStatusArea -> Automatic,
+ DockedCells -> {
+  Cell[
+   BoxData[TemplateBox[{}, "ToolsGridTemplate"]],
+   "DockedCell",
+   CellFrameMargins -> {{0, 0}, {2, 2}},
+   CellFrame -> {{0, 0}, {1, 0}}
+  ]
+ },
+ TaggingRules -> {
+  "WelcomeScreenSettings" -> {"FEStarting" -> False},
+  "InformationPopupMenuItemAdded" -> True,
+  "NotebookIndexQ" -> True,
+  "NotebookLastIndexed" ->
+   DateObject[
+    {2022, 5, 17, 17, 34, 14.369},
+    "Instant",
+    "Gregorian",
+    -4.0
+   ],
+  "NotebookUUID" -> "3d8dff50-8a3d-4b34-b56f-c03773a288e9",
+  "AutoUpdate" -> True
+ },
+ FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (May 12, 2022)",
+ StyleDefinitions ->
+  FrontEnd`FileName[
+   {"Wolfram"},
+   "FunctionResourceDefinitionStyles.nb",
+   CharacterEncoding -> "UTF-8"
+  ],
+ ExpressionUUID -> "3d8dff50-8a3d-4b34-b56f-c03773a288e9"
+]

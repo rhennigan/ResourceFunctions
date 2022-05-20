@@ -920,7 +920,7 @@ Notebook[
             CellID -> 774735230
            ]
           },
-          Closed
+          Open
          ]
         ],
         Cell[
@@ -2107,6 +2107,220 @@ Notebook[
             CellID -> 612908315
            ],
            Cell[
+            BoxData[
+             GridBox[
+              {
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     RowBox[
+                      {
+                       TagBox[
+                        ButtonBox[
+                         StyleBox[
+                          "Failure",
+                          "SymbolsRefLink",
+                          ShowStringCharacters -> True,
+                          FontFamily -> "Source Sans Pro"
+                         ],
+                         BaseStyle ->
+                          Dynamic[
+                           FEPrivate`If[
+                            CurrentValue["MouseOver"],
+                            {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                            {"Link"}
+                           ]
+                          ],
+                         ButtonData -> "paclet:ref/Failure",
+                         ContentPadding -> False
+                        ],
+                        MouseAppearanceTag["LinkHand"]
+                       ],
+                       "[",
+                       StyleBox["\[Ellipsis]", "TR"],
+                       "]"
+                      }
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               },
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     RowBox[
+                      {
+                       TagBox[
+                        ButtonBox[
+                         StyleBox[
+                          "Missing",
+                          "SymbolsRefLink",
+                          ShowStringCharacters -> True,
+                          FontFamily -> "Source Sans Pro"
+                         ],
+                         BaseStyle ->
+                          Dynamic[
+                           FEPrivate`If[
+                            CurrentValue["MouseOver"],
+                            {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                            {"Link"}
+                           ]
+                          ],
+                         ButtonData -> "paclet:ref/Missing",
+                         ContentPadding -> False
+                        ],
+                        MouseAppearanceTag["LinkHand"]
+                       ],
+                       "[",
+                       StyleBox["\[Ellipsis]", "TR"],
+                       "]"
+                      }
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               },
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     TagBox[
+                      ButtonBox[
+                       StyleBox[
+                        "$Failed",
+                        "SymbolsRefLink",
+                        ShowStringCharacters -> True,
+                        FontFamily -> "Source Sans Pro"
+                       ],
+                       BaseStyle ->
+                        Dynamic[
+                         FEPrivate`If[
+                          CurrentValue["MouseOver"],
+                          {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                          {"Link"}
+                         ]
+                        ],
+                       ButtonData -> "paclet:ref/$Failed",
+                       ContentPadding -> False
+                      ],
+                      MouseAppearanceTag["LinkHand"]
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               },
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     TagBox[
+                      ButtonBox[
+                       StyleBox[
+                        "$Canceled",
+                        "SymbolsRefLink",
+                        ShowStringCharacters -> True,
+                        FontFamily -> "Source Sans Pro"
+                       ],
+                       BaseStyle ->
+                        Dynamic[
+                         FEPrivate`If[
+                          CurrentValue["MouseOver"],
+                          {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                          {"Link"}
+                         ]
+                        ],
+                       ButtonData -> "paclet:ref/$Canceled",
+                       ContentPadding -> False
+                      ],
+                      MouseAppearanceTag["LinkHand"]
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               },
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     TagBox[
+                      ButtonBox[
+                       StyleBox[
+                        "$Aborted",
+                        "SymbolsRefLink",
+                        ShowStringCharacters -> True,
+                        FontFamily -> "Source Sans Pro"
+                       ],
+                       BaseStyle ->
+                        Dynamic[
+                         FEPrivate`If[
+                          CurrentValue["MouseOver"],
+                          {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                          {"Link"}
+                         ]
+                        ],
+                       ButtonData -> "paclet:ref/$Aborted",
+                       ContentPadding -> False
+                      ],
+                      MouseAppearanceTag["LinkHand"]
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               }
+              }
+             ]
+            ],
+            "TableNotes",
+            CellID -> 295139391
+           ],
+           Cell[
             TextData[
              {
               Cell[
@@ -3260,7 +3474,7 @@ Notebook[
             "Output",
             "Excluded",
             CellLabel -> "Out[14]=",
-            CellID -> 282134126
+            CellID -> 452445524
            ]
           },
           Open
@@ -3448,7 +3662,7 @@ Notebook[
              }
             ],
             "Text",
-            CellID -> 81403262
+            CellID -> 847564477
            ],
            Cell[
             CellGroupData[
@@ -3604,7 +3818,7 @@ Notebook[
              }
             ],
             "Text",
-            CellID -> 746710356
+            CellID -> 194335216
            ],
            Cell[
             CellGroupData[
@@ -3708,7 +3922,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 838508294
+               CellID -> 438384608
               ],
               Cell[
                TextData[
@@ -3786,7 +4000,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 897703385
+               CellID -> 828382927
               ],
               Cell[
                CellGroupData[
@@ -4524,7 +4738,7 @@ Notebook[
                   ],
                   "Output",
                   CellLabel -> "Out[4]=",
-                  CellID -> 504257150
+                  CellID -> 773014126
                  ]
                 },
                 Open
@@ -4559,7 +4773,7 @@ Notebook[
              }
             ],
             "Text",
-            CellID -> 155020279
+            CellID -> 544965401
            ],
            Cell[
             CellGroupData[
@@ -4789,7 +5003,7 @@ Notebook[
                ],
                "Output",
                CellLabel -> "Out[1]=",
-               CellID -> 259686351
+               CellID -> 593460218
               ]
              },
              Open
@@ -5427,7 +5641,7 @@ Notebook[
              "CheckboxData" -> "OEM6eJxVj8tKA0EQRUGMmZHgzoW7WbmbjxgmCQQCCSn9gE6n0jbpF/VYzN+nR1B0VQX3UKfu0PSwAJkCwtNBpaj0sBy/0N7wcn3gx71ngbcxE3Z7k5wah917B0JqRQnh9UjZkYnRJ9d9ig9ePHK9uROMzO2gkqMRb3toKlqQZILn0Qi6TN/k8lDE58Q/tnmeNCA3m4sXc67bYmsC42/QrjHg32R+OQeN6b/wZZcEqVBlZwO0Q5pAz4y14+qEnJUsfkwFodlqsjNzB3BDXts="
             },
             CellTags -> {"Categories", "Categories-Checkboxes", "CheckboxCell"},
-            CellID -> 348324711
+            CellID -> 348237555
            ]
           },
           Open
@@ -6657,7 +6871,7 @@ Notebook[
                 "CompatibilityOperatingSystem",
                 "CompatibilityOperatingSystem-Checkboxes"
                },
-               CellID -> 313890978
+               CellID -> 123658451
               ]
              },
              Closed
@@ -6841,7 +7055,7 @@ Notebook[
                 "CompatibilityFeatures",
                 "CompatibilityFeatures-Checkboxes"
                },
-               CellID -> 109432576
+               CellID -> 290822570
               ]
              },
              Closed
@@ -7129,7 +7343,7 @@ Notebook[
                 "CompatibilityEvaluationEnvironment",
                 "CompatibilityEvaluationEnvironment-Checkboxes"
                },
-               CellID -> 289113636
+               CellID -> 11744572
               ]
              },
              Closed
@@ -7251,7 +7465,7 @@ Notebook[
                 "CompatibilityCloudSupport",
                 "CompatibilityCloudSupport-Checkboxes"
                },
-               CellID -> 43248946
+               CellID -> 43108470
               ]
              },
              Closed
@@ -7464,7 +7678,7 @@ Notebook[
      ]
     ]
    ],
-  "CreationTimestamp" -> 3.8618*^9,
+  "CreationTimestamp" -> 3.8621*^9,
   "DefinitionNotebookFramework" -> "DefinitionNotebookClient",
   "ResourceCreateNotebook" -> True,
   "ResourceType" -> "Function",
@@ -7479,12 +7693,12 @@ Notebook[
   },
   "SubmissionReviewData" -> {"Review" -> False},
   "ToolsOpen" -> False,
-  "UpdatedTimestamp" -> 3.8618*^9,
+  "UpdatedTimestamp" -> 3.8621*^9,
   "TemplateVersion" -> "1.6.3",
   "StatusMessage" -> ""
  },
  CreateCellID -> True,
- FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (May 12, 2022)",
+ FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
  StyleDefinitions ->
   Notebook[
    {
@@ -9784,7 +9998,7 @@ Notebook[
                      },
                      {
                       CompressedData[
-                       "\n1:eJxTTMoPSmViYGAwAWIQLcESxqe7SdlhqnN3zvPblg4w/omyffOl/K0cEp9e\nULq9U9lhT8lkCZZrVg6VL9UMOd4oO1SLrHN/GGXtcKUCKOCh4sDDpN0udtPa\n4fnvlR8v8ao6ZIE12ELMrVZzmAIymNfOAWj43PfpGg45YIV2Dguk9O+qsGlB\n9M+0h9gjpgOxh8fBYePc98uPees5MICAggNE/TF9B6Bl574rO0DcMcsAwmd2\ncNCM6T/0VcPQAeQsjh6oeWWGEPt97R3UDTnWyMwyhKh7Yefw5S/QB22GEHe1\n2zlIg5yTaAh3by7InUKGDmBnLrR1cOkGudzAYZHrts9/Q2wdHi+dfUShwMBh\nQ1HGxLcytg5BO+RaXwsaQN1r6/BdA2jRVn1oeNk6aIEcWq4HcccvWwfTuF2e\nPEy6UPPtHIC+CH68VBvOP70QaNFeLTg/T6j5wKlELYdPl3yTBCLsIOGkowVx\n71tbhycg93zQdAjonZ4ndNgGzgern2ENVw90TZVInhUkfqy1IO65ZQl3L4wP\niW99B/NOx4SnEyzh4Q+W32XhcBUc0PoQd7dawM1D568H2cdnCOd/A9nzVc/h\nI9hdWg4ZoIg6oueQD/Kfoh40nSD4fkDfWpboQOw7oYDBh6mHxIcy3DxYek4A\npeOfCD7MPTA+zL0yUSnW9/sV4Hxw/DgpQOL7igUkfi8qwsMHAHSDTZ8=\n                    "
+                       "\n1:eJxTTMoPSmViYGAwAWIQLcESxqe7SdlhqnN3zvPblg4w/omyffOl/K0cEp9e\nULq9U9lhT8lkCZZrVg6VL9UMOd4oO1SLrHN/GGXtcKUCKOCh4sDDpN0udtPa\n4fnvlR8v8ao6ZIE12ELMrVZzmAIymNfOAWj43PfpGg45YIV2Dguk9O+qsGlB\n9M+0h9gjpgOxh8fBYePc98uPees5MICAggNE/TF9B6Bl574rO0DcMcsAwmd2\ncNCM6T/0VcPQAeQsjh6oeWWGEPt97R3UDTnWyMwyhKh7Yefw5S/QB22GEHe1\n2zlIg5yTaAh3by7InUKGDmBnLrR1cOkGudzAYZHrts9/Q2wdHi+dfUShwMBh\nQ1HGxLcytg5BO+RaXwsaQN1r6/BdA2jRVn1oeNk6aIEcWq4HcccvWwfTuF2e\nPEy6UPPtHIC+CH68VBvOP70QaNFeLTg/T6j5wKlELYdPl3yTBCLsIOGkowVx\n71tbhycg93zQdAjonZ4ndNgGzgern2ENVw90TZVInhUkfqy1IO65ZQl3L4wP\niW99B/NOx4SnEyzh4Q+W32XhcBUc0PoQd7dawM1D568H2cdnCOd/A9nzVc/h\nI9hdWg4ZoIg6oueQD/Kfoh40nSD4fkDfWpboQOw7oYDBh6mHxIcy3DxYek4A\npeOfCD7MPTA+zL0yUSnW9/sV4Hxw/DgpQOL7igUkfi8qwsMHAHSDTZ8=\n                    \n                    "
                       ],
                       {
                        {19.051, 14.242},
@@ -10789,7 +11003,7 @@ Notebook[
                   },
                   {
                    CompressedData[
-                    "\n1:eJxTTMoPSmViYGAwAWIQLcESxqe7SdlhqnN3zvPblg4w/omyffOl/K0cEp9e\nULq9U9lhT8lkCZZrVg6VL9UMOd4oO1SLrHN/GGXtcKUCKOCh4sDDpN0udtPa\n4fnvlR8v8ao6ZIE12ELMrVZzmAIymNfOAWj43PfpGg45YIV2Dguk9O+qsGlB\n9M+0h9gjpgOxh8fBYePc98uPees5MICAggNE/TF9B6Bl574rO0DcMcsAwmd2\ncNCM6T/0VcPQAeQsjh6oeWWGEPt97R3UDTnWyMwyhKh7Yefw5S/QB22GEHe1\n2zlIg5yTaAh3by7InUKGDmBnLrR1cOkGudzAYZHrts9/Q2wdHi+dfUShwMBh\nQ1HGxLcytg5BO+RaXwsaQN1r6/BdA2jRVn1oeNk6aIEcWq4HcccvWwfTuF2e\nPEy6UPPtHIC+CH68VBvOP70QaNFeLTg/T6j5wKlELYdPl3yTBCLsIOGkowVx\n71tbhycg93zQdAjonZ4ndNgGzgern2ENVw90TZVInhUkfqy1IO65ZQl3L4wP\niW99B/NOx4SnEyzh4Q+W32XhcBUc0PoQd7dawM1D568H2cdnCOd/A9nzVc/h\nI9hdWg4ZoIg6oueQD/Kfoh40nSD4fkDfWpboQOw7oYDBh6mHxIcy3DxYek4A\npeOfCD7MPTA+zL0yUSnW9/sV4Hxw/DgpQOL7igUkfi8qwsMHAHSDTZ8=\n                  "
+                    "\n1:eJxTTMoPSmViYGAwAWIQLcESxqe7SdlhqnN3zvPblg4w/omyffOl/K0cEp9e\nULq9U9lhT8lkCZZrVg6VL9UMOd4oO1SLrHN/GGXtcKUCKOCh4sDDpN0udtPa\n4fnvlR8v8ao6ZIE12ELMrVZzmAIymNfOAWj43PfpGg45YIV2Dguk9O+qsGlB\n9M+0h9gjpgOxh8fBYePc98uPees5MICAggNE/TF9B6Bl574rO0DcMcsAwmd2\ncNCM6T/0VcPQAeQsjh6oeWWGEPt97R3UDTnWyMwyhKh7Yefw5S/QB22GEHe1\n2zlIg5yTaAh3by7InUKGDmBnLrR1cOkGudzAYZHrts9/Q2wdHi+dfUShwMBh\nQ1HGxLcytg5BO+RaXwsaQN1r6/BdA2jRVn1oeNk6aIEcWq4HcccvWwfTuF2e\nPEy6UPPtHIC+CH68VBvOP70QaNFeLTg/T6j5wKlELYdPl3yTBCLsIOGkowVx\n71tbhycg93zQdAjonZ4ndNgGzgern2ENVw90TZVInhUkfqy1IO65ZQl3L4wP\niW99B/NOx4SnEyzh4Q+W32XhcBUc0PoQd7dawM1D568H2cdnCOd/A9nzVc/h\nI9hdWg4ZoIg6oueQD/Kfoh40nSD4fkDfWpboQOw7oYDBh6mHxIcy3DxYek4A\npeOfCD7MPTA+zL0yUSnW9/sV4Hxw/DgpQOL7igUkfi8qwsMHAHSDTZ8=\n                  \n                  "
                    ],
                    {
                     {19.051, 14.242},
@@ -11760,7 +11974,7 @@ Notebook[
     ]
    },
    Visible -> False,
-   FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (May 12, 2022)",
+   FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
    StyleDefinitions -> "PrivateStylesheetFormatting.nb"
   ]
 ]

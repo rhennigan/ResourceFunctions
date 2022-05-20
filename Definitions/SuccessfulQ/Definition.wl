@@ -86,7 +86,7 @@ SuccessfulQ // Attributes = { SequenceHold };
 SuccessfulQ // Options = { };
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Main definition*)
 SuccessfulQ[ $Aborted  ] := False;
 SuccessfulQ[ $Canceled ] := False;

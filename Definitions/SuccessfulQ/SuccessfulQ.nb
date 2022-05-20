@@ -2110,16 +2110,215 @@ Notebook[
             BoxData[
              GridBox[
               {
-               {Cell["Failure[$$]", "TableText"]},
-               {Cell["Missing[$$]", "TableText"]},
-               {Cell["$Failed", "TableText"]},
-               {Cell["$Canceled", "TableText"]},
-               {Cell["$Aborted", "TableText"]}
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     RowBox[
+                      {
+                       TagBox[
+                        ButtonBox[
+                         StyleBox[
+                          "Failure",
+                          "SymbolsRefLink",
+                          ShowStringCharacters -> True,
+                          FontFamily -> "Source Sans Pro"
+                         ],
+                         BaseStyle ->
+                          Dynamic[
+                           FEPrivate`If[
+                            CurrentValue["MouseOver"],
+                            {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                            {"Link"}
+                           ]
+                          ],
+                         ButtonData -> "paclet:ref/Failure",
+                         ContentPadding -> False
+                        ],
+                        MouseAppearanceTag["LinkHand"]
+                       ],
+                       "[",
+                       StyleBox["\[Ellipsis]", "TR"],
+                       "]"
+                      }
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               },
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     RowBox[
+                      {
+                       TagBox[
+                        ButtonBox[
+                         StyleBox[
+                          "Missing",
+                          "SymbolsRefLink",
+                          ShowStringCharacters -> True,
+                          FontFamily -> "Source Sans Pro"
+                         ],
+                         BaseStyle ->
+                          Dynamic[
+                           FEPrivate`If[
+                            CurrentValue["MouseOver"],
+                            {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                            {"Link"}
+                           ]
+                          ],
+                         ButtonData -> "paclet:ref/Missing",
+                         ContentPadding -> False
+                        ],
+                        MouseAppearanceTag["LinkHand"]
+                       ],
+                       "[",
+                       StyleBox["\[Ellipsis]", "TR"],
+                       "]"
+                      }
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               },
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     TagBox[
+                      ButtonBox[
+                       StyleBox[
+                        "$Failed",
+                        "SymbolsRefLink",
+                        ShowStringCharacters -> True,
+                        FontFamily -> "Source Sans Pro"
+                       ],
+                       BaseStyle ->
+                        Dynamic[
+                         FEPrivate`If[
+                          CurrentValue["MouseOver"],
+                          {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                          {"Link"}
+                         ]
+                        ],
+                       ButtonData -> "paclet:ref/$Failed",
+                       ContentPadding -> False
+                      ],
+                      MouseAppearanceTag["LinkHand"]
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               },
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     TagBox[
+                      ButtonBox[
+                       StyleBox[
+                        "$Canceled",
+                        "SymbolsRefLink",
+                        ShowStringCharacters -> True,
+                        FontFamily -> "Source Sans Pro"
+                       ],
+                       BaseStyle ->
+                        Dynamic[
+                         FEPrivate`If[
+                          CurrentValue["MouseOver"],
+                          {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                          {"Link"}
+                         ]
+                        ],
+                       ButtonData -> "paclet:ref/$Canceled",
+                       ContentPadding -> False
+                      ],
+                      MouseAppearanceTag["LinkHand"]
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               },
+               {
+                Cell[
+                 TextData[
+                  Cell[
+                   BoxData[
+                    StyleBox[
+                     TagBox[
+                      ButtonBox[
+                       StyleBox[
+                        "$Aborted",
+                        "SymbolsRefLink",
+                        ShowStringCharacters -> True,
+                        FontFamily -> "Source Sans Pro"
+                       ],
+                       BaseStyle ->
+                        Dynamic[
+                         FEPrivate`If[
+                          CurrentValue["MouseOver"],
+                          {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                          {"Link"}
+                         ]
+                        ],
+                       ButtonData -> "paclet:ref/$Aborted",
+                       ContentPadding -> False
+                      ],
+                      MouseAppearanceTag["LinkHand"]
+                     ],
+                     ShowStringCharacters -> True,
+                     FontFamily -> "Source Sans Pro"
+                    ]
+                   ],
+                   "InlineFormula",
+                   FontFamily -> "Source Sans Pro"
+                  ]
+                 ],
+                 "TableText"
+                ]
+               }
               }
              ]
             ],
             "TableNotes",
-            CellID -> 696388302
+            CellID -> 295139391
            ],
            Cell[
             TextData[
@@ -5442,7 +5641,7 @@ Notebook[
              "CheckboxData" -> "OEM6eJxVj8tKA0EQRUGMmZHgzoW7WbmbjxgmCQQCCSn9gE6n0jbpF/VYzN+nR1B0VQX3UKfu0PSwAJkCwtNBpaj0sBy/0N7wcn3gx71ngbcxE3Z7k5wah917B0JqRQnh9UjZkYnRJ9d9ig9ePHK9uROMzO2gkqMRb3toKlqQZILn0Qi6TN/k8lDE58Q/tnmeNCA3m4sXc67bYmsC42/QrjHg32R+OQeN6b/wZZcEqVBlZwO0Q5pAz4y14+qEnJUsfkwFodlqsjNzB3BDXts="
             },
             CellTags -> {"Categories", "Categories-Checkboxes", "CheckboxCell"},
-            CellID -> 523555504
+            CellID -> 348237555
            ]
           },
           Open
@@ -6672,7 +6871,7 @@ Notebook[
                 "CompatibilityOperatingSystem",
                 "CompatibilityOperatingSystem-Checkboxes"
                },
-               CellID -> 303748351
+               CellID -> 123658451
               ]
              },
              Closed
@@ -6856,7 +7055,7 @@ Notebook[
                 "CompatibilityFeatures",
                 "CompatibilityFeatures-Checkboxes"
                },
-               CellID -> 107011292
+               CellID -> 290822570
               ]
              },
              Closed
@@ -7144,7 +7343,7 @@ Notebook[
                 "CompatibilityEvaluationEnvironment",
                 "CompatibilityEvaluationEnvironment-Checkboxes"
                },
-               CellID -> 46426577
+               CellID -> 11744572
               ]
              },
              Closed
@@ -7266,7 +7465,7 @@ Notebook[
                 "CompatibilityCloudSupport",
                 "CompatibilityCloudSupport-Checkboxes"
                },
-               CellID -> 98915796
+               CellID -> 43108470
               ]
              },
              Closed

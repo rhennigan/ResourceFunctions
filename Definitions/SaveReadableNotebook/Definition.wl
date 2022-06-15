@@ -134,7 +134,7 @@ SaveReadableNotebook // Options = {
 (* ::Section::Closed:: *)
 (*Argument Patterns*)
 $$string      = _String? StringQ;
-$$notebook    = Notebook[ { ___Cell }, OptionsPattern[ ] ];
+$$notebook    = _Notebook;
 $$notebookObj = _NotebookObject? notebookObjectQ;
 $$file        = $$string | (File|URL|LocalObject|CloudObject)[ $$string, ___ ];
 $$target      = $$file | String;

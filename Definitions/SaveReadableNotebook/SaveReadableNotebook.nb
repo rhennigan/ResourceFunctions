@@ -1204,31 +1204,7 @@ Notebook[
               "\n",
               RowBox[
                {
-                RowBox[
-                 {
-                  "$$notebook",
-                  "    ",
-                  "=",
-                  " ",
-                  RowBox[
-                   {
-                    "Notebook",
-                    "[",
-                    " ",
-                    RowBox[
-                     {
-                      RowBox[{"{", " ", "___Cell", " ", "}"}],
-                      ",",
-                      " ",
-                      RowBox[{"OptionsPattern", "[", " ", "]"}]
-                     }
-                    ],
-                    " ",
-                    "]"
-                   }
-                  ]
-                 }
-                ],
+                RowBox[{"$$notebook", "    ", "=", " ", "_Notebook"}],
                 ";"
                }
               ],
@@ -1313,7 +1289,7 @@ Notebook[
              }
             ],
             "Code",
-            CellID -> 765380628
+            CellID -> 91853556
            ],
            Cell[
             CellGroupData[
@@ -11537,7 +11513,7 @@ Notebook[
              "CheckboxData" -> "OEM6eJxVj81Ow0AMhCVEIUEVZ47hwi0PEfVHqoRIVfMCyXaAqJv1am0f9u3ZIEBwsuVv7Bl3VUsr0uxBN71pNG3pdvMBd8H57UqunydRenxhxch8abbsbEZQaZ6aY4KUdtCJAz1QFsXc9BHpa1IEBLVYzh8KEKk7U54Lcy1Vx8RFqJnuNoPindMEKcZ9XFblx3ipJ/OQaneedBhLt9oPXvAL6i08/pIlPXubw3/D+0NQpJjwHbfuQiYbBeXd9QnClhxecwRVewtu0XwCtCFixQ=="
             },
             CellTags -> {"Categories", "Categories-Checkboxes", "CheckboxCell"},
-            CellID -> 164972836
+            CellID -> 386745408
            ]
           },
           Open
@@ -13366,7 +13342,7 @@ Notebook[
                 "CompatibilityOperatingSystem",
                 "CompatibilityOperatingSystem-Checkboxes"
                },
-               CellID -> 189181987
+               CellID -> 24549972
               ]
              },
              Closed
@@ -13550,7 +13526,7 @@ Notebook[
                 "CompatibilityFeatures",
                 "CompatibilityFeatures-Checkboxes"
                },
-               CellID -> 463487908
+               CellID -> 161138843
               ]
              },
              Closed
@@ -13838,7 +13814,7 @@ Notebook[
                 "CompatibilityEvaluationEnvironment",
                 "CompatibilityEvaluationEnvironment-Checkboxes"
                },
-               CellID -> 893104
+               CellID -> 47879256
               ]
              },
              Closed
@@ -13960,7 +13936,7 @@ Notebook[
                 "CompatibilityCloudSupport",
                 "CompatibilityCloudSupport-Checkboxes"
                },
-               CellID -> 292224191
+               CellID -> 2698037
               ]
              },
              Closed
@@ -14173,7 +14149,7 @@ Notebook[
      ]
     ]
    ],
-  "CreationTimestamp" -> 3.8608*^9,
+  "CreationTimestamp" -> 3.8643*^9,
   "DefinitionNotebookFramework" -> "DefinitionNotebookClient",
   "ResourceCreateNotebook" -> True,
   "ResourceType" -> "Function",
@@ -14188,12 +14164,12 @@ Notebook[
   },
   "SubmissionReviewData" -> {"Review" -> False},
   "ToolsOpen" -> False,
-  "UpdatedTimestamp" -> 3.8608*^9,
+  "UpdatedTimestamp" -> 3.8643*^9,
   "TemplateVersion" -> "1.6.3",
   "StatusMessage" -> ""
  },
  CreateCellID -> True,
- FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (May 3, 2022)",
+ FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (June 11, 2022)",
  StyleDefinitions ->
   Notebook[
    {
@@ -18469,7 +18445,7 @@ Notebook[
     ]
    },
    Visible -> False,
-   FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (May 3, 2022)",
+   FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (June 11, 2022)",
    StyleDefinitions -> "PrivateStylesheetFormatting.nb"
   ]
 ]

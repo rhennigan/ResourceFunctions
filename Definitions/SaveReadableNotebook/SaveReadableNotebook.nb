@@ -4221,58 +4221,48 @@ Notebook[
                             " ",
                             RowBox[
                              {
-                              "StringDelete",
-                              "[",
-                              "\n",
-                              "            ",
+                              "ToString",
+                              " ",
+                              "@",
+                              " ",
                               RowBox[
                                {
                                 RowBox[
                                  {
-                                  "ToString",
+                                  "ResourceFunction",
+                                  "[",
                                   " ",
-                                  "@",
+                                  "\"ReadableForm\"",
                                   " ",
-                                  RowBox[
-                                   {
-                                    RowBox[
-                                     {
-                                      "ResourceFunction",
-                                      "[",
-                                      " ",
-                                      "\"ReadableForm\"",
-                                      " ",
-                                      "]"
-                                     }
-                                    ],
-                                    "[",
-                                    "\n",
-                                    "                ",
-                                    RowBox[
-                                     {
-                                      RowBox[{"nb", " ", "/.", " ", "$fullFormRules"}],
-                                      ",",
-                                      "\n",
-                                      "                ",
-                                      "opts"
-                                     }
-                                    ],
-                                    "\n",
-                                    "            ",
-                                    "]"
-                                   }
-                                  ]
+                                  "]"
                                  }
                                 ],
-                                ",",
+                                "[",
                                 "\n",
                                 "            ",
-                                "\"\""
+                                RowBox[
+                                 {
+                                  RowBox[
+                                   {
+                                    "stripCellContext",
+                                    "[",
+                                    " ",
+                                    RowBox[{"nb", " ", "/.", " ", "$fullFormRules"}],
+                                    " ",
+                                    "]"
+                                   }
+                                  ],
+                                  ",",
+                                  "\n",
+                                  "            ",
+                                  "opts"
+                                 }
+                                ],
+                                "\n",
+                                "        ",
+                                "]"
                                }
-                              ],
-                              "\n",
-                              "        ",
-                              "]"
+                              ]
                              }
                             ]
                            }
@@ -4293,7 +4283,7 @@ Notebook[
                 ]
                ],
                "Code",
-               CellID -> 566552570
+               CellID -> 986765707
               ],
               Cell[
                BoxData[
@@ -4831,6 +4821,503 @@ Notebook[
                   ],
                   "Code",
                   CellID -> 855641411
+                 ]
+                },
+                Closed
+               ]
+              ]
+             },
+             Closed
+            ]
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               "stripCellContext",
+               "Subsubsection",
+               CellID -> 589640398
+              ],
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {"stripCellContext", " ", "//", " ", "beginDefinition"}
+                  ],
+                  ";"
+                 }
+                ]
+               ],
+               "Code",
+               CellID -> 363204048
+              ],
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    RowBox[{"stripCellContext", "[", " ", "nb_", " ", "]"}],
+                    " ",
+                    ":=",
+                    "\n",
+                    "    ",
+                    RowBox[
+                     {
+                      "ReplaceAll",
+                      "[",
+                      "\n",
+                      "        ",
+                      RowBox[
+                       {
+                        "nb",
+                        ",",
+                        "\n",
+                        "        ",
+                        RowBox[
+                         {
+                          RowBox[{"sym_Symbol", "?", " ", "cellContextQ"}],
+                          " ",
+                          ":>",
+                          "\n",
+                          "            ",
+                          RowBox[
+                           {
+                            "With",
+                            "[",
+                            " ",
+                            RowBox[
+                             {
+                              RowBox[
+                               {
+                                "{",
+                                " ",
+                                RowBox[
+                                 {
+                                  "s",
+                                  " ",
+                                  "=",
+                                  " ",
+                                  RowBox[
+                                   {
+                                    "stripCellContext0",
+                                    "[",
+                                    " ",
+                                    RowBox[{"sym", ",", " ", "$ConditionHold"}],
+                                    " ",
+                                    "]"
+                                   }
+                                  ]
+                                 }
+                                ],
+                                " ",
+                                "}"
+                               }
+                              ],
+                              ",",
+                              "\n",
+                              "                ",
+                              RowBox[
+                               {
+                                "RuleCondition",
+                                "[",
+                                " ",
+                                RowBox[{"s", ",", " ", "True"}],
+                                " ",
+                                "]"
+                               }
+                              ]
+                             }
+                            ],
+                            "\n",
+                            "            ",
+                            "]"
+                           }
+                          ]
+                         }
+                        ]
+                       }
+                      ],
+                      "\n",
+                      "    ",
+                      "]"
+                     }
+                    ]
+                   }
+                  ],
+                  ";"
+                 }
+                ]
+               ],
+               "Code",
+               CellID -> 741768643
+              ],
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {"stripCellContext", " ", "//", " ", "endDefinition"}
+                  ],
+                  ";"
+                 }
+                ]
+               ],
+               "Code",
+               CellID -> 734629147
+              ],
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {"stripCellContext0", " ", "//", " ", "beginDefinition"}
+                  ],
+                  ";"
+                 }
+                ]
+               ],
+               "Code",
+               CellID -> 864978769
+              ],
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    RowBox[{"stripCellContext0", " ", "//", " ", "Attributes"}],
+                    " ",
+                    "=",
+                    " ",
+                    RowBox[{"{", " ", "HoldAllComplete", " ", "}"}]
+                   }
+                  ],
+                  ";"
+                 }
+                ]
+               ],
+               "Code",
+               CellID -> 127761449
+              ],
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    RowBox[{"stripCellContext0", "[", " ", "sym_", " ", "]"}],
+                    " ",
+                    ":=",
+                    " ",
+                    RowBox[
+                     {
+                      "stripCellContext0",
+                      "[",
+                      " ",
+                      RowBox[{"sym", ",", " ", "HoldComplete"}],
+                      " ",
+                      "]"
+                     }
+                    ]
+                   }
+                  ],
+                  ";"
+                 }
+                ]
+               ],
+               "Code",
+               CellID -> 337470499
+              ],
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      "stripCellContext0",
+                      "[",
+                      " ",
+                      RowBox[{"sym_", ",", " ", "wrapper_"}],
+                      " ",
+                      "]"
+                     }
+                    ],
+                    " ",
+                    ":=",
+                    "\n",
+                    "    ",
+                    RowBox[
+                     {
+                      "ToExpression",
+                      "[",
+                      " ",
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          "SymbolName",
+                          " ",
+                          "@",
+                          " ",
+                          RowBox[{"Unevaluated", " ", "@", " ", "sym"}]
+                         }
+                        ],
+                        ",",
+                        " ",
+                        "InputForm",
+                        ",",
+                        " ",
+                        "wrapper"
+                       }
+                      ],
+                      " ",
+                      "]"
+                     }
+                    ]
+                   }
+                  ],
+                  ";"
+                 }
+                ]
+               ],
+               "Code",
+               CellID -> 974692860
+              ],
+              Cell[
+               BoxData[
+                RowBox[
+                 {
+                  RowBox[
+                   {"stripCellContext0", " ", "//", " ", "endDefinition"}
+                  ],
+                  ";"
+                 }
+                ]
+               ],
+               "Code",
+               CellID -> 754623254
+              ],
+              Cell[
+               CellGroupData[
+                {
+                 Cell[
+                  "cellContextQ",
+                  "Subsubsubsection",
+                  CellID -> 805060608
+                 ],
+                 Cell[
+                  BoxData[
+                   {
+                    RowBox[
+                     {RowBox[{"cellContextQ", " ", "//", " ", "ClearAll"}], ";"}
+                    ],
+                    "\n",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        RowBox[{"cellContextQ", " ", "//", " ", "Attributes"}],
+                        " ",
+                        "=",
+                        " ",
+                        RowBox[{"{", " ", "HoldAllComplete", " ", "}"}]
+                       }
+                      ],
+                      ";"
+                     }
+                    ],
+                    "\n",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          "cellContextQ",
+                          "[",
+                          " ",
+                          RowBox[{"sym_Symbol", "?", " ", "symbolQ"}],
+                          " ",
+                          "]"
+                         }
+                        ],
+                        " ",
+                        ":=",
+                        " ",
+                        RowBox[
+                         {
+                          RowBox[{"Context", " ", "@", " ", "sym"}],
+                          " ",
+                          "===",
+                          " ",
+                          "\"$CellContext`\""
+                         }
+                        ]
+                       }
+                      ],
+                      ";"
+                     }
+                    ],
+                    "\n",
+                    RowBox[
+                     {
+                      RowBox[
+                       {
+                        RowBox[{"cellContextQ", "[", " ", "___", " ", "]"}],
+                        " ",
+                        ":=",
+                        " ",
+                        "False"
+                       }
+                      ],
+                      ";"
+                     }
+                    ]
+                   }
+                  ],
+                  "Code",
+                  CellID -> 123705135
+                 ]
+                },
+                Closed
+               ]
+              ],
+              Cell[
+               CellGroupData[
+                {
+                 Cell["symbolQ", "Subsubsubsection", CellID -> 542774177],
+                 Cell[
+                  BoxData[
+                   RowBox[
+                    {RowBox[{"symbolQ", " ", "//", " ", "ClearAll"}], ";"}
+                   ]
+                  ],
+                  "Code",
+                  CellID -> 938680044
+                 ],
+                 Cell[
+                  BoxData[
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       RowBox[{"symbolQ", " ", "//", " ", "Attributes"}],
+                       " ",
+                       "=",
+                       " ",
+                       RowBox[{"{", " ", "HoldAllComplete", " ", "}"}]
+                      }
+                     ],
+                     ";"
+                    }
+                   ]
+                  ],
+                  "Code",
+                  CellID -> 209549219
+                 ],
+                 Cell[
+                  BoxData[
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       RowBox[{"symbolQ", "[", " ", "sym_Symbol", " ", "]"}],
+                       " ",
+                       ":=",
+                       " ",
+                       RowBox[
+                        {
+                         "TrueQ",
+                         " ",
+                         "@",
+                         " ",
+                         RowBox[
+                          {
+                           "And",
+                           "[",
+                           "\n",
+                           "    ",
+                           RowBox[
+                            {
+                             RowBox[
+                              {
+                               "AtomQ",
+                               " ",
+                               "@",
+                               " ",
+                               RowBox[{"Unevaluated", " ", "@", " ", "sym"}]
+                              }
+                             ],
+                             ",",
+                             "\n",
+                             "    ",
+                             RowBox[
+                              {
+                               "!",
+                               " ",
+                               RowBox[
+                                {
+                                 "Internal`RemovedSymbolQ",
+                                 " ",
+                                 "@",
+                                 " ",
+                                 RowBox[{"Unevaluated", " ", "@", " ", "sym"}]
+                                }
+                               ]
+                              }
+                             ],
+                             ",",
+                             "\n",
+                             "    ",
+                             RowBox[
+                              {
+                               RowBox[{"Unevaluated", " ", "@", " ", "sym"}],
+                               " ",
+                               "=!=",
+                               " ",
+                               "Internal`$EFAIL"
+                              }
+                             ]
+                            }
+                           ],
+                           "\n",
+                           "]"
+                          }
+                         ]
+                        }
+                       ]
+                      }
+                     ],
+                     ";"
+                    }
+                   ]
+                  ],
+                  "Code",
+                  CellID -> 22070667
+                 ],
+                 Cell[
+                  BoxData[
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       RowBox[{"symbolQ", "[", " ", "___", " ", "]"}],
+                       " ",
+                       ":=",
+                       " ",
+                       "False"
+                      }
+                     ],
+                     ";"
+                    }
+                   ]
+                  ],
+                  "Code",
+                  CellID -> 747866049
                  ]
                 },
                 Closed
@@ -7430,8 +7917,7 @@ Notebook[
                     "Outcome" -> "Success",
                     "Input" ->
                      HoldForm[
-                      $tmp = 
-                       FileNameJoin[{$TemporaryDirectory, "readable.nb"}]
+                      $tmp = FileNameJoin[{$TemporaryDirectory, "readable.nb"}]
                      ],
                     "ExpectedOutput" -> HoldForm[Blank[String]],
                     "ActualOutput" ->
@@ -7471,21 +7957,14 @@ Notebook[
                           
                           file = 
                            ConfirmBy[
-                            SaveReadableNotebook[
-                             nb,
-                             $tmp,
-                             opts
-                            ],
+                            SaveReadableNotebook[nb, $tmp, opts],
                             FileExistsQ
                            ];
 
                           WithCleanup[
                            
                            nbo = 
-                            ConfirmMatch[
-                             NotebookOpen[file],
-                             Blank[NotebookObject]
-                            ];
+                            ConfirmMatch[NotebookOpen[file], Blank[NotebookObject]];
 
                            NotebookGet[nbo],
                            NotebookClose[nbo]
@@ -7528,10 +8007,7 @@ Notebook[
                            ExpressionCell[2, "Output"]
                           }
                          ],
-                        ImportString[
-                         SaveReadableNotebook[nb, String],
-                         "NB"
-                        ],
+                        ImportString[SaveReadableNotebook[nb, String], "NB"],
                         NotebookClose[nb]
                        ]
                       ]
@@ -8108,9 +8584,7 @@ Notebook[
                     "Outcome" -> "Success",
                     "Input" ->
                      HoldForm[
-                      saveAndOpenTest[
-                       Notebook[{Cell["Hello world", "Text"]}]
-                      ]
+                      saveAndOpenTest[Notebook[{Cell["Hello world", "Text"]}]]
                      ],
                     "ExpectedOutput" -> HoldForm[Blank[Notebook]],
                     "ActualOutput" ->
@@ -8142,9 +8616,7 @@ Notebook[
                     "Outcome" -> "Success",
                     "Input" ->
                      HoldForm[
-                      saveAndOpenTest[
-                       FindFile["ExampleData/document.nb"]
-                      ]
+                      saveAndOpenTest[FindFile["ExampleData/document.nb"]]
                      ],
                     "ExpectedOutput" -> HoldForm[Blank[Notebook]],
                     "ActualOutput" ->
@@ -11513,7 +11985,7 @@ Notebook[
              "CheckboxData" -> "OEM6eJxVj81Ow0AMhCVEIUEVZ47hwi0PEfVHqoRIVfMCyXaAqJv1am0f9u3ZIEBwsuVv7Bl3VUsr0uxBN71pNG3pdvMBd8H57UqunydRenxhxch8abbsbEZQaZ6aY4KUdtCJAz1QFsXc9BHpa1IEBLVYzh8KEKk7U54Lcy1Vx8RFqJnuNoPindMEKcZ9XFblx3ipJ/OQaneedBhLt9oPXvAL6i08/pIlPXubw3/D+0NQpJjwHbfuQiYbBeXd9QnClhxecwRVewtu0XwCtCFixQ=="
             },
             CellTags -> {"Categories", "Categories-Checkboxes", "CheckboxCell"},
-            CellID -> 386745408
+            CellID -> 58315681
            ]
           },
           Open
@@ -13342,7 +13814,7 @@ Notebook[
                 "CompatibilityOperatingSystem",
                 "CompatibilityOperatingSystem-Checkboxes"
                },
-               CellID -> 24549972
+               CellID -> 127187039
               ]
              },
              Closed
@@ -13526,7 +13998,7 @@ Notebook[
                 "CompatibilityFeatures",
                 "CompatibilityFeatures-Checkboxes"
                },
-               CellID -> 161138843
+               CellID -> 448622296
               ]
              },
              Closed
@@ -13814,7 +14286,7 @@ Notebook[
                 "CompatibilityEvaluationEnvironment",
                 "CompatibilityEvaluationEnvironment-Checkboxes"
                },
-               CellID -> 47879256
+               CellID -> 228219142
               ]
              },
              Closed
@@ -13936,7 +14408,7 @@ Notebook[
                 "CompatibilityCloudSupport",
                 "CompatibilityCloudSupport-Checkboxes"
                },
-               CellID -> 2698037
+               CellID -> 411097011
               ]
              },
              Closed
@@ -14169,7 +14641,7 @@ Notebook[
   "StatusMessage" -> ""
  },
  CreateCellID -> True,
- FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (June 11, 2022)",
+ FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
  StyleDefinitions ->
   Notebook[
    {
@@ -16469,7 +16941,7 @@ Notebook[
                      },
                      {
                       CompressedData[
-                       "\n1:eJxTTMoPSmViYGAwAWIQLcESxqe7SdlhqnN3zvPblg4w/omyffOl/K0cEp9e\nULq9U9lhT8lkCZZrVg6VL9UMOd4oO1SLrHN/GGXtcKUCKOCh4sDDpN0udtPa\n4fnvlR8v8ao6ZIE12ELMrVZzmAIymNfOAWj43PfpGg45YIV2Dguk9O+qsGlB\n9M+0h9gjpgOxh8fBYePc98uPees5MICAggNE/TF9B6Bl574rO0DcMcsAwmd2\ncNCM6T/0VcPQAeQsjh6oeWWGEPt97R3UDTnWyMwyhKh7Yefw5S/QB22GEHe1\n2zlIg5yTaAh3by7InUKGDmBnLrR1cOkGudzAYZHrts9/Q2wdHi+dfUShwMBh\nQ1HGxLcytg5BO+RaXwsaQN1r6/BdA2jRVn1oeNk6aIEcWq4HcccvWwfTuF2e\nPEy6UPPtHIC+CH68VBvOP70QaNFeLTg/T6j5wKlELYdPl3yTBCLsIOGkowVx\n71tbhycg93zQdAjonZ4ndNgGzgern2ENVw90TZVInhUkfqy1IO65ZQl3L4wP\niW99B/NOx4SnEyzh4Q+W32XhcBUc0PoQd7dawM1D568H2cdnCOd/A9nzVc/h\nI9hdWg4ZoIg6oueQD/Kfoh40nSD4fkDfWpboQOw7oYDBh6mHxIcy3DxYek4A\npeOfCD7MPTA+zL0yUSnW9/sV4Hxw/DgpQOL7igUkfi8qwsMHAHSDTZ8=\n                    "
+                       "\n1:eJxTTMoPSmViYGAwAWIQLcESxqe7SdlhqnN3zvPblg4w/omyffOl/K0cEp9e\nULq9U9lhT8lkCZZrVg6VL9UMOd4oO1SLrHN/GGXtcKUCKOCh4sDDpN0udtPa\n4fnvlR8v8ao6ZIE12ELMrVZzmAIymNfOAWj43PfpGg45YIV2Dguk9O+qsGlB\n9M+0h9gjpgOxh8fBYePc98uPees5MICAggNE/TF9B6Bl574rO0DcMcsAwmd2\ncNCM6T/0VcPQAeQsjh6oeWWGEPt97R3UDTnWyMwyhKh7Yefw5S/QB22GEHe1\n2zlIg5yTaAh3by7InUKGDmBnLrR1cOkGudzAYZHrts9/Q2wdHi+dfUShwMBh\nQ1HGxLcytg5BO+RaXwsaQN1r6/BdA2jRVn1oeNk6aIEcWq4HcccvWwfTuF2e\nPEy6UPPtHIC+CH68VBvOP70QaNFeLTg/T6j5wKlELYdPl3yTBCLsIOGkowVx\n71tbhycg93zQdAjonZ4ndNgGzgern2ENVw90TZVInhUkfqy1IO65ZQl3L4wP\niW99B/NOx4SnEyzh4Q+W32XhcBUc0PoQd7dawM1D568H2cdnCOd/A9nzVc/h\nI9hdWg4ZoIg6oueQD/Kfoh40nSD4fkDfWpboQOw7oYDBh6mHxIcy3DxYek4A\npeOfCD7MPTA+zL0yUSnW9/sV4Hxw/DgpQOL7igUkfi8qwsMHAHSDTZ8=\n                    \n                    "
                       ],
                       {
                        {19.051, 14.242},
@@ -17474,7 +17946,7 @@ Notebook[
                   },
                   {
                    CompressedData[
-                    "\n1:eJxTTMoPSmViYGAwAWIQLcESxqe7SdlhqnN3zvPblg4w/omyffOl/K0cEp9e\nULq9U9lhT8lkCZZrVg6VL9UMOd4oO1SLrHN/GGXtcKUCKOCh4sDDpN0udtPa\n4fnvlR8v8ao6ZIE12ELMrVZzmAIymNfOAWj43PfpGg45YIV2Dguk9O+qsGlB\n9M+0h9gjpgOxh8fBYePc98uPees5MICAggNE/TF9B6Bl574rO0DcMcsAwmd2\ncNCM6T/0VcPQAeQsjh6oeWWGEPt97R3UDTnWyMwyhKh7Yefw5S/QB22GEHe1\n2zlIg5yTaAh3by7InUKGDmBnLrR1cOkGudzAYZHrts9/Q2wdHi+dfUShwMBh\nQ1HGxLcytg5BO+RaXwsaQN1r6/BdA2jRVn1oeNk6aIEcWq4HcccvWwfTuF2e\nPEy6UPPtHIC+CH68VBvOP70QaNFeLTg/T6j5wKlELYdPl3yTBCLsIOGkowVx\n71tbhycg93zQdAjonZ4ndNgGzgern2ENVw90TZVInhUkfqy1IO65ZQl3L4wP\niW99B/NOx4SnEyzh4Q+W32XhcBUc0PoQd7dawM1D568H2cdnCOd/A9nzVc/h\nI9hdWg4ZoIg6oueQD/Kfoh40nSD4fkDfWpboQOw7oYDBh6mHxIcy3DxYek4A\npeOfCD7MPTA+zL0yUSnW9/sV4Hxw/DgpQOL7igUkfi8qwsMHAHSDTZ8=\n                  "
+                    "\n1:eJxTTMoPSmViYGAwAWIQLcESxqe7SdlhqnN3zvPblg4w/omyffOl/K0cEp9e\nULq9U9lhT8lkCZZrVg6VL9UMOd4oO1SLrHN/GGXtcKUCKOCh4sDDpN0udtPa\n4fnvlR8v8ao6ZIE12ELMrVZzmAIymNfOAWj43PfpGg45YIV2Dguk9O+qsGlB\n9M+0h9gjpgOxh8fBYePc98uPees5MICAggNE/TF9B6Bl574rO0DcMcsAwmd2\ncNCM6T/0VcPQAeQsjh6oeWWGEPt97R3UDTnWyMwyhKh7Yefw5S/QB22GEHe1\n2zlIg5yTaAh3by7InUKGDmBnLrR1cOkGudzAYZHrts9/Q2wdHi+dfUShwMBh\nQ1HGxLcytg5BO+RaXwsaQN1r6/BdA2jRVn1oeNk6aIEcWq4HcccvWwfTuF2e\nPEy6UPPtHIC+CH68VBvOP70QaNFeLTg/T6j5wKlELYdPl3yTBCLsIOGkowVx\n71tbhycg93zQdAjonZ4ndNgGzgern2ENVw90TZVInhUkfqy1IO65ZQl3L4wP\niW99B/NOx4SnEyzh4Q+W32XhcBUc0PoQd7dawM1D568H2cdnCOd/A9nzVc/h\nI9hdWg4ZoIg6oueQD/Kfoh40nSD4fkDfWpboQOw7oYDBh6mHxIcy3DxYek4A\npeOfCD7MPTA+zL0yUSnW9/sV4Hxw/DgpQOL7igUkfi8qwsMHAHSDTZ8=\n                  \n                  "
                    ],
                    {
                     {19.051, 14.242},
@@ -18445,7 +18917,7 @@ Notebook[
     ]
    },
    Visible -> False,
-   FrontEndVersion -> "13.1 for Microsoft Windows (64-bit) (June 11, 2022)",
+   FrontEndVersion -> "13.0 for Microsoft Windows (64-bit) (January 26, 2022)",
    StyleDefinitions -> "PrivateStylesheetFormatting.nb"
   ]
 ]

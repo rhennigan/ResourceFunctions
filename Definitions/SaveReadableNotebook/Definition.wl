@@ -378,12 +378,9 @@ createNBString[ nb_, HoldComplete[ overrides___ ], { opts___ } ] :=
         Format[ x_NumericArray? numericArrayQ, InputForm ] :=
             OutputForm[ "CompressedData[\"" <> Compress @ x <> "\"]" ];
 
-        $nbStringHeader <> StringDelete[
-            ToString @ ResourceFunction[ "ReadableForm" ][
-                nb /. $fullFormRules,
-                opts
-            ],
-            "$CellContext`"
+        $nbStringHeader <> ToString @ ResourceFunction[ "ReadableForm" ][
+            stripCellContext[ nb /. $fullFormRules ],
+            opts
         ]
     ];
 
@@ -446,6 +443,51 @@ fullFormHead // ClearAll;
 fullFormHead // Attributes = { HoldFirst };
 fullFormHead /: Format[ fullFormHead[ h_ ], InputForm ] := h;
 fullFormHead /: MakeBoxes[ fullFormHead[ h_ ], fmt_ ] := MakeBoxes[ h, fmt ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*stripCellContext*)
+stripCellContext // beginDefinition;
+
+stripCellContext[ nb_ ] :=
+    ReplaceAll[
+        nb,
+        sym_Symbol? cellContextQ :>
+            With[ { s = stripCellContext0[ sym, $ConditionHold ] },
+                RuleCondition[ s, True ]
+            ]
+    ];
+
+stripCellContext // endDefinition;
+
+stripCellContext0 // beginDefinition;
+stripCellContext0 // Attributes = { HoldAllComplete };
+stripCellContext0[ sym_ ] := stripCellContext0[ sym, HoldComplete ];
+stripCellContext0[ sym_, wrapper_ ] :=
+    ToExpression[ SymbolName @ Unevaluated @ sym, InputForm, wrapper ];
+stripCellContext0 // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellContextQ*)
+cellContextQ // ClearAll;
+cellContextQ // Attributes = { HoldAllComplete };
+cellContextQ[ sym_Symbol? symbolQ ] := Context @ sym === "$CellContext`";
+cellContextQ[ ___ ] := False;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*symbolQ*)
+symbolQ // ClearAll;
+symbolQ // Attributes = { HoldAllComplete };
+
+symbolQ[ sym_Symbol ] := TrueQ @ And[
+    AtomQ @ Unevaluated @ sym,
+    ! Internal`RemovedSymbolQ @ Unevaluated @ sym,
+    Unevaluated @ sym =!= Internal`$EFAIL
+];
+
+symbolQ[ ___ ] := False;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)

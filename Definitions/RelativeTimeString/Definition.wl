@@ -119,6 +119,32 @@ RelativeTimeString[ date_DateObject? DateObjectQ ] :=
         date
     ];
 
+RelativeTimeString[ date_DateInterval ] :=
+    catchTop @ Enclose[
+        Module[ { bounds, quant, seconds, int },
+
+            bounds = ConfirmMatch[
+                toDateObject /@ DateBounds @ date,
+                { _? DateObjectQ, _? DateObjectQ }
+            ];
+
+            quant = ConfirmMatch[
+                bounds - $now,
+                { _Quantity, _Quantity }
+            ];
+
+            seconds = ConfirmMatch[
+                QuantityMagnitude @ UnitConvert[ quant, "Seconds" ],
+                { _? NumberQ, _? NumberQ }
+            ];
+
+            int = Confirm @ Quantity[ Interval @ seconds, "Seconds" ];
+
+            RelativeTimeString @ int
+        ],
+        throwFailure[ "InvalidDateInterval", date ] &
+    ];
+
 RelativeTimeString[ date_ ] :=
     catchTop @ RelativeTimeString @ toDateObject @ date;
 
@@ -350,6 +376,12 @@ toDateObject // beginDefinition;
 
 toDateObject[ date_DateObject? DateObjectQ ] := date;
 
+toDateObject[ date_DateInterval ] :=
+    If[ MatchQ[ DateBounds @ date, { _? DateObjectQ, _? DateObjectQ } ],
+        date,
+        throwFailure[ "InvalidDate", date ]
+    ];
+
 toDateObject[ date_ ] :=
     Module[ { dateObj },
         dateObj = Quiet @ DateObject @ date;
@@ -381,6 +413,15 @@ relativeTimeString // endDefinition;
 (* ::Subsubsection::Closed:: *)
 (*relativeTimeString0*)
 relativeTimeString0 // beginDefinition;
+
+relativeTimeString0[ Quantity[ Interval @ { a_, b_ }, unit_ ] ] :=
+    Module[ { q1, q2, s1, s2 },
+        q1 = Quantity[ a, unit ];
+        q2 = Quantity[ b, unit ];
+        s1 = relativeTimeString0 @ q1;
+        s2 = relativeTimeString0 @ q2;
+        combineIntervalStrings[ s1, s2 ]
+    ];
 
 relativeTimeString0[ diff_Quantity ] :=
     Module[ { date, abs, low, high, dwQ },
@@ -417,6 +458,74 @@ relativeTimeString1[ diff_Quantity ] :=
     ];
 
 relativeTimeString1 // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*combineIntervalStrings*)
+combineIntervalStrings // beginDefinition;
+
+combineIntervalStrings[ s_, s_ ] := s;
+
+combineIntervalStrings[ s1_String, s2_String ] :=
+    combineIntervalStrings[ split @ s1, split @ s2 ];
+
+combineIntervalStrings[
+    { a___String, digits[ d1_String ], b___String, "ago" },
+    { a___String, digits[ d2_String ], b___String, "ago" }
+] :=  StringRiffle @ { a, d2, "to", d1, b, "ago" };
+
+combineIntervalStrings[
+    { a___String, digits[ d1_String ], b___String },
+    { a___String, digits[ d2_String ], b___String }
+] :=  StringRiffle @ { a, d1, "to", d2, b };
+
+combineIntervalStrings[
+    { digits[ d1_ ], u1_, "ago" },
+    { digits[ d2_ ], u2_, "ago" }
+] := StringRiffle @ { "between", d2, u2, "and", d1, u1, "ago" };
+
+combineIntervalStrings[
+    { "in", digits[ d1_ ], u1_ },
+    { "in", digits[ d2_ ], u2_ }
+] := StringRiffle @ { "between", d1, u1, "and", d2, u2, "from now" };
+
+combineIntervalStrings[
+    { digits[ d1_ ], u1_, "ago" },
+    { "in", digits[ d2_ ], u2_ }
+] := StringRiffle @ { "between", d1, u1, "ago and", d2, u2, "from now" };
+
+combineIntervalStrings[
+    { digits[ d1_ ], u1_, "ago" },
+    { s__String, "ago" }
+] := StringRiffle @ { "between", s, "and", d1, u1, "ago" };
+
+combineIntervalStrings[ { "in", a__ }, { "in", b__ } ] :=
+    StringRiffle[
+        Flatten @ { a, "to", b, "from now" } /. digits[ d_ ] :> d
+    ];
+
+combineIntervalStrings[ a_List, { "in", b__ } ] :=
+    StringRiffle[
+        Flatten @ { a, "to", b, "from now" } /. digits[ d_ ] :> d
+    ];
+
+combineIntervalStrings[ a_List, b_List ] :=
+    StringRiffle[ Flatten @ { a, "to", b } /. digits[ d_ ] :> d ];
+
+combineIntervalStrings // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*split*)
+split // beginDefinition;
+
+split[ s_String ] :=
+    DeleteCases[
+        StringSplit[ s, { d: DigitCharacter.. :> digits @ d, " " } ],
+        ""
+    ];
+
+split // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)

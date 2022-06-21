@@ -1,6 +1,6 @@
 <|
     "Name"        -> "RelativeTimeString",
-    "Description" -> "convert a date to a human-readable string relative to the current time",
+    "Description" -> "Convert a date to a human-readable string relative to the current time",
     "Author"      -> "Richard Hennigan (Wolfram Research)"
     ,
     "Keywords" -> {
@@ -62,7 +62,6 @@
     }
     ,
     "Links" -> {
-        $$Links,
         Hyperlink[
             "RelativeTimeString | rhennigan/ResourceFunctions | GitHub",
             "https://github.com/rhennigan/ResourceFunctions/tree/main/Definitions/RelativeTimeString"

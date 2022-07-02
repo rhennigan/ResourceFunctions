@@ -6507,7 +6507,7 @@ Notebook[
             "Output",
             "Excluded",
             CellLabel -> "Out[5]=",
-            CellID -> 130019451
+            CellID -> 708857305
            ]
           },
           Open
@@ -6596,7 +6596,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 713753262
+               CellID -> 944868603
               ],
               Cell[
                "Use a pure function to test each element:",
@@ -6674,7 +6674,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 887890792
+               CellID -> 944868604
               ],
               Cell[
                "Select only the first expression that satisfies the condition:",
@@ -6760,7 +6760,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 383097661
+               CellID -> 944868605
               ],
               Cell[
                TextData[
@@ -6775,7 +6775,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 508474946
+               CellID -> 195792704
               ],
               Cell[
                CellGroupData[
@@ -6844,7 +6844,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 619162581
+               CellID -> 944868606
               ],
               Cell[
                TextData[
@@ -6870,7 +6870,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 464672189
+               CellID -> 237476183
               ],
               Cell[
                CellGroupData[
@@ -7001,7 +7001,7 @@ Notebook[
              }
             ],
             "Text",
-            CellID -> 898088323
+            CellID -> 794028679
            ],
            Cell[
             CellGroupData[
@@ -7082,7 +7082,7 @@ Notebook[
              }
             ],
             "Text",
-            CellID -> 766749179
+            CellID -> 754719705
            ],
            Cell[
             CellGroupData[
@@ -7114,7 +7114,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 190141749
+               CellID -> 944868607
               ],
               Cell[
                TextData[
@@ -7129,7 +7129,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 575249617
+               CellID -> 183952836
               ],
               Cell[
                CellGroupData[
@@ -7244,7 +7244,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 665702958
+               CellID -> 944868608
               ],
               Cell[
                TextData[
@@ -7259,7 +7259,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 892122525
+               CellID -> 988236595
               ],
               Cell[
                CellGroupData[
@@ -7473,7 +7473,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 125000090
+               CellID -> 944868609
               ],
               Cell[
                "Use an operator form as selection criterion:",
@@ -7565,7 +7565,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 369069538
+               CellID -> 944868610
               ],
               Cell[
                TextData[
@@ -7580,7 +7580,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 56516451
+               CellID -> 728417859
               ],
               Cell[
                CellGroupData[
@@ -7667,7 +7667,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 180745851
+               CellID -> 438384608
               ],
               Cell[
                TextData[
@@ -7704,7 +7704,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 175008403
+               CellID -> 868817790
               ],
               Cell[
                CellGroupData[
@@ -7788,7 +7788,7 @@ Notebook[
              }
             ],
             "Text",
-            CellID -> 892412283
+            CellID -> 642444003
            ],
            Cell[
             CellGroupData[
@@ -7856,7 +7856,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 719542393
+               CellID -> 944868611
               ],
               Cell[
                TextData[
@@ -7883,7 +7883,7 @@ Notebook[
                ],
                "Text",
                CellFrameLabels -> {{None, None}, {None, None}},
-               CellID -> 5125432
+               CellID -> 824581670
               ],
               Cell[
                CellGroupData[
@@ -8341,7 +8341,7 @@ Notebook[
                   ],
                   "Output",
                   CellLabel -> "Out[1]=",
-                  CellID -> 362735358
+                  CellID -> 969499694
                  ]
                 },
                 Open
@@ -8734,7 +8734,7 @@ Notebook[
                   ],
                   "Output",
                   CellLabel -> "Out[2]=",
-                  CellID -> 803912035
+                  CellID -> 737208371
                  ]
                 },
                 Open
@@ -9132,7 +9132,7 @@ Notebook[
                   ],
                   "Output",
                   CellLabel -> "Out[3]=",
-                  CellID -> 18664105
+                  CellID -> 905777881
                  ]
                 },
                 Open
@@ -9173,7 +9173,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 706050959
+               CellID -> 89275261
               ],
               Cell[
                CellGroupData[
@@ -9548,7 +9548,7 @@ Notebook[
                   ],
                   "Output",
                   CellLabel -> "Out[4]=",
-                  CellID -> 530518860
+                  CellID -> 630251676
                  ]
                 },
                 Open
@@ -9592,7 +9592,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 125459623
+               CellID -> 438384609
               ],
               Cell[
                TextData[
@@ -9629,7 +9629,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 894167101
+               CellID -> 341404662
               ],
               Cell[
                CellGroupData[
@@ -9812,7 +9812,7 @@ Notebook[
                   ],
                   "Output",
                   CellLabel -> "Out[1]=",
-                  CellID -> 803806801
+                  CellID -> 468865944
                  ]
                 },
                 Open
@@ -9871,7 +9871,7 @@ Notebook[
                   ],
                   "Output",
                   CellLabel -> "Out[2]=",
-                  CellID -> 354343299
+                  CellID -> 919415201
                  ]
                 },
                 Open
@@ -9892,7 +9892,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 89927703
+               CellID -> 438384610
               ],
               Cell[
                TextData[
@@ -9929,7 +9929,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 128906501
+               CellID -> 874509628
               ],
               Cell[
                CellGroupData[
@@ -10123,7 +10123,7 @@ Notebook[
                   ],
                   "Input",
                   CellLabel -> "In[1]:=",
-                  CellID -> 2991947
+                  CellID -> 225476244
                  ],
                  Cell[
                   BoxData[
@@ -10353,7 +10353,7 @@ Notebook[
                   ],
                   "Output",
                   CellLabel -> "Out[1]=",
-                  CellID -> 317837589
+                  CellID -> 1595041
                  ]
                 },
                 Open
@@ -10962,7 +10962,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 241117022
+               CellID -> 944868612
               ],
               Cell[
                "Select 4-tuples that read the same in reverse:",
@@ -11126,7 +11126,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 937315070
+               CellID -> 944868613
               ],
               Cell[
                "Select eigenvalues that lie within the unit circle:",
@@ -11269,7 +11269,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 478358898
+               CellID -> 944868614
               ],
               Cell[
                "Separate built-in Wolfram Language symbols based on whether their names contain less than 10 characters:",
@@ -11432,7 +11432,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 567474015
+               CellID -> 944868615
               ],
               Cell[
                "Select numeric quantities from a product:",
@@ -11545,7 +11545,7 @@ Notebook[
              }
             ],
             "Text",
-            CellID -> 54471656
+            CellID -> 751533774
            ],
            Cell[
             CellGroupData[
@@ -11689,7 +11689,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 555244178
+               CellID -> 438384611
               ],
               Cell[
                TextData[
@@ -11731,7 +11731,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 364018486
+               CellID -> 404772267
               ],
               Cell[
                CellGroupData[
@@ -11898,7 +11898,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 37156675
+               CellID -> 944868616
               ],
               Cell[
                TextData[
@@ -12003,7 +12003,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 597885908
+               CellID -> 964480676
               ],
               Cell[
                CellGroupData[
@@ -12177,7 +12177,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 498961185
+               CellID -> 130303852
               ],
               Cell[
                CellGroupData[
@@ -12302,7 +12302,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 973731959
+               CellID -> 438384612
               ],
               Cell[
                TextData[
@@ -12339,7 +12339,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 48359887
+               CellID -> 323621473
               ],
               Cell[
                CellGroupData[
@@ -12421,7 +12421,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 334987477
+               CellID -> 334715939
               ],
               Cell[
                CellGroupData[
@@ -12512,7 +12512,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 874849968
+               CellID -> 230324742
               ],
               Cell[
                CellGroupData[
@@ -12613,7 +12613,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 975621077
+               CellID -> 438384613
               ],
               Cell[
                TextData[
@@ -12627,7 +12627,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 92209986
+               CellID -> 448042594
               ],
               Cell[
                CellGroupData[
@@ -12798,7 +12798,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 195336309
+               CellID -> 993106785
               ],
               Cell[
                CellGroupData[
@@ -13049,7 +13049,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 982432303
+               CellID -> 438384614
               ],
               Cell[
                TextData[
@@ -13114,7 +13114,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 569056637
+               CellID -> 577901033
               ],
               Cell[
                BoxData[
@@ -13268,7 +13268,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 354055895
+               CellID -> 969461569
               ],
               Cell[
                BoxData[
@@ -13419,7 +13419,7 @@ Notebook[
                 ]
                ],
                "ExampleDelimiter",
-               CellID -> 845185902
+               CellID -> 438384615
               ],
               Cell[
                TextData[
@@ -13482,7 +13482,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 215433799
+               CellID -> 70207888
               ],
               Cell[
                BoxData[
@@ -13664,7 +13664,7 @@ Notebook[
                 }
                ],
                "Text",
-               CellID -> 121238583
+               CellID -> 656174246
               ],
               Cell[
                CellGroupData[
@@ -13795,7 +13795,7 @@ Notebook[
              }
             ],
             "Text",
-            CellID -> 683434102
+            CellID -> 862571468
            ],
            Cell[
             CellGroupData[
@@ -14499,7 +14499,7 @@ Notebook[
              "CheckboxData" -> "OEM6eJxVT01Lw0AURLGaiHj3lpO3/IgQLRQKlT7/wHY7TRc3u8v7OOTfu0EQPc3AzJuZNzQ9bUiXCLo/mBbTnh7GK/wXzpcbudsHUXoZM6PbuzSZm9C9dqRsXo1Rj3eKWaQdTPPsNPiemg/OBawLPY5OMWUOkBp7KBpyksvtT+yKR4uQ5v0c1J0q22xdFPwK7Rsi/irrthxtTv8Ln3dJwYWrd22gdkgL2UlQn3k6QrKxx+dSQM3Wkl8939H5VhM="
             },
             CellTags -> {"Categories", "Categories-Checkboxes", "CheckboxCell"},
-            CellID -> 73408821
+            CellID -> 79449617
            ]
           },
           Open
@@ -15133,7 +15133,19 @@ Notebook[
                     ",",
                     "\n",
                     "    ",
-                    RowBox[{"SameTest", " ", "->", " ", "MatchQ"}]
+                    RowBox[{"SameTest", " ", "->", " ", "MatchQ"}],
+                    ",",
+                    "\n",
+                    "    ",
+                    RowBox[
+                     {
+                      "TestID",
+                      "   ",
+                      "->",
+                      " ",
+                      "\"Initialization@@Definitions/SelectDiscard/Tests.wlt:4,1-9,2\""
+                     }
+                    ]
                    }
                   ],
                   "\n",
@@ -15144,7 +15156,7 @@ Notebook[
                "Input",
                "Code",
                InitializationCell -> False,
-               CellID -> 47081604
+               CellID -> 356959304
               ]
              },
              Closed
@@ -15246,7 +15258,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"BasicExamples-1\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"BasicExamples-1@@Definitions/SelectDiscard/Tests.wlt:18,1-22,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -15257,7 +15277,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 634770140
+                  CellID -> 355099064
                  ],
                  Cell[
                   BoxData[
@@ -15351,7 +15371,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"BasicExamples-2\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"BasicExamples-2@@Definitions/SelectDiscard/Tests.wlt:24,1-28,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -15362,7 +15390,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 776563240
+                  CellID -> 108637740
                  ],
                  Cell[
                   BoxData[
@@ -15467,7 +15495,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"BasicExamples-3\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"BasicExamples-3@@Definitions/SelectDiscard/Tests.wlt:30,1-34,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -15478,7 +15514,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 235493370
+                  CellID -> 968352638
                  ],
                  Cell[
                   BoxData[
@@ -15557,7 +15593,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"BasicExamples-4\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"BasicExamples-4@@Definitions/SelectDiscard/Tests.wlt:36,1-40,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -15568,7 +15612,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 609312642
+                  CellID -> 494421460
                  ],
                  Cell[
                   BoxData[
@@ -15670,7 +15714,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"BasicExamples-5\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"BasicExamples-5@@Definitions/SelectDiscard/Tests.wlt:42,1-46,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -15681,7 +15733,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 126273395
+                  CellID -> 322517448
                  ]
                 },
                 Open
@@ -15772,7 +15824,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"Scope-1\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"Scope-1@@Definitions/SelectDiscard/Tests.wlt:51,1-55,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -15783,7 +15843,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 493166748
+                  CellID -> 382199783
                  ],
                  Cell[
                   BoxData[
@@ -15909,7 +15969,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"Scope-2\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"Scope-2@@Definitions/SelectDiscard/Tests.wlt:57,1-64,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -15920,7 +15988,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 519256381
+                  CellID -> 548942953
                  ],
                  Cell[
                   BoxData[
@@ -16050,7 +16118,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"Scope-3\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"Scope-3@@Definitions/SelectDiscard/Tests.wlt:66,1-74,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -16061,7 +16137,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 547761711
+                  CellID -> 428902325
                  ],
                  Cell[
                   BoxData[
@@ -16187,7 +16263,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"Scope-4\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"Scope-4@@Definitions/SelectDiscard/Tests.wlt:76,1-84,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -16198,7 +16282,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 447674148
+                  CellID -> 66516744
                  ],
                  Cell[
                   BoxData[
@@ -16287,7 +16371,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"Scope-5\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"Scope-5@@Definitions/SelectDiscard/Tests.wlt:86,1-90,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -16298,7 +16390,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 423510404
+                  CellID -> 256893317
                  ],
                  Cell[
                   BoxData[
@@ -16389,7 +16481,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"Scope-6\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"Scope-6@@Definitions/SelectDiscard/Tests.wlt:92,1-96,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -16400,7 +16500,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 105886674
+                  CellID -> 287154782
                  ],
                  Cell[
                   BoxData[
@@ -16465,7 +16565,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"Scope-7\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"Scope-7@@Definitions/SelectDiscard/Tests.wlt:98,1-102,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -16476,7 +16584,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 41760809
+                  CellID -> 909573714
                  ]
                 },
                 Open
@@ -16581,7 +16689,7 @@ Notebook[
                          " ",
                          "->",
                          " ",
-                         "\"GeneralizationsAndExtensions-1\""
+                         "\"GeneralizationsAndExtensions-1@@Definitions/SelectDiscard/Tests.wlt:107,1-111,2\""
                         }
                        ]
                       }
@@ -16594,7 +16702,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 934118750
+                  CellID -> 252124600
                  ],
                  Cell[
                   BoxData[
@@ -16664,7 +16772,7 @@ Notebook[
                          " ",
                          "->",
                          " ",
-                         "\"GeneralizationsAndExtensions-2\""
+                         "\"GeneralizationsAndExtensions-2@@Definitions/SelectDiscard/Tests.wlt:113,1-118,2\""
                         }
                        ]
                       }
@@ -16677,7 +16785,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 509797826
+                  CellID -> 430773374
                  ],
                  Cell[
                   BoxData[
@@ -16808,7 +16916,7 @@ Notebook[
                          " ",
                          "->",
                          " ",
-                         "\"GeneralizationsAndExtensions-3\""
+                         "\"GeneralizationsAndExtensions-3@@Definitions/SelectDiscard/Tests.wlt:120,1-127,2\""
                         }
                        ]
                       }
@@ -16821,7 +16929,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 722756125
+                  CellID -> 469082180
                  ],
                  Cell[
                   BoxData[
@@ -16952,7 +17060,7 @@ Notebook[
                          " ",
                          "->",
                          " ",
-                         "\"GeneralizationsAndExtensions-4\""
+                         "\"GeneralizationsAndExtensions-4@@Definitions/SelectDiscard/Tests.wlt:129,1-136,2\""
                         }
                        ]
                       }
@@ -16965,7 +17073,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 48820407
+                  CellID -> 701052676
                  ],
                  Cell[
                   BoxData[
@@ -17036,7 +17144,7 @@ Notebook[
                          "   ",
                          "->",
                          " ",
-                         "\"GeneralizationsAndExtensions-5\""
+                         "\"GeneralizationsAndExtensions-5@@Definitions/SelectDiscard/Tests.wlt:138,1-143,2\""
                         }
                        ]
                       }
@@ -17049,7 +17157,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 136057932
+                  CellID -> 946947008
                  ],
                  Cell[
                   BoxData[
@@ -17129,7 +17237,7 @@ Notebook[
                          " ",
                          "->",
                          " ",
-                         "\"GeneralizationsAndExtensions-6\""
+                         "\"GeneralizationsAndExtensions-6@@Definitions/SelectDiscard/Tests.wlt:145,1-152,2\""
                         }
                        ]
                       }
@@ -17142,7 +17250,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 907725880
+                  CellID -> 334605009
                  ],
                  Cell[
                   BoxData[
@@ -17213,7 +17321,7 @@ Notebook[
                          " ",
                          "->",
                          " ",
-                         "\"GeneralizationsAndExtensions-7\""
+                         "\"GeneralizationsAndExtensions-7@@Definitions/SelectDiscard/Tests.wlt:154,1-161,2\""
                         }
                        ]
                       }
@@ -17226,7 +17334,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 689116730
+                  CellID -> 428509127
                  ]
                 },
                 Open
@@ -17313,7 +17421,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", " ", "->", " ", "\"Applications-1\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"Applications-1@@Definitions/SelectDiscard/Tests.wlt:166,1-170,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -17324,7 +17440,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 3886253
+                  CellID -> 243603548
                  ]
                 },
                 Open
@@ -17404,7 +17520,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-1\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-1@@Definitions/SelectDiscard/Tests.wlt:175,1-179,2\""
+                        }
                        ]
                       }
                      ],
@@ -17416,7 +17538,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 72358615
+                  CellID -> 355020412
                  ],
                  Cell[
                   BoxData[
@@ -17462,7 +17584,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-2\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-2@@Definitions/SelectDiscard/Tests.wlt:181,1-185,2\""
+                        }
                        ]
                       }
                      ],
@@ -17474,7 +17602,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 990022313
+                  CellID -> 984274628
                  ],
                  Cell[
                   BoxData[
@@ -17574,7 +17702,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-3\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-3@@Definitions/SelectDiscard/Tests.wlt:187,1-191,2\""
+                        }
                        ]
                       }
                      ],
@@ -17586,7 +17720,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 631986053
+                  CellID -> 529620293
                  ],
                  Cell[
                   BoxData[
@@ -17686,7 +17820,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-4\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-4@@Definitions/SelectDiscard/Tests.wlt:193,1-197,2\""
+                        }
                        ]
                       }
                      ],
@@ -17698,7 +17838,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 184181655
+                  CellID -> 732736627
                  ],
                  Cell[
                   BoxData[
@@ -17798,7 +17938,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-5\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-5@@Definitions/SelectDiscard/Tests.wlt:199,1-203,2\""
+                        }
                        ]
                       }
                      ],
@@ -17810,7 +17956,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 416130629
+                  CellID -> 403924298
                  ],
                  Cell[
                   BoxData[
@@ -17910,7 +18056,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-6\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-6@@Definitions/SelectDiscard/Tests.wlt:205,1-209,2\""
+                        }
                        ]
                       }
                      ],
@@ -17922,7 +18074,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 24673557
+                  CellID -> 446240937
                  ],
                  Cell[
                   BoxData[
@@ -18030,7 +18182,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-7\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-7@@Definitions/SelectDiscard/Tests.wlt:211,1-215,2\""
+                        }
                        ]
                       }
                      ],
@@ -18042,7 +18200,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 955879615
+                  CellID -> 855978519
                  ],
                  Cell[
                   BoxData[
@@ -18130,7 +18288,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-8\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-8@@Definitions/SelectDiscard/Tests.wlt:217,1-221,2\""
+                        }
                        ]
                       }
                      ],
@@ -18142,7 +18306,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 611910225
+                  CellID -> 232617433
                  ],
                  Cell[
                   BoxData[
@@ -18263,7 +18427,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-9\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-9@@Definitions/SelectDiscard/Tests.wlt:223,1-229,2\""
+                        }
                        ]
                       }
                      ],
@@ -18275,7 +18445,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 203508920
+                  CellID -> 63132828
                  ],
                  Cell[
                   BoxData[
@@ -18362,7 +18532,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-10\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-10@@Definitions/SelectDiscard/Tests.wlt:231,1-235,2\""
+                        }
                        ]
                       }
                      ],
@@ -18374,7 +18550,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 504226988
+                  CellID -> 628453624
                  ],
                  Cell[
                   BoxData[
@@ -18450,7 +18626,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-11\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-11@@Definitions/SelectDiscard/Tests.wlt:237,1-241,2\""
+                        }
                        ]
                       }
                      ],
@@ -18462,7 +18644,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 310941853
+                  CellID -> 862275114
                  ],
                  Cell[
                   BoxData[
@@ -18547,7 +18729,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-12\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-12@@Definitions/SelectDiscard/Tests.wlt:243,1-247,2\""
+                        }
                        ]
                       }
                      ],
@@ -18559,7 +18747,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 659177462
+                  CellID -> 783389365
                  ],
                  Cell[
                   BoxData[
@@ -18681,7 +18869,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-13\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-13@@Definitions/SelectDiscard/Tests.wlt:249,1-258,2\""
+                        }
                        ]
                       }
                      ],
@@ -18693,7 +18887,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 200687217
+                  CellID -> 476938156
                  ],
                  Cell[
                   BoxData[
@@ -18770,7 +18964,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-14\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-14@@Definitions/SelectDiscard/Tests.wlt:260,1-264,2\""
+                        }
                        ]
                       }
                      ],
@@ -18782,7 +18982,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 213253077
+                  CellID -> 284076782
                  ],
                  Cell[
                   BoxData[
@@ -18851,7 +19051,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-15\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-15@@Definitions/SelectDiscard/Tests.wlt:266,1-270,2\""
+                        }
                        ]
                       }
                      ],
@@ -18863,7 +19069,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 865871347
+                  CellID -> 995121832
                  ],
                  Cell[
                   BoxData[
@@ -18946,7 +19152,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-16\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-16@@Definitions/SelectDiscard/Tests.wlt:272,1-276,2\""
+                        }
                        ]
                       }
                      ],
@@ -18958,7 +19170,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 976726894
+                  CellID -> 789907637
                  ],
                  Cell[
                   BoxData[
@@ -19019,7 +19231,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-17\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-17@@Definitions/SelectDiscard/Tests.wlt:278,1-282,2\""
+                        }
                        ]
                       }
                      ],
@@ -19031,7 +19249,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 131834224
+                  CellID -> 245415854
                  ],
                  Cell[
                   BoxData[
@@ -19150,7 +19368,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-18\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-18@@Definitions/SelectDiscard/Tests.wlt:284,1-290,2\""
+                        }
                        ]
                       }
                      ],
@@ -19162,7 +19386,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 16969111
+                  CellID -> 281001985
                  ],
                  Cell[
                   BoxData[
@@ -19251,7 +19475,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-19\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-19@@Definitions/SelectDiscard/Tests.wlt:292,1-296,2\""
+                        }
                        ]
                       }
                      ],
@@ -19263,7 +19493,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 608976243
+                  CellID -> 800663030
                  ],
                  Cell[
                   BoxData[
@@ -19310,7 +19540,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-20\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-20@@Definitions/SelectDiscard/Tests.wlt:298,1-302,2\""
+                        }
                        ]
                       }
                      ],
@@ -19322,7 +19558,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 753708205
+                  CellID -> 286298278
                  ],
                  Cell[
                   BoxData[
@@ -19385,7 +19621,13 @@ Notebook[
                        "\n",
                        "    ",
                        RowBox[
-                        {"TestID", " ", "->", " ", "\"PropertiesAndRelations-21\""}
+                        {
+                         "TestID",
+                         " ",
+                         "->",
+                         " ",
+                         "\"PropertiesAndRelations-21@@Definitions/SelectDiscard/Tests.wlt:304,1-308,2\""
+                        }
                        ]
                       }
                      ],
@@ -19397,7 +19639,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 973615218
+                  CellID -> 1018052
                  ]
                 },
                 Open
@@ -19468,7 +19710,15 @@ Notebook[
                           ",",
                           "\n",
                           "    ",
-                          RowBox[{"TestID", " ", "->", " ", "\"ErrorCases-1\""}]
+                          RowBox[
+                           {
+                            "TestID",
+                            " ",
+                            "->",
+                            " ",
+                            "\"ErrorCases-1@@Definitions/SelectDiscard/Tests.wlt:323,1-329,2\""
+                           }
+                          ]
                          }
                         ],
                         "\n",
@@ -19550,7 +19800,15 @@ Notebook[
                         ",",
                         "\n",
                         "    ",
-                        RowBox[{"TestID", " ", "->", " ", "\"ErrorCases-2\""}]
+                        RowBox[
+                         {
+                          "TestID",
+                          " ",
+                          "->",
+                          " ",
+                          "\"ErrorCases-2@@Definitions/SelectDiscard/Tests.wlt:331,1-337,2\""
+                         }
+                        ]
                        }
                       ],
                       "\n",
@@ -19562,7 +19820,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 582511363
+                  CellID -> 859532006
                  ],
                  Cell["Non-normal expression:", "Text", CellID -> 142254520],
                  Cell[
@@ -19617,7 +19875,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", "   ", "->", " ", "\"ErrorCases-3\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         "   ",
+                         "->",
+                         " ",
+                         "\"ErrorCases-3@@Definitions/SelectDiscard/Tests.wlt:340,1-346,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -19628,7 +19894,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 327112645
+                  CellID -> 442657312
                  ],
                  Cell["Bad count spec:", "Text", CellID -> 240721089],
                  Cell[
@@ -19701,7 +19967,15 @@ Notebook[
                        ",",
                        "\n",
                        "    ",
-                       RowBox[{"TestID", "   ", "->", " ", "\"ErrorCases-4\""}]
+                       RowBox[
+                        {
+                         "TestID",
+                         "   ",
+                         "->",
+                         " ",
+                         "\"ErrorCases-4@@Definitions/SelectDiscard/Tests.wlt:349,1-355,2\""
+                        }
+                       ]
                       }
                      ],
                      "\n",
@@ -19712,7 +19986,7 @@ Notebook[
                   "Input",
                   "Code",
                   InitializationCell -> False,
-                  CellID -> 703157043
+                  CellID -> 775803566
                  ]
                 },
                 Open
@@ -19778,7 +20052,19 @@ Notebook[
                     ",",
                     "\n",
                     "    ",
-                    RowBox[{"SameTest", " ", "->", " ", "MatchQ"}]
+                    RowBox[{"SameTest", " ", "->", " ", "MatchQ"}],
+                    ",",
+                    "\n",
+                    "    ",
+                    RowBox[
+                     {
+                      "TestID",
+                      " ",
+                      "->",
+                      " ",
+                      "\"Cleanup@@Definitions/SelectDiscard/Tests.wlt:360,1-365,2\""
+                     }
+                    ]
                    }
                   ],
                   "\n",
@@ -19789,7 +20075,7 @@ Notebook[
                "Input",
                "Code",
                InitializationCell -> False,
-               CellID -> 481447768
+               CellID -> 522385906
               ]
              },
              Closed
@@ -20094,7 +20380,7 @@ Notebook[
                 "CompatibilityOperatingSystem",
                 "CompatibilityOperatingSystem-Checkboxes"
                },
-               CellID -> 293260377
+               CellID -> 101015342
               ]
              },
              Closed
@@ -20278,7 +20564,7 @@ Notebook[
                 "CompatibilityFeatures",
                 "CompatibilityFeatures-Checkboxes"
                },
-               CellID -> 160263877
+               CellID -> 157281056
               ]
              },
              Closed
@@ -20566,7 +20852,7 @@ Notebook[
                 "CompatibilityEvaluationEnvironment",
                 "CompatibilityEvaluationEnvironment-Checkboxes"
                },
-               CellID -> 347200968
+               CellID -> 105191270
               ]
              },
              Closed
@@ -20688,7 +20974,7 @@ Notebook[
                 "CompatibilityCloudSupport",
                 "CompatibilityCloudSupport-Checkboxes"
                },
-               CellID -> 348817293
+               CellID -> 3286504
               ]
              },
              Closed

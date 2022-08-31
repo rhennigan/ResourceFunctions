@@ -1,0 +1,4134 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* Created By: SaveReadableNotebook *)
+(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)
+
+Notebook[
+ {
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      BoxData[
+       {
+        RowBox[
+         {
+          RowBox[
+           {
+            "Get",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "FileNameJoin",
+              " ",
+              "@",
+              " ",
+              RowBox[
+               {
+                "{",
+                " ",
+                RowBox[
+                 {
+                  RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                  ",",
+                  " ",
+                  "\"Definition.wl\""
+                 }
+                ],
+                " ",
+                "}"
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          ";"
+         }
+        ],
+        "\n",
+        RowBox[
+         {
+          "Quiet",
+          "[",
+          " ",
+          RowBox[
+           {
+            RowBox[
+             {
+              "TestReport",
+              " ",
+              "@",
+              " ",
+              RowBox[
+               {
+                "FileNameJoin",
+                " ",
+                "@",
+                " ",
+                RowBox[
+                 {
+                  "{",
+                  " ",
+                  RowBox[
+                   {
+                    RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                    ",",
+                    " ",
+                    "\"Tests.wlt\""
+                   }
+                  ],
+                  " ",
+                  "}"
+                 }
+                ]
+               }
+              ]
+             }
+            ],
+            ",",
+            " ",
+            RowBox[{"General", "::", "shdw"}]
+           }
+          ],
+          " ",
+          "]"
+         }
+        ]
+       }
+      ],
+      "Code",
+      "Excluded",
+      CellLabel -> "In[1]:="
+     ],
+     Cell[
+      BoxData[
+       InterpretationBox[
+        RowBox[
+         {
+          TagBox["TestReportObject", "SummaryHead"],
+          "[",
+          DynamicModuleBox[
+           {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+           TemplateBox[
+            {
+             PaneSelectorBox[
+              {
+               False ->
+                GridBox[
+                 {
+                  {
+                   PaneBox[
+                    ButtonBox[
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]
+                     ],
+                     ButtonFunction :> (Typeset`open$$ = True),
+                     Appearance -> None,
+                     BaseStyle -> { },
+                     Evaluator -> Automatic,
+                     Method -> "Preemptive"
+                    ],
+                    Alignment -> {Center, Center},
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ]
+                   ],
+                   GraphicsBox[
+                    {
+                     InsetBox[
+                      BoxData[
+                       FormBox[
+                        PaneBox[
+                         DynamicBox[
+                          FEPrivate`FrontEndResource[
+                           "MUnitExpressions",
+                           "SuccessIcon"
+                          ]
+                         ],
+                         Alignment -> Center,
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        TraditionalForm
+                       ]
+                      ]
+                     ]
+                    },
+                    PlotRange -> {{0, 1}, {0, 1}},
+                    Background -> GrayLevel[0.93],
+                    Axes -> False,
+                    AspectRatio -> 1,
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ],
+                    Frame -> True,
+                    FrameTicks -> None,
+                    FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TagBox[
+                          InterpretationBox[
+                           StyleBox["\"100%\"", ShowStringCharacters -> False],
+                           1.0,
+                           AutoDelete -> True
+                          ],
+                          PercentForm
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      RowBox[
+                       {
+                        TagBox["\"Tests run: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["10", "SummaryItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                    BaseStyle -> {
+                     ShowStringCharacters -> False,
+                     NumberMarks -> False,
+                     PrintPrecision -> 3,
+                     ShowSyntaxStyles -> False
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                 AutoDelete -> False,
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                 BaselinePosition -> {1, 1}
+                ],
+               True ->
+                GridBox[
+                 {
+                  {
+                   PaneBox[
+                    ButtonBox[
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]
+                     ],
+                     ButtonFunction :> (Typeset`open$$ = False),
+                     Appearance -> None,
+                     BaseStyle -> { },
+                     Evaluator -> Automatic,
+                     Method -> "Preemptive"
+                    ],
+                    Alignment -> {Center, Center},
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ]
+                   ],
+                   GraphicsBox[
+                    {
+                     InsetBox[
+                      BoxData[
+                       FormBox[
+                        PaneBox[
+                         DynamicBox[
+                          FEPrivate`FrontEndResource[
+                           "MUnitExpressions",
+                           "SuccessIcon"
+                          ]
+                         ],
+                         Alignment -> Center,
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        TraditionalForm
+                       ]
+                      ]
+                     ]
+                    },
+                    PlotRange -> {{0, 1}, {0, 1}},
+                    Background -> GrayLevel[0.93],
+                    Axes -> False,
+                    AspectRatio -> 1,
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ],
+                    Frame -> True,
+                    FrameTicks -> None,
+                    FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TagBox[
+                          InterpretationBox[
+                           StyleBox["\"100%\"", ShowStringCharacters -> False],
+                           1.0,
+                           AutoDelete -> True
+                          ],
+                          PercentForm
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      RowBox[
+                       {
+                        TagBox["\"Tests run: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["10", "SummaryItem"]
+                       }
+                      ]
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Succeeded: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["10", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Failed: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox[
+                         "\"Failed with wrong results: \"",
+                         "SummaryItemAnnotation"
+                        ],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox[
+                         "\"Failed with messages: \"",
+                         "SummaryItemAnnotation"
+                        ],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Failed with errors: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TemplateBox[
+                          {"3.1450858`", "\"s\"", "seconds", "\"Seconds\""},
+                          "Quantity",
+                          SyntaxForm -> Mod
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                    BaseStyle -> {
+                     ShowStringCharacters -> False,
+                     NumberMarks -> False,
+                     PrintPrecision -> 3,
+                     ShowSyntaxStyles -> False
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                 AutoDelete -> False,
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                 BaselinePosition -> {1, 1}
+                ]
+              },
+              Dynamic[Typeset`open$$],
+              ImageSize -> Automatic
+             ]
+            },
+            "SummaryPanel"
+           ],
+           DynamicModuleValues :> { }
+          ],
+          "]"
+         }
+        ],
+        TestReportObject[
+         <|
+          "Title" -> "Test Report: Tests.wlt",
+          "Aborted" -> False,
+          "TestResults" -> <|
+           2884690836329847424 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 2884690836329847424,
+              "TestID" -> "Initialization",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SetOptions[
+                 ResourceFunction["MessageFailure"],
+                 "TestMode" -> True
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["TestMode" -> True]],
+              "ActualOutput" ->
+               HoldForm[
+                {
+                 "MessageFunction" -> Automatic,
+                 "Verbose" -> False,
+                 "Stack" -> False,
+                 "TestMode" -> True
+                }
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.058002,
+              "CPUTimeUsed" -> 0.016,
+              "MemoryUsed" -> 299752
+             |>
+            ],
+           6055503630973290365 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 6055503630973290365,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                cell = PrintAsCellObject[a + b];
+                First[NotebookRead[cell]]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[BoxData[RowBox[{"a", "+", "b"}]]],
+              "ActualOutput" ->
+               HoldForm[BoxData[RowBox[{"a", "+", "b"}]]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.0059991,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2448
+             |>
+            ],
+           7465256600815536389 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 7465256600815536389,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[ResourceFunction["CellInformation"][cell]],
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["Style" -> "Print"]],
+              "ActualOutput" ->
+               HoldForm[
+                <|
+                 "Style" -> "Print",
+                 "ContentData" -> BoxData,
+                 "ContentDataForm" -> StandardForm,
+                 "Evaluating" -> False,
+                 "Rendering" -> False,
+                 "NeedsRendering" -> False,
+                 "CursorPosition" -> "BelowCell",
+                 "FirstCellInGroup" -> False,
+                 "CellSerialNumber" -> 23158,
+                 "Formatted" -> True,
+                 "ExpressionUUID" -> "5da49bbe-9643-41c7-a98b-cc6e0b48aeb4"
+                |>
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.078998,
+              "CPUTimeUsed" -> 0.031,
+              "MemoryUsed" -> 27248
+             |>
+            ],
+           7733463414064802396 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 7733463414064802396,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" -> HoldForm[NotebookDelete[cell]],
+              "ExpectedOutput" -> HoldForm[Null],
+              "ActualOutput" -> HoldForm[Null],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.001,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2776
+             |>
+            ],
+           3651885521456779541 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 3651885521456779541,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[ResourceFunction["CellInformation"][cell]],
+              "ExpectedOutput" -> HoldForm[$Failed],
+              "ActualOutput" -> HoldForm[$Failed],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.007,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 592
+             |>
+            ],
+           1499257982910565006 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 1499257982910565006,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                Block[ { CellPrint },
+                 RemoteEvaluate[PrintAsCellObject["test"]]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[Missing["FrontEndNotAvailable"]],
+              "ActualOutput" -> HoldForm[Missing["FrontEndNotAvailable"]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.95204,
+              "CPUTimeUsed" -> 0.078,
+              "MemoryUsed" -> 3621056
+             |>
+            ],
+           662147878580218620 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 662147878580218620,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                RemoteEvaluate[UsingFrontEnd[PrintAsCellObject["test"]]]
+               ],
+              "ExpectedOutput" -> HoldForm[Blank[CellObject]],
+              "ActualOutput" ->
+               HoldForm[
+                CellObject[
+                 "c901970c-6675-4d54-a4d4-0e67b09f1e9e",
+                 "f5795707-e258-4eda-9753-8be22e25960d"
+                ]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 2.019,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2152
+             |>
+            ],
+           1520905813680073980 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 1520905813680073980,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                cell = PrintAsCellObject[a + b];
+                First[NotebookRead[cell]]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[BoxData[RowBox[{"a", "+", "b"}]]],
+              "ActualOutput" ->
+               HoldForm[BoxData[RowBox[{"a", "+", "b"}]]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.0070003,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 1840
+             |>
+            ],
+           6347007469736285590 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 6347007469736285590,
+              "TestID" -> None,
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> SameQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" -> HoldForm[NotebookDelete[cell]],
+              "ExpectedOutput" -> HoldForm[Null],
+              "ActualOutput" -> HoldForm[Null],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.016001,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2832
+             |>
+            ],
+           4430646582837360281 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 4430646582837360281,
+              "TestID" -> "Cleanup",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\PrintAsCellObject\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SetOptions[
+                 ResourceFunction["MessageFailure"],
+                 "TestMode" -> False
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["TestMode" -> False]],
+              "ActualOutput" ->
+               HoldForm[
+                {
+                 "MessageFunction" -> Automatic,
+                 "Verbose" -> False,
+                 "Stack" -> False,
+                 "TestMode" -> False
+                }
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8709*^9,
+              "AbsoluteTimeUsed" -> 0.0,
+              "CPUTimeUsed" -> 0.0,
+              "MemoryUsed" -> 2224
+             |>
+            ]
+          |>,
+          "TestsSucceededKeys" -> {
+           2884690836329847424,
+           6055503630973290365,
+           7465256600815536389,
+           7733463414064802396,
+           3651885521456779541,
+           1499257982910565006,
+           662147878580218620,
+           1520905813680073980,
+           6347007469736285590,
+           4430646582837360281
+          },
+          "TestsFailedWrongResultsKeys" -> { },
+          "TestsFailedWithMessagesKeys" -> { },
+          "TestsFailedWithErrorsKeys" -> { }
+         |>
+        ],
+        Editable -> False,
+        SelectWithContents -> True,
+        Selectable -> False
+       ]
+      ],
+      "Output",
+      "Excluded",
+      CellLabel -> "Out[2]="
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Basic Examples",
+      "Subsection",
+      CellLabel -> "In[4]:="
+     ],
+     Cell["Print an expression:", "Text", CellID -> 541150406],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {"PrintAsCellObject", "[", RowBox[{"x", "+", "y"}], "]"}
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:=",
+         CellID -> 566785613
+        ],
+        Cell[
+         BoxData[RowBox[{"x", "+", "y"}]],
+         "Print",
+         CellLabel -> "During evaluation of In[1]:="
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           <|
+            "obj" ->
+             CellObject[
+              "bc28ba13-c8e2-4b2c-a2ce-84ea6e351a0c",
+              "3314604c-f022-400b-95d6-9fa129bf19a2"
+             ],
+            "label" -> "\"Print\""
+           |>,
+           "CellObjectUUIDs"
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter",
+         CellID -> 224031726
+        ],
+        Cell[
+         TextData[
+          {
+           "Get the printed ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "CellObject",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/CellObject",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " for manipulation in the front end:"
+          }
+         ],
+         "Text",
+         CellID -> 67633413
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "cell",
+               "=",
+               RowBox[
+                {"PrintAsCellObject", "[", RowBox[{"a", "+", "b"}], "]"}
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:=",
+            CellID -> 506057770
+           ],
+           Cell[
+            BoxData[RowBox[{"a", "+", "b"}]],
+            "Print",
+            CellLabel -> "During evaluation of In[1]:="
+           ],
+           Cell[
+            BoxData[
+             TemplateBox[
+              <|
+               "obj" ->
+                CellObject[
+                 "53dc5808-678b-43df-bc20-d461afbb8e9a",
+                 "236b7f79-0295-4ab2-8df6-4aa2dc87c2d5"
+                ],
+               "label" -> "\"Print\""
+              |>,
+              "CellObjectUUIDs"
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         TextData[
+          {
+           "View the corresponding ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "Cell",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/Cell",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " expression:"
+          }
+         ],
+         "Text",
+         CellID -> 31737314
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[RowBox[{"NotebookRead", "[", "cell", "]"}]],
+            "Input",
+            CellLabel -> "In[2]:=",
+            CellID -> 530783005
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Cell",
+               "[",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "BoxData",
+                   "[",
+                   RowBox[
+                    {
+                     "RowBox",
+                     "[",
+                     RowBox[
+                      {"{", RowBox[{"\"a\"", ",", "\"+\"", ",", "\"b\""}], "}"}
+                     ],
+                     "]"
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 ",",
+                 "\"Print\"",
+                 ",",
+                 RowBox[
+                  {
+                   "CellLabel",
+                   "\[Rule]",
+                   "\"During evaluation of In[1]:=\""
+                  }
+                 ]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[2]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         "I removed the NotebookDelete part of these examples to make it less confusing when looking at the shingle. NotebookRead is good enough for demonstrating the uses of a CellObject.",
+         "AuthorComment",
+         CellFrameLabels -> {
+          {
+           None,
+           Cell[
+            BoxData[
+             TemplateBox[
+              {
+               StyleBox[
+                "\"richardh@wolfram.com\"",
+                ShowStringCharacters -> False,
+                StripOnInput -> False
+               ],
+               3.8709*^9
+              },
+              "CommentCellLabelTemplate"
+             ]
+            ],
+            Background -> None
+           ]
+          },
+          {None, None}
+         },
+         CellTags -> {"AuthorComment", "CommentCell"}
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter",
+         CellID -> 224031727
+        ],
+        Cell[
+         "Print the first five primes:",
+         "Text",
+         CellID -> 462590772
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "printed",
+               "=",
+               RowBox[
+                {
+                 "Table",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     "PrintAsCellObject",
+                     "[",
+                     RowBox[{"Prime", "[", "n", "]"}],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   RowBox[{"{", RowBox[{"n", ",", "5"}], "}"}]
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:=",
+            CellID -> 383896454
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData["2"],
+               "Print",
+               CellLabel -> "During evaluation of In[1]:="
+              ],
+              Cell[
+               BoxData["3"],
+               "Print",
+               CellLabel -> "During evaluation of In[1]:="
+              ],
+              Cell[
+               BoxData["5"],
+               "Print",
+               CellLabel -> "During evaluation of In[1]:="
+              ],
+              Cell[
+               BoxData["7"],
+               "Print",
+               CellLabel -> "During evaluation of In[1]:="
+              ],
+              Cell[
+               BoxData["11"],
+               "Print",
+               CellLabel -> "During evaluation of In[1]:="
+              ]
+             },
+             Open
+            ]
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "{",
+               RowBox[
+                {
+                 TemplateBox[
+                  <|
+                   "obj" ->
+                    CellObject[
+                     "53eb462a-38c7-4457-93a8-a35e7ff21336",
+                     "282ec858-b9d3-4776-8149-768729507768"
+                    ],
+                   "label" -> "\"Print\""
+                  |>,
+                  "CellObjectUUIDs"
+                 ],
+                 ",",
+                 TemplateBox[
+                  <|
+                   "obj" ->
+                    CellObject[
+                     "891baad4-732a-467b-9bc7-553e63371ea3",
+                     "668f0898-f6a9-476a-88f5-4fa565ae9a49"
+                    ],
+                   "label" -> "\"Print\""
+                  |>,
+                  "CellObjectUUIDs"
+                 ],
+                 ",",
+                 TemplateBox[
+                  <|
+                   "obj" ->
+                    CellObject[
+                     "d107fec7-72e2-4e1d-b960-a4151b5510cf",
+                     "f8be1dc5-448b-4d0e-8bef-656a135f1403"
+                    ],
+                   "label" -> "\"Print\""
+                  |>,
+                  "CellObjectUUIDs"
+                 ],
+                 ",",
+                 TemplateBox[
+                  <|
+                   "obj" ->
+                    CellObject[
+                     "f23cafd8-7941-42f1-820e-f1b886e6c962",
+                     "ce711a0d-219d-4c40-a602-fa4594aeb3d8"
+                    ],
+                   "label" -> "\"Print\""
+                  |>,
+                  "CellObjectUUIDs"
+                 ],
+                 ",",
+                 TemplateBox[
+                  <|
+                   "obj" ->
+                    CellObject[
+                     "62209afe-fb7f-41ba-ae98-389157746da0",
+                     "9a93c0a1-1ea3-4679-a115-0087a5bdc89e"
+                    ],
+                   "label" -> "\"Print\""
+                  |>,
+                  "CellObjectUUIDs"
+                 ]
+                }
+               ],
+               "}"
+              }
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell["Scope", "Subsection", CellLabel -> "In[2]:="],
+     Cell["Print graphics:", "Text", CellID -> 827212912],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "PrintAsCellObject",
+            "[",
+            RowBox[
+             {"Graphics", "[", RowBox[{"Circle", "[", "]"}], "]"}
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:=",
+         CellID -> 253539439
+        ],
+        Cell[
+         BoxData[
+          GraphicsBox[
+           CircleBox[{0, 0}],
+           ImageSize -> {121.0, Automatic}
+          ]
+         ],
+         "Print",
+         CellLabel -> "During evaluation of In[1]:="
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           <|
+            "obj" ->
+             CellObject[
+              "620242c0-e87c-449d-be89-d23d05c33e3b",
+              "af0759eb-9cff-426a-a30b-df9f129fc2a6"
+             ],
+            "label" -> "\"Print\""
+           |>,
+           "CellObjectUUIDs"
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "PrintAsCellObject",
+            "[",
+            RowBox[
+             {"Graphics3D", "[", RowBox[{"Sphere", "[", "]"}], "]"}
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:=",
+         CellID -> 88075756
+        ],
+        Cell[
+         BoxData[
+          Graphics3DBox[
+           SphereBox[{0, 0, 0}],
+           ImageSize -> {121.0, Automatic}
+          ]
+         ],
+         "Print",
+         CellLabel -> "During evaluation of In[2]:="
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           <|
+            "obj" ->
+             CellObject[
+              "4b97416b-64d8-4a22-a9ea-fd518ca2922c",
+              "4dee3561-d47a-4875-836b-35e0cf440620"
+             ],
+            "label" -> "\"Print\""
+           |>,
+           "CellObjectUUIDs"
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter",
+         CellID -> 224031728
+        ],
+        Cell[
+         "Multiple arguments will be concatenated together:",
+         "Text",
+         CellID -> 850649963
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "PrintAsCellObject",
+               "[",
+               RowBox[
+                {RowBox[{"x", "^", "2"}], ",", "\"=\"", ",", "12434"}
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:=",
+            CellID -> 54827736
+           ],
+           Cell[
+            BoxData[
+             InterpretationBox[
+              RowBox[
+               {
+                SuperscriptBox["x", "2"],
+                "\[InvisibleSpace]",
+                "\"=\"",
+                "\[InvisibleSpace]",
+                "12434"
+               }
+              ],
+              x^2 * "=" * 12434,
+              Editable -> False
+             ]
+            ],
+            "Print",
+            CellLabel -> "During evaluation of In[1]:="
+           ],
+           Cell[
+            BoxData[
+             TemplateBox[
+              <|
+               "obj" ->
+                CellObject[
+                 "9dd35e82-7f63-4a2e-bff3-104438de3276",
+                 "61ea8d49-4158-49ca-b193-86abf1341e14"
+                ],
+               "label" -> "\"Print\""
+              |>,
+              "CellObjectUUIDs"
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter",
+         CellID -> 224031729
+        ],
+        Cell[
+         "Print an unevaluated expression:",
+         "Text",
+         CellID -> 84470224
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "PrintAsCellObject",
+               "[",
+               RowBox[
+                {
+                 "Unevaluated",
+                 "[",
+                 RowBox[{"Echo", "[", RowBox[{"1", "+", "1"}], "]"}],
+                 "]"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:=",
+            CellID -> 657453154
+           ],
+           Cell[
+            BoxData[
+             RowBox[{"Echo", "[", RowBox[{"1", "+", "1"}], "]"}]
+            ],
+            "Print",
+            CellLabel -> "During evaluation of In[1]:="
+           ],
+           Cell[
+            BoxData[
+             TemplateBox[
+              <|
+               "obj" ->
+                CellObject[
+                 "b0539e8b-0700-4557-9dc8-2150debaf85f",
+                 "15fe28ff-cc5b-419e-bf31-f9b64f0dd89a"
+                ],
+               "label" -> "\"Print\""
+              |>,
+              "CellObjectUUIDs"
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter",
+         CellID -> 224031730
+        ],
+        Cell[
+         "If no arguments are given, an empty cell will be printed:",
+         "Text",
+         CellID -> 700629973
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[RowBox[{"PrintAsCellObject", "[", "]"}]],
+            "Input",
+            CellLabel -> "In[1]:=",
+            CellID -> 200955933
+           ],
+           Cell[
+            BoxData["\"\""],
+            "Print",
+            CellLabel -> "During evaluation of In[1]:="
+           ],
+           Cell[
+            BoxData[
+             TemplateBox[
+              <|
+               "obj" ->
+                CellObject[
+                 "9f038c1b-9979-4819-b10f-b720a03efb09",
+                 "8825a1d1-be00-4a7a-b7b0-0530c69bdedd"
+                ],
+               "label" -> "\"Print\""
+              |>,
+              "CellObjectUUIDs"
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[RowBox[{"NotebookRead", "[", "%", "]"}]],
+            "Input",
+            CellLabel -> "In[2]:=",
+            CellID -> 209625681
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Cell",
+               "[",
+               RowBox[
+                {
+                 RowBox[{"BoxData", "[", "\"\\\"\\\"\"", "]"}],
+                 ",",
+                 "\"Print\"",
+                 ",",
+                 RowBox[
+                  {
+                   "CellLabel",
+                   "\[Rule]",
+                   "\"During evaluation of In[1]:=\""
+                  }
+                 ]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[2]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell["Options", "Subsection"],
+  Cell["Applications", "Subsection"],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Properties and Relations",
+      "Subsection",
+      CellLabel -> "In[3]:="
+     ],
+     Cell[
+      TextData[
+       {
+        "The cells generated by ",
+        Cell[
+         BoxData["PrintAsCellObject"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " are equivalent to those generated by ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Print",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Print",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ":"
+       }
+      ],
+      "Text",
+      CellID -> 625992380
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "cell",
+            "=",
+            RowBox[
+             {"PrintAsCellObject", "[", RowBox[{"a", "+", "b"}], "]"}
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:=",
+         CellID -> 790985991
+        ],
+        Cell[
+         BoxData[RowBox[{"a", "+", "b"}]],
+         "Print",
+         CellLabel -> "During evaluation of In[1]:="
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           <|
+            "obj" ->
+             CellObject[
+              "50f44d48-2a9d-4e5a-8cbe-280f847a6f45",
+              "d45e6410-7147-4239-81c6-1800b297134d"
+             ],
+            "label" -> "\"Print\""
+           |>,
+           "CellObjectUUIDs"
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"NotebookRead", "[", "cell", "]"}]],
+         "Input",
+         CellLabel -> "In[2]:=",
+         CellID -> 918338822
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "Cell",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "BoxData",
+                "[",
+                RowBox[
+                 {
+                  "RowBox",
+                  "[",
+                  RowBox[
+                   {"{", RowBox[{"\"a\"", ",", "\"+\"", ",", "\"b\""}], "}"}
+                  ],
+                  "]"
+                 }
+                ],
+                "]"
+               }
+              ],
+              ",",
+              "\"Print\"",
+              ",",
+              RowBox[
+               {
+                "CellLabel",
+                "\[Rule]",
+                "\"During evaluation of In[1]:=\""
+               }
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[{"Print", "[", RowBox[{"a", "+", "b"}], "]"}]
+         ],
+         "Input",
+         CellLabel -> "In[3]:=",
+         CellID -> 777860130
+        ],
+        Cell[
+         BoxData[RowBox[{"a", "+", "b"}]],
+         "Print",
+         CellLabel -> "During evaluation of In[3]:="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "NotebookRead",
+            "[",
+            RowBox[{"PreviousCell", "[", "]"}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[4]:=",
+         CellID -> 654970148
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "Cell",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "BoxData",
+                "[",
+                RowBox[
+                 {
+                  "RowBox",
+                  "[",
+                  RowBox[
+                   {"{", RowBox[{"\"a\"", ",", "\"+\"", ",", "\"b\""}], "}"}
+                  ],
+                  "]"
+                 }
+                ],
+                "]"
+               }
+              ],
+              ",",
+              "\"Print\"",
+              ",",
+              RowBox[
+               {
+                "CellLabel",
+                "\[Rule]",
+                "\"During evaluation of In[3]:=\""
+               }
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[4]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      TextData[
+       {
+        "However, the output of ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Print",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Print",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " is always ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Null",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Null",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ":"
+       }
+      ],
+      "Text",
+      CellID -> 253772228
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[{"Print", "[", RowBox[{"a", "+", "b"}], "]"}],
+            "//",
+            "InputForm"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[5]:=",
+         CellID -> 705034747
+        ],
+        Cell[
+         BoxData[RowBox[{"a", "+", "b"}]],
+         "Print",
+         CellLabel -> "During evaluation of In[5]:="
+        ],
+        Cell["Null", "Output", CellLabel -> "Out[5]//InputForm="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            RowBox[
+             {"PrintAsCellObject", "[", RowBox[{"a", "+", "b"}], "]"}
+            ],
+            "//",
+            "InputForm"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[6]:=",
+         CellID -> 768080611
+        ],
+        Cell[
+         BoxData[RowBox[{"a", "+", "b"}]],
+         "Print",
+         CellLabel -> "During evaluation of In[6]:="
+        ],
+        Cell[
+         "CellObject[\"68bd416c-3019-4fd3-a8e6-322eb0560e88\", \"bdf2f105-635a-4368-8801-8892bedfe7fc\"]",
+         "Output",
+         CellLabel -> "Out[6]//InputForm="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter",
+         CellID -> 224031731
+        ],
+        Cell[
+         TextData[
+          {
+           Cell[
+            BoxData["PrintAsCellObject"],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " returns a ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "CellObject",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/CellObject",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " similar to ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "PrintTemporary",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/PrintTemporary",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           ", but does not automatically remove the cell:"
+          }
+         ],
+         "Text",
+         CellID -> 241726325
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             {
+              RowBox[{"PrintTemporary", "[", "\"hello\"", "]"}],
+              "\[IndentingNewLine]",
+              RowBox[{"Pause", "[", "3", "]"}]
+             }
+            ],
+            "Input",
+            CellLabel -> "In[1]:=",
+            CellID -> 76418808
+           ],
+           Cell[
+            BoxData[
+             TemplateBox[
+              <|
+               "obj" ->
+                CellObject[
+                 "d0561f1c-1b22-4ffa-a31b-cda34f54c92e",
+                 "40ef5150-59bd-4f6d-97d7-1413bec37dd5"
+                ],
+               "label" -> "\"PrintTemporary\""
+              |>,
+              "CellObjectUUIDs"
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Possible Issues",
+      "Subsection",
+      CellLabel -> "In[2]:="
+     ],
+     Cell[
+      TextData[
+       {
+        "In a kernel session that has no front end, the output is a ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Missing",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Missing",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " object:"
+       }
+      ],
+      "Text",
+      CellID -> 336867571
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "RemoteEvaluate",
+            "[",
+            RowBox[{"PrintAsCellObject", "[", "\"test\"", "]"}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:=",
+         CellID -> 638756320
+        ],
+        Cell[
+         "test",
+         "Print",
+         ShowCellLabel -> True,
+         CellLabel -> "Local kernel"
+        ],
+        Cell[
+         BoxData[
+          RowBox[{"Missing", "[", "\"FrontEndNotAvailable\"", "]"}]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      TextData[
+       {
+        "Wrapping the evaluation in ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "UsingFrontEnd",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/UsingFrontEnd",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " will give a ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "CellObject",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/CellObject",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ":"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "RemoteEvaluate",
+            "[",
+            RowBox[
+             {
+              "UsingFrontEnd",
+              "[",
+              RowBox[{"PrintAsCellObject", "[", "\"test\"", "]"}],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           <|
+            "obj" :>
+             CellObject[
+              "5d8df12c-565d-4e89-9faf-2cba1812847f",
+              "03a52df4-580c-4ab1-bad1-4bf0bd7e62c6"
+             ],
+            "label" -> "\"5d8df12c-565d-4e89-9faf-2cba1812847f\""
+           |>,
+           "CellObjectUUIDsMissing"
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      TextData[
+       {
+        "However, that ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "CellObject",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/CellObject",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " is only useful in the front end instance that created it:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"NotebookRead", "[", "%", "]"}]],
+         "Input",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[BoxData["$Failed"], "Output", CellLabel -> "Out[3]="]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "RemoteEvaluate",
+            "[",
+            RowBox[
+             {
+              "UsingFrontEnd",
+              "[",
+              RowBox[
+               {
+                "NotebookRead",
+                "[",
+                RowBox[{"PrintAsCellObject", "[", "\"test\"", "]"}],
+                "]"
+               }
+              ],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[4]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "Cell",
+            "[",
+            RowBox[
+             {
+              RowBox[{"BoxData", "[", "\"\\\"test\\\"\"", "]"}],
+              ",",
+              "\"Print\"",
+              ",",
+              RowBox[
+               {
+                "CellLabel",
+                "\[Rule]",
+                "\"During evaluation of In[1]:=\""
+               }
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[4]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter",
+         CellID -> 224031734
+        ],
+        Cell[
+         TextData[
+          {
+           "Unlike ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "Print",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/Print",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           ", ",
+           Cell[
+            BoxData["PrintAsCellObject"],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " needs to wait for a response from the front end:"
+          }
+         ],
+         "Text",
+         CellID -> 973930102
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "AbsoluteTiming",
+               "[",
+               RowBox[{"PrintAsCellObject", "[", "\"test\"", "]"}],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:=",
+            CellID -> 743763230
+           ],
+           Cell[
+            BoxData["\"test\""],
+            "Print",
+            CellLabel -> "During evaluation of In[1]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "{",
+               RowBox[
+                {
+                 "0.0073314`",
+                 ",",
+                 TemplateBox[
+                  <|
+                   "obj" ->
+                    CellObject[
+                     "feed7426-973e-4f9b-a389-b4ada1c647fe",
+                     "87edf2f9-890b-43aa-8ec2-63169b72a600"
+                    ],
+                   "label" -> "\"Print\""
+                  |>,
+                  "CellObjectUUIDs"
+                 ]
+                }
+               ],
+               "}"
+              }
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "AbsoluteTiming",
+               "[",
+               RowBox[{"Print", "[", "\"test\"", "]"}],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[2]:=",
+            CellID -> 897184287
+           ],
+           Cell[
+            BoxData["\"test\""],
+            "Print",
+            CellLabel -> "During evaluation of In[2]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[{"{", RowBox[{"0.0000262`", ",", "Null"}], "}"}]
+            ],
+            "Output",
+            CellLabel -> "Out[2]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           Cell[
+            BoxData["PrintAsCellObject"],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " does not inherit settings for ",
+           Cell[
+            BoxData["GeneratedCellStyles"],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           ":"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             {
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "SetOptions",
+                  "[",
+                  RowBox[
+                   {
+                    RowBox[{"EvaluationCell", "[", "]"}],
+                    ",",
+                    RowBox[
+                     {
+                      "GeneratedCellStyles",
+                      "->",
+                      RowBox[
+                       {
+                        "{",
+                        RowBox[
+                         {
+                          "\"Print\"",
+                          "\[Rule]",
+                          RowBox[
+                           {
+                            "{",
+                            RowBox[
+                             {
+                              "\"Print\"",
+                              ",",
+                              RowBox[{"Background", "->", "LightBlue"}]
+                             }
+                            ],
+                            "}"
+                           }
+                          ]
+                         }
+                        ],
+                        "}"
+                       }
+                      ]
+                     }
+                    ]
+                   }
+                  ],
+                  "]"
+                 }
+                ],
+                ";"
+               }
+              ],
+              "\[IndentingNewLine]",
+              RowBox[
+               {
+                RowBox[
+                 {"Print", "[", "\"This has the correct style.\"", "]"}
+                ],
+                ";"
+               }
+              ],
+              "\[IndentingNewLine]",
+              RowBox[
+               {
+                RowBox[
+                 {"PrintAsCellObject", "[", "\"This does not.\"", "]"}
+                ],
+                ";"
+               }
+              ]
+             }
+            ],
+            "Input",
+            GeneratedCellStyles -> {
+             "Print" -> {"Print", Background -> RGBColor[0.87, 0.94, 1]}
+            },
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            CellGroupData[
+             {
+              Cell[
+               BoxData["\"This has the correct style.\""],
+               "Print",
+               Background -> RGBColor[0.87, 0.94, 1],
+               CellLabel -> "During evaluation of In[1]:="
+              ],
+              Cell[
+               BoxData["\"This does not.\""],
+               "Print",
+               CellLabel -> "During evaluation of In[3]:="
+              ]
+             },
+             Open
+            ]
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell["Neat Examples", "Subsection", CellLabel -> "In[3]:="],
+     Cell[
+      TextData[
+       {
+        "Create a version of ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Print",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Print",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " that is automatically cleared after a specified amount of time:"
+       }
+      ],
+      "Text",
+      CellID -> 977814942
+     ],
+     Cell[
+      BoxData[
+       RowBox[
+        {
+         RowBox[
+          {
+           RowBox[
+            {
+             "PrintForAWhile",
+             "[",
+             RowBox[{"expr___", ",", RowBox[{"t_", "?", "Positive"}]}],
+             "]"
+            }
+           ],
+           ":=",
+           "\[IndentingNewLine]",
+           RowBox[
+            {
+             "With",
+             "[",
+             RowBox[
+              {
+               RowBox[
+                {
+                 "{",
+                 RowBox[
+                  {
+                   "cell",
+                   "=",
+                   RowBox[{"PrintAsCellObject", "[", "expr", "]"}]
+                  }
+                 ],
+                 "}"
+                }
+               ],
+               ",",
+               "\[IndentingNewLine]",
+               RowBox[
+                {
+                 "SessionSubmit",
+                 "[",
+                 RowBox[
+                  {
+                   "ScheduledTask",
+                   "[",
+                   RowBox[
+                    {
+                     RowBox[{"NotebookDelete", "[", "cell", "]"}],
+                     ",",
+                     RowBox[{"{", "t", "}"}]
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ],
+             "\[IndentingNewLine]",
+             "]"
+            }
+           ]
+          }
+         ],
+         ";"
+        }
+       ]
+      ],
+      "Input",
+      CellLabel -> "In[1]:=",
+      CellID -> 659997032
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "PrintForAWhile",
+            "[",
+            RowBox[
+             {"\"This is only displayed for 5 seconds.\"", ",", "5"}
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:=",
+         CellID -> 372060004
+        ],
+        Cell[
+         BoxData[
+          TagBox[
+           TemplateBox[
+            {
+             RowBox[
+              {
+               StyleBox[
+                TagBox["TaskObject", "SummaryHead"],
+                "NonInterpretableSummary"
+               ],
+               StyleBox["[", "NonInterpretableSummary"],
+               DynamicModuleBox[
+                {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+                TemplateBox[
+                 {
+                  PaneSelectorBox[
+                   {
+                    False ->
+                     GridBox[
+                      {
+                       {
+                        PaneBox[
+                         ButtonBox[
+                          DynamicBox[
+                           FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]
+                          ],
+                          ButtonFunction :> (Typeset`open$$ = True),
+                          Appearance -> None,
+                          BaseStyle -> { },
+                          Evaluator -> Automatic,
+                          Method -> "Preemptive"
+                         ],
+                         Alignment -> {Center, Center},
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        GraphicsBox[
+                         {
+                          Thickness[0.041667],
+                          {
+                           FaceForm[{RGBColor[0.537, 0.537, 0.537], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 15.5}, {9.501, 15.5}, {9.501, 16.5}, {6.5, 16.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 5.5}, {9.501, 5.5}, {9.501, 6.5}, {6.5, 6.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 13.5}, {9.501, 13.5}, {9.501, 14.5}, {6.5, 14.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 11.5}, {9.501, 11.5}, {9.501, 12.5}, {6.5, 12.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 9.5}, {9.501, 9.5}, {9.501, 10.5}, {6.5, 10.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 7.5}, {9.501, 7.5}, {9.501, 8.5}, {6.5, 8.5}}}
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.392, 0.392, 0.392], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {
+                             {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}},
+                             {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}
+                            },
+                            {
+                             {{15.5, 6.5}, {8.5, 6.5}, {8.5, 15.5}, {15.5, 15.5}},
+                             {{16.5, 16.5}, {7.5, 16.5}, {7.5, 5.5}, {16.5, 5.5}}
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[1.0, 1.0, 1.0], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{15.5, 15.5}, {8.5, 15.5}, {8.5, 6.5}, {15.5, 6.5}}}
+                           ]
+                          },
+                          {
+                           RGBColor[0.392, 0.392, 0.392],
+                           Thickness[0.020833],
+                           Opacity[1.0],
+                           CapForm["Round"],
+                           JoinForm["Round"],
+                           JoinedCurveBox[
+                            {
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {
+                              {0, 2, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0}
+                             },
+                             {
+                              {0, 2, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0}
+                             }
+                            },
+                            {
+                             {{10.0, 10.222}, {10.768, 10.485}},
+                             {{12.457, 10.256}, {12.0, 10.875}},
+                             {{11.543, 10.256}, {12.0, 10.875}},
+                             {{12.0, 10.875}, {11.261, 11.124}},
+                             {{12.0, 10.875}, {12.739, 11.124}},
+                             {{12.0, 10.875}, {12.0, 11.661}},
+                             {{12.439, 12.223}, {12.0, 11.661}},
+                             {{12.739, 11.124}, {13.149, 11.706}},
+                             {{12.762, 11.933}, {13.236, 12.573}},
+                             {{13.421, 10.871}, {12.739, 11.124}},
+                             {{14.0, 10.222}, {13.232, 10.485}},
+                             {{13.149, 10.036}, {12.457, 10.256}},
+                             {{12.438, 9.5197}, {12.457, 10.256}},
+                             {{12.0, 8.7687}, {12.0, 9.5887}},
+                             {{11.561, 9.5207}, {11.543, 10.256}},
+                             {{10.851, 10.036}, {11.543, 10.256}},
+                             {{11.261, 11.124}, {10.579, 10.871}},
+                             {{10.851, 11.707}, {11.261, 11.124}},
+                             {{10.765, 12.574}, {11.238, 11.933}},
+                             {{11.562, 12.223}, {12.0, 11.661}},
+                             {{12.0, 10.875}, {12.0, 10.875}},
+                             {
+                              {11.261, 11.124},
+                              {10.768, 10.485},
+                              {11.543, 10.256},
+                              {12.0, 9.5887},
+                              {12.457, 10.256},
+                              {13.232, 10.485},
+                              {12.739, 11.124},
+                              {12.762, 11.933},
+                              {12.0, 11.661},
+                              {11.238, 11.933},
+                              {11.261, 11.124}
+                             },
+                             CompressedData[
+                              "\n1:eJxTTMoPSmViYGAQBWIQDQEqDg+4J69sKlRxmHNEYUORhqqDguPH5DN7VR1g\n8lVLdZxluNUdDp5a6Lpts6rDDC2JqVcy1R08HlaJrGtXddDLW8y4R1XTwXLL\nibJ98uoOuUAua5EGVL+GQ8elew+4P2s6hDxeOvvIAw24vNu2z3+vVGg5LLhm\n8t4CqN/BNG6Xp4+WA8g5gUDzIfp1HN7w7jOYyaXukGJ937/3uhaa+3Tg7ofp\nB5rm6i6kAjcf6PrXj8KUHI55m3c6Au2PL/OXE+NShrsP5LzJnYoOa2SiUqyB\n7ofYp+ywy5OHSRvoP5h+mP9h5qOHHwA2dXV1\n                    "
+                             ]
+                            },
+                            CurveClosed -> {
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             1,
+                             1,
+                             1
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.902, 0.902, 0.902], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {
+                             {
+                              {0, 2, 0},
+                              {1, 3, 3},
+                              {1, 3, 3},
+                              {0, 1, 0},
+                              {1, 3, 3},
+                              {1, 3, 3}
+                             }
+                            },
+                            {
+                             {
+                              {21.959, 14.898},
+                              {20.057, 14.281},
+                              {20.351, 13.376},
+                              {20.5, 12.44},
+                              {20.5, 11.5},
+                              {20.5, 10.559},
+                              {20.351, 9.6244},
+                              {20.057, 8.7184},
+                              {21.959, 8.1014},
+                              {22.318, 9.2064},
+                              {22.5, 10.349},
+                              {22.5, 11.5},
+                              {22.5, 12.65},
+                              {22.318, 13.794},
+                              {21.959, 14.898}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.949, 0.949, 0.949], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {11.5, 22.5},
+                              {11.5, 20.5},
+                              {13.404, 20.5},
+                              {15.231, 19.903},
+                              {16.783, 18.773},
+                              {17.961, 20.391},
+                              {16.064, 21.771},
+                              {13.83, 22.5},
+                              {11.5, 22.5}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.929, 0.929, 0.929], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {17.961, 20.391},
+                              {17.961, 20.391},
+                              {16.783, 18.774},
+                              {18.338, 17.642},
+                              {19.47, 16.088},
+                              {20.057, 14.282},
+                              {21.959, 14.899},
+                              {21.241, 17.11},
+                              {19.858, 19.009},
+                              {17.961, 20.391}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.722, 0.722, 0.722], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {6.2168, 4.2266},
+                              {5.0388, 2.6096},
+                              {6.9358, 1.2296},
+                              {9.1698, 0.4996},
+                              {11.5, 0.4996},
+                              {11.5, 2.4996},
+                              {9.5958, 2.4996},
+                              {7.7688, 3.0966},
+                              {6.2168, 4.2266}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.78, 0.78, 0.78], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}},
+                            {
+                             {
+                              {16.783, 4.2266},
+                              {15.231, 3.0966},
+                              {13.404, 2.4996},
+                              {11.5, 2.4996},
+                              {11.5, 0.4996},
+                              {13.83, 0.4996},
+                              {16.064, 1.2296},
+                              {17.961, 2.6096},
+                              {16.783, 4.2266}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.851, 0.851, 0.851], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}},
+                            {
+                             {
+                              {20.057, 8.7187},
+                              {19.47, 6.9117},
+                              {18.338, 5.3587},
+                              {16.784, 4.2267},
+                              {17.961, 2.6097},
+                              {19.859, 3.9907},
+                              {21.242, 5.8907},
+                              {21.959, 8.1017},
+                              {20.057, 8.7187}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.675, 0.675, 0.675], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {2.9434, 8.7187},
+                              {1.0414, 8.1017},
+                              {1.7584, 5.8907},
+                              {3.1414, 3.9907},
+                              {5.0394, 2.6097},
+                              {6.2164, 4.2267},
+                              {4.6624, 5.3587},
+                              {3.5304, 6.9117},
+                              {2.9434, 8.7187}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.537, 0.537, 0.537], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {6.2168, 18.773},
+                              {5.0388, 20.39},
+                              {6.9358, 21.77},
+                              {9.1698, 22.5},
+                              {11.5, 22.5},
+                              {11.5, 20.5},
+                              {9.5958, 20.5},
+                              {7.7688, 19.903},
+                              {6.2168, 18.773}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.584, 0.584, 0.584], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}},
+                            {
+                             {
+                              {5.0391, 20.391},
+                              {3.1421, 19.009},
+                              {1.7591, 17.11},
+                              {1.0411, 14.899},
+                              {2.9431, 14.282},
+                              {3.5301, 16.088},
+                              {4.6621, 17.642},
+                              {6.2171, 18.774},
+                              {5.0391, 20.391}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.631, 0.631, 0.631], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {
+                             {
+                              {1, 4, 3},
+                              {1, 3, 3},
+                              {0, 1, 0},
+                              {1, 3, 3},
+                              {1, 3, 3},
+                              {0, 1, 0}
+                             }
+                            },
+                            {
+                             {
+                              {1.041, 14.898},
+                              {0.682, 13.794},
+                              {0.5, 12.65},
+                              {0.5, 11.5},
+                              {0.5, 10.349},
+                              {0.682, 9.2064},
+                              {1.041, 8.1014},
+                              {2.943, 8.7184},
+                              {2.649, 9.6244},
+                              {2.5, 10.559},
+                              {2.5, 11.5},
+                              {2.5, 12.44},
+                              {2.649, 13.376},
+                              {2.943, 14.281},
+                              {1.041, 14.898}
+                             }
+                            }
+                           ]
+                          }
+                         },
+                         AspectRatio -> Automatic,
+                         ImageSize -> {24.0, 24.0},
+                         PlotRange -> {{0.0, 24.0}, {0.0, 24.0}}
+                        ],
+                        GridBox[
+                         {
+                          {
+                           RowBox[
+                            {
+                             TagBox["\"Task UUID: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox[
+                              "\"3e35fa1c-caa6-48ea-b66b-881250bc8612\"",
+                              "SummaryItem"
+                             ]
+                            }
+                           ]
+                          },
+                          {
+                           RowBox[
+                            {
+                             TagBox["\"Task environment: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox["\"Session\"", "SummaryItem"]
+                            }
+                           ]
+                          },
+                          {
+                           RowBox[
+                            {
+                             TagBox["\"Task type: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox["\"Scheduled\"", "SummaryItem"]
+                            }
+                           ]
+                          },
+                          {
+                           RowBox[
+                            {
+                             TagBox[
+                              "\"Evaluation expression: \"",
+                              "SummaryItemAnnotation"
+                             ],
+                             "\[InvisibleSpace]",
+                             TagBox[
+                              TagBox[
+                               RowBox[
+                                {
+                                 "NotebookDelete",
+                                 "[",
+                                 TemplateBox[
+                                  <|
+                                   "obj" :>
+                                    CellObject[
+                                     "ef1df86f-3e09-4d74-a23f-e230ce37fe9c",
+                                     "e54b5417-d224-4a95-bb8c-00f53748107e"
+                                    ],
+                                   "label" -> "\"Print\""
+                                  |>,
+                                  "CellObjectUUIDs"
+                                 ],
+                                 "]"
+                                }
+                               ],
+                               Short
+                              ],
+                              "SummaryItem"
+                             ]
+                            }
+                           ]
+                          }
+                         },
+                         GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                         AutoDelete -> False,
+                         GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                         GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                         BaseStyle -> {
+                          ShowStringCharacters -> False,
+                          NumberMarks -> False,
+                          PrintPrecision -> 3,
+                          ShowSyntaxStyles -> False
+                         }
+                        ]
+                       }
+                      },
+                      GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                      AutoDelete -> False,
+                      GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                      BaselinePosition -> {1, 1}
+                     ],
+                    True ->
+                     GridBox[
+                      {
+                       {
+                        PaneBox[
+                         ButtonBox[
+                          DynamicBox[
+                           FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]
+                          ],
+                          ButtonFunction :> (Typeset`open$$ = False),
+                          Appearance -> None,
+                          BaseStyle -> { },
+                          Evaluator -> Automatic,
+                          Method -> "Preemptive"
+                         ],
+                         Alignment -> {Center, Center},
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        GraphicsBox[
+                         {
+                          Thickness[0.041667],
+                          {
+                           FaceForm[{RGBColor[0.537, 0.537, 0.537], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 15.5}, {9.501, 15.5}, {9.501, 16.5}, {6.5, 16.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 5.5}, {9.501, 5.5}, {9.501, 6.5}, {6.5, 6.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 13.5}, {9.501, 13.5}, {9.501, 14.5}, {6.5, 14.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 11.5}, {9.501, 11.5}, {9.501, 12.5}, {6.5, 12.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 9.5}, {9.501, 9.5}, {9.501, 10.5}, {6.5, 10.5}}}
+                           ],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{6.5, 7.5}, {9.501, 7.5}, {9.501, 8.5}, {6.5, 8.5}}}
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.392, 0.392, 0.392], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {
+                             {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}},
+                             {{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}
+                            },
+                            {
+                             {{15.5, 6.5}, {8.5, 6.5}, {8.5, 15.5}, {15.5, 15.5}},
+                             {{16.5, 16.5}, {7.5, 16.5}, {7.5, 5.5}, {16.5, 5.5}}
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[1.0, 1.0, 1.0], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {0, 1, 0}}},
+                            {{{15.5, 15.5}, {8.5, 15.5}, {8.5, 6.5}, {15.5, 6.5}}}
+                           ]
+                          },
+                          {
+                           RGBColor[0.392, 0.392, 0.392],
+                           Thickness[0.020833],
+                           Opacity[1.0],
+                           CapForm["Round"],
+                           JoinForm["Round"],
+                           JoinedCurveBox[
+                            {
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {{0, 2, 0}},
+                             {
+                              {0, 2, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0}
+                             },
+                             {
+                              {0, 2, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0},
+                              {0, 1, 0}
+                             }
+                            },
+                            {
+                             {{10.0, 10.222}, {10.768, 10.485}},
+                             {{12.457, 10.256}, {12.0, 10.875}},
+                             {{11.543, 10.256}, {12.0, 10.875}},
+                             {{12.0, 10.875}, {11.261, 11.124}},
+                             {{12.0, 10.875}, {12.739, 11.124}},
+                             {{12.0, 10.875}, {12.0, 11.661}},
+                             {{12.439, 12.223}, {12.0, 11.661}},
+                             {{12.739, 11.124}, {13.149, 11.706}},
+                             {{12.762, 11.933}, {13.236, 12.573}},
+                             {{13.421, 10.871}, {12.739, 11.124}},
+                             {{14.0, 10.222}, {13.232, 10.485}},
+                             {{13.149, 10.036}, {12.457, 10.256}},
+                             {{12.438, 9.5197}, {12.457, 10.256}},
+                             {{12.0, 8.7687}, {12.0, 9.5887}},
+                             {{11.561, 9.5207}, {11.543, 10.256}},
+                             {{10.851, 10.036}, {11.543, 10.256}},
+                             {{11.261, 11.124}, {10.579, 10.871}},
+                             {{10.851, 11.707}, {11.261, 11.124}},
+                             {{10.765, 12.574}, {11.238, 11.933}},
+                             {{11.562, 12.223}, {12.0, 11.661}},
+                             {{12.0, 10.875}, {12.0, 10.875}},
+                             {
+                              {11.261, 11.124},
+                              {10.768, 10.485},
+                              {11.543, 10.256},
+                              {12.0, 9.5887},
+                              {12.457, 10.256},
+                              {13.232, 10.485},
+                              {12.739, 11.124},
+                              {12.762, 11.933},
+                              {12.0, 11.661},
+                              {11.238, 11.933},
+                              {11.261, 11.124}
+                             },
+                             CompressedData[
+                              "\n1:eJxTTMoPSmViYGAQBWIQDQEqDg+4J69sKlRxmHNEYUORhqqDguPH5DN7VR1g\n8lVLdZxluNUdDp5a6Lpts6rDDC2JqVcy1R08HlaJrGtXddDLW8y4R1XTwXLL\nibJ98uoOuUAua5EGVL+GQ8elew+4P2s6hDxeOvvIAw24vNu2z3+vVGg5LLhm\n8t4CqN/BNG6Xp4+WA8g5gUDzIfp1HN7w7jOYyaXukGJ937/3uhaa+3Tg7ofp\nB5rm6i6kAjcf6PrXj8KUHI55m3c6Au2PL/OXE+NShrsP5LzJnYoOa2SiUqyB\n7ofYp+ywy5OHSRvoP5h+mP9h5qOHHwA2dXV1\n                    "
+                             ]
+                            },
+                            CurveClosed -> {
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             0,
+                             1,
+                             1,
+                             1
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.902, 0.902, 0.902], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {
+                             {
+                              {0, 2, 0},
+                              {1, 3, 3},
+                              {1, 3, 3},
+                              {0, 1, 0},
+                              {1, 3, 3},
+                              {1, 3, 3}
+                             }
+                            },
+                            {
+                             {
+                              {21.959, 14.898},
+                              {20.057, 14.281},
+                              {20.351, 13.376},
+                              {20.5, 12.44},
+                              {20.5, 11.5},
+                              {20.5, 10.559},
+                              {20.351, 9.6244},
+                              {20.057, 8.7184},
+                              {21.959, 8.1014},
+                              {22.318, 9.2064},
+                              {22.5, 10.349},
+                              {22.5, 11.5},
+                              {22.5, 12.65},
+                              {22.318, 13.794},
+                              {21.959, 14.898}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.949, 0.949, 0.949], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {11.5, 22.5},
+                              {11.5, 20.5},
+                              {13.404, 20.5},
+                              {15.231, 19.903},
+                              {16.783, 18.773},
+                              {17.961, 20.391},
+                              {16.064, 21.771},
+                              {13.83, 22.5},
+                              {11.5, 22.5}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.929, 0.929, 0.929], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {17.961, 20.391},
+                              {17.961, 20.391},
+                              {16.783, 18.774},
+                              {18.338, 17.642},
+                              {19.47, 16.088},
+                              {20.057, 14.282},
+                              {21.959, 14.899},
+                              {21.241, 17.11},
+                              {19.858, 19.009},
+                              {17.961, 20.391}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.722, 0.722, 0.722], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {6.2168, 4.2266},
+                              {5.0388, 2.6096},
+                              {6.9358, 1.2296},
+                              {9.1698, 0.4996},
+                              {11.5, 0.4996},
+                              {11.5, 2.4996},
+                              {9.5958, 2.4996},
+                              {7.7688, 3.0966},
+                              {6.2168, 4.2266}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.78, 0.78, 0.78], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}},
+                            {
+                             {
+                              {16.783, 4.2266},
+                              {15.231, 3.0966},
+                              {13.404, 2.4996},
+                              {11.5, 2.4996},
+                              {11.5, 0.4996},
+                              {13.83, 0.4996},
+                              {16.064, 1.2296},
+                              {17.961, 2.6096},
+                              {16.783, 4.2266}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.851, 0.851, 0.851], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}},
+                            {
+                             {
+                              {20.057, 8.7187},
+                              {19.47, 6.9117},
+                              {18.338, 5.3587},
+                              {16.784, 4.2267},
+                              {17.961, 2.6097},
+                              {19.859, 3.9907},
+                              {21.242, 5.8907},
+                              {21.959, 8.1017},
+                              {20.057, 8.7187}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.675, 0.675, 0.675], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {2.9434, 8.7187},
+                              {1.0414, 8.1017},
+                              {1.7584, 5.8907},
+                              {3.1414, 3.9907},
+                              {5.0394, 2.6097},
+                              {6.2164, 4.2267},
+                              {4.6624, 5.3587},
+                              {3.5304, 6.9117},
+                              {2.9434, 8.7187}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.537, 0.537, 0.537], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}},
+                            {
+                             {
+                              {6.2168, 18.773},
+                              {5.0388, 20.39},
+                              {6.9358, 21.77},
+                              {9.1698, 22.5},
+                              {11.5, 22.5},
+                              {11.5, 20.5},
+                              {9.5958, 20.5},
+                              {7.7688, 19.903},
+                              {6.2168, 18.773}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.584, 0.584, 0.584], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {{{1, 4, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}}},
+                            {
+                             {
+                              {5.0391, 20.391},
+                              {3.1421, 19.009},
+                              {1.7591, 17.11},
+                              {1.0411, 14.899},
+                              {2.9431, 14.282},
+                              {3.5301, 16.088},
+                              {4.6621, 17.642},
+                              {6.2171, 18.774},
+                              {5.0391, 20.391}
+                             }
+                            }
+                           ]
+                          },
+                          {
+                           FaceForm[{RGBColor[0.631, 0.631, 0.631], Opacity[1.0]}],
+                           FilledCurveBox[
+                            {
+                             {
+                              {1, 4, 3},
+                              {1, 3, 3},
+                              {0, 1, 0},
+                              {1, 3, 3},
+                              {1, 3, 3},
+                              {0, 1, 0}
+                             }
+                            },
+                            {
+                             {
+                              {1.041, 14.898},
+                              {0.682, 13.794},
+                              {0.5, 12.65},
+                              {0.5, 11.5},
+                              {0.5, 10.349},
+                              {0.682, 9.2064},
+                              {1.041, 8.1014},
+                              {2.943, 8.7184},
+                              {2.649, 9.6244},
+                              {2.5, 10.559},
+                              {2.5, 11.5},
+                              {2.5, 12.44},
+                              {2.649, 13.376},
+                              {2.943, 14.281},
+                              {1.041, 14.898}
+                             }
+                            }
+                           ]
+                          }
+                         },
+                         AspectRatio -> Automatic,
+                         ImageSize -> {24.0, 24.0},
+                         PlotRange -> {{0.0, 24.0}, {0.0, 24.0}}
+                        ],
+                        GridBox[
+                         {
+                          {
+                           RowBox[
+                            {
+                             TagBox["\"Task UUID: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox[
+                              "\"3e35fa1c-caa6-48ea-b66b-881250bc8612\"",
+                              "SummaryItem"
+                             ]
+                            }
+                           ]
+                          },
+                          {
+                           RowBox[
+                            {
+                             TagBox["\"Task environment: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox["\"Session\"", "SummaryItem"]
+                            }
+                           ]
+                          },
+                          {
+                           RowBox[
+                            {
+                             TagBox["\"Task type: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox["\"Scheduled\"", "SummaryItem"]
+                            }
+                           ]
+                          },
+                          {
+                           RowBox[
+                            {
+                             TagBox[
+                              "\"Evaluation expression: \"",
+                              "SummaryItemAnnotation"
+                             ],
+                             "\[InvisibleSpace]",
+                             TagBox[
+                              TagBox[
+                               RowBox[
+                                {
+                                 "NotebookDelete",
+                                 "[",
+                                 TemplateBox[
+                                  <|
+                                   "obj" :>
+                                    CellObject[
+                                     "ef1df86f-3e09-4d74-a23f-e230ce37fe9c",
+                                     "e54b5417-d224-4a95-bb8c-00f53748107e"
+                                    ],
+                                   "label" -> "\"Print\""
+                                  |>,
+                                  "CellObjectUUIDs"
+                                 ],
+                                 "]"
+                                }
+                               ],
+                               Short
+                              ],
+                              "SummaryItem"
+                             ]
+                            }
+                           ]
+                          },
+                          {
+                           RowBox[
+                            {
+                             TagBox["\"Run interval: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox["5", "SummaryItem"]
+                            }
+                           ]
+                          },
+                          {
+                           RowBox[
+                            {
+                             TagBox["\"Total run count: \"", "SummaryItemAnnotation"],
+                             "\[InvisibleSpace]",
+                             TagBox["1", "SummaryItem"]
+                            }
+                           ]
+                          }
+                         },
+                         GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                         AutoDelete -> False,
+                         GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                         GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                         BaseStyle -> {
+                          ShowStringCharacters -> False,
+                          NumberMarks -> False,
+                          PrintPrecision -> 3,
+                          ShowSyntaxStyles -> False
+                         }
+                        ]
+                       }
+                      },
+                      GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                      AutoDelete -> False,
+                      GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                      BaselinePosition -> {1, 1}
+                     ]
+                   },
+                   Dynamic[Typeset`open$$],
+                   ImageSize -> Automatic
+                  ]
+                 },
+                 "SummaryPanel"
+                ],
+                DynamicModuleValues :> { }
+               ],
+               StyleBox["]", "NonInterpretableSummary"]
+              }
+             ]
+            },
+            "CopyTag",
+            DisplayFunction -> (#1 &),
+            InterpretationFunction ->
+             (Function[
+              "TaskObject[<|TaskUUID -> 3e35fa1c-caa6-48ea-b66b-881250bc8612, TaskEnvironment -> Session, TaskType -> Scheduled, <<3>>, HandlerFunctionsKeys -> {Task, TaskUUID, TaskType, TaskStatus, TaskEnvironment, HandlerFunctions, HandlerFunctionsKeys, EventName, EvaluationExpression, <<4>>, Rema<<11>>nt, NextScheduledTime, TotalRunCount, MessageOutput, PrintOutput}, AutoRemove -> True|>]"
+             ])
+           ],
+           False,
+           Editable -> False,
+           SelectWithContents -> True,
+           Selectable -> False
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      BoxData[
+       RowBox[
+        {
+         "Do",
+         "[",
+         RowBox[
+          {
+           RowBox[
+            {
+             "With",
+             "[",
+             RowBox[
+              {
+               RowBox[
+                {
+                 "{",
+                 RowBox[{"t", "=", RowBox[{"RandomReal", "[", "10", "]"}]}],
+                 "}"
+                }
+               ],
+               ",",
+               RowBox[
+                {
+                 "PrintForAWhile",
+                 "[",
+                 RowBox[
+                  {
+                   RowBox[
+                    {
+                     InterpretationBox[
+                      TagBox[
+                       FrameBox[
+                        PaneBox[
+                         GridBox[
+                          {
+                           {
+                            StyleBox[
+                             StyleBox[
+                              AdjustmentBox[
+                               "\"[\[FilledSmallSquare]]\"",
+                               BoxBaselineShift -> -0.25,
+                               BoxMargins -> {{0, 0}, {-1, -1}}
+                              ],
+                              "ResourceFunctionIcon",
+                              FontColor -> RGBColor[0.87451, 0.27843, 0.031373]
+                             ],
+                             ShowStringCharacters -> False,
+                             FontFamily -> "Source Sans Pro Black",
+                             FontSize -> 0.65 * Inherited,
+                             FontWeight -> "Heavy",
+                             PrivateFontOptions -> {"OperatorSubstitution" -> False}
+                            ],
+                            StyleBox[
+                             RowBox[
+                              {StyleBox["\"BirdSay\"", "ResourceFunctionLabel"], " "}
+                             ],
+                             ShowAutoStyles -> False,
+                             ShowStringCharacters -> False,
+                             FontSize -> 0.9 * Inherited,
+                             FontColor -> GrayLevel[0.1]
+                            ]
+                           }
+                          },
+                          GridBoxSpacings -> {"Columns" -> {{0.25}}}
+                         ],
+                         Alignment -> Left,
+                         BaseStyle -> {LineSpacing -> {0, 0}, LineBreakWithin -> False},
+                         BaselinePosition -> Baseline,
+                         FrameMargins -> {{3, 0}, {0, 0}}
+                        ],
+                        Background -> RGBColor[0.96863, 0.97647, 0.98431],
+                        BaselinePosition -> Baseline,
+                        DefaultBaseStyle -> { },
+                        FrameMargins -> {{0, 0}, {1, 1}},
+                        FrameStyle -> RGBColor[0.83137, 0.84706, 0.85098],
+                        RoundingRadius -> 4
+                       ],
+                       {
+                        "FunctionResourceBox",
+                        RGBColor[0.87451, 0.27843, 0.031373],
+                        "\"BirdSay\""
+                       },
+                       TagBoxNote -> "FunctionResourceBox"
+                      ],
+                      ResourceFunction["BirdSay"],
+                      Selectable -> False
+                     ],
+                     "[",
+                     RowBox[
+                      {
+                       "Row",
+                       "[",
+                       RowBox[
+                        {
+                         "{",
+                         RowBox[
+                          {
+                           "\"This is only displayed for \"",
+                           ",",
+                           "t",
+                           ",",
+                           "\" seconds.\""
+                          }
+                         ],
+                         "}"
+                        }
+                       ],
+                       "]"
+                      }
+                     ],
+                     "]"
+                    }
+                   ],
+                   ",",
+                   "t"
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ],
+             "]"
+            }
+           ],
+           ",",
+           "5"
+          }
+         ],
+         "]"
+        }
+       ]
+      ],
+      "Input",
+      CellLabel -> "In[3]:=",
+      CellID -> 851849388
+     ]
+    },
+    Open
+   ]
+  ]
+ },
+ WindowStatusArea -> Automatic,
+ DockedCells -> {
+  Cell[
+   BoxData[TemplateBox[{}, "ToolsGridTemplate"]],
+   "DockedCell",
+   CellFrameMargins -> {{0, 0}, {2, 2}},
+   CellFrame -> {{0, 0}, {1, 0}}
+  ]
+ },
+ TaggingRules -> <|
+  "InformationPopupMenuItemAdded" -> True,
+  "NotebookIndexQ" -> True,
+  "NotebookLastIndexed" ->
+   DateObject[
+    {2022, 8, 31, 11, 13, 29.321},
+    "Instant",
+    "Gregorian",
+    -4.0
+   ],
+  "NotebookUUID" -> "84ca9705-2458-41cc-a5fd-006f3759fdc8",
+  "AutoUpdate" -> True
+ |>,
+ TrackCellChangeTimes -> False,
+ FrontEndVersion -> "13.2 for Microsoft Windows (64-bit) (August 23, 2022)",
+ StyleDefinitions ->
+  FrontEnd`FileName[
+   {"Wolfram"},
+   "FunctionResourceDefinitionStyles.nb",
+   CharacterEncoding -> "UTF-8"
+  ],
+ ExpressionUUID -> "84ca9705-2458-41cc-a5fd-006f3759fdc8"
+]

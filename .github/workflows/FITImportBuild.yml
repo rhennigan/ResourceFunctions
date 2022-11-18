@@ -10,14 +10,13 @@ env:
   RESOURCE_PUBLISHER_TOKEN: ${{ secrets.RESOURCE_PUBLISHER_TOKEN }}
   WOLFRAMSCRIPT_ENTITLEMENTID: ${{ secrets.WOLFRAMSCRIPT_ENTITLEMENTID }}
   WLPR_PACLET_SITE: https://resources.wolframcloud.com/PacletRepository/pacletsite
-  FUNCTION_DIRECTORY: "Definitions/FITImport"
 jobs: 
   Compile-Windows-x86-64: 
     name: Compile-Windows-x86-64
     runs-on: windows-latest
     env: 
-      WOLFRAM_LIBRARY_BUILD_OUTPUT: "${{ env.FUNCTION_DIRECTORY }}/LibraryResources/"
-      WOLFRAM_LIBRARY_BUILD_SCRIPT: "./${{ env.FUNCTION_DIRECTORY }}/Scripts/Compile.wls"
+      WOLFRAM_LIBRARY_BUILD_OUTPUT: "Definitions/FITImport/LibraryResources/"
+      WOLFRAM_LIBRARY_BUILD_SCRIPT: "./Definitions/FITImport/Scripts/Compile.wls"
       WOLFRAM_SYSTEM_ID: Windows-x86-64
       WOLFRAMENGINE_CACHE_KEY: WolframEngine-A
       WOLFRAMENGINE_INSTALL_MSI_DOWNLOAD_URL: https://files.wolframcdn.com/packages/winget/13.0.0.0/WolframEngine_13.0.0_WIN.msi
@@ -80,8 +79,8 @@ jobs:
     name: Compile-MacOSX-x86-64
     runs-on: macos-12
     env: 
-      WOLFRAM_LIBRARY_BUILD_OUTPUT: ${{ env.FUNCTION_DIRECTORY }}/LibraryResources/
-      WOLFRAM_LIBRARY_BUILD_SCRIPT: ./${{ env.FUNCTION_DIRECTORY }}/Scripts/Compile.wls
+      WOLFRAM_LIBRARY_BUILD_OUTPUT: Definitions/FITImport/LibraryResources/
+      WOLFRAM_LIBRARY_BUILD_SCRIPT: ./Definitions/FITImport/Scripts/Compile.wls
       WOLFRAM_SYSTEM_ID: MacOSX-x86-64
       WOLFRAMENGINE_CACHE_KEY: WolframEngine-A
       WOLFRAMENGINE_DOWNLOAD_PATH: /tmp/downloads
@@ -134,8 +133,8 @@ jobs:
       image: wolframresearch/wolframengine:13.0.1
       options: --user root
     env: 
-      WOLFRAM_LIBRARY_BUILD_SCRIPT: ./${{ env.FUNCTION_DIRECTORY }}/Scripts/Compile.wls
-      WOLFRAM_LIBRARY_BUILD_OUTPUT: ${{ env.FUNCTION_DIRECTORY }}/LibraryResources/
+      WOLFRAM_LIBRARY_BUILD_SCRIPT: ./Definitions/FITImport/Scripts/Compile.wls
+      WOLFRAM_LIBRARY_BUILD_OUTPUT: Definitions/FITImport/LibraryResources/
       WOLFRAM_SYSTEM_ID: Linux-x86-64
     steps: 
     - name: Checkout

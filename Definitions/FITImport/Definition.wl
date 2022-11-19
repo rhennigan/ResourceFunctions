@@ -122,6 +122,12 @@ FITImport::CopyTemporaryFailed =
 FITImport::ArgumentCount =
 "FITImport called with `1` arguments; between 1 and 2 arguments are expected.";
 
+FITImport::InvalidFTP =
+"The value `1` is not a valid value for functional threshold power.";
+
+FITImport::InvalidMaxHR =
+"The value `1` is not a valid value for maximum heart rate.";
+
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Attributes*)
@@ -130,7 +136,11 @@ FITImport // Attributes = { };
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Options*)
-FITImport // Options = { UnitSystem :> $UnitSystem };
+FITImport // Options = {
+    "FunctionalThresholdPower" :> PersistentSymbol[ "FITImport/FunctionalThresholdPower" ],
+    "MaxHeartRate"             :> PersistentSymbol[ "FITImport/MaxHeartRate" ],
+    UnitSystem                 :> $UnitSystem
+};
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
@@ -158,12 +168,10 @@ FITImport[ file_, opts: OptionsPattern[ ] ] :=
     catchTop @ FITImport[ file, "Dataset", opts ];
 
 FITImport[ file_? FileExistsQ, "RawData", opts: OptionsPattern[ ] ] :=
-    catchTop @ Block[ { $UnitSystem = OptionValue @ UnitSystem },
-        fitImport @ ExpandFileName @ file
-    ];
+    optionsBlock[ fitImport @ ExpandFileName @ file, opts ];
 
 FITImport[ file_? FileExistsQ, "Data", opts: OptionsPattern[ ] ] :=
-    catchTop @ Block[ { $UnitSystem = OptionValue @ UnitSystem },
+    optionsBlock[
         Module[ { data, formatted, tr, filtered },
             Needs[ "GeneralUtilities`" -> None ];
             data = FITImport[ file, "RawData", opts ];
@@ -171,7 +179,8 @@ FITImport[ file_? FileExistsQ, "Data", opts: OptionsPattern[ ] ] :=
             tr = gu`AssociationTranspose @ formatted;
             filtered = Select[ tr, Composition[ Not, AllTrue @ MissingQ ] ];
             gu`AssociationTranspose @ filtered
-        ]
+        ],
+        opts
     ];
 
 FITImport[ file_? FileExistsQ, "Dataset", opts: OptionsPattern[ ] ] :=
@@ -187,9 +196,12 @@ FITImport[ _, "Elements", OptionsPattern[ ] ] :=
     $fitElements;
 
 FITImport[ file_, key: $$fitKeys, opts: OptionsPattern[ ] ] :=
-    catchTop @ Module[ { data },
-        data  = FITImport[ file, "RawData", opts ];
-        makeTimeSeriesData[ data, key ]
+    optionsBlock[
+        Module[ { data },
+            data = FITImport[ file, "RawData", opts ];
+            makeTimeSeriesData[ data, key ]
+        ],
+        opts
     ];
 
 FITImport[ file_, All, opts: OptionsPattern[ ] ] :=
@@ -257,6 +269,60 @@ $fitElements = {
     "Elements",
     "RawData"
 };
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*optionsBlock*)
+optionsBlock // beginDefinition;
+optionsBlock // Attributes = { HoldFirst };
+
+optionsBlock[ eval_, opts: OptionsPattern[ FITImport ] ] :=
+    catchTop @ Block[
+        {
+            $FunctionalThresholdPower = OptionValue @ FunctionalThresholdPower,
+            $MaxHeartRate             = OptionValue @ MaxHeartRate,
+            $UnitSystem               = OptionValue @ UnitSystem,
+            $ftp,
+            $maxHR
+        },
+        $ftp   = setFTP @ $FunctionalThresholdPower;
+        $maxHR = setMaxHR @ $MaxHeartRate;
+        eval
+    ];
+
+optionsBlock // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*setFTP*)
+setFTP // beginDefinition;
+
+setFTP[ None|_Missing ] := None;
+setFTP[ ftp_Integer   ] := N @ ftp;
+setFTP[ ftp_Real      ] := ftp;
+
+setFTP[ Quantity[ ftp_, "Watts" ] ] := setFTP @ ftp;
+setFTP[ ftp_Quantity ] := setFTP @ UnitConvert[ ftp, "Watts" ];
+
+setFTP[ ftp_ ] := throwFailure[ "InvalidFTP", ftp ];
+
+setFTP // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*setMaxHR*)
+setMaxHR // beginDefinition;
+
+setMaxHR[ None|_Missing ] := None;
+setMaxHR[ hr_Integer    ] := N @ hr;
+setMaxHR[ hr_Real       ] := hr;
+
+setMaxHR[ Quantity[ hr_, "Beats"/"Minutes" ] ] := setMaxHR @ hr;
+setMaxHR[ hr_Quantity ] := setMaxHR @ UnitConvert[ hr, "Beats"/"Minutes" ];
+
+setMaxHR[ hr_ ] := throwFailure[ "InvalidMaxHR", hr ];
+
+setMaxHR // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -505,7 +571,9 @@ $fitKeys = {
     "StrokeType",
     "Zone",
     "FractionalCadence",
-    "DeviceIndex"
+    "DeviceIndex",
+    "PowerZone",
+    "HeartRateZone"
 };
 
 (* ::**********************************************************************:: *)
@@ -587,6 +655,8 @@ fitValue[ "StrokeType"                     , v_ ] := fitStrokeType @ v[[ 43 ]];
 fitValue[ "Zone"                           , v_ ] := fitZone @ v[[ 44 ]];
 fitValue[ "FractionalCadence"              , v_ ] := fitFractionalCadence @ v[[ 45 ]];
 fitValue[ "DeviceIndex"                    , v_ ] := fitDeviceIndex @ v[[ 46 ]];
+fitValue[ "PowerZone"                      , v_ ] := fitPowerZone @ v[[ 12 ]];
+fitValue[ "HeartRateZone"                  , v_ ] := fitHeartRateZone @ v[[ 28 ]];
 
 fitValue[ _, _ ] := Missing[ "NotAvailable" ];
 
@@ -935,10 +1005,69 @@ fitDeviceIndex // ClearAll;
 fitDeviceIndex[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
-(* ::Subsection::Closed:: *)
-(*Misc utilities*)
+(* ::Subsubsection::Closed:: *)
+(*fitPowerZone*)
+fitPowerZone // ClearAll;
+fitPowerZone[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
+fitPowerZone[ n_Integer ] := fitPowerZone[ n, $ftp ];
+fitPowerZone[ n_, ftp_Real ] := fitPowerZone0[ n / ftp ];
+fitPowerZone[ a___ ] := Missing[ "NotAvailable" ];
 
-$$Utilities
+fitPowerZone0[ p_ ] :=
+    Which[ p > 1.50, 7,
+           p > 1.20, 6,
+           p > 1.05, 5,
+           p > 0.90, 4,
+           p > 0.75, 3,
+           p > 0.55, 2,
+           p > 0.05, 1,
+           True,     Missing[ "NotAvailable" ]
+    ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitHeartRateZone*)
+fitHeartRateZone // ClearAll;
+fitHeartRateZone[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
+fitHeartRateZone[ n_Integer ] := fitHeartRateZone[ n, $maxHR ];
+fitHeartRateZone[ n_Integer, max_Real ] := fitHeartRateZone0[ n / max ];
+fitHeartRateZone[ ___ ] := Missing[ "NotAvailable" ];
+
+fitHeartRateZone0[ p_ ] :=
+    Which[ p > 1.06, 5,
+           p > 0.95, 4,
+           p > 0.84, 3,
+           p > 0.69, 2,
+           True,     1
+    ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Graphics*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$powerZoneColors*)
+$powerZoneColors = <|
+    1 -> RGBColor[ "#53b3d1" ],
+    2 -> RGBColor[ "#00cba9" ],
+    3 -> RGBColor[ "#b4de67" ],
+    4 -> RGBColor[ "#e3e562" ],
+    5 -> RGBColor[ "#f3b846" ],
+    6 -> RGBColor[ "#fa7021" ],
+    7 -> RGBColor[ "#fb0052" ]
+|>;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$hrZoneColors*)
+$hrZoneColors = <|
+    1 -> RGBColor[ "#53b3d1" ],
+    2 -> RGBColor[ "#5ad488" ],
+    3 -> RGBColor[ "#e3e562" ],
+    4 -> RGBColor[ "#f69434" ],
+    5 -> RGBColor[ "#fb0052" ]
+|>;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -1025,8 +1154,7 @@ $resourcesDir = FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResourc
 
 $libData := Replace[ $libData0, e_EvaluateInPlace :> First @ e ];
 
-
-(* Built from https://github.com/rhennigan/FitnessData/actions/runs/3496171296 *)
+(* Built from https://github.com/rhennigan/ResourceFunctions/actions/runs/3500782621 *)
 $libData0 = EvaluateInPlace @ <|
     "Linux-x86-64"   -> ReadByteArray @ FileNameJoin @ { $resourcesDir, "Linux-x86-64"  , "FitnessData.so"    },
     "MacOSX-x86-64"  -> ReadByteArray @ FileNameJoin @ { $resourcesDir, "MacOSX-x86-64" , "FitnessData.dylib" },

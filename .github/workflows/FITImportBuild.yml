@@ -1,8 +1,6 @@
 name: FITImportBuild
 on: 
   workflow_dispatch:
-  push:
-    branches: ["feature/FITImport"]
 concurrency: 
   group: ${{ github.ref }}
   cancel-in-progress: true

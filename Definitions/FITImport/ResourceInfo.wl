@@ -1,17 +1,30 @@
 <|
     "Name"        -> "FITImport",
-    "Description" -> $$Description,
-    "Author"      -> $$Author
+    "Description" -> "Import a fit file to analyze data from cycling computers, smart watches, and other devices",
+    "Author"      -> "Richard Hennigan (Wolfram Research)"
     ,
     "Keywords" -> {
-        $$Keywords
+        "fit",
+        "fitness",
+        "activity",
+        "cycling",
+        "running",
+        "swimming",
+        "walking",
+        "power zones",
+        "heart rate zones",
+        "ftp",
+        "training",
+        "training load",
+        "training stress score",
+        "tss",
+        "fitness age"
     }
     ,
     "Categories" -> {
-        $$Categories
         (* "Cloud & Deployment", *)
         (* "Core Language & Structure", *)
-        (* "Data Manipulation & Analysis", *)
+        "Data Manipulation & Analysis",
         (* "Engineering Data & Computation", *)
         (* "External Interfaces & Connections", *)
         (* "Financial Data & Computation", *)
@@ -26,29 +39,40 @@
         (* "Notebook Documents & Presentation", *)
         (* "Programming Utilities", *)
         (* "Repository Tools", *)
-        (* "Scientific and Medical Data & Computation", *)
+        "Scientific and Medical Data & Computation",
         (* "Social, Cultural & Linguistic Data", *)
         (* "Sound", *)
         (* "Strings & Text", *)
         (* "Symbolic & Numeric Computation", *)
         (* "System Operation & Setup", *)
-        (* "Time-Related Computation", *)
+        "Time-Related Computation"
         (* "User Interface Construction", *)
         (* "Visualization & Graphics", *)
         (* "Wolfram Physics Project" *)
     }
     ,
     "RelatedSymbols" -> {
-        $$RelatedSymbols
+        "Import",
+        "ImportByteArray",
+        "ImportString",
+        "TimeSeries",
+        "Dataset"
     }
     ,
     "RelatedResourceObjects" -> {
-        $$RelatedResourceObjects
+        "SVGImport",
+        "RegisterFormat"
     }
     ,
     "Links" -> {
-        "https://developer.garmin.com/fit/protocol/",
-        "https://github.com/rhennigan/FitnessData",
+        Hyperlink[
+            "FIT Protocol | FIT SDK | Garmin Developers",
+            "https://developer.garmin.com/fit/protocol/"
+        ],
+        Hyperlink[
+            "GitHub - rhennigan/FitnessData",
+            "https://github.com/rhennigan/FitnessData"
+        ],
         Hyperlink[
             "FITImport | rhennigan/ResourceFunctions | GitHub",
             "https://github.com/rhennigan/ResourceFunctions/tree/main/Definitions/FITImport"

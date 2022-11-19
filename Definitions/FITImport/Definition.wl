@@ -145,16 +145,16 @@ FITImport // Options = {
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Argument patterns*)
-$$string = _String? StringQ;
-$$bytes  = _ByteArray? ByteArrayQ;
-$$assoc  = _Association? AssociationQ;
-$$file   = File[ $$string ];
-$$url    = URL[ $$string ];
-$$co     = HoldPattern[ CloudObject ][ $$string, OptionsPattern[ ] ];
-$$lo     = HoldPattern[ LocalObject ][ $$string, OptionsPattern[ ] ];
-$$resp   = HoldPattern[ HTTPResponse ][ $$bytes, $$assoc, OptionsPattern[ ] ];
-$$source = $$string | $$file | $$url | $$co | $$lo | $$resp;
 
+$$string   = _String? StringQ;
+$$bytes    = _ByteArray? ByteArrayQ;
+$$assoc    = _Association? AssociationQ;
+$$file     = File[ $$string ];
+$$url      = URL[ $$string ];
+$$co       = HoldPattern[ CloudObject ][ $$string, OptionsPattern[ ] ];
+$$lo       = HoldPattern[ LocalObject ][ $$string, OptionsPattern[ ] ];
+$$resp     = HoldPattern[ HTTPResponse ][ $$bytes, $$assoc, OptionsPattern[ ] ];
+$$source   = $$string | $$file | $$url | $$co | $$lo | $$resp;
 $$fitKeys  = _? fitKeyQ  | { ___? fitKeyQ  };
 $$elements = _? elementQ | { ___? elementQ };
 $$prop     = _? fitKeyQ | _? elementQ;
@@ -226,7 +226,7 @@ FITImport[ file_, props: $$propList, opts: OptionsPattern[ ] ] :=
     ];
 
 (* ::**********************************************************************:: *)
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Error cases*)
 FITImport[ $$source, { ___, e: Except[ $$props ], ___ }, OptionsPattern[ ] ] :=
     catchTop[
@@ -609,7 +609,6 @@ makeFitAssociation // endDefinition;
 (* ::Subsection::Closed:: *)
 (*fitValue*)
 fitValue // beginDefinition;
-
 fitValue[ "Timestamp"                      , v_ ] := fitTimestamp @ v[[ 1 ]];
 fitValue[ "GeoPosition"                    , v_ ] := fitGeoPosition @ v[[ 2;;3 ]];
 fitValue[ "Distance"                       , v_ ] := fitDistance @ v[[ 4 ]];
@@ -657,9 +656,7 @@ fitValue[ "FractionalCadence"              , v_ ] := fitFractionalCadence @ v[[ 
 fitValue[ "DeviceIndex"                    , v_ ] := fitDeviceIndex @ v[[ 46 ]];
 fitValue[ "PowerZone"                      , v_ ] := fitPowerZone @ v[[ 12 ]];
 fitValue[ "HeartRateZone"                  , v_ ] := fitHeartRateZone @ v[[ 28 ]];
-
 fitValue[ _, _ ] := Missing[ "NotAvailable" ];
-
 fitValue // endDefinition;
 
 (* ::**********************************************************************:: *)
@@ -693,8 +690,8 @@ fitDistance[ ___ ] := Missing[ "NotAvailable" ];
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*fitTimeFromCourse*)
-(* TODO *)
 fitTimeFromCourse // ClearAll;
+(* TODO *)
 fitTimeFromCourse[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
@@ -1148,15 +1145,18 @@ $bugReportLink := $bugReportLink = Hyperlink[
 ];
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Resources*)
-$resourcesDir = FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResources" };
-
 $libData := Replace[ $libData0, e_EvaluateInPlace :> First @ e ];
 
-(* Built from https://github.com/rhennigan/ResourceFunctions/actions/runs/3500782621 *)
-$libData0 = EvaluateInPlace @ <|
-    "Linux-x86-64"   -> ReadByteArray @ FileNameJoin @ { $resourcesDir, "Linux-x86-64"  , "FitnessData.so"    },
-    "MacOSX-x86-64"  -> ReadByteArray @ FileNameJoin @ { $resourcesDir, "MacOSX-x86-64" , "FitnessData.dylib" },
-    "Windows-x86-64" -> ReadByteArray @ FileNameJoin @ { $resourcesDir, "Windows-x86-64", "FitnessData.dll"   }
+(* !Excluded
+Libraries built using
+[GitHub Actions](https://github.com/rhennigan/ResourceFunctions/actions/runs/3500782621).
+Source code can be found
+[here.](https://github.com/rhennigan/ResourceFunctions/tree/52ac1d6f1f59c2f7ed8400691540e88528a31b07/Definitions/FITImport/Source)
+*)
+$libData0 = <|
+    "Linux-x86-64"   -> EvaluateInPlace @ ReadByteArray @ FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResources", "Linux-x86-64"  , "FitnessData.so"    },
+    "MacOSX-x86-64"  -> EvaluateInPlace @ ReadByteArray @ FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResources", "MacOSX-x86-64" , "FitnessData.dylib" },
+    "Windows-x86-64" -> EvaluateInPlace @ ReadByteArray @ FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResources", "Windows-x86-64", "FitnessData.dll"   }
 |>;

@@ -15,11 +15,7 @@ VerificationTest[
 (* ::**********************************************************************:: *)
 (* ::Subsection:: *)
 (*Basic Examples*)
-VerificationTest[
-    1 + 2,
-    3,
-    TestID -> "JustTesting@@Definitions/FITImport/Tests.wlt:18,1-22,2"
-]
+
 
 (* ::**********************************************************************:: *)
 (* ::Subsection:: *)
@@ -63,5 +59,5 @@ VerificationTest[
     SetOptions[ ResourceFunction[ "MessageFailure" ], "TestMode" -> False ],
     KeyValuePattern[ "TestMode" -> False ],
     SameTest -> MatchQ,
-    TestID   -> "Cleanup@@Definitions/FITImport/Tests.wlt:62,1-67,2"
+    TestID   -> "Cleanup@@Definitions/FITImport/Tests.wlt:58,1-63,2"
 ]

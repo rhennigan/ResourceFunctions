@@ -4,6 +4,9 @@ set -e
 # filesToFormat="$(git --no-pager diff --name-status --no-color --cached | awk '$1 != "D" && $2 ~ /\.(nb|wlt)/ { print $2}')"
 changed="$(git --no-pager diff --name-only --no-color --cached)"
 
+echo "Changed files:"
+echo "$changed"
+
 if [ "$filesToFormat" != "" ]; then
     wolframscript Scripts/FormatFiles.wls --files="$changed"
 

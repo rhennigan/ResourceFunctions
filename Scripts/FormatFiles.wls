@@ -151,7 +151,7 @@ makeReadable[ file_, formatted_File ] :=
 (*Run*)
 If[ MemberQ[ $ScriptCommandLine, "--unformat" ],
     makeUnreadable /@ getFiles[ ],
-    makeReadable /@ getFiles[ ]
+    makeReadable /@ Echo[ getFiles[ ] ]
 ]
 
 (* :!CodeAnalysis::EndBlock:: *)

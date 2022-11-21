@@ -121,7 +121,8 @@ DLLEXPORT int FITImport(
                     case FIT_MESG_NUM_USER_PROFILE:
                     {
                         const FIT_USER_PROFILE_MESG *user_profile = (FIT_USER_PROFILE_MESG *) mesg;
-                        // printf("User Profile: weight=%0.1fkg\n", user_profile->weight / 10.0f);
+                        idx++;
+                        write_user_profile(libData, data, idx, user_profile);
                         break;
                     }
 
@@ -382,6 +383,46 @@ static void write_file_id(WolframLibraryData libData, MTensor data, int idx, con
     for(int i=0; i<FIT_FILE_ID_MESG_PRODUCT_NAME_COUNT; i++)
     {
         pos[1]++; libData->MTensor_setInteger(data, pos, mesg->product_name[i]);
+    }
+}
+
+static void write_user_profile(WolframLibraryData libData, MTensor data, int idx, const FIT_USER_PROFILE_MESG *mesg) 
+{
+    int i;
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    pos[1]++; libData->MTensor_setInteger(data, pos, FIT_MESG_NUM_USER_PROFILE);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->message_index);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->weight);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->local_id);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->user_running_step_length);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->user_walking_step_length);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->gender);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->age);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->height);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->language);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->elev_setting);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->weight_setting);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->resting_heart_rate);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->default_max_running_heart_rate);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->default_max_biking_heart_rate);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->default_max_heart_rate);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->hr_setting);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->speed_setting);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->dist_setting);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->power_setting);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->activity_class);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->position_setting);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->temperature_setting);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->height_setting);
+    for(i=0; i<FIT_USER_PROFILE_MESG_FRIENDLY_NAME_COUNT; i++)
+    {
+        pos[1]++; libData->MTensor_setInteger(data, pos, mesg->friendly_name[i]);
+    }
+    for(i=0; i<FIT_USER_PROFILE_MESG_GLOBAL_ID_COUNT; i++)
+    {
+        pos[1]++; libData->MTensor_setInteger(data, pos, mesg->global_id[i]);
     }
 }
 

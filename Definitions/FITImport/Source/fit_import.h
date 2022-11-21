@@ -15,10 +15,11 @@
 static int count_fit_messages(        char* input, mint* err );
 static int count_usable_fit_messages( char* input, mint* err );
 
-static void write_file_id(     WolframLibraryData libData, MTensor data, int idx, const FIT_FILE_ID_MESG     *mesg);
-static void write_record(      WolframLibraryData libData, MTensor data, int idx, const FIT_RECORD_MESG      *mesg);
-static void write_event(       WolframLibraryData libData, MTensor data, int idx, const FIT_EVENT_MESG       *mesg);
-static void write_device_info( WolframLibraryData libData, MTensor data, int idx, const FIT_DEVICE_INFO_MESG *mesg);
-static void write_session(     WolframLibraryData libData, MTensor data, int idx, const FIT_SESSION_MESG     *mesg);
+static void write_file_id(      WolframLibraryData libData, MTensor data, int idx, const FIT_FILE_ID_MESG      *mesg);
+static void write_user_profile( WolframLibraryData libData, MTensor data, int idx, const FIT_USER_PROFILE_MESG *mesg);
+static void write_record(       WolframLibraryData libData, MTensor data, int idx, const FIT_RECORD_MESG       *mesg);
+static void write_event(        WolframLibraryData libData, MTensor data, int idx, const FIT_EVENT_MESG        *mesg);
+static void write_device_info(  WolframLibraryData libData, MTensor data, int idx, const FIT_DEVICE_INFO_MESG  *mesg);
+static void write_session(      WolframLibraryData libData, MTensor data, int idx, const FIT_SESSION_MESG      *mesg);
 
 static void write_unknown( WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg );

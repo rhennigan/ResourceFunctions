@@ -225,6 +225,21 @@ FITImport[ file_, "MessageCounts", opts: OptionsPattern[ ] ] :=
         opts
     ];
 
+FITImport[ file_, "Messages", opts: OptionsPattern[ ] ] :=
+    optionsBlock[
+        DeleteMissing /@ formatFitData @ FITImport[ file, "RawData", opts ],
+        opts
+    ];
+
+FITImport[ file_, "MessageData", opts: OptionsPattern[ ] ] :=
+    optionsBlock[
+        Dataset @ GroupBy[
+            FITImport[ file, "Messages", opts ],
+            #MessageType &
+        ],
+        opts
+    ];
+
 FITImport[ file: $$file|$$string, prop_, opts: OptionsPattern[ ] ] /;
     ! FileExistsQ @ file :=
         With[ { found = FindFile @ file },
@@ -232,7 +247,7 @@ FITImport[ file: $$file|$$string, prop_, opts: OptionsPattern[ ] ] /;
         ];
 
 FITImport[ _, "Elements", OptionsPattern[ ] ] :=
-    $fitElements;
+    Union[ $fitElements, $messageTypes ];
 
 FITImport[ file_, key: $$fitRecordKeys, opts: OptionsPattern[ ] ] :=
     optionsBlock[
@@ -310,7 +325,9 @@ $fitElements = {
     "Events",
     "RawData",
     "Records",
-    "MessageCounts"
+    "MessageCounts",
+    "MessageData",
+    "Messages"
 };
 
 $messageTypes = {
@@ -318,7 +335,8 @@ $messageTypes = {
     "Events",
     "Records",
     "DeviceInformation",
-    "Session"
+    "Session",
+    "UserProfile"
 };
 
 (* ::**********************************************************************:: *)
@@ -421,7 +439,7 @@ fitImport[ source_, file_String ] :=
     ];
 
 fitImport[ source_, file_, data_List? rawDataQ ] := (
-    $start = data[[ 1, 1 ]];
+    (* $start = data[[ 1, 1 ]]; *) (* Broken: need to ensure value is a timestamp *)
     data
 );
 
@@ -508,7 +526,13 @@ rawDataQ[ ___      ] := False;
 makeMessageTypeData // beginDefinition;
 
 makeMessageTypeData[ data_, type: $$messageType ] :=
-    Dataset @ makeMessageTypeData0[ data, type ];
+    Module[ { ds },
+        ds = makeMessageTypeData0[ data, type ];
+        If[ MissingQ @ ds,
+            ds,
+            Dataset @ ds
+        ]
+    ];
 
 makeMessageTypeData[ data_, types: { $$messageType.. } ] :=
     Dataset @ AssociationMap[ makeMessageTypeData0[ data, # ] &, types ];
@@ -516,7 +540,13 @@ makeMessageTypeData[ data_, types: { $$messageType.. } ] :=
 makeMessageTypeData // endDefinition;
 
 makeMessageTypeData0[ data_, type_ ] :=
-    KeyDrop[ formatFitData @ selectMessageType[ data, type ], "MessageType" ];
+    Module[ { formatted },
+        formatted = formatFitData @ selectMessageType[ data, type ];
+        If[ MissingQ @ formatted,
+            formatted,
+            KeyDrop[ formatted, "MessageType" ]
+        ]
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -711,6 +741,7 @@ fitEventKeyQ[ ___  ] := False;
 (*Fit Keys*)
 fitKeys // beginDefinition;
 fitKeys[ "FileID"            ] := $fitFileIDKeys;
+fitKeys[ "UserProfile"       ] := $fitUserProfileKeys;
 fitKeys[ "Record"            ] := $fitRecordKeys;
 fitKeys[ "Event"             ] := $fitEventKeys;
 fitKeys[ "DeviceInformation" ] := $fitDeviceInformationKeys;
@@ -723,6 +754,7 @@ fitKeys // endDefinition;
 (*$fitFileIDKeys*)
 $fitFileIDKeys // ClearAll;
 $fitFileIDKeys = {
+    "MessageType",
     "SerialNumber",
     "TimeCreated",
     "Manufacturer",
@@ -730,6 +762,39 @@ $fitFileIDKeys = {
     "Number",
     "Type",
     "ProductName"
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$fitUserProfileKeys*)
+$fitUserProfileKeys // ClearAll;
+$fitUserProfileKeys = {
+    "MessageType",
+    "MessageIndex",
+    "Weight",
+    "LocalID",
+    "UserRunningStepLength",
+    "UserWalkingStepLength",
+    "Gender",
+    "Age",
+    "Height",
+    "Language",
+    "ElevationSetting",
+    "WeightSetting",
+    "RestingHeartRate",
+    "DefaultMaxRunningHeartRate",
+    "DefaultMaxBikingHeartRate",
+    "DefaultMaxHeartRate",
+    "HeartRateSetting",
+    "SpeedSetting",
+    "DistanceSetting",
+    "PowerSetting",
+    "ActivityClass",
+    "PositionSetting",
+    "TemperatureSetting",
+    "HeightSetting",
+    "FriendlyName",
+    "GlobalID"
 };
 
 (* ::**********************************************************************:: *)
@@ -946,11 +1011,15 @@ formatFitData // beginDefinition;
 
 formatFitData[ data_ ] :=
     Module[ { fa, tr, filtered },
-        fa = Block[ { $start = data[[ 1, 1 ]] }, makeFitAssociation /@ data ];
+        (* fa = Block[ { $start = data[[ 1, 1 ]] }, makeFitAssociation /@ data ]; *) (* Broken: need to ensure value is a timestamp *)
+        fa = makeFitAssociation /@ data;
+        If[ ! MatchQ[ fa, { __Association } ],
+            Throw[ Missing[ "NotAvailable" ], $tag ]
+        ];
         tr = gu`AssociationTranspose @ fa;
         filtered = Select[ tr, Composition[ Not, AllTrue @ MissingQ ] ];
         gu`AssociationTranspose @ filtered
-    ];
+    ] ~Catch~ $tag;
 
 formatFitData // endDefinition;
 
@@ -1043,7 +1112,8 @@ $capitalizationRules1 = {
     "Ohr"   -> "OHR",
     "Aux"   -> "Auxiliary",
     "Elev"  -> "Elevation",
-    "Comm"  -> "Communication"
+    "Comm"  -> "Communication",
+    "Ftp"   -> "FTP"
 };
 
 
@@ -1184,6 +1254,35 @@ fitValue[ "FileID", "Product"     , v_ ] := fitProduct @ v[[ 5 ]];
 fitValue[ "FileID", "Number"      , v_ ] := fitUINT16 @ v[[ 6 ]];
 fitValue[ "FileID", "Type"        , v_ ] := fitFileType @ v[[ 7 ]];
 fitValue[ "FileID", "ProductName" , v_ ] := fitProductName[ v[[ 4;;5 ]], v[[ 8;;27 ]] ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*UserProfile*)
+fitValue[ "UserProfile", "MessageIndex"              , v_ ] := fitUINT16 @ v[[ 2 ]];
+fitValue[ "UserProfile", "Weight"                    , v_ ] := fitWeight @ v[[ 3 ]];
+fitValue[ "UserProfile", "LocalID"                   , v_ ] := fitUINT16 @ v[[ 4 ]];
+fitValue[ "UserProfile", "UserRunningStepLength"     , v_ ] := fitUINT16 @ v[[ 5 ]];
+fitValue[ "UserProfile", "UserWalkingStepLength"     , v_ ] := fitUINT16 @ v[[ 6 ]];
+fitValue[ "UserProfile", "Gender"                    , v_ ] := fitGender @ v[[ 7 ]];
+fitValue[ "UserProfile", "Age"                       , v_ ] := fitAge @ v[[ 8 ]];
+fitValue[ "UserProfile", "Height"                    , v_ ] := fitHeight @ v[[ 9 ]];
+fitValue[ "UserProfile", "Language"                  , v_ ] := fitLanguage @ v[[ 10 ]];
+fitValue[ "UserProfile", "ElevationSetting"          , v_ ] := fitDisplayMeasure @ v[[ 11 ]];
+fitValue[ "UserProfile", "WeightSetting"             , v_ ] := fitDisplayMeasure @ v[[ 12 ]];
+fitValue[ "UserProfile", "RestingHeartRate"          , v_ ] := fitHeartRate @ v[[ 13 ]];
+fitValue[ "UserProfile", "DefaultMaxRunningHeartRate", v_ ] := fitHeartRate @ v[[ 14 ]];
+fitValue[ "UserProfile", "DefaultMaxBikingHeartRate" , v_ ] := fitHeartRate @ v[[ 15 ]];
+fitValue[ "UserProfile", "DefaultMaxHeartRate"       , v_ ] := fitHeartRate @ v[[ 16 ]];
+fitValue[ "UserProfile", "HeartRateSetting"          , v_ ] := fitDisplayHeart @ v[[ 17 ]];
+fitValue[ "UserProfile", "SpeedSetting"              , v_ ] := fitDisplayMeasure @ v[[ 18 ]];
+fitValue[ "UserProfile", "DistanceSetting"           , v_ ] := fitDisplayMeasure @ v[[ 19 ]];
+fitValue[ "UserProfile", "PowerSetting"              , v_ ] := fitDisplayPower @ v[[ 20 ]];
+fitValue[ "UserProfile", "ActivityClass"             , v_ ] := fitActivityClass @ v[[ 21 ]];
+fitValue[ "UserProfile", "PositionSetting"           , v_ ] := fitDisplayPosition @ v[[ 22 ]];
+fitValue[ "UserProfile", "TemperatureSetting"        , v_ ] := fitDisplayMeasure @ v[[ 23 ]];
+fitValue[ "UserProfile", "HeightSetting"             , v_ ] := fitDisplayMeasure @ v[[ 24 ]];
+fitValue[ "UserProfile", "FriendlyName"              , v_ ] := fitString @ v[[ 25 ;; 40 ]];
+fitValue[ "UserProfile", "GlobalID"                  , v_ ] := fitGlobalID @ v[[ 41 ;; 46 ]];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -1400,6 +1499,22 @@ fitSINT16[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*fitString*)
+fitString // ClearAll;
+fitString[ { 0, ___ } ] := Missing[ "NotAvailable" ];
+fitString[ bytes: { __Integer } ] := FromCharacterCode[ TakeWhile[ bytes, Positive ], "UTF-8" ];
+fitString[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitGlobalID*)
+fitGlobalID // ClearAll;
+fitGlobalID[ { 255 .. } ] := Missing[ "NotAvailable" ];
+fitGlobalID[ bytes: { __Integer } ] := FromDigits[ bytes, 256 ];
+fitGlobalID[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*fitTimestamp*)
 fitTimestamp // ClearAll;
 fitTimestamp[ $invalidUINT32 ] := Missing[ "NotAvailable" ];
@@ -1441,6 +1556,34 @@ fitGeoBoundingBox[ bounds: { _GeoPosition, _GeoPosition } ] :=
     bounds;
 
 fitGeoBoundingBox[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitWeight*)
+fitWeight // ClearAll;
+fitWeight[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
+fitWeight[ n_Integer ] := fitWeight[ n, $UnitSystem ];
+fitWeight[ n_Integer, "Imperial" ] := Quantity[ 0.220462 * n, "Pounds" ];
+fitWeight[ n_Integer, _ ] := Quantity[ n/10.0, "Kilograms" ];
+fitWeight[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitAge*)
+fitAge // ClearAll;
+fitAge[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
+fitAge[ n_Integer ] := Quantity[ n, "Years" ];
+fitAge[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitHeight*)
+fitHeight // ClearAll;
+fitHeight[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
+fitHeight[ n_Integer ] := fitHeight[ n, $UnitSystem ];
+fitHeight[ n_Integer, "Imperial" ] := Quantity[ With[ { x = 0.0328 * n }, MixedMagnitude @ { IntegerPart @ x, 12 * FractionalPart @ x } ], MixedUnit @ { "Feet", "Inches" } ];
+fitHeight[ n_Integer, _ ] := Quantity[ n/100.0, "Meters" ];
+fitHeight[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -3203,6 +3346,198 @@ $hrZoneColors = <|
     4 -> RGBColor[ "#f69434" ],
     5 -> RGBColor[ "#fb0052" ]
 |>;
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*FIT Enums*)
+
+removePrefix[ a_, p_ ] :=
+    AssociationThread[ Keys @ a -> StringDelete[ Values @ a, p ] ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitGender*)
+fitGender // ClearAll;
+fitGender[ n_Integer ] := Lookup[ $fitGender, n, Missing[ "NotAvailable" ] ];
+fitGender[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitGender0 = <|
+    0 -> "FIT_GENDER_FEMALE",
+    1 -> "FIT_GENDER_MALE"
+|>;
+
+$fitGender = toNiceCamelCase /@ removePrefix[ $fitGender0, "FIT_GENDER_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitLanguage*)
+fitLanguage // ClearAll;
+fitLanguage[ n_Integer ] := Lookup[ $fitLanguage, n, Missing[ "NotAvailable" ] ];
+fitLanguage[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitLanguage0 = <|
+    0   -> "FIT_LANGUAGE_ENGLISH",
+    1   -> "FIT_LANGUAGE_FRENCH",
+    2   -> "FIT_LANGUAGE_ITALIAN",
+    3   -> "FIT_LANGUAGE_GERMAN",
+    4   -> "FIT_LANGUAGE_SPANISH",
+    5   -> "FIT_LANGUAGE_CROATIAN",
+    6   -> "FIT_LANGUAGE_CZECH",
+    7   -> "FIT_LANGUAGE_DANISH",
+    8   -> "FIT_LANGUAGE_DUTCH",
+    9   -> "FIT_LANGUAGE_FINNISH",
+    10  -> "FIT_LANGUAGE_GREEK",
+    11  -> "FIT_LANGUAGE_HUNGARIAN",
+    12  -> "FIT_LANGUAGE_NORWEGIAN",
+    13  -> "FIT_LANGUAGE_POLISH",
+    14  -> "FIT_LANGUAGE_PORTUGUESE",
+    15  -> "FIT_LANGUAGE_SLOVAKIAN",
+    16  -> "FIT_LANGUAGE_SLOVENIAN",
+    17  -> "FIT_LANGUAGE_SWEDISH",
+    18  -> "FIT_LANGUAGE_RUSSIAN",
+    19  -> "FIT_LANGUAGE_TURKISH",
+    20  -> "FIT_LANGUAGE_LATVIAN",
+    21  -> "FIT_LANGUAGE_UKRAINIAN",
+    22  -> "FIT_LANGUAGE_ARABIC",
+    23  -> "FIT_LANGUAGE_FARSI",
+    24  -> "FIT_LANGUAGE_BULGARIAN",
+    25  -> "FIT_LANGUAGE_ROMANIAN",
+    26  -> "FIT_LANGUAGE_CHINESE",
+    27  -> "FIT_LANGUAGE_JAPANESE",
+    28  -> "FIT_LANGUAGE_KOREAN",
+    29  -> "FIT_LANGUAGE_TAIWANESE",
+    30  -> "FIT_LANGUAGE_THAI",
+    31  -> "FIT_LANGUAGE_HEBREW",
+    32  -> "FIT_LANGUAGE_BRAZILIAN_PORTUGUESE",
+    33  -> "FIT_LANGUAGE_INDONESIAN",
+    34  -> "FIT_LANGUAGE_MALAYSIAN",
+    35  -> "FIT_LANGUAGE_VIETNAMESE",
+    36  -> "FIT_LANGUAGE_BURMESE",
+    37  -> "FIT_LANGUAGE_MONGOLIAN",
+    254 -> "FIT_LANGUAGE_CUSTOM"
+|>;
+
+
+toLanguage // beginDefinition;
+
+toLanguage[ "Taiwanese"           ] := Entity[ "Language", "ChineseMinNan" ];
+toLanguage[ "Farsi"               ] := Entity[ "Language", "Dari"          ];
+toLanguage[ "Slovakian"           ] := Entity[ "Language", "Slovak"        ];
+toLanguage[ "BrazilianPortuguese" ] := Entity[ "Language", "Portuguese"    ];
+toLanguage[ "Malaysian"           ] := Entity[ "Language", "MalayStandard" ];
+
+toLanguage[ name_String ] :=
+    With[ { lang = LanguageData @ name },
+        If[ MatchQ[ lang, _Entity ],
+            lang,
+            Missing[ "NotAvailable" ]
+        ]
+    ];
+
+toLanguage // endDefinition;
+
+
+$fitLanguage = DeleteMissing @ Map[
+    toLanguage,
+    toNiceCamelCase /@ removePrefix[ $fitLanguage0, "FIT_LANGUAGE_" ]
+];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitDisplayHeart*)
+fitDisplayHeart // ClearAll;
+fitDisplayHeart[ n_Integer ] := Lookup[ $fitDisplayHeart, n, Missing[ "NotAvailable" ] ];
+fitDisplayHeart[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitDisplayHeart0 = <|
+    0 -> "FIT_DISPLAY_HEART_BPM",
+    1 -> "FIT_DISPLAY_HEART_MAX",
+    2 -> "FIT_DISPLAY_HEART_RESERVE"
+|>;
+
+$fitDisplayHeart = toNiceCamelCase /@ removePrefix[ $fitDisplayHeart0, "FIT_DISPLAY_HEART_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitDisplayPower*)
+fitDisplayPower // ClearAll;
+fitDisplayPower[ n_Integer ] := Lookup[ $fitDisplayPower, n, Missing[ "NotAvailable" ] ];
+fitDisplayPower[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitDisplayPower0 = <|
+    0 -> "FIT_DISPLAY_POWER_WATTS",
+    1 -> "FIT_DISPLAY_POWER_PERCENT_FTP"
+|>;
+
+$fitDisplayPower = toNiceCamelCase /@ removePrefix[ $fitDisplayPower0, "FIT_DISPLAY_POWER_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitActivityClass*)
+fitActivityClass // ClearAll;
+fitActivityClass[ n_Integer ] := Lookup[ $fitActivityClass, n, Missing[ "NotAvailable" ] ];
+fitActivityClass[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitActivityClass0 = <|
+    100 -> "FIT_ACTIVITY_CLASS_LEVEL_MAX",
+    128 -> "FIT_ACTIVITY_CLASS_ATHLETE"
+|>;
+
+$fitActivityClass = toNiceCamelCase /@ removePrefix[ $fitActivityClass0, "FIT_ACTIVITY_CLASS_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitDisplayPosition*)
+fitDisplayPosition // ClearAll;
+fitDisplayPosition[ n_Integer ] := Lookup[ $fitDisplayPosition, n, Missing[ "NotAvailable" ] ];
+fitDisplayPosition[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitDisplayPosition0 = <|
+    0  -> "FIT_DISPLAY_POSITION_DEGREE",
+    1  -> "FIT_DISPLAY_POSITION_DEGREE_MINUTE",
+    2  -> "FIT_DISPLAY_POSITION_DEGREE_MINUTE_SECOND",
+    3  -> "FIT_DISPLAY_POSITION_AUSTRIAN_GRID",
+    4  -> "FIT_DISPLAY_POSITION_BRITISH_GRID",
+    5  -> "FIT_DISPLAY_POSITION_DUTCH_GRID",
+    6  -> "FIT_DISPLAY_POSITION_HUNGARIAN_GRID",
+    7  -> "FIT_DISPLAY_POSITION_FINNISH_GRID",
+    8  -> "FIT_DISPLAY_POSITION_GERMAN_GRID",
+    9  -> "FIT_DISPLAY_POSITION_ICELANDIC_GRID",
+    10 -> "FIT_DISPLAY_POSITION_INDONESIAN_EQUATORIAL",
+    11 -> "FIT_DISPLAY_POSITION_INDONESIAN_IRIAN",
+    12 -> "FIT_DISPLAY_POSITION_INDONESIAN_SOUTHERN",
+    13 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_0",
+    14 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_IA",
+    15 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_IB",
+    16 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_IIA",
+    17 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_IIB",
+    18 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_IIIA",
+    19 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_IIIB",
+    20 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_IVA",
+    21 -> "FIT_DISPLAY_POSITION_INDIA_ZONE_IVB",
+    22 -> "FIT_DISPLAY_POSITION_IRISH_TRANSVERSE",
+    23 -> "FIT_DISPLAY_POSITION_IRISH_GRID",
+    24 -> "FIT_DISPLAY_POSITION_LORAN",
+    25 -> "FIT_DISPLAY_POSITION_MAIDENHEAD_GRID",
+    26 -> "FIT_DISPLAY_POSITION_MGRS_GRID",
+    27 -> "FIT_DISPLAY_POSITION_NEW_ZEALAND_GRID",
+    28 -> "FIT_DISPLAY_POSITION_NEW_ZEALAND_TRANSVERSE",
+    29 -> "FIT_DISPLAY_POSITION_QATAR_GRID",
+    30 -> "FIT_DISPLAY_POSITION_MODIFIED_SWEDISH_GRID",
+    31 -> "FIT_DISPLAY_POSITION_SWEDISH_GRID",
+    32 -> "FIT_DISPLAY_POSITION_SOUTH_AFRICAN_GRID",
+    33 -> "FIT_DISPLAY_POSITION_SWISS_GRID",
+    34 -> "FIT_DISPLAY_POSITION_TAIWAN_GRID",
+    35 -> "FIT_DISPLAY_POSITION_UNITED_STATES_GRID",
+    36 -> "FIT_DISPLAY_POSITION_UTM_UPS_GRID",
+    37 -> "FIT_DISPLAY_POSITION_WEST_MALAYAN",
+    38 -> "FIT_DISPLAY_POSITION_BORNEO_RSO",
+    39 -> "FIT_DISPLAY_POSITION_ESTONIAN_GRID",
+    40 -> "FIT_DISPLAY_POSITION_LATVIAN_GRID",
+    41 -> "FIT_DISPLAY_POSITION_SWEDISH_REF_99_GRID"
+|>;
+
+$fitDisplayPosition = toNiceCamelCase /@ removePrefix[ $fitDisplayPosition0, "FIT_DISPLAY_POSITION_" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)

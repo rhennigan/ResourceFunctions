@@ -20,3 +20,5 @@ static void write_record(      WolframLibraryData libData, MTensor data, int idx
 static void write_event(       WolframLibraryData libData, MTensor data, int idx, const FIT_EVENT_MESG       *mesg);
 static void write_device_info( WolframLibraryData libData, MTensor data, int idx, const FIT_DEVICE_INFO_MESG *mesg);
 static void write_session(     WolframLibraryData libData, MTensor data, int idx, const FIT_SESSION_MESG     *mesg);
+
+static void write_unknown( WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg );

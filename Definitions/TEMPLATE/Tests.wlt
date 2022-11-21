@@ -4,7 +4,8 @@
 VerificationTest[
     SetOptions[ ResourceFunction[ "MessageFailure" ], "TestMode" -> True ],
     KeyValuePattern[ "TestMode" -> True ],
-    SameTest -> MatchQ
+    SameTest -> MatchQ,
+    TestID   -> "Initialization"
 ]
 
 (* ::**********************************************************************:: *)
@@ -57,5 +58,6 @@ VerificationTest[
 VerificationTest[
     SetOptions[ ResourceFunction[ "MessageFailure" ], "TestMode" -> False ],
     KeyValuePattern[ "TestMode" -> False ],
-    SameTest -> MatchQ
+    SameTest -> MatchQ,
+    TestID   -> "Cleanup"
 ]

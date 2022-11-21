@@ -219,6 +219,12 @@ FITImport[ file_? FileExistsQ, "Dataset", opts: OptionsPattern[ ] ] :=
         "MessageType"
     ];
 
+FITImport[ file_, "MessageCounts", opts: OptionsPattern[ ] ] :=
+    optionsBlock[
+        Counts[ fitMessageType /@ fitMessageTypes @ file ],
+        opts
+    ];
+
 FITImport[ file: $$file|$$string, prop_, opts: OptionsPattern[ ] ] /;
     ! FileExistsQ @ file :=
         With[ { found = FindFile @ file },
@@ -303,7 +309,8 @@ $fitElements = {
     "Elements",
     "Events",
     "RawData",
-    "Records"
+    "Records",
+    "MessageCounts"
 };
 
 $messageTypes = {
@@ -419,6 +426,34 @@ fitImport[ source_, file_, data_List? rawDataQ ] := (
 );
 
 fitImport[ source_, file_, err_LibraryFunctionError ] :=
+    libraryError[ source, file, err ];
+
+fitImport // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*fitMessageTypes*)
+fitMessageTypes // beginDefinition;
+
+fitMessageTypes[ source: $$source ] :=
+    Block[ { $tempFiles = Internal`Bag[ ] },
+        WithCleanup[
+            fitMessageTypes[ source, toFileString @ source ],
+            DeleteFile /@ Internal`BagPart[ $tempFiles, All ]
+        ]
+    ];
+
+fitMessageTypes[ source_, file_String ] :=
+    fitMessageTypes[
+        source,
+        file,
+        Quiet[ fitMessageTypesLibFunction @ file, LibraryFunction::rterr ]
+    ];
+
+fitMessageTypes[ source_, file_, data_List? rawDataQ ] :=
+    data;
+
+fitMessageTypes[ source_, file_, err_LibraryFunctionError ] :=
     libraryError[ source, file, err ];
 
 fitImport // endDefinition;
@@ -615,6 +650,23 @@ fitImportLibFunction := fitImportLibFunction = LibraryFunctionLoad[
 ];
 
 (* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitMessageTypesLibFunction*)
+If[ MatchQ[ fitMessageTypesLibFunction, _LibraryFunction ],
+    Quiet[ LibraryFunctionUnload @ fitMessageTypesLibFunction,
+           LibraryFunction::nofun
+    ]
+];
+
+fitMessageTypesLibFunction // ClearAll;
+fitMessageTypesLibFunction := fitMessageTypesLibFunction = LibraryFunctionLoad[
+    $libraryFile,
+    "FITMessageTypes",
+    { String },
+    { Integer, 2 }
+];
+
+(* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*$libraryFile*)
 $libraryFile // ClearAll;
@@ -663,6 +715,7 @@ fitKeys[ "Record"            ] := $fitRecordKeys;
 fitKeys[ "Event"             ] := $fitEventKeys;
 fitKeys[ "DeviceInformation" ] := $fitDeviceInformationKeys;
 fitKeys[ "Session"           ] := $fitSessionKeys;
+fitKeys[ _                   ] := $fitDefaultKeys;
 fitKeys // endDefinition;
 
 (* ::**********************************************************************:: *)
@@ -763,18 +816,18 @@ $fitDeviceInformationKeys // ClearAll;
 $fitDeviceInformationKeys = {
     "MessageType",
     "Timestamp",
+    "DeviceType",
+    "Manufacturer",
+    "ProductName",
+    "BatteryVoltage",
+    "BatteryStatus",
+    "Product",
     "SerialNumber",
     "CumulativeOperatingTime",
-    "Manufacturer",
-    "Product",
-    "ProductName",
     "SoftwareVersion",
-    "BatteryVoltage",
     "ANTDeviceNumber",
     "DeviceIndex",
-    "DeviceType",
     "HardwareVersion",
-    "BatteryStatus",
     "SensorPosition",
     "ANTTransmissionType",
     "ANTNetwork",
@@ -875,6 +928,15 @@ $fitSessionKeys = {
     "FirstLapIndex",
     "MessageIndex",
     "SportIndex"
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$fitDefaultKeys*)
+$fitDefaultKeys // ClearAll;
+$fitDefaultKeys = {
+    "MessageType",
+    "RawData"
 };
 
 (* ::**********************************************************************:: *)
@@ -1308,6 +1370,7 @@ fitValue[ "Session", "TotalAnaerobicTrainingEffectDescription", v_ ] := fitTrain
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*Default*)
+fitValue[ _, "RawData", v_ ] := ByteArray @ v[[ 2;; ]];
 fitValue[ _, _, _ ] := Missing[ "NotAvailable" ];
 fitValue // endDefinition;
 

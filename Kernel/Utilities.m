@@ -4,7 +4,14 @@
 
 Package[ "RH`ResourceFunctions`" ]
 
+PackageExport[ "EvaluateInPlace" ]
+
 PackageScope[ "AutoTemplateStrings" ]
+
+(* ::**********************************************************************:: *)
+(* ::Section::Closed:: *)
+(*EvaluateInPlace*)
+EvaluateInPlace[ expr_ ] := expr;
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)

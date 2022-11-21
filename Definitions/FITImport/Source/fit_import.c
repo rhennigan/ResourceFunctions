@@ -182,8 +182,11 @@ DLLEXPORT int FITImport(
                     }
 
                     default:
-                        // printf("Unknown\n");
+                    {
+                        // idx++;
+                        // write_unknown(libData, data, idx, mesg_num, mesg);
                         break;
+                    }
                 }
                 break;
                 }
@@ -608,6 +611,19 @@ void write_session(WolframLibraryData libData, MTensor data, int idx, const FIT_
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->total_anaerobic_training_effect);
 }
 
+
+void write_unknown(WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesgNum);
+    for (int i = 0; i < MESSAGE_TENSOR_ROW_WIDTH; i++)
+    {
+        pos[1]++; 
+        libData->MTensor_setInteger(data, pos, mesg[i]);
+    }
+}
 
 
 static int count_usable_fit_messages(char* input, mint *err)

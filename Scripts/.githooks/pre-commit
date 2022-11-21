@@ -7,10 +7,10 @@ changed="$(git --no-pager diff --name-only --no-color --cached)"
 echo "Changed files:"
 echo "$changed"
 
-if [ "$filesToFormat" != "" ]; then
-    wolframscript Scripts/FormatFiles.wls --files="$changed"
+if [ "$changed" != "" ]; then
+    wolframscript -f Scripts/FormatFiles.wls --files="$changed"
 
-    for sourceFilePath in $filesToFormat
+    for sourceFilePath in $changed
     do
     git add $sourceFilePath
     done;

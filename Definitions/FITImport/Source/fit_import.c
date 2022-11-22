@@ -129,7 +129,8 @@ DLLEXPORT int FITImport(
                     case FIT_MESG_NUM_ACTIVITY:
                     {
                         const FIT_ACTIVITY_MESG *activity = (FIT_ACTIVITY_MESG *) mesg;
-                        // printf("Activity: timestamp=%u, type=%u, event=%u, event_type=%u, num_sessions=%u\n", activity->timestamp, activity->type, activity->event, activity->event_type, activity->num_sessions);
+                        idx++;
+                        write_activity(libData, data, idx, activity);
                         {
                             FIT_ACTIVITY_MESG old_mesg;
                             old_mesg.num_sessions = 1;
@@ -146,7 +147,8 @@ DLLEXPORT int FITImport(
                     case FIT_MESG_NUM_LAP:
                     {
                         const FIT_LAP_MESG *lap = (FIT_LAP_MESG *) mesg;
-                        // printf("Lap: timestamp=%u\n", lap->timestamp);
+                        idx++;
+                        write_lap(libData, data, idx, lap);
                         break;
                     }
 
@@ -179,6 +181,14 @@ DLLEXPORT int FITImport(
                         const FIT_SESSION_MESG *session = (FIT_SESSION_MESG *) mesg;
                         idx++;
                         write_session(libData, data, idx, session);
+                        break;
+                    }
+
+                    case FIT_MESG_NUM_DEVICE_SETTINGS:
+                    {
+                        const FIT_DEVICE_SETTINGS_MESG *device_settings = (FIT_DEVICE_SETTINGS_MESG *) mesg;
+                        idx++;
+                        write_device_settings(libData, data, idx, device_settings);
                         break;
                     }
 
@@ -373,22 +383,19 @@ static void write_file_id(WolframLibraryData libData, MTensor data, int idx, con
     mint pos[2];
     pos[0] = idx;
     pos[1] = 0;
-    pos[1]++; libData->MTensor_setInteger(data, pos, FIT_MESG_NUM_FILE_ID);
-    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->serial_number);
-    pos[1]++; libData->MTensor_setInteger(data, pos, (mesg->time_created)+2840036400);
-    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->manufacturer);
-    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->product);
-    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->number);
-    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->type);
-    for(int i=0; i<FIT_FILE_ID_MESG_PRODUCT_NAME_COUNT; i++)
-    {
-        pos[1]++; libData->MTensor_setInteger(data, pos, mesg->product_name[i]);
-    }
+    SetInteger(libData, data, pos, FIT_MESG_NUM_FILE_ID);
+    SetInteger(libData, data, pos, mesg->serial_number);
+    SetInteger(libData, data, pos, WLTimestamp(mesg->time_created));
+    SetInteger(libData, data, pos, mesg->manufacturer);
+    SetInteger(libData, data, pos, mesg->product);
+    SetInteger(libData, data, pos, mesg->number);
+    SetInteger(libData, data, pos, mesg->type);
+    SetIntegerSequence(libData, data, pos, mesg->product_name, FIT_FILE_ID_MESG_PRODUCT_NAME_COUNT);
+    SetInteger(libData, data, pos, DONE);
 }
 
 static void write_user_profile(WolframLibraryData libData, MTensor data, int idx, const FIT_USER_PROFILE_MESG *mesg) 
 {
-    int i;
     mint pos[2];
     pos[0] = idx;
     pos[1] = 0;
@@ -416,14 +423,125 @@ static void write_user_profile(WolframLibraryData libData, MTensor data, int idx
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->position_setting);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->temperature_setting);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->height_setting);
-    for(i=0; i<FIT_USER_PROFILE_MESG_FRIENDLY_NAME_COUNT; i++)
+    for(int i=0; i<FIT_USER_PROFILE_MESG_FRIENDLY_NAME_COUNT; i++)
     {
         pos[1]++; libData->MTensor_setInteger(data, pos, mesg->friendly_name[i]);
     }
-    for(i=0; i<FIT_USER_PROFILE_MESG_GLOBAL_ID_COUNT; i++)
+    for(int i=0; i<FIT_USER_PROFILE_MESG_GLOBAL_ID_COUNT; i++)
     {
         pos[1]++; libData->MTensor_setInteger(data, pos, mesg->global_id[i]);
     }
+    SetInteger(libData, data, pos, DONE);
+}
+
+static void write_activity(WolframLibraryData libData, MTensor data, int idx, const FIT_ACTIVITY_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+
+    pos[1]++; libData->MTensor_setInteger(data, pos, FIT_MESG_NUM_ACTIVITY);
+    pos[1]++; libData->MTensor_setInteger(data, pos, WLTimestamp(mesg->timestamp));
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->total_timer_time);
+    pos[1]++; libData->MTensor_setInteger(data, pos, WLTimestamp(mesg->local_timestamp));
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->num_sessions);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->type);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->event);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->event_type);
+    pos[1]++; libData->MTensor_setInteger(data, pos, mesg->event_group);
+    SetInteger(libData, data, pos, DONE);
+}
+
+static void write_lap(WolframLibraryData libData, MTensor data, int idx, const FIT_LAP_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_LAP);
+    SetInteger(libData, data, pos, WLTimestamp(mesg->timestamp));
+    SetInteger(libData, data, pos, WLTimestamp(mesg->start_time));
+    SetInteger(libData, data, pos, mesg->start_position_lat);
+    SetInteger(libData, data, pos, mesg->start_position_long);
+    SetInteger(libData, data, pos, mesg->end_position_lat);
+    SetInteger(libData, data, pos, mesg->end_position_long);
+    SetInteger(libData, data, pos, mesg->total_elapsed_time);
+    SetInteger(libData, data, pos, mesg->total_timer_time);
+    SetInteger(libData, data, pos, mesg->total_distance);
+    SetInteger(libData, data, pos, mesg->total_cycles);
+    SetInteger(libData, data, pos, mesg->total_work);
+    SetInteger(libData, data, pos, mesg->total_moving_time);
+    SetInteger(libData, data, pos, mesg->time_in_hr_zone[0]);
+    SetInteger(libData, data, pos, mesg->time_in_speed_zone[0]);
+    SetInteger(libData, data, pos, mesg->time_in_cadence_zone[0]);
+    SetInteger(libData, data, pos, mesg->time_in_power_zone[0]);
+    SetInteger(libData, data, pos, mesg->enhanced_avg_speed);
+    SetInteger(libData, data, pos, mesg->enhanced_max_speed);
+    SetInteger(libData, data, pos, mesg->enhanced_avg_altitude);
+    SetInteger(libData, data, pos, mesg->enhanced_min_altitude);
+    SetInteger(libData, data, pos, mesg->enhanced_max_altitude);
+    SetInteger(libData, data, pos, mesg->message_index);
+    SetInteger(libData, data, pos, mesg->total_calories);
+    SetInteger(libData, data, pos, mesg->total_fat_calories);
+    SetInteger(libData, data, pos, mesg->avg_speed);
+    SetInteger(libData, data, pos, mesg->max_speed);
+    SetInteger(libData, data, pos, mesg->avg_power);
+    SetInteger(libData, data, pos, mesg->max_power);
+    SetInteger(libData, data, pos, mesg->total_ascent);
+    SetInteger(libData, data, pos, mesg->total_descent);
+    SetInteger(libData, data, pos, mesg->num_lengths);
+    SetInteger(libData, data, pos, mesg->normalized_power);
+    SetInteger(libData, data, pos, mesg->left_right_balance);
+    SetInteger(libData, data, pos, mesg->first_length_index);
+    SetInteger(libData, data, pos, mesg->avg_stroke_distance);
+    SetInteger(libData, data, pos, mesg->num_active_lengths);
+    SetInteger(libData, data, pos, mesg->avg_altitude);
+    SetInteger(libData, data, pos, mesg->max_altitude);
+    SetInteger(libData, data, pos, mesg->avg_grade);
+    SetInteger(libData, data, pos, mesg->avg_pos_grade);
+    SetInteger(libData, data, pos, mesg->avg_neg_grade);
+    SetInteger(libData, data, pos, mesg->max_pos_grade);
+    SetInteger(libData, data, pos, mesg->max_neg_grade);
+    SetInteger(libData, data, pos, mesg->avg_pos_vertical_speed);
+    SetInteger(libData, data, pos, mesg->avg_neg_vertical_speed);
+    SetInteger(libData, data, pos, mesg->max_pos_vertical_speed);
+    SetInteger(libData, data, pos, mesg->max_neg_vertical_speed);
+    SetInteger(libData, data, pos, mesg->repetition_num);
+    SetInteger(libData, data, pos, mesg->min_altitude);
+    SetInteger(libData, data, pos, mesg->wkt_step_index);
+    SetInteger(libData, data, pos, mesg->opponent_score);
+    SetInteger(libData, data, pos, mesg->stroke_count[0]);
+    SetInteger(libData, data, pos, mesg->zone_count[0]);
+    SetInteger(libData, data, pos, mesg->avg_vertical_oscillation);
+    SetInteger(libData, data, pos, mesg->avg_stance_time_percent);
+    SetInteger(libData, data, pos, mesg->avg_stance_time);
+    SetInteger(libData, data, pos, mesg->player_score);
+    SetInteger(libData, data, pos, mesg->avg_total_hemoglobin_conc[0]);
+    SetInteger(libData, data, pos, mesg->min_total_hemoglobin_conc[0]);
+    SetInteger(libData, data, pos, mesg->max_total_hemoglobin_conc[0]);
+    SetInteger(libData, data, pos, mesg->avg_saturated_hemoglobin_percent[0]);
+    SetInteger(libData, data, pos, mesg->min_saturated_hemoglobin_percent[0]);
+    SetInteger(libData, data, pos, mesg->max_saturated_hemoglobin_percent[0]);
+    SetInteger(libData, data, pos, mesg->avg_vam);
+    SetInteger(libData, data, pos, mesg->event);
+    SetInteger(libData, data, pos, mesg->event_type);
+    SetInteger(libData, data, pos, mesg->avg_heart_rate);
+    SetInteger(libData, data, pos, mesg->max_heart_rate);
+    SetInteger(libData, data, pos, mesg->avg_cadence);
+    SetInteger(libData, data, pos, mesg->max_cadence);
+    SetInteger(libData, data, pos, mesg->intensity);
+    SetInteger(libData, data, pos, mesg->lap_trigger);
+    SetInteger(libData, data, pos, mesg->sport);
+    SetInteger(libData, data, pos, mesg->event_group);
+    SetInteger(libData, data, pos, mesg->swim_stroke);
+    SetInteger(libData, data, pos, mesg->sub_sport);
+    SetInteger(libData, data, pos, mesg->gps_accuracy);
+    SetInteger(libData, data, pos, mesg->avg_temperature);
+    SetInteger(libData, data, pos, mesg->max_temperature);
+    SetInteger(libData, data, pos, mesg->min_heart_rate);
+    SetInteger(libData, data, pos, mesg->avg_fractional_cadence);
+    SetInteger(libData, data, pos, mesg->max_fractional_cadence);
+    SetInteger(libData, data, pos, mesg->total_fractional_cycles);
+    SetInteger(libData, data, pos, DONE);
 }
 
 static void write_record(WolframLibraryData libData, MTensor data, int idx, const FIT_RECORD_MESG *mesg)
@@ -433,7 +551,7 @@ static void write_record(WolframLibraryData libData, MTensor data, int idx, cons
     pos[1] = 0;
 
     pos[1]++; libData->MTensor_setInteger(data, pos, FIT_MESG_NUM_RECORD);
-    pos[1]++; libData->MTensor_setInteger(data, pos, (mesg->timestamp)+2840036400);
+    pos[1]++; libData->MTensor_setInteger(data, pos, WLTimestamp(mesg->timestamp));
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->position_lat);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->position_long);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->distance);
@@ -479,6 +597,7 @@ static void write_record(WolframLibraryData libData, MTensor data, int idx, cons
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->zone);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->fractional_cadence);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->device_index);
+    SetInteger(libData, data, pos, DONE);
 
     if (
         (mesg->compressed_speed_distance[0] != FIT_BYTE_INVALID) ||
@@ -509,7 +628,7 @@ static void write_event(WolframLibraryData libData, MTensor data, int idx, const
     pos[0] = idx;
     pos[1] = 0;
     pos[1]++; libData->MTensor_setInteger(data, pos, FIT_MESG_NUM_EVENT);
-    pos[1]++; libData->MTensor_setInteger(data, pos, (mesg->timestamp)+2840036400);
+    pos[1]++; libData->MTensor_setInteger(data, pos, WLTimestamp(mesg->timestamp));
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->data);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->data16);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->score);
@@ -523,6 +642,7 @@ static void write_event(WolframLibraryData libData, MTensor data, int idx, const
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->rear_gear);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->radar_threat_level_max);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->radar_threat_count);
+    SetInteger(libData, data, pos, DONE);
 }
 
 
@@ -532,7 +652,7 @@ static void write_device_info(WolframLibraryData libData, MTensor data, int idx,
     pos[0] = idx;
     pos[1] = 0;
     pos[1]++; libData->MTensor_setInteger(data, pos, FIT_MESG_NUM_DEVICE_INFO);
-    pos[1]++; libData->MTensor_setInteger(data, pos, (mesg->timestamp)+2840036400);
+    pos[1]++; libData->MTensor_setInteger(data, pos, WLTimestamp(mesg->timestamp));
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->serial_number);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->cum_operating_time);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->manufacturer);
@@ -552,16 +672,17 @@ static void write_device_info(WolframLibraryData libData, MTensor data, int idx,
     {
         pos[1]++; libData->MTensor_setInteger(data, pos, mesg->product_name[i]);
     }
+    SetInteger(libData, data, pos, DONE);
 }
 
-void write_session(WolframLibraryData libData, MTensor data, int idx, const FIT_SESSION_MESG *mesg)
+static void write_session(WolframLibraryData libData, MTensor data, int idx, const FIT_SESSION_MESG *mesg)
 {
     mint pos[2];
     pos[0] = idx;
     pos[1] = 0;
     pos[1]++; libData->MTensor_setInteger(data, pos, FIT_MESG_NUM_SESSION);
-    pos[1]++; libData->MTensor_setInteger(data, pos, (mesg->timestamp)+2840036400);
-    pos[1]++; libData->MTensor_setInteger(data, pos, (mesg->start_time)+2840036400);
+    pos[1]++; libData->MTensor_setInteger(data, pos, WLTimestamp(mesg->timestamp));
+    pos[1]++; libData->MTensor_setInteger(data, pos, WLTimestamp(mesg->start_time));
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->start_position_lat);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->start_position_long);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->total_elapsed_time);
@@ -650,8 +771,37 @@ void write_session(WolframLibraryData libData, MTensor data, int idx, const FIT_
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->total_fractional_cycles);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->sport_index);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->total_anaerobic_training_effect);
+    SetInteger(libData, data, pos, DONE);
 }
 
+static void write_device_settings( WolframLibraryData libData, MTensor data, int idx, const FIT_DEVICE_SETTINGS_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_DEVICE_SETTINGS);
+    SetInteger(libData, data, pos, mesg->utc_offset);
+    SetInteger(libData, data, pos, mesg->time_offset[0]);
+    SetInteger(libData, data, pos, mesg->time_offset[1]);
+    SetInteger(libData, data, pos, WLTimestamp(mesg->clock_time));
+    SetInteger(libData, data, pos, mesg->pages_enabled[0]);
+    SetInteger(libData, data, pos, mesg->default_page[0]);
+    SetInteger(libData, data, pos, mesg->autosync_min_steps);
+    SetInteger(libData, data, pos, mesg->autosync_min_time);
+    SetInteger(libData, data, pos, mesg->active_time_zone);
+    SetInteger(libData, data, pos, mesg->time_mode[0]);
+    SetInteger(libData, data, pos, mesg->time_mode[1]);
+    SetInteger(libData, data, pos, mesg->time_zone_offset[0]);
+    SetInteger(libData, data, pos, mesg->time_zone_offset[1]);
+    SetInteger(libData, data, pos, mesg->backlight_mode);
+    SetInteger(libData, data, pos, mesg->activity_tracker_enabled);
+    SetInteger(libData, data, pos, mesg->move_alert_enabled);
+    SetInteger(libData, data, pos, mesg->date_mode);
+    SetInteger(libData, data, pos, mesg->display_orientation);
+    SetInteger(libData, data, pos, mesg->mounting_side);
+    SetInteger(libData, data, pos, mesg->tap_sensitivity);
+    SetInteger(libData, data, pos, DONE);
+}
 
 void write_unknown(WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg)
 {
@@ -659,11 +809,12 @@ void write_unknown(WolframLibraryData libData, MTensor data, int idx, int mesgNu
     pos[0] = idx;
     pos[1] = 0;
     pos[1]++; libData->MTensor_setInteger(data, pos, mesgNum);
-    for (int i = 0; i < MESSAGE_TENSOR_ROW_WIDTH; i++)
+    for (int i = 0; i < MESSAGE_TENSOR_ROW_WIDTH - 1; i++)
     {
         pos[1]++; 
         libData->MTensor_setInteger(data, pos, mesg[i]);
     }
+    SetInteger(libData, data, pos, DONE);
 }
 
 
@@ -724,6 +875,21 @@ static int count_usable_fit_messages(char* input, mint *err)
                      mesg_count++;
                      break;
                   }
+                  case FIT_MESG_NUM_USER_PROFILE:
+                  {
+                     mesg_count++;
+                     break;
+                  }
+                  case FIT_MESG_NUM_ACTIVITY:
+                  {
+                     mesg_count++;
+                     break;
+                  }
+                  case FIT_MESG_NUM_LAP:
+                  {
+                     mesg_count++;
+                     break;
+                  }
                   case FIT_MESG_NUM_RECORD:
                   {
                      mesg_count++;
@@ -744,6 +910,11 @@ static int count_usable_fit_messages(char* input, mint *err)
                      mesg_count++;
                      break;
                   }
+                  case FIT_MESG_NUM_DEVICE_SETTINGS:
+                    {
+                         mesg_count++;
+                         break;
+                    }
                   default:
                     break;
                }

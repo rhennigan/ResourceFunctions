@@ -192,6 +192,14 @@ DLLEXPORT int FITImport(
                         break;
                     }
 
+                    case FIT_MESG_NUM_ZONES_TARGET:
+                    {
+                        const FIT_ZONES_TARGET_MESG *zones_target = (FIT_ZONES_TARGET_MESG *) mesg;
+                        idx++;
+                        write_zones_target(libData, data, idx, zones_target);
+                        break;
+                    }
+
                     default:
                     {
                         // idx++;
@@ -597,6 +605,15 @@ static void write_record(WolframLibraryData libData, MTensor data, int idx, cons
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->zone);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->fractional_cadence);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->device_index);
+
+    SetInteger(libData, data, pos, mesg->left_pco);
+    SetInteger(libData, data, pos, mesg->right_pco);
+    SetInteger(libData, data, pos, mesg->left_power_phase);
+    SetInteger(libData, data, pos, mesg->left_power_phase_peak);
+    SetInteger(libData, data, pos, mesg->right_power_phase);
+    SetInteger(libData, data, pos, mesg->right_power_phase_peak);
+
+
     SetInteger(libData, data, pos, DONE);
 
     if (
@@ -774,7 +791,7 @@ static void write_session(WolframLibraryData libData, MTensor data, int idx, con
     SetInteger(libData, data, pos, DONE);
 }
 
-static void write_device_settings( WolframLibraryData libData, MTensor data, int idx, const FIT_DEVICE_SETTINGS_MESG *mesg)
+static void write_device_settings(WolframLibraryData libData, MTensor data, int idx, const FIT_DEVICE_SETTINGS_MESG *mesg)
 {
     mint pos[2];
     pos[0] = idx;
@@ -803,7 +820,21 @@ static void write_device_settings( WolframLibraryData libData, MTensor data, int
     SetInteger(libData, data, pos, DONE);
 }
 
-void write_unknown(WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg)
+static void write_zones_target(WolframLibraryData libData, MTensor data, int idx, const FIT_ZONES_TARGET_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_ZONES_TARGET);
+    SetInteger(libData, data, pos, mesg->functional_threshold_power);
+    SetInteger(libData, data, pos, mesg->max_heart_rate);
+    SetInteger(libData, data, pos, mesg->threshold_heart_rate);
+    SetInteger(libData, data, pos, mesg->hr_calc_type);
+    SetInteger(libData, data, pos, mesg->pwr_calc_type);
+    SetInteger(libData, data, pos, DONE);
+}
+
+static void write_unknown(WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg)
 {
     mint pos[2];
     pos[0] = idx;
@@ -911,6 +942,11 @@ static int count_usable_fit_messages(char* input, mint *err)
                      break;
                   }
                   case FIT_MESG_NUM_DEVICE_SETTINGS:
+                    {
+                         mesg_count++;
+                         break;
+                    }
+                  case FIT_MESG_NUM_ZONES_TARGET:
                     {
                          mesg_count++;
                          break;

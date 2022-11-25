@@ -71,6 +71,11 @@ endDefinition // endDefinition;
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Config*)
+$timeOffset       = 0;
+$ftp              = Automatic;
+$maxHR            = Automatic;
+$weight           = Automatic;
+$pzPlotWidth      = 650;
 $invalidSINT8     = 127;
 $invalidUINT8     = 255;
 $invalidUINT8Z    = 0;
@@ -81,20 +86,35 @@ $invalidSINT32    = 2147483647;
 $invalidUINT32    = 4294967295;
 $invalidUINT32Z   = 0;
 $invalidTimestamp = 2840036400;
+$fitTerm          = 1685024357;
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Units*)
+$altitudeUnits    := $UnitSystem;
+$distanceUnits    := $UnitSystem;
+$heightUnits      := $UnitSystem;
+$speedUnits       := $UnitSystem;
+$temperatureUnits := $UnitSystem;
+$weightUnits      := $UnitSystem;
+
+$units := <| |>
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Paths*)
-$libFileLocation := FileNameJoin @ { $libDirectory, $libFileName };
-$libFileName     := "FITImport." <> Internal`DynamicLibraryExtension[ ];
-$libDirectory    := gu`EnsureDirectory @ {
-                        $UserBaseDirectory,
-                        "ApplicationData",
-                        "ResourceFunctions",
-                        "FITImport",
-                        "LibraryResources",
-                        $SystemID
-                    };
+$libFileLocation  := FileNameJoin @ { $libDirectory, $libFileName };
+$libFileName      := "FITImport." <> Internal`DynamicLibraryExtension[ ];
+$libDirectory     := gu`EnsureDirectory @ { $baseDir, "LibraryResources", $SystemID };
+$exampleDirectory := gu`EnsureDirectory @ { $baseDir, "ExampleData" };
+
+$baseDir := $baseDir = FileNameJoin @ {
+    $UserBaseDirectory,
+    "ApplicationData",
+    "ResourceFunctions",
+    "FITImport",
+    Hash[ FITImport, Automatic, "HexString" ]
+};
 
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
@@ -132,6 +152,12 @@ FITImport::InvalidFTP =
 FITImport::InvalidMaxHR =
 "The value `1` is not a valid value for maximum heart rate.";
 
+FITImport::InvalidWeight =
+"The value `1` is not a valid value for weight.";
+
+FITImport::InvalidUnitSystem =
+"The value `1` is not a valid value for UnitSystem.";
+
 FITImport::LibraryError =
 "Encountered an internal library error: `1`";
 
@@ -150,6 +176,9 @@ FITImport::LibraryErrorInternal =
 FITImport::LibraryErrorOpenFile =
 "Cannot read from file `2`. Check permissions and try again.";
 
+FITImport::NoFTPValue =
+"No functional threshold power specified.";
+
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Attributes*)
@@ -159,8 +188,9 @@ FITImport // Attributes = { };
 (* ::Section:: *)
 (*Options*)
 FITImport // Options = {
-    "FunctionalThresholdPower" :> PersistentSymbol[ "FITImport/FunctionalThresholdPower" ],
-    "MaxHeartRate"             :> PersistentSymbol[ "FITImport/MaxHeartRate" ],
+    "FunctionalThresholdPower" -> Automatic,
+    "MaxHeartRate"             -> Automatic,
+    "Weight"                   -> Automatic,
     UnitSystem                 :> $UnitSystem
 };
 
@@ -220,6 +250,12 @@ FITImport[ file_? FileExistsQ, "Dataset", opts: OptionsPattern[ ] ] :=
         "MessageType"
     ];
 
+FITImport[ file: $$file|$$string, prop_, opts: OptionsPattern[ ] ] /;
+    ! FileExistsQ @ file :=
+        With[ { found = findFile @ file },
+            FITImport[ found, prop, opts ] /; FileExistsQ @ found
+        ];
+
 FITImport[ file_, "MessageCounts", opts: OptionsPattern[ ] ] :=
     optionsBlock[
         Counts[ fitMessageType /@ fitMessageTypes @ file ],
@@ -232,6 +268,9 @@ FITImport[ file_, "Messages", opts: OptionsPattern[ ] ] :=
         opts
     ];
 
+FITImport[ file_, type: "Events"|"Records"|"Laps", opts: OptionsPattern[ ] ] :=
+    catchTop @ FITImport[ file, StringDelete[ type, "s"~~EndOfString, opts ] ];
+
 FITImport[ file_, "MessageData", opts: OptionsPattern[ ] ] :=
     optionsBlock[
         Dataset @ GroupBy[
@@ -240,12 +279,6 @@ FITImport[ file_, "MessageData", opts: OptionsPattern[ ] ] :=
         ],
         opts
     ];
-
-FITImport[ file: $$file|$$string, prop_, opts: OptionsPattern[ ] ] /;
-    ! FileExistsQ @ file :=
-        With[ { found = FindFile @ file },
-            FITImport[ found, prop, opts ] /; FileExistsQ @ found
-        ];
 
 FITImport[ _, "Elements", OptionsPattern[ ] ] :=
     Union[ $fitElements, $messageTypes ];
@@ -325,6 +358,7 @@ FITImport[ args___ ] :=
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Dependencies*)
+
 $fitElements = {
     "Data",
     "Dataset",
@@ -339,14 +373,15 @@ $fitElements = {
 
 $messageTypes = {
     "FileID",
-    "Events",
-    "Records",
+    "Event",
+    "Record",
     "DeviceInformation",
     "Session",
     "UserProfile",
     "Activity",
-    "Laps",
-    "DeviceSettings"
+    "Lap",
+    "DeviceSettings",
+    "ZonesTarget"
 };
 
 (* ::**********************************************************************:: *)
@@ -358,18 +393,148 @@ optionsBlock // Attributes = { HoldFirst };
 optionsBlock[ eval_, opts: OptionsPattern[ FITImport ] ] :=
     catchTop @ Block[
         {
-            $FunctionalThresholdPower = OptionValue @ FunctionalThresholdPower,
-            $MaxHeartRate             = OptionValue @ MaxHeartRate,
-            $UnitSystem               = OptionValue @ UnitSystem,
-            $ftp,
-            $maxHR
+            $UnitSystem  = setUnitSystem @ OptionValue @ UnitSystem, (* FIXME: fix it! *)
+            $ftp         = setFTP @ OptionValue @ FunctionalThresholdPower,
+            $maxHR       = setMaxHR @ OptionValue @ MaxHeartRate,
+            $weight      = setWeight @ OptionValue @ Weight,
+            $timeOffset  = 0,
+            optionsBlock = # &
         },
-        $ftp   = setFTP @ $FunctionalThresholdPower;
-        $maxHR = setMaxHR @ $MaxHeartRate;
         eval
     ];
 
 optionsBlock // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*setPreferences*)
+setPreferences // beginDefinition;
+
+setPreferences[ data_ ] := (
+    setUnitPrefs  @ data;
+    setTimeOffset @ data;
+    setWeightPref @ data;
+    setFTPPref    @ data;
+    setMaxHRPref  @ data;
+);
+
+setPreferences // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*setTimeOffset*)
+setTimeOffset // beginDefinition;
+
+setTimeOffset[ data_List ] :=
+    setTimeOffset[
+        data,
+        FirstCase[ Reverse @ data, { fitMessageTypeNumber[ "Activity" ], ___ } ]
+    ];
+
+setTimeOffset[ data_, v_List ] :=
+    Module[ { t1, t2 },
+        t1 = fitValue[ "Activity", "Timestamp"     , v ];
+        t2 = fitValue[ "Activity", "LocalTimestamp", v ];
+        If[ MatchQ[ { t1, t2 }, { _DateObject, _DateObject } ],
+            $timeOffset = AbsoluteTime @ t1 - AbsoluteTime @ t2,
+            $timeOffset = 0
+        ]
+    ];
+
+setTimeOffset[ data_, _Missing ] :=
+    Null;
+
+setTimeOffset // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*setFTPPref*)
+setFTPPref // beginDefinition;
+
+setFTPPref[ data_List ] := setFTPPref[ data, $ftp ];
+
+setFTPPref[ data_, Automatic ] :=
+    setFTPPref[
+        data,
+        Automatic,
+        FirstCase[ Reverse @ data, { fitMessageTypeNumber[ "Session" ], ___ } ]
+    ];
+
+setFTPPref[ data_, _ ] := Null;
+
+setFTPPref[ data_, Automatic, v_List ] :=
+    Module[ { ftp },
+        ftp = fitValue[ "Session", "ThresholdPower", v ];
+        If[ TrueQ @ Positive @ ftp,
+            $ftp = setFTP @ ftp,
+            $ftp = setFTP @ PersistentSymbol[ "FITImport/FunctionalThresholdPower" ]
+        ]
+    ];
+
+setFTPPref[ data_, Automatic, _ ] :=
+    $ftp = setFTP @ PersistentSymbol[ "FITImport/FunctionalThresholdPower" ];
+
+setFTPPref // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*setMaxHRPref*)
+setMaxHRPref // beginDefinition;
+
+setMaxHRPref[ data_List ] := setMaxHRPref[ data, $maxHR ];
+
+setMaxHRPref[ data_, Automatic ] :=
+    setMaxHRPref[
+        data,
+        Automatic,
+        FirstCase[ data, { fitMessageTypeNumber[ "UserProfile" ], ___ } ]
+    ];
+
+setMaxHRPref[ data_, _ ] := Null;
+
+setMaxHRPref[ data_, Automatic, v_List ] :=
+    Module[ { maxHR },
+        maxHR = fitValue[ "UserProfile", "DefaultMaxHeartRate", v ];
+        If[ TrueQ @ Positive @ maxHR,
+            $maxHR = setMaxHR @ maxHR,
+            $maxHR = setMaxHR @ PersistentSymbol[ "FITImport/MaxHeartRate" ]
+        ]
+    ];
+
+setMaxHRPref[ data_, Automatic, _ ] :=
+    $maxHR = setMaxHR @ PersistentSymbol[ "FITImport/MaxHeartRate" ];
+
+setMaxHRPref // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*setWeightPref*)
+setWeightPref // beginDefinition;
+
+setWeightPref[ data_List ] := setWeightPref[ data, $weight ];
+
+setWeightPref[ data_, Automatic ] :=
+    setWeightPref[
+        data,
+        Automatic,
+        FirstCase[ data, { fitMessageTypeNumber[ "UserProfile" ], ___ } ]
+    ];
+
+setWeightPref[ data_, _ ] := Null;
+
+setWeightPref[ data_, Automatic, v_List ] :=
+    Module[ { weight },
+        weight = fitValue[ "UserProfile", "Weight", v ];
+        If[ TrueQ @ Positive @ weight,
+            $weight = setWeight @ weight,
+            $weight = setWeight @ PersistentSymbol[ "FITImport/Weight" ]
+        ]
+    ];
+
+setWeightPref[ data_, Automatic, _ ] :=
+    $weight = setWeight @ PersistentSymbol[ "FITImport/Weight" ];
+
+setFTPPref // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -382,39 +547,64 @@ selectMessageType[ data_, type_String ] :=
 selectMessageType[ data_, type_Integer ] :=
     Select[ data, #[[ 1 ]] === type & ];
 
+selectMessageType[ data_, type_ ] :=
+    With[ { p = type /. s_String :> RuleCondition @ fitMessageTypeNumber @ s },
+        Select[ data, MatchQ[ #[[ 1 ]], p ] & ]
+    ];
+
 selectMessageType // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*setUnitSystem*)
+setUnitSystem // beginDefinition;
+setUnitSystem[ Automatic|None|_Missing ] := $UnitSystem;
+setUnitSystem[ units: "Imperial"|"Metric" ] := units;
+setUnitSystem[ "Statute" ] := "Imperial";
+setUnitSystem[ "SI" ] := "Metric";
+setUnitSystem[ KeyValuePattern[ "UnitSystem" -> u_ ] ] := setUnitSystem @ u;
+setUnitSystem[ KeyValuePattern[ UnitSystem -> u_ ] ] := setUnitSystem @ u;
+setUnitSystem[ units_ ] := throwFailure[ "InvalidUnitSystem", units ];
+setUnitSystem // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*setFTP*)
 setFTP // beginDefinition;
-
+setFTP[ Automatic     ] := Automatic;
 setFTP[ None|_Missing ] := None;
 setFTP[ ftp_Integer   ] := N @ ftp;
 setFTP[ ftp_Real      ] := ftp;
-
 setFTP[ Quantity[ ftp_, "Watts" ] ] := setFTP @ ftp;
 setFTP[ ftp_Quantity ] := setFTP @ UnitConvert[ ftp, "Watts" ];
-
 setFTP[ ftp_ ] := throwFailure[ "InvalidFTP", ftp ];
-
 setFTP // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*setMaxHR*)
 setMaxHR // beginDefinition;
-
+setMaxHR[ Automatic     ] := Automatic;
 setMaxHR[ None|_Missing ] := None;
 setMaxHR[ hr_Integer    ] := N @ hr;
 setMaxHR[ hr_Real       ] := hr;
-
 setMaxHR[ Quantity[ hr_, "Beats"/"Minutes" ] ] := setMaxHR @ hr;
 setMaxHR[ hr_Quantity ] := setMaxHR @ UnitConvert[ hr, "Beats"/"Minutes" ];
-
 setMaxHR[ hr_ ] := throwFailure[ "InvalidMaxHR", hr ];
-
 setMaxHR // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*setWeight*)
+setWeight // beginDefinition;
+setWeight[ Automatic     ] := Automatic;
+setWeight[ None|_Missing ] := None;
+setWeight[ w_Integer     ] := N @ w;
+setWeight[ w_Real        ] := w;
+setWeight[ Quantity[ w_, "Kilograms" ] ] := setWeight @ w;
+setWeight[ w_Quantity ] := setWeight @ UnitConvert[ w, "Kilograms" ];
+setWeight[ w_ ] := throwFailure[ "InvalidWeight", w ];
+setWeight // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -432,31 +622,37 @@ messageTypeQ[ ___         ] := False;
 (* ::Subsection::Closed:: *)
 (*fitImport*)
 fitImport // beginDefinition;
+fitImport[ source: $$source ] := cached @ fitImport0 @ source;
+fitImport // endDefinition;
 
-fitImport[ source: $$source ] :=
+
+fitImport0 // beginDefinition;
+
+fitImport0[ source_ ] :=
     Block[ { $tempFiles = Internal`Bag[ ] },
         WithCleanup[
-            fitImport[ source, toFileString @ source ],
+            fitImport0[ source, toFileString @ source ],
             DeleteFile /@ Internal`BagPart[ $tempFiles, All ]
         ]
     ];
 
-fitImport[ source_, file_String ] :=
-    fitImport[
+fitImport0[ source_, file_String ] :=
+    fitImport0[
         source,
         file,
         Quiet[ fitImportLibFunction @ file, LibraryFunction::rterr ]
     ];
 
-fitImport[ source_, file_, data_List? rawDataQ ] := (
+fitImport0[ source_, file_, data_List? rawDataQ ] := (
     (* $start = data[[ 1, 1 ]]; *) (* Broken: need to ensure value is a timestamp *)
+    setPreferences @ data;
     data
 );
 
-fitImport[ source_, file_, err_LibraryFunctionError ] :=
+fitImport0[ source_, file_, err_LibraryFunctionError ] :=
     libraryError[ source, file, err ];
 
-fitImport // endDefinition;
+fitImport0 // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -577,7 +773,7 @@ makeTimeSeriesData[ type_, data_, key_String, time_ ] :=
         If[ AllTrue[ value, MissingQ ],
             Missing[ "NotAvailable" ],
             TimeSeries[
-                Transpose @ { time, value },
+                DeleteCases[ Transpose @ { time, value }, { _, _Missing } ],
                 MissingDataMethod -> { "Interpolation", InterpolationOrder -> 1 }
             ]
         ]
@@ -609,40 +805,69 @@ powerZonePlot // beginDefinition;
 powerZonePlot[ power: _TimeSeries|_TemporalData ] :=
     powerZonePlot[ power, $ftp ];
 
-powerZonePlot[ power: _TimeSeries|_TemporalData, ftp_ ] :=
-    DateListPlot[
-        power,
-        AspectRatio          -> 1 / 5,
-        Filling              -> Bottom,
-        ColorFunction        -> powerZonePlotCF @ ftp,
-        ColorFunctionScaling -> False,
-        ImageSize            -> 800
-    ];
-
-powerZonePlot // endDefinition;
-
-(* ::**********************************************************************:: *)
-(* ::Subsubsection::Closed:: *)
-(*powerZonePlotCF*)
-powerZonePlotCF // beginDefinition;
-
-powerZonePlotCF[ ftp_Quantity ] :=
-    With[ { watts = UnitConvert[ ftp, "Watts" ] },
-        powerZonePlotCF @ QuantityMagnitude @ watts
-    ];
-
-powerZonePlotCF[ ftp_? NumberQ ] :=
-    With[
-        {
-            v = Transpose @ {
-                    { 0.05, 0.55, 0.75, 0.9, 1.05, 1.2, 1.5 },
-                    Values @ $powerZoneColors
+powerZonePlot[ power: _TimeSeries|_TemporalData, ftp_? NumberQ ] :=
+    Module[ { mean, top, resampled, cf },
+        mean = Mean @ power;
+        top  = Max[ 1.2 * Max @ power, Quantity[ 1.5 * ftp, "Watts" ] ];
+        resampled = TimeSeriesResample[ power, (power["LastDate"] - power["FirstDate"]) / 1600 ];
+        cf = powerZonePlotCF @ ftp;
+        DateListPlot[
+            resampled,
+            AspectRatio          -> 1 / 5,
+            Filling              -> Bottom,
+            ColorFunction        -> cf,
+            ColorFunctionScaling -> False,
+            PlotLegends          -> Placed[ $pzLegend, After ],
+            ImageSize            -> $pzPlotWidth,
+            PlotRange            -> { All, { Quantity[ 0, "Watts" ], top } },
+            GridLines            -> {
+                None,
+                {
+                    {
+                        mean,
+                        Directive[ Dashed, Gray ]
+                    },
+                    {
+                        Quantity[ ftp, "Watts" ],
+                        Directive[ Gray ]
+                    }
                 }
-        },
-        Function[ { x, y }, Blend[ v, y/ftp ] ]
+            }
+        ]
+    ];
+
+powerZonePlot[ power_, Automatic|None|_Missing ] :=
+    Module[ { mean, top, resampled },
+        messageFailure[ FITImport::NoFTPValue ];
+        mean = Mean @ power;
+        top  = 1.2 * Max @ power;
+        resampled = TimeSeriesResample[ power, (power["LastDate"] - power["FirstDate"]) / 1600 ];
+        DateListPlot[
+            resampled,
+            AspectRatio          -> 1 / 5,
+            Filling              -> Bottom,
+            ImageSize            -> $pzPlotWidth,
+            PlotRange            -> { All, { Quantity[ 0, "Watts" ], top } },
+            GridLines            -> {
+                None,
+                { { mean, Directive[ Dashed, Gray ] } }
+            }
+        ]
     ];
 
 powerZonePlot // endDefinition;
+
+
+$pzLegend :=
+    With[ { c = Reverse @ KeySort @ $powerZoneColors },
+        SwatchLegend[
+            Values @ c,
+            Style[ #, FontSize -> 10 ] & /@ (Keys @ c),
+            LegendMarkers -> Graphics @ { Rectangle[ ] },
+            (* LegendLabel   -> "zone", *)
+            LegendMargins -> 2
+        ]
+    ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -822,6 +1047,7 @@ fitKeys[ "Record"            ] := $fitRecordKeys;
 fitKeys[ "Event"             ] := $fitEventKeys;
 fitKeys[ "DeviceInformation" ] := $fitDeviceInformationKeys;
 fitKeys[ "Session"           ] := $fitSessionKeys;
+fitKeys[ "ZonesTarget"       ] := $fitZonesTargetKeys;
 fitKeys[ _                   ] := $fitDefaultKeys;
 fitKeys // endDefinition;
 
@@ -1056,7 +1282,13 @@ $fitRecordKeys = {
     "FractionalCadence",
     "DeviceIndex",
     "PowerZone",
-    "HeartRateZone"
+    "HeartRateZone",
+    "LeftPlatformCenterOffset",
+    "RightPlatformCenterOffset",
+    "LeftPowerPhase",
+    "RightPowerPhase",
+    "LeftPowerPhasePeak",
+    "RightPowerPhasePeak"
 };
 
 (* ::**********************************************************************:: *)
@@ -1204,6 +1436,19 @@ $fitSessionKeys = {
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*$fitZonesTargetKeys*)
+$fitZonesTargetKeys // ClearAll;
+$fitZonesTargetKeys = {
+    "MessageType",
+    "FunctionalThresholdPower",
+    "MaxHeartRate",
+    "ThresholdHeartRate",
+    "HeartRateCalculationType",
+    "PowerZoneCalculationType"
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$fitDefaultKeys*)
 $fitDefaultKeys // ClearAll;
 $fitDefaultKeys = {
@@ -1215,20 +1460,35 @@ $fitDefaultKeys = {
 (* ::Subsection::Closed:: *)
 (*formatFitData*)
 formatFitData // beginDefinition;
+formatFitData[ data_ ] := cached @ formatFitData0 @ data;
+formatFitData // endDefinition;
 
-formatFitData[ data_ ] :=
-    Module[ { fa, tr, filtered },
+formatFitData0 // beginDefinition;
+
+formatFitData0[ data_ ] :=
+    Module[ { fa, tr, filtered, res },
         (* fa = Block[ { $start = data[[ 1, 1 ]] }, makeFitAssociation /@ data ]; *) (* Broken: need to ensure value is a timestamp *)
         fa = makeFitAssociation /@ data;
         If[ ! MatchQ[ fa, { __Association } ],
             Throw[ Missing[ "NotAvailable" ], $tag ]
         ];
         tr = gu`AssociationTranspose @ fa;
-        filtered = Select[ tr, Composition[ Not, AllTrue @ MissingQ ] ];
-        gu`AssociationTranspose @ filtered
+        filtered = Select[ tr, Composition[ Not, allSameOrMissingQ ] ];
+        res = gu`AssociationTranspose @ filtered;
+        If[ Length @ res === 1,
+            DeleteCases[ res, _Missing | Quantity[ 0 | 0.0, _ ], { 2 } ],
+            res
+        ]
     ] ~Catch~ $tag;
 
-formatFitData // endDefinition;
+formatFitData0 // endDefinition;
+
+
+
+allSameOrMissingQ // ClearAll;
+allSameOrMissingQ[ { _ } ] := False;
+allSameOrMissingQ[ a_List ] := Or[ AllTrue[ a, MissingQ ], SameQ @@ a ];
+allSameOrMissingQ[ ___ ] := False;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -1277,7 +1537,7 @@ snakeToCamel // beginDefinition;
 snakeToCamel[ s_String ] :=
     StringReplace[
         StringJoin @ ReplaceAll[
-            Capitalize @ ToLowerCase @ StringSplit[ s, "_" ],
+            capitalize @ ToLowerCase @ StringSplit[ s, "_" ],
             $capitalizationRules1
         ],
         $capitalizationRules2
@@ -1285,29 +1545,57 @@ snakeToCamel[ s_String ] :=
 
 snakeToCamel // endDefinition;
 
+capitalize // beginDefinition;
+capitalize // Attributes = { Listable };
+
+capitalize[ s_String ] :=
+    If[ TrueQ[ StringLength @ s <= 3 && ! DictionaryWordQ @ s ],
+        ToUpperCase @ s,
+        Capitalize @ s
+    ];
+
+capitalize // endDefinition;
 
 $capitalizationRules1 // ClearAll;
 $capitalizationRules1 = {
-    "Id"    -> "ID",
-    "Hr"    -> "HeartRate",
-    "Hrm"   -> "HeartRateMonitor",
-    "Sdm"   -> "SDM",
-    "Met"   -> "MET",
-    "Mesg"  -> "Message",
     "Ant"   -> "ANT",
-    "Rx"    -> "Receive",
-    "Tx"    -> "Transmit",
-    "Info"  -> "Information",
-    "Hrv"   -> "HeartRateVariability",
-    "Gps"   -> "GPS",
-    "Obdii" -> "OBDII",
-    "Nmea"  -> "NMEA",
-    "Ohr"   -> "OHR",
+    "Auto"  -> "Automatic",
     "Aux"   -> "Auxiliary",
+    "AUX"   -> "Auxiliary",
+    "COMM"  -> "Communication",
     "Elev"  -> "Elevation",
-    "Comm"  -> "Communication",
+    "ENV"   -> "Environment",
+    "EXD"   -> "ExtendedDisplay",
     "Ftp"   -> "FTP",
-    "Exd"   -> "ExtendedDisplay"
+    "Hr"    -> "HeartRate",
+    "HR"    -> "HeartRate",
+    "Hrm"   -> "HeartRateMonitor",
+    "HRM"   -> "HeartRateMonitor",
+    "Hrv"   -> "HeartRateVariability",
+    "HRV"   -> "HeartRateVariability",
+    "Ia"    -> "IA",
+    "Ib"    -> "IB",
+    "Id"    -> "ID",
+    "Iia"   -> "IIA",
+    "Iib"   -> "IIB",
+    "Iiia"  -> "IIIA",
+    "Iiib"  -> "IIIB",
+    "Info"  -> "Information",
+    "Iva"   -> "IVA",
+    "Ivb"   -> "IVB",
+    "Mesg"  -> "Message",
+    "Met"   -> "MET",
+    "Nmea"  -> "NMEA",
+    "Obdii" -> "OBDII",
+    "Ohr"   -> "OHR",
+    "PWR"   -> "Power",
+    "Ref"   -> "Reference",
+    "REF"   -> "Reference",
+    "Rso"   -> "RSO",
+    "RX"    -> "Receive",
+    "TX"    -> "Transmit",
+    "Ups"   -> "UPS",
+    "Utm"   -> "UTM"
 };
 
 
@@ -1512,7 +1800,7 @@ fitValue[ "Lap", "EndPosition"                        , v_ ] := fitGeoPosition @
 fitValue[ "Lap", "TotalElapsedTime"                   , v_ ] := fitTime @ v[[ 8 ]];
 fitValue[ "Lap", "TotalTimerTime"                     , v_ ] := fitTime @ v[[ 9 ]];
 fitValue[ "Lap", "TotalDistance"                      , v_ ] := fitDistance @ v[[ 10 ]];
-fitValue[ "Lap", "TotalCycles"                        , v_ ] := fitCycles @ v[[ 11 ]];
+fitValue[ "Lap", "TotalCycles"                        , v_ ] := fitTotalCycles @ v[[ 11 ]];
 fitValue[ "Lap", "TotalWork"                          , v_ ] := fitWork @ v[[ 12 ]];
 fitValue[ "Lap", "TotalMovingTime"                    , v_ ] := fitTime @ v[[ 13 ]];
 fitValue[ "Lap", "TimeInHeartRateZone"                , v_ ] := fitTime @ v[[ 14 ]];
@@ -1566,7 +1854,7 @@ fitValue[ "Lap", "MaximumTotalHemoglobinConcentration", v_ ] := fitHemoglobin @ 
 fitValue[ "Lap", "AverageSaturatedHemoglobinPercent"  , v_ ] := fitHemoglobinPercent @ v[[ 62 ]];
 fitValue[ "Lap", "MinimumSaturatedHemoglobinPercent"  , v_ ] := fitHemoglobinPercent @ v[[ 63 ]];
 fitValue[ "Lap", "MaximumSaturatedHemoglobinPercent"  , v_ ] := fitHemoglobinPercent @ v[[ 64 ]];
-fitValue[ "Lap", "AverageVAM"                         , v_ ] := fitVerticalSpeed @ v[[ 65 ]];
+fitValue[ "Lap", "AverageVAM"                         , v_ ] := fitVAM @ v[[ 65 ]];
 fitValue[ "Lap", "Event"                              , v_ ] := fitEvent @ v[[ 66 ]];
 fitValue[ "Lap", "EventType"                          , v_ ] := fitEventType @ v[[ 67 ]];
 fitValue[ "Lap", "AverageHeartRate"                   , v_ ] := fitHeartRate @ v[[ 68 ]];
@@ -1656,6 +1944,12 @@ fitValue[ "Record", "StrokeType"                     , v_ ] := fitStrokeType @ v
 fitValue[ "Record", "Zone"                           , v_ ] := fitZone @ v[[ 45 ]];
 fitValue[ "Record", "FractionalCadence"              , v_ ] := fitFractionalCadence @ v[[ 46 ]];
 fitValue[ "Record", "DeviceIndex"                    , v_ ] := fitDeviceIndex @ v[[ 47 ]];
+fitValue[ "Record", "LeftPlatformCenterOffset"       , v_ ] := fitPCO @ v[[ 48 ]];
+fitValue[ "Record", "RightPlatformCenterOffset"      , v_ ] := fitPCO @ v[[ 49 ]];
+fitValue[ "Record", "LeftPowerPhase"                 , v_ ] := fitPowerPhase @ v[[ 50 ]];
+fitValue[ "Record", "LeftPowerPhasePeak"             , v_ ] := fitPowerPhase @ v[[ 51 ]];
+fitValue[ "Record", "RightPowerPhase"                , v_ ] := fitPowerPhase @ v[[ 52 ]];
+fitValue[ "Record", "RightPowerPhasePeak"            , v_ ] := fitPowerPhase @ v[[ 53 ]];
 fitValue[ "Record", "PowerZone"                      , v_ ] := fitPowerZone @ v[[ 13 ]];
 fitValue[ "Record", "HeartRateZone"                  , v_ ] := fitHeartRateZone @ v[[ 29 ]];
 
@@ -1707,7 +2001,7 @@ fitValue[ "Session", "StartPosition"                          , v_ ] := fitGeoPo
 fitValue[ "Session", "TotalElapsedTime"                       , v_ ] := fitTime @ v[[ 6 ]];
 fitValue[ "Session", "TotalTimerTime"                         , v_ ] := fitTime @ v[[ 7 ]];
 fitValue[ "Session", "TotalDistance"                          , v_ ] := fitDistance @ v[[ 8 ]];
-fitValue[ "Session", "TotalCycles"                            , v_ ] := fitCycles @ v[[ 9 ]];
+fitValue[ "Session", "TotalCycles"                            , v_ ] := fitTotalCycles @ v[[ 9 ]];
 fitValue[ "Session", "GeoBoundingBox"                         , v_ ] := fitGeoBoundingBox @ v[[ 10;;13 ]];
 fitValue[ "Session", "AverageStrokeCount"                     , v_ ] := fitAverageStrokeCount @ v[[ 14 ]];
 fitValue[ "Session", "TotalWork"                              , v_ ] := fitWork @ v[[ 15 ]];
@@ -1764,7 +2058,7 @@ fitValue[ "Session", "AverageBallSpeed"                       , v_ ] := fitBallS
 fitValue[ "Session", "AverageVerticalOscillation"             , v_ ] := fitVerticalOscillation @ v[[ 66 ]];
 fitValue[ "Session", "AverageStanceTimePercent"               , v_ ] := fitStanceTimePercent @ v[[ 67 ]];
 fitValue[ "Session", "AverageStanceTime"                      , v_ ] := fitStanceTime @ v[[ 68 ]];
-fitValue[ "Session", "AverageVAM"                             , v_ ] := fitVerticalSpeed @ v[[ 69 ]];
+fitValue[ "Session", "AverageVAM"                             , v_ ] := fitVAM @ v[[ 69 ]];
 fitValue[ "Session", "Event"                                  , v_ ] := fitEvent @ v[[ 70 ]];
 fitValue[ "Session", "EventType"                              , v_ ] := fitEventType @ v[[ 71 ]];
 fitValue[ "Session", "Sport"                                  , v_ ] := fitSport @ v[[ 72 ]];
@@ -1789,6 +2083,15 @@ fitValue[ "Session", "TotalFractionalCycles"                  , v_ ] := fitFract
 fitValue[ "Session", "SportIndex"                             , v_ ] := fitUINT8 @ v[[ 90 ]];
 fitValue[ "Session", "TotalAnaerobicTrainingEffect"           , v_ ] := fitTrainingEffect @ v[[ 91 ]];
 fitValue[ "Session", "TotalAnaerobicTrainingEffectDescription", v_ ] := fitTrainingEffectDescription @ v[[ 91 ]];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*ZonesTarget*)
+fitValue[ "ZonesTarget", "FunctionalThresholdPower", v_ ] := fitFTPSetting @ v[[ 2 ]];
+fitValue[ "ZonesTarget", "MaxHeartRate"            , v_ ] := fitMaxHRSetting @ v[[ 3 ]];
+fitValue[ "ZonesTarget", "ThresholdHeartRate"      , v_ ] := fitHeartRate @ v[[ 4 ]];
+fitValue[ "ZonesTarget", "HeartRateCalculationType", v_ ] := fitHeartRateZoneCalc @ v[[ 5 ]];
+fitValue[ "ZonesTarget", "PowerZoneCalculationType", v_ ] := fitPowerZoneCalc @ v[[ 6 ]];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -1866,7 +2169,7 @@ fitGlobalID[ ___ ] := Missing[ "NotAvailable" ];
 (*fitDateTime*)
 fitDateTime // ClearAll;
 fitDateTime[ $invalidTimestamp ] := Missing[ "NotAvailable" ];
-fitDateTime[ n_Integer ] := TimeZoneConvert @ DateObject[ n, TimeZone -> 0 ];
+fitDateTime[ n_Integer ] := TimeZoneConvert @ DateObject[ n + $timeOffset, TimeZone -> 0 ];
 fitDateTime[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
@@ -1926,7 +2229,7 @@ fitGeoBoundingBox[ ___ ] := Missing[ "NotAvailable" ];
 (*fitWeight*)
 fitWeight // ClearAll;
 fitWeight[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitWeight[ n_Integer ] := fitWeight[ n, $UnitSystem ];
+fitWeight[ n_Integer ] := fitWeight[ n, $weightUnits ];
 fitWeight[ n_Integer, "Imperial" ] := Quantity[ 0.220462 * n, "Pounds" ];
 fitWeight[ n_Integer, _ ] := Quantity[ n/10.0, "Kilograms" ];
 fitWeight[ ___ ] := Missing[ "NotAvailable" ];
@@ -1944,7 +2247,7 @@ fitAge[ ___ ] := Missing[ "NotAvailable" ];
 (*fitHeight*)
 fitHeight // ClearAll;
 fitHeight[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
-fitHeight[ n_Integer ] := fitHeight[ n, $UnitSystem ];
+fitHeight[ n_Integer ] := fitHeight[ n, $heightUnits ];
 fitHeight[ n_Integer, "Imperial" ] := Quantity[ With[ { x = 0.0328 * n }, MixedMagnitude @ { IntegerPart @ x, 12 * FractionalPart @ x } ], MixedUnit @ { "Feet", "Inches" } ];
 fitHeight[ n_Integer, _ ] := Quantity[ n/100.0, "Meters" ];
 fitHeight[ ___ ] := Missing[ "NotAvailable" ];
@@ -1953,7 +2256,7 @@ fitHeight[ ___ ] := Missing[ "NotAvailable" ];
 (* ::Subsubsection::Closed:: *)
 (*fitDistance*)
 fitDistance // ClearAll;
-fitDistance[ n_Integer ] := fitDistance[ n, $UnitSystem ];
+fitDistance[ n_Integer ] := fitDistance[ n, $distanceUnits ];
 fitDistance[ $invalidUINT32, "Imperial" ] := Quantity[ 0.0, "Miles" ];
 fitDistance[ $invalidUINT32, _ ] := Quantity[ 0.0, "Meters" ];
 fitDistance[ n_, "Imperial" ] := Quantity[ 6.213711922373339*^-6*n, "Miles" ];
@@ -2005,7 +2308,7 @@ fitAccumulatedPower[ ___ ] := Missing[ "NotAvailable" ];
 (*fitEnhancedSpeed*)
 fitEnhancedSpeed // ClearAll;
 fitEnhancedSpeed[ 0|$invalidUINT32 ] := Missing[ "NotAvailable" ];
-fitEnhancedSpeed[ n_Integer ] := fitEnhancedSpeed[ n, $UnitSystem ];
+fitEnhancedSpeed[ n_Integer ] := fitEnhancedSpeed[ n, $speedUnits ];
 fitEnhancedSpeed[ n_, "Imperial" ] := Quantity[ 0.0022369362920544025*n, "Miles"/"Hours" ];
 fitEnhancedSpeed[ n_, _ ] := Quantity[ n/1000.0, "Meters"/"Seconds" ];
 fitEnhancedSpeed[ ___ ] := Missing[ "NotAvailable" ];
@@ -2015,7 +2318,7 @@ fitEnhancedSpeed[ ___ ] := Missing[ "NotAvailable" ];
 (*fitEnhancedAltitude*)
 fitEnhancedAltitude // ClearAll;
 fitEnhancedAltitude[ $invalidUINT32 ] := Missing[ "NotAvailable" ];
-fitEnhancedAltitude[ n_Integer ] := fitEnhancedAltitude[ n, $UnitSystem ];
+fitEnhancedAltitude[ n_Integer ] := fitEnhancedAltitude[ n, $altitudeUnits ];
 fitEnhancedAltitude[ n_, "Imperial" ] := Quantity[ 0.6561679790026247*n - 328.0839895013123, "Feet" ];
 fitEnhancedAltitude[ n_, _ ] := Quantity[ 0.2 n - 100.0, "Meters" ];
 fitEnhancedAltitude[ ___ ] := Missing[ "NotAvailable" ];
@@ -2025,7 +2328,7 @@ fitEnhancedAltitude[ ___ ] := Missing[ "NotAvailable" ];
 (*fitAltitude*)
 fitAltitude // ClearAll;
 fitAltitude[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitAltitude[ n_Integer ] := fitAltitude[ n, $UnitSystem ];
+fitAltitude[ n_Integer ] := fitAltitude[ n, $altitudeUnits ];
 fitAltitude[ n_, "Imperial" ] := Quantity[ 0.656168 n - 1640.42, "Feet" ];
 fitAltitude[ n_, _ ] := Quantity[ 0.2 n - 500.0, "Meters" ];
 fitAltitude[ ___ ] := Missing[ "NotAvailable" ];
@@ -2035,7 +2338,7 @@ fitAltitude[ ___ ] := Missing[ "NotAvailable" ];
 (*fitAscent*)
 fitAscent // ClearAll;
 fitAscent[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitAscent[ n_Integer ] := fitAscent[ n, $UnitSystem ];
+fitAscent[ n_Integer ] := fitAscent[ n, $altitudeUnits ];
 fitAscent[ n_, "Imperial" ] := Quantity[ 3.28084 * n, "Feet" ];
 fitAscent[ n_, _ ] := Quantity[ n, "Meters" ];
 
@@ -2043,7 +2346,7 @@ fitAscent[ n_, _ ] := Quantity[ n, "Meters" ];
 (* ::Subsubsection::Closed:: *)
 (*fitSpeed*)
 fitSpeed // ClearAll;
-fitSpeed[ n_Integer ] := fitSpeed[ n, $UnitSystem ];
+fitSpeed[ n_Integer ] := fitSpeed[ n, $speedUnits ];
 fitSpeed[ $invalidUINT16, "Imperial" ] := Quantity[ 0.0, "Miles"/"Hours" ];
 fitSpeed[ $invalidUINT16, _ ] := Quantity[ 0.0, "Meters"/"Seconds" ];
 fitSpeed[ n_, "Imperial" ] := Quantity[ 0.0022369362920544025*n, "Miles"/"Hours" ];
@@ -2055,7 +2358,7 @@ fitSpeed[ ___ ] := Missing[ "NotAvailable" ];
 (*fitAverageSpeed*)
 fitAverageSpeed // ClearAll;
 fitAverageSpeed[ 0|$invalidUINT32 ] := Missing[ "NotAvailable" ];
-fitAverageSpeed[ n_Integer ] := fitAverageSpeed[ n, $UnitSystem ];
+fitAverageSpeed[ n_Integer ] := fitAverageSpeed[ n, $speedUnits ];
 fitAverageSpeed[ n_, "Imperial" ] := Quantity[ 0.0022369362920544025*n, "Miles"/"Hours" ];
 fitAverageSpeed[ n_, _ ] := Quantity[ n/1000.0, "Meters"/"Seconds" ];
 fitAverageSpeed[ ___ ] := Missing[ "NotAvailable" ];
@@ -2067,6 +2370,15 @@ fitPower // ClearAll;
 fitPower[ $invalidUINT16 ] := Quantity[ 0, "Watts" ];
 fitPower[ n_Integer ] := Quantity[ n, "Watts" ];
 fitPower[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitFTPSetting*)
+fitFTPSetting // ClearAll;
+fitFTPSetting[ n_ ] := fitFTPSetting[ fitPower @ n, $ftp ];
+fitFTPSetting[ watts_Quantity, Automatic ] := ($ftp = setFTP @ watts; watts);
+fitFTPSetting[ watts_Quantity, _ ] := watts;
+fitFTPSetting[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2089,10 +2401,20 @@ fitCompressedAccumulatedPower[ ___ ] := Missing[ "NotAvailable" ];
 (*fitVerticalSpeed*)
 fitVerticalSpeed // ClearAll;
 fitVerticalSpeed[ $invalidSINT16 ] := Missing[ "NotAvailable" ];
-fitVerticalSpeed[ n_Integer ] := fitVerticalSpeed[ n, $UnitSystem ];
+fitVerticalSpeed[ n_Integer ] := fitVerticalSpeed[ n, $speedUnits ];
 fitVerticalSpeed[ n_, "Imperial" ] := Quantity[ 0.00328084 * n, "Feet"/"Seconds" ];
 fitVerticalSpeed[ n_, _ ] := Quantity[ n / 1000.0, "Meters"/"Seconds" ];
 fitVerticalSpeed[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitVAM*)
+fitVAM // ClearAll;
+fitVAM[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
+fitVAM[ n_Integer ] := fitVAM[ n, $speedUnits ];
+fitVAM[ n_, "Imperial" ] := Quantity[ 0.00328084 * n, "Feet"/"Seconds" ];
+fitVAM[ n_, _ ] := Quantity[ n / 1000.0, "Meters"/"Seconds" ];
+fitVAM[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2107,7 +2429,7 @@ fitCalories[ ___ ] := Missing[ "NotAvailable" ];
 (*fitVerticalOscillation*)
 fitVerticalOscillation // ClearAll;
 fitVerticalOscillation[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitVerticalOscillation[ n_Integer ] := fitVerticalOscillation[ n, $UnitSystem ];
+fitVerticalOscillation[ n_Integer ] := fitVerticalOscillation[ n, $distanceUnits ];
 fitVerticalOscillation[ n_, "Imperial" ] := Quantity[ 0.003937 * n, "Inches" ];
 fitVerticalOscillation[ n_, _ ] := Quantity[ n / 10.0, "Millimeters" ];
 fitVerticalOscillation[ ___ ] := Missing[ "NotAvailable" ];
@@ -2133,7 +2455,7 @@ fitStanceTime[ ___ ] := Missing[ "NotAvailable" ];
 (*fitBallSpeed*)
 fitBallSpeed // ClearAll;
 fitBallSpeed[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitBallSpeed[ n_Integer ] := fitBallSpeed[ n, $UnitSystem ];
+fitBallSpeed[ n_Integer ] := fitBallSpeed[ n, $speedUnits ];
 fitBallSpeed[ n_, "Imperial" ] := Quantity[ 0.032808 * n, "Feet"/"Seconds" ];
 fitBallSpeed[ n_, _ ] := Quantity[ n / 100.0, "Meters"/"Seconds" ];
 fitBallSpeed[ ___ ] := Missing[ "NotAvailable" ];
@@ -2166,9 +2488,18 @@ fitHemoglobinPercent[ ___ ] := Missing[ "NotAvailable" ];
 (* ::Subsubsection::Closed:: *)
 (*fitHeartRate*)
 fitHeartRate // ClearAll;
-fitHeartRate[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
+fitHeartRate[ $invalidUINT8 | 0 ] := Missing[ "NotAvailable" ];
 fitHeartRate[ n_Integer ] := Quantity[ n, "Beats"/"Minute" ];
 fitHeartRate[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitMaxHRSetting*)
+fitMaxHRSetting // ClearAll;
+fitMaxHRSetting[ n_ ] := fitMaxHRSetting[ fitHeartRate @ n, $maxHR ];
+fitMaxHRSetting[ hr_Quantity, Automatic ] := ($maxHR = setMaxHR @ hr; hr);
+fitMaxHRSetting[ hr_Quantity, _ ] := hr;
+fitMaxHRSetting[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2191,7 +2522,7 @@ fitResistance[ ___ ] := Missing[ "NotAvailable" ];
 (*fitCycleLength*)
 fitCycleLength // ClearAll;
 fitCycleLength[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
-fitCycleLength[ n_Integer ] := fitCycleLength[ n, $UnitSystem ];
+fitCycleLength[ n_Integer ] := fitCycleLength[ n, $distanceUnits ];
 fitCycleLength[ n_, "Imperial" ] := Quantity[ 0.032808 * n, "Feet" ];
 fitCycleLength[ n_, _ ] := Quantity[ n / 100.0, "Meters" ];
 fitCycleLength[ ___ ] := Missing[ "NotAvailable" ];
@@ -2201,7 +2532,7 @@ fitCycleLength[ ___ ] := Missing[ "NotAvailable" ];
 (*fitTemperature*)
 fitTemperature // ClearAll;
 fitTemperature[ $invalidSINT8 ] := Missing[ "NotAvailable" ];
-fitTemperature[ n_Integer ] := fitTemperature[ n, $UnitSystem ];
+fitTemperature[ n_Integer ] := fitTemperature[ n, $temperatureUnits ];
 fitTemperature[ n_Integer, "Imperial" ] := Quantity[ 32.0 + 1.8 n, "DegreesFahrenheit" ];
 fitTemperature[ n_Integer, _ ] := Quantity[ 1.0 * n, "DegreesCelsius" ];
 fitTemperature[ ___ ] := Missing[ "NotAvailable" ];
@@ -2228,7 +2559,7 @@ fitSteps[ ___ ] := Missing[ "NotAvailable" ];
 fitStepLength // ClearAll;
 fitStepLength[ 0 ] := Automatic;
 fitStepLength[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitStepLength[ n_Integer ] := fitStepLength[ n, $UnitSystem ];
+fitStepLength[ n_Integer ] := fitStepLength[ n, $distanceUnits ];
 fitStepLength[ n_Integer, "Imperial" ] := Quantity[ 0.00328084 * n, "Feet" ];
 fitStepLength[ n_Integer, _ ] := Quantity[ 0.001 * n, "Meters" ];
 fitStepLength[ ___ ] := Missing[ "NotAvailable" ];
@@ -2272,6 +2603,22 @@ fitPedalSmoothness // ClearAll;
 fitPedalSmoothness[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
 fitPedalSmoothness[ n_Integer ] := Quantity[ n / 2.0, "Percent" ];
 fitPedalSmoothness[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitPCO*)
+fitPCO // ClearAll;
+fitPCO[ $invalidSINT8 ] := Missing[ "NotAvailable" ];
+fitPCO[ n_Integer ] := Quantity[ n, "Millimeters" ];
+fitPCO[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitPowerPhase*)
+fitPowerPhase // ClearAll;
+fitPowerPhase[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
+fitPowerPhase[ n_Integer ] := Quantity[ n / 0.7111111, "Degrees" ];
+fitPowerPhase[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2390,20 +2737,6 @@ fitRearGear // ClearAll;
 fitRearGear[ $invalidUINT8Z ] := Missing[ "NotAvailable" ];
 fitRearGear[ n_Integer ] := n;
 fitRearGear[ ___ ] := Missing[ "NotAvailable" ];
-
-(* ::**********************************************************************:: *)
-(* ::Subsubsection::Closed:: *)
-(*fitRadarThreatLevelType*)
-fitRadarThreatLevelType // ClearAll;
-fitRadarThreatLevelType[ n_Integer ] := Lookup[ $fitRadarThreatLevelTypes, n, Missing[ "NotAvailable" ] ];
-fitRadarThreatLevelType[ ___ ] := Missing[ "NotAvailable" ];
-
-$fitRadarThreatLevelTypes = <|
-    0 -> "THREAT_UNKNOWN",
-    1 -> "THREAT_NONE",
-    2 -> "THREAT_APPROACHING",
-    3 -> "THREAT_APPROACHING_FAST"
-|>;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2570,7 +2903,7 @@ fitIntensityFactor[ ___ ] := Missing[ "NotAvailable" ];
 (*fitMeters100*)
 fitMeters100 // ClearAll;
 fitMeters100[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitMeters100[ n_Integer ] := fitMeters100[ n, $UnitSystem ];
+fitMeters100[ n_Integer ] := fitMeters100[ n, $distanceUnits ];
 fitMeters100[ n_Integer, "Metric" ] := Quantity[ n / 100.0, "Meters" ];
 fitMeters100[ n_Integer, "Imperial" ] := Quantity[ 0.0328084 * n, "Feet" ];
 fitMeters100[ ___ ] := Missing[ "NotAvailable" ];
@@ -2579,7 +2912,7 @@ fitMeters100[ ___ ] := Missing[ "NotAvailable" ];
 (* ::Subsubsection::Closed:: *)
 (*fitTrainingEffect*)
 fitTrainingEffect // ClearAll;
-fitTrainingEffect[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
+fitTrainingEffect[ $invalidUINT8|0 ] := Missing[ "NotAvailable" ];
 fitTrainingEffect[ n_Integer ] := n/10.0;
 fitTrainingEffect[ ___ ] := Missing[ "NotAvailable" ];
 
@@ -2594,7 +2927,7 @@ fitTrainingEffectDescription[ n_Integer ] :=
            n >= 30, "Impacting",
            n >= 20, "Maintaining",
            n >= 10, "Some Benefit",
-           True, "No Benefit"
+           True   , "No Benefit"
     ];
 
 fitTrainingEffectDescription[ ___ ] := Missing[ "NotAvailable" ];
@@ -2618,6 +2951,11 @@ $powerZoneColors = <|
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*$powerZoneThresholds*)
+$powerZoneThresholds = { 0.05, 0.55, 0.75, 0.9, 1.05, 1.2, 1.5 };
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$hrZoneColors*)
 $hrZoneColors = <|
     1 -> RGBColor[ "#53b3d1" ],
@@ -2626,6 +2964,24 @@ $hrZoneColors = <|
     4 -> RGBColor[ "#f69434" ],
     5 -> RGBColor[ "#fb0052" ]
 |>;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*powerZonePlotCF*)
+powerZonePlotCF // beginDefinition;
+
+powerZonePlotCF[ ftp_Quantity ] :=
+    With[ { watts = UnitConvert[ ftp, "Watts" ] },
+        powerZonePlotCF @ QuantityMagnitude @ watts
+    ];
+
+powerZonePlotCF[ ftp_? NumberQ ] :=
+    With[
+        { v = Transpose @ { $powerZoneThresholds, Values @ $powerZoneColors } },
+        Function[ { x, y }, Blend[ v, y/ftp ] ]
+    ];
+
+powerZonePlotCF // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -4088,6 +4444,90 @@ $fitGarminProduct0 = <|
 $fitGarminProduct = toNiceCamelCase /@ removePrefix[ $fitGarminProduct0, "FIT_GARMIN_PRODUCT_" ];
 
 (* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitHeartRateZoneCalc*)
+fitHeartRateZoneCalc // ClearAll;
+fitHeartRateZoneCalc[ n_Integer ] := Lookup[ $fitHeartRateZoneCalc, n, Missing[ "NotAvailable" ] ];
+fitHeartRateZoneCalc[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitHeartRateZoneCalc0 = <|
+    0 -> "FIT_HR_ZONE_CALC_CUSTOM",
+    1 -> "FIT_HR_ZONE_CALC_PERCENT_MAX_HR",
+    2 -> "FIT_HR_ZONE_CALC_PERCENT_HRR"
+|>;
+
+$fitHeartRateZoneCalc = toNiceCamelCase /@ removePrefix[ $fitHeartRateZoneCalc0, "FIT_HR_ZONE_CALC_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitPowerZoneCalc*)
+fitPowerZoneCalc // ClearAll;
+fitPowerZoneCalc[ n_Integer ] := Lookup[ $fitPowerZoneCalc, n, Missing[ "NotAvailable" ] ];
+fitPowerZoneCalc[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitPowerZoneCalc0 = <|
+    0 -> "FIT_PWR_ZONE_CALC_CUSTOM",
+    1 -> "FIT_PWR_ZONE_CALC_PERCENT_FTP"
+|>;
+
+$fitPowerZoneCalc = toNiceCamelCase /@ removePrefix[ $fitPowerZoneCalc0, "FIT_PWR_ZONE_CALC_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitRadarThreatLevelType*)
+fitRadarThreatLevelType // ClearAll;
+fitRadarThreatLevelType[ n_Integer ] := Lookup[ $fitRadarThreatLevelType, n, Missing[ "NotAvailable" ] ];
+fitRadarThreatLevelType[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitRadarThreatLevelType0 = <|
+    0 -> "FIT_RADAR_THREAT_LEVEL_TYPE_THREAT_UNKNOWN",
+    1 -> "FIT_RADAR_THREAT_LEVEL_TYPE_THREAT_NONE",
+    2 -> "FIT_RADAR_THREAT_LEVEL_TYPE_THREAT_APPROACHING",
+    3 -> "FIT_RADAR_THREAT_LEVEL_TYPE_THREAT_APPROACHING_FAST"
+|>;
+
+$fitRadarThreatLevelType = toNiceCamelCase /@ removePrefix[ $fitRadarThreatLevelType0, "FIT_RADAR_THREAT_LEVEL_TYPE_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Caching*)
+$blockCache = <| |>;
+$cacheBlock = False;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cacheBlock*)
+cacheBlock // beginDefinition;
+cacheBlock // Attributes = { HoldFirst };
+
+cacheBlock[ eval_ ] :=
+    Block[
+        {
+            cacheBlock  = #1 &,
+            $cacheBlock = True,
+            $blockCache = <| |>
+        },
+        eval
+    ];
+
+cacheBlock // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fastCache*)
+cached // Attributes = { HoldFirst };
+
+cached[ eval_ ] /; $cacheBlock :=
+    With[ { key = HoldComplete @ eval },
+        Lookup[ $blockCache,
+                key,
+                $blockCache[ key ] = eval
+        ]
+    ];
+
+cached[ eval_ ] := cacheBlock @ eval;
+
+(* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Error handling*)
 
@@ -4099,7 +4539,7 @@ catchTop // Attributes = { HoldFirst };
 
 catchTop[ eval_ ] :=
     Block[ { $catching = True, $failed = False, catchTop = # &, $start },
-        Catch[ eval, $top ]
+        cacheBlock @ Catch[ eval, $top ]
     ];
 
 catchTop // endDefinition;
@@ -4168,6 +4608,11 @@ $bugReportLink := $bugReportLink = Hyperlink[
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Resources*)
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Compiled Libraries*)
+
 $libData := $libData =
     $libData0 /. e_EvaluateInPlace :> RuleCondition @ First @ e;
 
@@ -4182,3 +4627,58 @@ $libData0 = <|
     "MacOSX-x86-64"  -> EvaluateInPlace @ ReadByteArray @ FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResources", "MacOSX-x86-64" , "FitnessData.dylib" },
     "Windows-x86-64" -> EvaluateInPlace @ ReadByteArray @ FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResources", "Windows-x86-64", "FitnessData.dll"   }
 |>;
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Example Files*)
+
+$exampleZipData := Replace[ $exampleZipData0, e_EvaluateInPlace :> First @ e ];
+
+$exampleZipData0 = EvaluateInPlace @ ReadByteArray @
+    CreateArchive[
+        FileNameJoin @ { DirectoryName @ $InputFileName, "ExampleData" },
+        FileNameJoin @ { $TemporaryDirectory, "ExampleData.zip" },
+        OverwriteTarget -> True
+    ];
+
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*unpackExamples*)
+unpackExamples // beginDefinition;
+
+unpackExamples[ ] := unpackExamples[ ] =
+    Module[ { zip },
+        If[ ! MemberQ[ $Path, $baseDir ], AppendTo[ $Path, $baseDir ] ];
+        zip = FileNameJoin @ { $baseDir, "ExampleData.zip" };
+        Export[ zip, $exampleZipData, "Binary" ];
+        ExtractArchive[ zip, $baseDir, OverwriteTarget -> True ]
+    ];
+
+unpackExamples // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*exampleDataPathQ*)
+exampleDataPathQ // ClearAll;
+exampleDataPathQ[ file_ ] := Quiet @ MemberQ[ FileNameSplit @ file, "ExampleData" ];
+exampleDataPathQ[ ___ ] := False;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*findFile*)
+findFile // beginDefinition;
+
+findFile[ file_ ] :=
+    With[ { f = Quiet @ FindFile @ file },
+        f /; FileExistsQ @ f
+    ];
+
+findFile[ file_? exampleDataPathQ ] := (
+    unpackExamples[ ];
+    Quiet @ FindFile @ file
+);
+
+findFile[ file_ ] := Quiet @ FindFile @ file;
+
+findFile // endDefinition;

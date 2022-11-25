@@ -5990,8 +5990,8 @@ typedef struct
 
 // record message
 
-#define FIT_RECORD_MESG_SIZE                                                    125
-#define FIT_RECORD_MESG_DEF_SIZE                                                227
+#define FIT_RECORD_MESG_SIZE                                                    134
+#define FIT_RECORD_MESG_DEF_SIZE                                                254
 #define FIT_RECORD_MESG_COMPRESSED_SPEED_DISTANCE_COUNT                         3
 #define FIT_RECORD_MESG_SPEED_1S_COUNT                                          5
 
@@ -6045,18 +6045,18 @@ typedef struct
     FIT_UINT8 zone; //
     FIT_UINT8 fractional_cadence; // 128 * rpm + 0,
     FIT_DEVICE_INDEX device_index; //
-    FIT_SINT8 left_pco;
-    FIT_SINT8 right_pco;
-    FIT_UINT8 left_power_phase; // 0.7111111 * degrees + 0,
-    FIT_UINT8 left_power_phase_peak; // 0.7111111 * degrees + 0,
-    FIT_UINT8 right_power_phase; // 0.7111111 * degrees + 0,
-    FIT_UINT8 right_power_phase_peak; // 0.7111111 * degrees + 0,
-    FIT_UINT8 battery_soc; // 2 * percent + 0,
-    FIT_UINT8 motor_power; // 1 * watts + 0,
-    FIT_UINT8 vertical_ratio;
-    FIT_UINT8 stance_time_balance;
-    FIT_UINT8 step_length; // 10 * mm + 0,
-    FIT_UINT8 absolute_pressure; // 1 * Pa + 0,
+    FIT_SINT8 left_pco; // 1 * mm + 0,
+    FIT_SINT8 right_pco; // 1 * mm + 0,
+    FIT_UINT8 left_power_phase[2]; // 0.7111111 * degrees + 0,
+    FIT_UINT8 left_power_phase_peak[2]; // 0.7111111 * degrees + 0,
+    FIT_UINT8 right_power_phase[2]; // 0.7111111 * degrees + 0,
+    FIT_UINT8 right_power_phase_peak[2]; // 0.7111111 * degrees + 0,
+    FIT_UINT8 battery_soc; // 1 * percent + 0,
+    FIT_UINT16 motor_power; // 1 * watts + 0,
+    FIT_UINT8 vertical_ratio; // 1 * percent + 0,
+    FIT_UINT8 stance_time_balance; // 1 * percent + 0,
+    FIT_UINT8 step_length; // 1 * mm + 0,
+    FIT_UINT16 absolute_pressure; // 1 * Pa + 0,
     FIT_UINT8 depth; // 1000 * m + 0,
     FIT_UINT8 next_stop_depth; // 1000 * m + 0,
     FIT_UINT8 next_stop_time; // 1 * s + 0,
@@ -6071,6 +6071,10 @@ typedef struct
     FIT_UINT8 ebike_assist_mode;
     FIT_UINT8 ebike_assist_level_percent; // 1 * percent + 0,
     FIT_UINT8 core_temperature;
+    FIT_UINT16 unknown_61;
+    FIT_SINT8 performance_condition;
+    FIT_SINT8 unknown_90;
+    FIT_UINT16 respiration_rate; // units unknown
 } FIT_RECORD_MESG;
 
 typedef FIT_UINT8 FIT_RECORD_FIELD_NUM;
@@ -6149,6 +6153,10 @@ typedef FIT_UINT8 FIT_RECORD_FIELD_NUM;
 #define FIT_RECORD_FIELD_NUM_EBIKE_ASSIST_MODE ((FIT_RECORD_FIELD_NUM)119)
 #define FIT_RECORD_FIELD_NUM_EBIKE_ASSIST_LEVEL_PERCENT ((FIT_RECORD_FIELD_NUM)120)
 #define FIT_RECORD_FIELD_NUM_CORE_TEMPERATURE ((FIT_RECORD_FIELD_NUM)139)
+#define FIT_RECORD_FIELD_NUM_UNKNOWN_61 ((FIT_RECORD_FIELD_NUM)61)
+#define FIT_RECORD_FIELD_NUM_PERFORMANCE_CONDITION ((FIT_RECORD_FIELD_NUM)66)
+#define FIT_RECORD_FIELD_NUM_UNKNOWN_90 ((FIT_RECORD_FIELD_NUM)90)
+#define FIT_RECORD_FIELD_NUM_RESPIRATION_RATE ((FIT_RECORD_FIELD_NUM)108)
 
 typedef enum
 {
@@ -6226,6 +6234,10 @@ typedef enum
     FIT_RECORD_MESG_EBIKE_ASSIST_MODE,
     FIT_RECORD_MESG_EBIKE_ASSIST_PERCENT,
     FIT_RECORD_MESG_CORE_TEMPERATURE,
+    FIT_RECORD_MESG_UNKNOWN_61,
+    FIT_RECORD_MESG_PERFORMANCE_CONDITION,
+    FIT_RECORD_MESG_UNKNOWN_90,
+    FIT_RECORD_MESG_RESPIRATION_RATE,
     FIT_RECORD_MESG_FIELDS
 } FIT_RECORD_MESG_FIELD;
 

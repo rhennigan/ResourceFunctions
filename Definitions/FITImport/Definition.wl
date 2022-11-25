@@ -7,7 +7,7 @@ FITImport // ClearAll;
 (* ::Section::Closed:: *)
 (*Initialization*)
 $inDef = False;
-$debug = True;
+$debug = False;
 
 $ContextAliases[ "gu`" ] = "GeneralUtilities`";
 
@@ -97,6 +97,7 @@ $heightUnits      := $UnitSystem;
 $speedUnits       := $UnitSystem;
 $temperatureUnits := $UnitSystem;
 $weightUnits      := $UnitSystem;
+$pressureUnits    := $UnitSystem;
 
 $units := <| |>
 
@@ -545,11 +546,11 @@ selectMessageType[ data_, type_String ] :=
     selectMessageType[ data, fitMessageTypeNumber @ type ];
 
 selectMessageType[ data_, type_Integer ] :=
-    Select[ data, #[[ 1 ]] === type & ];
+    Developer`ToPackedArray @ Select[ data, #[[ 1 ]] === type & ];
 
 selectMessageType[ data_, type_ ] :=
     With[ { p = type /. s_String :> RuleCondition @ fitMessageTypeNumber @ s },
-        Select[ data, MatchQ[ #[[ 1 ]], p ] & ]
+        Developer`ToPackedArray @ Select[ data, MatchQ[ #[[ 1 ]], p ] & ]
     ];
 
 selectMessageType // endDefinition;
@@ -1285,10 +1286,18 @@ $fitRecordKeys = {
     "HeartRateZone",
     "LeftPlatformCenterOffset",
     "RightPlatformCenterOffset",
-    "LeftPowerPhase",
-    "RightPowerPhase",
-    "LeftPowerPhasePeak",
-    "RightPowerPhasePeak"
+    "LeftPowerPhaseStart",
+    "LeftPowerPhaseEnd",
+    "RightPowerPhaseStart",
+    "RightPowerPhaseEnd",
+    "LeftPowerPhasePeakStart",
+    "LeftPowerPhasePeakEnd",
+    "RightPowerPhasePeakStart",
+    "RightPowerPhasePeakEnd",
+    (* "Unknown61", *)
+    "PerformanceCondition",
+    (* "Unknown90", *)
+    "RespirationRate"
 };
 
 (* ::**********************************************************************:: *)
@@ -1468,7 +1477,12 @@ formatFitData0 // beginDefinition;
 formatFitData0[ data_ ] :=
     Module[ { fa, tr, filtered, res },
         (* fa = Block[ { $start = data[[ 1, 1 ]] }, makeFitAssociation /@ data ]; *) (* Broken: need to ensure value is a timestamp *)
-        fa = makeFitAssociation /@ data;
+        fa = If[ TrueQ @ $debug,
+                 $fitValueTimings = Internal`Bag[ ];
+                 makeFitAssociationTimed /@ data,
+                 makeFitAssociation /@ data
+             ];
+
         If[ ! MatchQ[ fa, { __Association } ],
             Throw[ Missing[ "NotAvailable" ], $tag ]
         ];
@@ -1508,6 +1522,33 @@ makeFitAssociation[ values_ ] :=
     ];
 
 makeFitAssociation // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*makeFitAssociationTimed*)
+makeFitAssociationTimed // beginDefinition;
+
+makeFitAssociationTimed[ values_ ] := (
+    With[ { msgType = fitMessageType @ values },
+        AssociationMap[
+            fitValueTimed[ msgType, #1, values ] &,
+            fitKeys @ msgType
+        ]
+    ]
+);
+
+makeFitAssociationTimed // endDefinition;
+
+
+fitValueTimed // ClearAll;
+fitValueTimed[ type_, name_, v_ ] :=
+    Module[ { time, res },
+        { time, res } = AbsoluteTiming @ fitValue[ type, name, v ];
+        Internal`StuffBag[ $fitValueTimings, { type, name } -> time ];
+        res
+    ];
+
+$fitValueTimings := $fitValueTimings = Internal`Bag[ ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -1946,10 +1987,24 @@ fitValue[ "Record", "FractionalCadence"              , v_ ] := fitFractionalCade
 fitValue[ "Record", "DeviceIndex"                    , v_ ] := fitDeviceIndex @ v[[ 47 ]];
 fitValue[ "Record", "LeftPlatformCenterOffset"       , v_ ] := fitPCO @ v[[ 48 ]];
 fitValue[ "Record", "RightPlatformCenterOffset"      , v_ ] := fitPCO @ v[[ 49 ]];
-fitValue[ "Record", "LeftPowerPhase"                 , v_ ] := fitPowerPhase @ v[[ 50 ]];
-fitValue[ "Record", "LeftPowerPhasePeak"             , v_ ] := fitPowerPhase @ v[[ 51 ]];
-fitValue[ "Record", "RightPowerPhase"                , v_ ] := fitPowerPhase @ v[[ 52 ]];
-fitValue[ "Record", "RightPowerPhasePeak"            , v_ ] := fitPowerPhase @ v[[ 53 ]];
+fitValue[ "Record", "LeftPowerPhaseStart"            , v_ ] := fitPowerPhase @ v[[ 50 ]];
+fitValue[ "Record", "LeftPowerPhaseEnd"              , v_ ] := fitPowerPhase @ v[[ 51 ]];
+fitValue[ "Record", "LeftPowerPhasePeakStart"        , v_ ] := fitPowerPhase @ v[[ 52 ]];
+fitValue[ "Record", "LeftPowerPhasePeakEnd"          , v_ ] := fitPowerPhase @ v[[ 53 ]];
+fitValue[ "Record", "RightPowerPhaseStart"           , v_ ] := fitPowerPhase @ v[[ 54 ]];
+fitValue[ "Record", "RightPowerPhaseEnd"             , v_ ] := fitPowerPhase @ v[[ 55 ]];
+fitValue[ "Record", "RightPowerPhasePeakStart"       , v_ ] := fitPowerPhase @ v[[ 56 ]];
+fitValue[ "Record", "RightPowerPhasePeakEnd"         , v_ ] := fitPowerPhase @ v[[ 57 ]];
+fitValue[ "Record", "BatterySOC"                     , v_ ] := fitPercent @ v[[ 58 ]];
+fitValue[ "Record", "MotorPower"                     , v_ ] := fitPower8 @ v[[ 59 ]];
+fitValue[ "Record", "VerticalRatio"                  , v_ ] := fitPercent @ v[[ 60 ]];
+fitValue[ "Record", "StanceTimeBalance"              , v_ ] := fitPercent @ v[[ 61 ]];
+fitValue[ "Record", "StepLength"                     , v_ ] := fitMM8 @ v[[ 62 ]];
+fitValue[ "Record", "AbsolutePressure"               , v_ ] := fitPressure @ v[[ 63 ]];
+fitValue[ "Record", "Unknown61"                      , v_ ] := fitUINT16 @ v[[ 64 ]];
+fitValue[ "Record", "PerformanceCondition"           , v_ ] := fitSINT8 @ v[[ 65 ]];
+fitValue[ "Record", "Unknown90"                      , v_ ] := fitSINT8 @ v[[ 66 ]];
+fitValue[ "Record", "RespirationRate"                , v_ ] := fitRespirationRate @ v[[ 67 ]];
 fitValue[ "Record", "PowerZone"                      , v_ ] := fitPowerZone @ v[[ 13 ]];
 fitValue[ "Record", "HeartRateZone"                  , v_ ] := fitHeartRateZone @ v[[ 29 ]];
 
@@ -2110,6 +2165,14 @@ fitBool[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*fitSINT8*)
+fitSINT8 // ClearAll;
+fitSINT8[ $invalidSINT8 ] := Missing[ "NotAvailable" ];
+fitSINT8[ n_Integer ] := n;
+fitSINT8[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*fitUINT8*)
 fitUINT8 // ClearAll;
 fitUINT8[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
@@ -2256,12 +2319,21 @@ fitHeight[ ___ ] := Missing[ "NotAvailable" ];
 (* ::Subsubsection::Closed:: *)
 (*fitDistance*)
 fitDistance // ClearAll;
+fitDistance[ $invalidUINT32 ] := Missing[ "NotAvailable" ];
 fitDistance[ n_Integer ] := fitDistance[ n, $distanceUnits ];
-fitDistance[ $invalidUINT32, "Imperial" ] := Quantity[ 0.0, "Miles" ];
-fitDistance[ $invalidUINT32, _ ] := Quantity[ 0.0, "Meters" ];
 fitDistance[ n_, "Imperial" ] := Quantity[ 6.213711922373339*^-6*n, "Miles" ];
 fitDistance[ n_, _ ] := Quantity[ n/100.0, "Meters" ];
 fitDistance[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitMM8*)
+fitMM8 // ClearAll;
+fitMM8[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
+fitMM8[ n_Integer ] := fitMM8[ n, $distanceUnits ];
+fitMM8[ n_Integer, "Imperial" ] := Quantity[ 0.03937 * n, "Inches" ];
+fitMM8[ n_Integer, _ ] := Quantity[ 1.0 * n, "Millimeters" ];
+fitMM8[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2270,6 +2342,24 @@ fitWork // ClearAll;
 fitWork[ $invalidUINT32 ] := Missing[ "NotAvailable" ];
 fitWork[ n_Integer ] := Quantity[ n/1000.0, "Kilojoules" ];
 fitWork[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitPercent*)
+fitPercent // ClearAll;
+fitPercent[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
+fitPercent[ n_Integer ] := Quantity[ n, "Percent" ];
+fitPercent[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitPressure*)
+fitPressure // ClearAll;
+fitPressure[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
+fitPressure[ n_Integer ] := fitPressure[ n, $pressureUnits ];
+fitPressure[ n_Integer, "Imperial" ] := Quantity[ 0.00014504 * n, "PoundsForce"/"Inches"^2 ];
+fitPressure[ n_Integer, _ ] := Quantity[ 1.0 * n, "Pascals" ];
+fitPressure[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2346,10 +2436,9 @@ fitAscent[ n_, _ ] := Quantity[ n, "Meters" ];
 (* ::Subsubsection::Closed:: *)
 (*fitSpeed*)
 fitSpeed // ClearAll;
+fitSpeed[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
 fitSpeed[ n_Integer ] := fitSpeed[ n, $speedUnits ];
-fitSpeed[ $invalidUINT16, "Imperial" ] := Quantity[ 0.0, "Miles"/"Hours" ];
-fitSpeed[ $invalidUINT16, _ ] := Quantity[ 0.0, "Meters"/"Seconds" ];
-fitSpeed[ n_, "Imperial" ] := Quantity[ 0.0022369362920544025*n, "Miles"/"Hours" ];
+fitSpeed[ n_, "Imperial" ] := Quantity[ 0.0022369 * n, "Miles"/"Hours" ];
 fitSpeed[ n_, _ ] := Quantity[ n/1000.0, "Meters"/"Seconds" ];
 fitSpeed[ ___ ] := Missing[ "NotAvailable" ];
 
@@ -2370,6 +2459,14 @@ fitPower // ClearAll;
 fitPower[ $invalidUINT16 ] := Quantity[ 0, "Watts" ];
 fitPower[ n_Integer ] := Quantity[ n, "Watts" ];
 fitPower[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitPower8*)
+fitPower8 // ClearAll;
+fitPower8[ $invalidUINT8 ] := Quantity[ 0, "Watts" ];
+fitPower8[ n_Integer ] := Quantity[ n, "Watts" ];
+fitPower8[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2426,6 +2523,14 @@ fitCalories[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*fitRespirationRate*)
+fitRespirationRate // ClearAll;
+fitRespirationRate[ $invalidUINT8|$invalidUINT16|0 ] := Missing[ "NotAvailable" ];
+fitRespirationRate[ n_Integer ] := Quantity[ 2.4 * Mod[ n, 256 ] + 3.6, IndependentUnit[ "Breaths" ] / "Minutes" ];
+fitRespirationRate[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*fitVerticalOscillation*)
 fitVerticalOscillation // ClearAll;
 fitVerticalOscillation[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
@@ -2465,7 +2570,7 @@ fitBallSpeed[ ___ ] := Missing[ "NotAvailable" ];
 (*fitCadence256*)
 fitCadence256 // ClearAll;
 fitCadence256[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitCadence256[ n_Integer ] := Quantity[ n/256.0, "Revolutions"/"Minute" ];
+fitCadence256[ n_Integer ] := Quantity[ n/256.0, "Revolutions"/"Minutes" ];
 fitCadence256[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
@@ -2489,7 +2594,7 @@ fitHemoglobinPercent[ ___ ] := Missing[ "NotAvailable" ];
 (*fitHeartRate*)
 fitHeartRate // ClearAll;
 fitHeartRate[ $invalidUINT8 | 0 ] := Missing[ "NotAvailable" ];
-fitHeartRate[ n_Integer ] := Quantity[ n, "Beats"/"Minute" ];
+fitHeartRate[ n_Integer ] := Quantity[ n, "Beats"/"Minutes" ];
 fitHeartRate[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
@@ -2506,7 +2611,7 @@ fitMaxHRSetting[ ___ ] := Missing[ "NotAvailable" ];
 (*fitCadence*)
 fitCadence // ClearAll;
 fitCadence[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
-fitCadence[ n_Integer ] := Quantity[ n, "Revolutions"/"Minute" ];
+fitCadence[ n_Integer ] := Quantity[ n, "Revolutions"/"Minutes" ];
 fitCadence[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
@@ -2608,7 +2713,7 @@ fitPedalSmoothness[ ___ ] := Missing[ "NotAvailable" ];
 (* ::Subsubsection::Closed:: *)
 (*fitPCO*)
 fitPCO // ClearAll;
-fitPCO[ $invalidSINT8 ] := Missing[ "NotAvailable" ];
+fitPCO[ $invalidSINT8|0 ] := Missing[ "NotAvailable" ];
 fitPCO[ n_Integer ] := Quantity[ n, "Millimeters" ];
 fitPCO[ ___ ] := Missing[ "NotAvailable" ];
 
@@ -2616,8 +2721,11 @@ fitPCO[ ___ ] := Missing[ "NotAvailable" ];
 (* ::Subsubsection::Closed:: *)
 (*fitPowerPhase*)
 fitPowerPhase // ClearAll;
+fitPowerPhase[ { $invalidUINT8, _ } ] := Missing[ "NotAvailable" ];
+fitPowerPhase[ { _, $invalidUINT8 } ] := Missing[ "NotAvailable" ];
 fitPowerPhase[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
-fitPowerPhase[ n_Integer ] := Quantity[ n / 0.7111111, "Degrees" ];
+fitPowerPhase[ { n_Integer, m_Integer } ] := Interval[ fitPowerPhase /@ { n, m } ];
+fitPowerPhase[ n_Integer ] := Quantity[ n / 0.7111111, "AngularDegrees" ];
 fitPowerPhase[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
@@ -2640,8 +2748,8 @@ fitZone[ ___ ] := Missing[ "NotAvailable" ];
 (* ::Subsubsection::Closed:: *)
 (*fitFractionalCadence*)
 fitFractionalCadence // ClearAll;
-fitFractionalCadence[ $invalidUINT8 ] := Missing[ "NotAvailable" ];
-fitFractionalCadence[ n_Integer ] := Quantity[ n/128.0, "Revolutions"/"Minute" ];
+fitFractionalCadence[ $invalidUINT8|0 ] := Missing[ "NotAvailable" ];
+fitFractionalCadence[ n_Integer ] := Quantity[ n/128.0, "Revolutions"/"Minutes" ];
 fitFractionalCadence[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)

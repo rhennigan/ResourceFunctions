@@ -608,11 +608,22 @@ static void write_record(WolframLibraryData libData, MTensor data, int idx, cons
 
     SetInteger(libData, data, pos, mesg->left_pco);
     SetInteger(libData, data, pos, mesg->right_pco);
-    SetInteger(libData, data, pos, mesg->left_power_phase);
-    SetInteger(libData, data, pos, mesg->left_power_phase_peak);
-    SetInteger(libData, data, pos, mesg->right_power_phase);
-    SetInteger(libData, data, pos, mesg->right_power_phase_peak);
 
+    SetIntegerSequence(libData, data, pos, mesg->left_power_phase, 2);
+    SetIntegerSequence(libData, data, pos, mesg->left_power_phase_peak, 2);
+    SetIntegerSequence(libData, data, pos, mesg->right_power_phase, 2);
+    SetIntegerSequence(libData, data, pos, mesg->right_power_phase_peak, 2);
+
+    SetInteger(libData, data, pos, mesg->battery_soc);
+    SetInteger(libData, data, pos, mesg->motor_power);
+    SetInteger(libData, data, pos, mesg->vertical_ratio);
+    SetInteger(libData, data, pos, mesg->stance_time_balance);
+    SetInteger(libData, data, pos, mesg->step_length);
+    SetInteger(libData, data, pos, mesg->absolute_pressure);
+    SetInteger(libData, data, pos, mesg->unknown_61);
+    SetInteger(libData, data, pos, mesg->performance_condition);
+    SetInteger(libData, data, pos, mesg->unknown_90);
+    SetInteger(libData, data, pos, mesg->respiration_rate);
 
     SetInteger(libData, data, pos, DONE);
 

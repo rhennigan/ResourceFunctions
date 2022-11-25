@@ -799,6 +799,15 @@ static void write_session(WolframLibraryData libData, MTensor data, int idx, con
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->total_fractional_cycles);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->sport_index);
     pos[1]++; libData->MTensor_setInteger(data, pos, mesg->total_anaerobic_training_effect);
+
+    SetInteger(libData, data, pos, mesg->avg_left_pco);
+    SetInteger(libData, data, pos, mesg->avg_right_pco);
+
+    SetIntegerSequence(libData, data, pos, mesg->avg_left_power_phase, 2);
+    SetIntegerSequence(libData, data, pos, mesg->avg_left_power_phase_peak, 2);
+    SetIntegerSequence(libData, data, pos, mesg->avg_right_power_phase, 2);
+    SetIntegerSequence(libData, data, pos, mesg->avg_right_power_phase_peak, 2);
+
     SetInteger(libData, data, pos, DONE);
 }
 

@@ -3,7 +3,7 @@
 #include "string.h"
 #include "fit_convert.h"
 
-#define MESSAGE_TENSOR_ROW_WIDTH 91
+#define MESSAGE_TENSOR_ROW_WIDTH 102
 
 #define FIT_IMPORT_ERROR_CONVERSION            8
 #define FIT_IMPORT_ERROR_UNEXPECTED_EOF        9

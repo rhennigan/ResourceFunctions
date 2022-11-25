@@ -295,9 +295,10 @@ FITImport[ file_, key: $$fitRecordKeys, opts: OptionsPattern[ ] ] :=
     ];
 
 FITImport[ file_, All, opts: OptionsPattern[ ] ] :=
-    catchTop @ Module[ { data },
+    catchTop @ Module[ { data, records },
         data  = FITImport[ file, "RawData", opts ];
-        DeleteMissing @ makeTimeSeriesData[ "Record", data, $fitRecordKeys ]
+        records = selectMessageType[ data, "Record" ];
+        DeleteMissing @ makeTimeSeriesData[ "Record", records, $fitRecordKeys ]
     ];
 
 FITImport[ file_, props: $$propList, opts: OptionsPattern[ ] ] :=
@@ -318,6 +319,12 @@ FITImport[ file_, props: $$propList, opts: OptionsPattern[ ] ] :=
 FITImport[ file_, "PowerZonePlot", opts: OptionsPattern[ ] ] :=
     optionsBlock[
         powerZonePlot @ FITImport[ file, "Power", opts ],
+        opts
+    ];
+
+FITImport[ file_, "AveragePowerPhasePlot", opts: OptionsPattern[ ] ] :=
+    optionsBlock[
+        averagePowerPhasePlot @ FITImport[ file, "Session", opts ],
         opts
     ];
 
@@ -369,7 +376,9 @@ $fitElements = {
     "Records",
     "MessageCounts",
     "MessageData",
-    "Messages"
+    "Messages",
+    "PowerZonePlot",
+    "AveragePowerPhasePlot"
 };
 
 $messageTypes = {
@@ -760,6 +769,9 @@ makeMessageTypeData0[ data_, type_ ] :=
 (*makeTimeSeriesData*)
 makeTimeSeriesData // beginDefinition;
 
+makeTimeSeriesData[ data_, key_ ] :=
+    makeTimeSeriesData[ "Record", selectMessageType[ data, "Record" ], key ];
+
 makeTimeSeriesData[ type_, data_, key_ ] :=
     makeTimeSeriesData[
         type,
@@ -775,7 +787,7 @@ makeTimeSeriesData[ type_, data_, key_String, time_ ] :=
             Missing[ "NotAvailable" ],
             TimeSeries[
                 DeleteCases[ Transpose @ { time, value }, { _, _Missing } ],
-                MissingDataMethod -> { "Interpolation", InterpolationOrder -> 1 }
+                MissingDataMethod -> missingDataMethod @ key
             ]
         ]
     ];
@@ -784,6 +796,11 @@ makeTimeSeriesData[ type_, data_, keys_List, time_ ] :=
     AssociationMap[ makeTimeSeriesData[ type, data, #, time ] &, keys ];
 
 makeTimeSeriesData // endDefinition;
+
+missingDataMethod // beginDefinition;
+missingDataMethod[ "GeoPosition" ] := { "Interpolation", InterpolationOrder -> 0 };
+missingDataMethod[ _ ] := { "Interpolation", InterpolationOrder -> 1 };
+missingDataMethod // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -869,6 +886,241 @@ $pzLegend :=
             LegendMargins -> 2
         ]
     ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*averagePowerPhasePlot*)
+averagePowerPhasePlot // beginDefinition;
+
+averagePowerPhasePlot[ session0_Dataset ] /; Length @ session0 >= 1 := Enclose[
+    Module[
+        {
+            session, cq, cn, watts, percent, phase1, phase2, peak1, peak2,
+            color, left, right, legend
+        },
+        session = session0[ 1 ];
+        cq = ConfirmBy[ #, QuantityQ ] &;
+        cn = ConfirmBy[ #, NumberQ ] &;
+
+        watts = cq @ session[ "AveragePower" ];
+        percent = cq @ session[ "LeftRightBalance" ][ 1 ];
+        phase1 = cn @ Normal @ session[ "AverageLeftPowerPhaseStart" ];
+        phase2 = cn @ Normal @ session[ "AverageLeftPowerPhaseEnd" ];
+        peak1 = cn @ Normal @ session[ "AverageLeftPowerPhasePeakStart" ];
+        peak2 = cn @ Normal @ session[ "AverageLeftPowerPhasePeakEnd" ];
+        color = ColorData[ 97 ][ 3 ];
+
+        left = phasePlotHalf[
+            { phase1, phase2 },
+            { peak1, peak2 },
+            color,
+            watts,
+            percent,
+            "LEFT"
+        ];
+
+        percent = cq @ session[ "LeftRightBalance" ][ 2 ];
+        phase1 = cn @ Normal @ session[ "AverageRightPowerPhaseStart" ];
+        phase2 = cn @ Normal @ session[ "AverageRightPowerPhaseEnd" ];
+        peak1 = cn @ Normal @ session[ "AverageRightPowerPhasePeakStart" ];
+        peak2 = cn @ Normal @ session[ "AverageRightPowerPhasePeakEnd" ];
+        color = ColorData[ 97 ][ 1 ];
+
+        right = phasePlotHalf[
+            { phase1, phase2 },
+            { peak1, peak2 },
+            color,
+            watts,
+            percent,
+            "RIGHT"
+        ];
+
+        legend = SwatchLegend[
+            {
+                Lighter[ ColorData[ 97 ][ 3 ], 0.35 ],
+                ColorData[ 97 ][ 3 ],
+                Lighter[ ColorData[ 97 ][ 1 ], 0.35 ],
+                ColorData[ 97 ][ 1 ]
+            },
+            Map[
+                Style[ #1, FontColor -> GrayLevel[ 0.4 ] ] &,
+                {
+                    "Left Power Phase",
+                    "Left Peak Power Phase",
+                    "Right Power Phase",
+                    "Right Peak Power Phase"
+                }
+            ]
+        ];
+
+        GraphicsRow[ { left, right, legend } ]
+    ],
+    Missing[ "NotAvailable" ] &
+];
+
+averagePowerPhasePlot[ missing_Missing ] := missing;
+
+averagePowerPhasePlot // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*phasePlotHalf*)
+phasePlotHalf // beginDefinition;
+
+phasePlotHalf[
+    { phase1_, phase2_ },
+    { peak1_, peak2_ },
+    color_,
+    watts_,
+    percent_,
+    label_
+] :=
+    Module[ { phase1Pt, phase2Pt, peak1Pt, peak2Pt },
+
+        phase1Pt = { Sin @ phase1, Cos @ phase1 };
+        phase2Pt = { Sin @ phase2, Cos @ phase2 };
+        peak1Pt = { Sin @ peak1, Cos @ peak1 };
+        peak2Pt = { Sin @ peak2, Cos @ peak2 };
+
+        Graphics[
+            {
+                GrayLevel[ 0.75 ],
+                Annulus[ { 0, 0 }, { 1, 1.1 } ],
+                Lighter[ color, 0.35 ],
+                Annulus[
+                    { 0, 0 },
+                    { 1, 1.2 },
+                    -{ phase2, phase1 + (-1) * 2 * Pi } + Pi / 2
+                ],
+                White,
+                Thick,
+                Line @ { phase1Pt, 1.2 * phase1Pt },
+                Line @ { phase2Pt, 1.2 * phase2Pt },
+                color,
+                Annulus[
+                    { 0, 0 },
+                    { 1, 1.35 },
+                    -{ peak2, peak1 } + Pi / 2
+                ],
+                White,
+                Line @ { peak1Pt, 1.35 * peak1Pt },
+                Line @ { peak2Pt, 1.35 * peak2Pt },
+                GrayLevel[ 0.4 ],
+                Thickness[ 0.005 ],
+                Line @ { { 0, 0.875 }, { 0, 0.925 } },
+                Line @ { { 0, -0.875 }, { 0, -0.925 } },
+                Line @ { { -0.95, 0 }, { -0.875, 0 } },
+                Line @ { { 0.95, 0 }, { 0.875, 0 } },
+                Text[
+                    Style[
+                        "TDC",
+                        FontSize -> Scaled[ 1 / 25 ],
+                        FontColor -> GrayLevel[ 0.5 ]
+                    ],
+                    { 0, 0.75 },
+                    Automatic
+                ],
+                Text[
+                    Style[
+                        "BDC",
+                        FontSize -> Scaled[ 1 / 25 ],
+                        FontColor -> GrayLevel[ 0.5 ]
+                    ],
+                    { 0, -0.75 },
+                    Automatic
+                ],
+                Black,
+                (* Text[
+                    Style[
+                        label,
+                        FontSize -> Scaled[ 1 / 14 ],
+                        FontColor -> GrayLevel[ 0.5 ],
+                        FontWeight -> Bold
+                    ],
+                    { 0, 0.45 },
+                    Automatic
+                ], *)
+                Text[
+                    Style[
+                        Round[ percent, 0.1 ],
+                        FontSize -> Scaled[ 1 / 8 ],
+                        FontWeight -> Bold,
+                        FontColor -> GrayLevel[ 0.25 ]
+                    ],
+                    { 0, 0.2 }
+                ],
+                Text[
+                    Style[
+                        Round[ Normal @ percent * watts, 0.1 ],
+                        FontSize -> Scaled[ 1 / 12 ],
+                        FontColor -> GrayLevel[ 0.5 ]
+                    ],
+                    { 0, -0.2 }
+                ],
+                GrayLevel[ 0.4 ],
+                Thickness[ 0.01 ],
+                Text[
+                    Style[
+                        Round @ Quantity[
+                            360 * (phase1 / (2 * Pi)),
+                            "AngularDegrees"
+                        ],
+                        FontSize -> Scaled[ 1 / 16 ],
+                        FontColor -> GrayLevel[ 0.5 ]
+                    ],
+                    1.4 * phase1Pt,
+                    Automatic
+                ],
+                Text[
+                    Style[
+                        Round @ Quantity[
+                            360 * (phase2 / (2 * Pi)),
+                            "AngularDegrees"
+                        ],
+                        FontSize -> Scaled[ 1 / 16 ],
+                        FontColor -> GrayLevel[ 0.5 ]
+                    ],
+                    1.4 * phase2Pt,
+                    Automatic
+                ],
+                Text[
+                    Style[
+                        Round @ Quantity[
+                            360 * (peak1 / (2 * Pi)),
+                            "AngularDegrees"
+                        ],
+                        FontSize -> Scaled[ 1 / 16 ],
+                        FontColor -> GrayLevel[ 0.5 ]
+                    ],
+                    1.6 * peak1Pt,
+                    Automatic
+                ],
+                Text[
+                    Style[
+                        Round @ Quantity[
+                            360 * (peak2 / (2 * Pi)),
+                            "AngularDegrees"
+                        ],
+                        FontSize -> Scaled[ 1 / 16 ],
+                        FontColor -> GrayLevel[ 0.5 ]
+                    ],
+                    1.6 * peak2Pt,
+                    Automatic
+                ],
+                GrayLevel[ 0.65 ],
+                Arrowheads[ 0.075 ],
+                Arrow @ BezierCurve @ {
+                    { -1.275, -0.4 },
+                    { -1.45, 0 },
+                    { -1.275, 0.4 }
+                }
+            },
+            ImageSize -> 200,
+            PlotRange -> { { -1.65, 1.65 }, { -1.65, 1.65 } }
+        ]
+    ];
+
+phasePlotHalf // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -1440,6 +1692,16 @@ $fitSessionKeys = {
     "TotalFractionalCycles",
     "FirstLapIndex",
     "MessageIndex",
+    "AverageLeftPlatformCenterOffset",
+    "AverageRightPlatformCenterOffset",
+    "AverageLeftPowerPhaseStart",
+    "AverageLeftPowerPhaseEnd",
+    "AverageRightPowerPhaseStart",
+    "AverageRightPowerPhaseEnd",
+    "AverageLeftPowerPhasePeakStart",
+    "AverageLeftPowerPhasePeakEnd",
+    "AverageRightPowerPhasePeakStart",
+    "AverageRightPowerPhasePeakEnd",
     "SportIndex"
 };
 
@@ -2138,6 +2400,16 @@ fitValue[ "Session", "TotalFractionalCycles"                  , v_ ] := fitFract
 fitValue[ "Session", "SportIndex"                             , v_ ] := fitUINT8 @ v[[ 90 ]];
 fitValue[ "Session", "TotalAnaerobicTrainingEffect"           , v_ ] := fitTrainingEffect @ v[[ 91 ]];
 fitValue[ "Session", "TotalAnaerobicTrainingEffectDescription", v_ ] := fitTrainingEffectDescription @ v[[ 91 ]];
+fitValue[ "Session", "AverageLeftPlatformCenterOffset"        , v_ ] := fitPCO @ v[[ 92 ]];
+fitValue[ "Session", "AverageRightPlatformCenterOffset"       , v_ ] := fitPCO @ v[[ 93 ]];
+fitValue[ "Session", "AverageLeftPowerPhaseStart"             , v_ ] := fitPowerPhase @ v[[ 94 ]];
+fitValue[ "Session", "AverageLeftPowerPhaseEnd"               , v_ ] := fitPowerPhase @ v[[ 95 ]];
+fitValue[ "Session", "AverageLeftPowerPhasePeakStart"         , v_ ] := fitPowerPhase @ v[[ 96 ]];
+fitValue[ "Session", "AverageLeftPowerPhasePeakEnd"           , v_ ] := fitPowerPhase @ v[[ 97 ]];
+fitValue[ "Session", "AverageRightPowerPhaseStart"            , v_ ] := fitPowerPhase @ v[[ 98 ]];
+fitValue[ "Session", "AverageRightPowerPhaseEnd"              , v_ ] := fitPowerPhase @ v[[ 99 ]];
+fitValue[ "Session", "AverageRightPowerPhasePeakStart"        , v_ ] := fitPowerPhase @ v[[ 100 ]];
+fitValue[ "Session", "AverageRightPowerPhasePeakEnd"          , v_ ] := fitPowerPhase @ v[[ 101 ]];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2578,7 +2850,7 @@ fitCadence256[ ___ ] := Missing[ "NotAvailable" ];
 (*fitHemoglobin*)
 fitHemoglobin // ClearAll;
 fitHemoglobin[ $invalidUINT16 ] := Missing[ "NotAvailable" ];
-fitHemoglobin[ n_Integer ] := Quantity[ n/100.0, "Grams"/"Deciliter" ];
+fitHemoglobin[ n_Integer ] := Quantity[ n/100.0, "Grams"/"Deciliters" ];
 fitHemoglobin[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)

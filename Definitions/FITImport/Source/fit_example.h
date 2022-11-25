@@ -5315,8 +5315,8 @@ typedef struct
 
 // session message
 
-#define FIT_SESSION_MESG_SIZE                                                   209
-#define FIT_SESSION_MESG_DEF_SIZE                                               278
+#define FIT_SESSION_MESG_SIZE                                                   219
+#define FIT_SESSION_MESG_DEF_SIZE                                               308
 #define FIT_SESSION_MESG_TIME_IN_HR_ZONE_COUNT                                  1
 #define FIT_SESSION_MESG_TIME_IN_SPEED_ZONE_COUNT                               1
 #define FIT_SESSION_MESG_TIME_IN_CADENCE_ZONE_COUNT                             1
@@ -5327,97 +5327,103 @@ typedef struct
 
 typedef struct
 {
-   FIT_DATE_TIME timestamp; // 1 * s + 0, Sesson end time.
-   FIT_DATE_TIME start_time; //
-   FIT_SINT32 start_position_lat; // 1 * semicircles + 0,
-   FIT_SINT32 start_position_long; // 1 * semicircles + 0,
-   FIT_UINT32 total_elapsed_time; // 1000 * s + 0, Time (includes pauses)
-   FIT_UINT32 total_timer_time; // 1000 * s + 0, Timer Time (excludes pauses)
-   FIT_UINT32 total_distance; // 100 * m + 0,
-   FIT_UINT32 total_cycles; // 1 * cycles + 0,
-   FIT_SINT32 nec_lat; // 1 * semicircles + 0, North east corner latitude
-   FIT_SINT32 nec_long; // 1 * semicircles + 0, North east corner longitude
-   FIT_SINT32 swc_lat; // 1 * semicircles + 0, South west corner latitude
-   FIT_SINT32 swc_long; // 1 * semicircles + 0, South west corner longitude
-   FIT_UINT32 avg_stroke_count; // 10 * strokes/lap + 0,
-   FIT_UINT32 total_work; // 1 * J + 0,
-   FIT_UINT32 total_moving_time; // 1000 * s + 0,
-   FIT_UINT32 time_in_hr_zone[FIT_SESSION_MESG_TIME_IN_HR_ZONE_COUNT]; // 1000 * s + 0,
-   FIT_UINT32 time_in_speed_zone[FIT_SESSION_MESG_TIME_IN_SPEED_ZONE_COUNT]; // 1000 * s + 0,
-   FIT_UINT32 time_in_cadence_zone[FIT_SESSION_MESG_TIME_IN_CADENCE_ZONE_COUNT]; // 1000 * s + 0,
-   FIT_UINT32 time_in_power_zone[FIT_SESSION_MESG_TIME_IN_POWER_ZONE_COUNT]; // 1000 * s + 0,
-   FIT_UINT32 avg_lap_time; // 1000 * s + 0,
-   FIT_UINT32 enhanced_avg_speed; // 1000 * m/s + 0, total_distance / total_timer_time
-   FIT_UINT32 enhanced_max_speed; // 1000 * m/s + 0,
-   FIT_UINT32 enhanced_avg_altitude; // 5 * m + 500,
-   FIT_UINT32 enhanced_min_altitude; // 5 * m + 500,
-   FIT_UINT32 enhanced_max_altitude; // 5 * m + 500,
-   FIT_MESSAGE_INDEX message_index; // Selected bit is set for the current session.
-   FIT_UINT16 total_calories; // 1 * kcal + 0,
-   FIT_UINT16 total_fat_calories; // 1 * kcal + 0,
-   FIT_UINT16 avg_speed; // 1000 * m/s + 0, total_distance / total_timer_time
-   FIT_UINT16 max_speed; // 1000 * m/s + 0,
-   FIT_UINT16 avg_power; // 1 * watts + 0, total_power / total_timer_time if non_zero_avg_power otherwise total_power / total_elapsed_time
-   FIT_UINT16 max_power; // 1 * watts + 0,
-   FIT_UINT16 total_ascent; // 1 * m + 0,
-   FIT_UINT16 total_descent; // 1 * m + 0,
-   FIT_UINT16 first_lap_index; //
-   FIT_UINT16 num_laps; //
-   FIT_UINT16 num_lengths; // 1 * lengths + 0, # of lengths of swim pool
-   FIT_UINT16 normalized_power; // 1 * watts + 0,
-   FIT_UINT16 training_stress_score; // 10 * tss + 0,
-   FIT_UINT16 intensity_factor; // 1000 * if + 0,
-   FIT_LEFT_RIGHT_BALANCE_100 left_right_balance; //
-   FIT_UINT16 avg_stroke_distance; // 100 * m + 0,
-   FIT_UINT16 pool_length; // 100 * m + 0,
-   FIT_UINT16 threshold_power; // 1 * watts + 0,
-   FIT_UINT16 num_active_lengths; // 1 * lengths + 0, # of active lengths of swim pool
-   FIT_UINT16 avg_altitude; // 5 * m + 500,
-   FIT_UINT16 max_altitude; // 5 * m + 500,
-   FIT_SINT16 avg_grade; // 100 * % + 0,
-   FIT_SINT16 avg_pos_grade; // 100 * % + 0,
-   FIT_SINT16 avg_neg_grade; // 100 * % + 0,
-   FIT_SINT16 max_pos_grade; // 100 * % + 0,
-   FIT_SINT16 max_neg_grade; // 100 * % + 0,
-   FIT_SINT16 avg_pos_vertical_speed; // 1000 * m/s + 0,
-   FIT_SINT16 avg_neg_vertical_speed; // 1000 * m/s + 0,
-   FIT_SINT16 max_pos_vertical_speed; // 1000 * m/s + 0,
-   FIT_SINT16 max_neg_vertical_speed; // 1000 * m/s + 0,
-   FIT_UINT16 best_lap_index; //
-   FIT_UINT16 min_altitude; // 5 * m + 500,
-   FIT_UINT16 player_score; //
-   FIT_UINT16 opponent_score; //
-   FIT_UINT16 stroke_count[FIT_SESSION_MESG_STROKE_COUNT_COUNT]; // 1 * counts + 0, stroke_type enum used as the index
-   FIT_UINT16 zone_count[FIT_SESSION_MESG_ZONE_COUNT_COUNT]; // 1 * counts + 0, zone number used as the index
-   FIT_UINT16 max_ball_speed; // 100 * m/s + 0,
-   FIT_UINT16 avg_ball_speed; // 100 * m/s + 0,
-   FIT_UINT16 avg_vertical_oscillation; // 10 * mm + 0,
-   FIT_UINT16 avg_stance_time_percent; // 100 * percent + 0,
-   FIT_UINT16 avg_stance_time; // 10 * ms + 0,
-   FIT_UINT16 avg_vam; // 1000 * m/s + 0,
-   FIT_EVENT event; // session
-   FIT_EVENT_TYPE event_type; // stop
-   FIT_SPORT sport; //
-   FIT_SUB_SPORT sub_sport; //
-   FIT_UINT8 avg_heart_rate; // 1 * bpm + 0, average heart rate (excludes pause time)
-   FIT_UINT8 max_heart_rate; // 1 * bpm + 0,
-   FIT_UINT8 avg_cadence; // 1 * rpm + 0, total_cycles / total_timer_time if non_zero_avg_cadence otherwise total_cycles / total_elapsed_time
-   FIT_UINT8 max_cadence; // 1 * rpm + 0,
-   FIT_UINT8 total_training_effect; //
-   FIT_UINT8 event_group; //
-   FIT_SESSION_TRIGGER trigger; //
-   FIT_SWIM_STROKE swim_stroke; // 1 * swim_stroke + 0,
-   FIT_DISPLAY_MEASURE pool_length_unit; //
-   FIT_UINT8 gps_accuracy; // 1 * m + 0,
-   FIT_SINT8 avg_temperature; // 1 * C + 0,
-   FIT_SINT8 max_temperature; // 1 * C + 0,
-   FIT_UINT8 min_heart_rate; // 1 * bpm + 0,
-   FIT_STRING opponent_name[FIT_SESSION_MESG_OPPONENT_NAME_COUNT]; //
-   FIT_UINT8 avg_fractional_cadence; // 128 * rpm + 0, fractional part of the avg_cadence
-   FIT_UINT8 max_fractional_cadence; // 128 * rpm + 0, fractional part of the max_cadence
-   FIT_UINT8 total_fractional_cycles; // 128 * cycles + 0, fractional part of the total_cycles
-   FIT_UINT8 sport_index; //
-   FIT_UINT8 total_anaerobic_training_effect; //
+    FIT_DATE_TIME timestamp; // 1 * s + 0, Sesson end time.
+    FIT_DATE_TIME start_time; //
+    FIT_SINT32 start_position_lat; // 1 * semicircles + 0,
+    FIT_SINT32 start_position_long; // 1 * semicircles + 0,
+    FIT_UINT32 total_elapsed_time; // 1000 * s + 0, Time (includes pauses)
+    FIT_UINT32 total_timer_time; // 1000 * s + 0, Timer Time (excludes pauses)
+    FIT_UINT32 total_distance; // 100 * m + 0,
+    FIT_UINT32 total_cycles; // 1 * cycles + 0,
+    FIT_SINT32 nec_lat; // 1 * semicircles + 0, North east corner latitude
+    FIT_SINT32 nec_long; // 1 * semicircles + 0, North east corner longitude
+    FIT_SINT32 swc_lat; // 1 * semicircles + 0, South west corner latitude
+    FIT_SINT32 swc_long; // 1 * semicircles + 0, South west corner longitude
+    FIT_UINT32 avg_stroke_count; // 10 * strokes/lap + 0,
+    FIT_UINT32 total_work; // 1 * J + 0,
+    FIT_UINT32 total_moving_time; // 1000 * s + 0,
+    FIT_UINT32 time_in_hr_zone[FIT_SESSION_MESG_TIME_IN_HR_ZONE_COUNT]; // 1000 * s + 0,
+    FIT_UINT32 time_in_speed_zone[FIT_SESSION_MESG_TIME_IN_SPEED_ZONE_COUNT]; // 1000 * s + 0,
+    FIT_UINT32 time_in_cadence_zone[FIT_SESSION_MESG_TIME_IN_CADENCE_ZONE_COUNT]; // 1000 * s + 0,
+    FIT_UINT32 time_in_power_zone[FIT_SESSION_MESG_TIME_IN_POWER_ZONE_COUNT]; // 1000 * s + 0,
+    FIT_UINT32 avg_lap_time; // 1000 * s + 0,
+    FIT_UINT32 enhanced_avg_speed; // 1000 * m/s + 0, total_distance / total_timer_time
+    FIT_UINT32 enhanced_max_speed; // 1000 * m/s + 0,
+    FIT_UINT32 enhanced_avg_altitude; // 5 * m + 500,
+    FIT_UINT32 enhanced_min_altitude; // 5 * m + 500,
+    FIT_UINT32 enhanced_max_altitude; // 5 * m + 500,
+    FIT_MESSAGE_INDEX message_index; // Selected bit is set for the current session.
+    FIT_UINT16 total_calories; // 1 * kcal + 0,
+    FIT_UINT16 total_fat_calories; // 1 * kcal + 0,
+    FIT_UINT16 avg_speed; // 1000 * m/s + 0, total_distance / total_timer_time
+    FIT_UINT16 max_speed; // 1000 * m/s + 0,
+    FIT_UINT16 avg_power; // 1 * watts + 0, total_power / total_timer_time if non_zero_avg_power otherwise total_power / total_elapsed_time
+    FIT_UINT16 max_power; // 1 * watts + 0,
+    FIT_UINT16 total_ascent; // 1 * m + 0,
+    FIT_UINT16 total_descent; // 1 * m + 0,
+    FIT_UINT16 first_lap_index; //
+    FIT_UINT16 num_laps; //
+    FIT_UINT16 num_lengths; // 1 * lengths + 0, # of lengths of swim pool
+    FIT_UINT16 normalized_power; // 1 * watts + 0,
+    FIT_UINT16 training_stress_score; // 10 * tss + 0,
+    FIT_UINT16 intensity_factor; // 1000 * if + 0,
+    FIT_LEFT_RIGHT_BALANCE_100 left_right_balance; //
+    FIT_UINT16 avg_stroke_distance; // 100 * m + 0,
+    FIT_UINT16 pool_length; // 100 * m + 0,
+    FIT_UINT16 threshold_power; // 1 * watts + 0,
+    FIT_UINT16 num_active_lengths; // 1 * lengths + 0, # of active lengths of swim pool
+    FIT_UINT16 avg_altitude; // 5 * m + 500,
+    FIT_UINT16 max_altitude; // 5 * m + 500,
+    FIT_SINT16 avg_grade; // 100 * % + 0,
+    FIT_SINT16 avg_pos_grade; // 100 * % + 0,
+    FIT_SINT16 avg_neg_grade; // 100 * % + 0,
+    FIT_SINT16 max_pos_grade; // 100 * % + 0,
+    FIT_SINT16 max_neg_grade; // 100 * % + 0,
+    FIT_SINT16 avg_pos_vertical_speed; // 1000 * m/s + 0,
+    FIT_SINT16 avg_neg_vertical_speed; // 1000 * m/s + 0,
+    FIT_SINT16 max_pos_vertical_speed; // 1000 * m/s + 0,
+    FIT_SINT16 max_neg_vertical_speed; // 1000 * m/s + 0,
+    FIT_UINT16 best_lap_index; //
+    FIT_UINT16 min_altitude; // 5 * m + 500,
+    FIT_UINT16 player_score; //
+    FIT_UINT16 opponent_score; //
+    FIT_UINT16 stroke_count[FIT_SESSION_MESG_STROKE_COUNT_COUNT]; // 1 * counts + 0, stroke_type enum used as the index
+    FIT_UINT16 zone_count[FIT_SESSION_MESG_ZONE_COUNT_COUNT]; // 1 * counts + 0, zone number used as the index
+    FIT_UINT16 max_ball_speed; // 100 * m/s + 0,
+    FIT_UINT16 avg_ball_speed; // 100 * m/s + 0,
+    FIT_UINT16 avg_vertical_oscillation; // 10 * mm + 0,
+    FIT_UINT16 avg_stance_time_percent; // 100 * percent + 0,
+    FIT_UINT16 avg_stance_time; // 10 * ms + 0,
+    FIT_UINT16 avg_vam; // 1000 * m/s + 0,
+    FIT_EVENT event; // session
+    FIT_EVENT_TYPE event_type; // stop
+    FIT_SPORT sport; //
+    FIT_SUB_SPORT sub_sport; //
+    FIT_UINT8 avg_heart_rate; // 1 * bpm + 0, average heart rate (excludes pause time)
+    FIT_UINT8 max_heart_rate; // 1 * bpm + 0,
+    FIT_UINT8 avg_cadence; // 1 * rpm + 0, total_cycles / total_timer_time if non_zero_avg_cadence otherwise total_cycles / total_elapsed_time
+    FIT_UINT8 max_cadence; // 1 * rpm + 0,
+    FIT_UINT8 total_training_effect; //
+    FIT_UINT8 event_group; //
+    FIT_SESSION_TRIGGER trigger; //
+    FIT_SWIM_STROKE swim_stroke; // 1 * swim_stroke + 0,
+    FIT_DISPLAY_MEASURE pool_length_unit; //
+    FIT_UINT8 gps_accuracy; // 1 * m + 0,
+    FIT_SINT8 avg_temperature; // 1 * C + 0,
+    FIT_SINT8 max_temperature; // 1 * C + 0,
+    FIT_UINT8 min_heart_rate; // 1 * bpm + 0,
+    FIT_STRING opponent_name[FIT_SESSION_MESG_OPPONENT_NAME_COUNT]; //
+    FIT_UINT8 avg_fractional_cadence; // 128 * rpm + 0, fractional part of the avg_cadence
+    FIT_UINT8 max_fractional_cadence; // 128 * rpm + 0, fractional part of the max_cadence
+    FIT_UINT8 total_fractional_cycles; // 128 * cycles + 0, fractional part of the total_cycles
+    FIT_UINT8 sport_index; //
+    FIT_SINT8 avg_left_pco; // 1 * mm + 0,
+    FIT_SINT8 avg_right_pco; // 1 * mm + 0,
+    FIT_UINT8 avg_left_power_phase[2]; // 0.7111111 * degrees + 0,
+    FIT_UINT8 avg_left_power_phase_peak[2]; // 0.7111111 * degrees + 0,
+    FIT_UINT8 avg_right_power_phase[2]; // 0.7111111 * degrees + 0,
+    FIT_UINT8 avg_right_power_phase_peak[2]; // 0.7111111 * degrees + 0,
+    FIT_UINT8 total_anaerobic_training_effect; //
 } FIT_SESSION_MESG;
 
 typedef FIT_UINT8 FIT_SESSION_FIELD_NUM;
@@ -5512,102 +5518,114 @@ typedef FIT_UINT8 FIT_SESSION_FIELD_NUM;
 #define FIT_SESSION_FIELD_NUM_MAX_FRACTIONAL_CADENCE ((FIT_SESSION_FIELD_NUM)93)
 #define FIT_SESSION_FIELD_NUM_TOTAL_FRACTIONAL_CYCLES ((FIT_SESSION_FIELD_NUM)94)
 #define FIT_SESSION_FIELD_NUM_SPORT_INDEX ((FIT_SESSION_FIELD_NUM)111)
+#define FIT_SESSION_FIELD_NUM_AVG_LEFT_PCO ((FIT_SESSION_FIELD_NUM)114)
+#define FIT_SESSION_FIELD_NUM_AVG_RIGHT_PCO ((FIT_SESSION_FIELD_NUM)115)
+#define FIT_SESSION_FIELD_NUM_AVG_LEFT_POWER_PHASE ((FIT_SESSION_FIELD_NUM)116)
+#define FIT_SESSION_FIELD_NUM_AVG_LEFT_POWER_PHASE_PEAK ((FIT_SESSION_FIELD_NUM)117)
+#define FIT_SESSION_FIELD_NUM_AVG_RIGHT_POWER_PHASE ((FIT_SESSION_FIELD_NUM)118)
+#define FIT_SESSION_FIELD_NUM_AVG_RIGHT_POWER_PHASE_PEAK ((FIT_SESSION_FIELD_NUM)119)
 #define FIT_SESSION_FIELD_NUM_TOTAL_ANAEROBIC_TRAINING_EFFECT ((FIT_SESSION_FIELD_NUM)137)
 
 typedef enum
 {
-   FIT_SESSION_MESG_TIMESTAMP,
-   FIT_SESSION_MESG_START_TIME,
-   FIT_SESSION_MESG_START_POSITION_LAT,
-   FIT_SESSION_MESG_START_POSITION_LONG,
-   FIT_SESSION_MESG_TOTAL_ELAPSED_TIME,
-   FIT_SESSION_MESG_TOTAL_TIMER_TIME,
-   FIT_SESSION_MESG_TOTAL_DISTANCE,
-   FIT_SESSION_MESG_TOTAL_CYCLES,
-   FIT_SESSION_MESG_NEC_LAT,
-   FIT_SESSION_MESG_NEC_LONG,
-   FIT_SESSION_MESG_SWC_LAT,
-   FIT_SESSION_MESG_SWC_LONG,
-   FIT_SESSION_MESG_AVG_STROKE_COUNT,
-   FIT_SESSION_MESG_TOTAL_WORK,
-   FIT_SESSION_MESG_TOTAL_MOVING_TIME,
-   FIT_SESSION_MESG_TIME_IN_HR_ZONE,
-   FIT_SESSION_MESG_TIME_IN_SPEED_ZONE,
-   FIT_SESSION_MESG_TIME_IN_CADENCE_ZONE,
-   FIT_SESSION_MESG_TIME_IN_POWER_ZONE,
-   FIT_SESSION_MESG_AVG_LAP_TIME,
-   FIT_SESSION_MESG_ENHANCED_AVG_SPEED,
-   FIT_SESSION_MESG_ENHANCED_MAX_SPEED,
-   FIT_SESSION_MESG_ENHANCED_AVG_ALTITUDE,
-   FIT_SESSION_MESG_ENHANCED_MIN_ALTITUDE,
-   FIT_SESSION_MESG_ENHANCED_MAX_ALTITUDE,
-   FIT_SESSION_MESG_MESSAGE_INDEX,
-   FIT_SESSION_MESG_TOTAL_CALORIES,
-   FIT_SESSION_MESG_TOTAL_FAT_CALORIES,
-   FIT_SESSION_MESG_AVG_SPEED,
-   FIT_SESSION_MESG_MAX_SPEED,
-   FIT_SESSION_MESG_AVG_POWER,
-   FIT_SESSION_MESG_MAX_POWER,
-   FIT_SESSION_MESG_TOTAL_ASCENT,
-   FIT_SESSION_MESG_TOTAL_DESCENT,
-   FIT_SESSION_MESG_FIRST_LAP_INDEX,
-   FIT_SESSION_MESG_NUM_LAPS,
-   FIT_SESSION_MESG_NUM_LENGTHS,
-   FIT_SESSION_MESG_NORMALIZED_POWER,
-   FIT_SESSION_MESG_TRAINING_STRESS_SCORE,
-   FIT_SESSION_MESG_INTENSITY_FACTOR,
-   FIT_SESSION_MESG_LEFT_RIGHT_BALANCE,
-   FIT_SESSION_MESG_AVG_STROKE_DISTANCE,
-   FIT_SESSION_MESG_POOL_LENGTH,
-   FIT_SESSION_MESG_THRESHOLD_POWER,
-   FIT_SESSION_MESG_NUM_ACTIVE_LENGTHS,
-   FIT_SESSION_MESG_AVG_ALTITUDE,
-   FIT_SESSION_MESG_MAX_ALTITUDE,
-   FIT_SESSION_MESG_AVG_GRADE,
-   FIT_SESSION_MESG_AVG_POS_GRADE,
-   FIT_SESSION_MESG_AVG_NEG_GRADE,
-   FIT_SESSION_MESG_MAX_POS_GRADE,
-   FIT_SESSION_MESG_MAX_NEG_GRADE,
-   FIT_SESSION_MESG_AVG_POS_VERTICAL_SPEED,
-   FIT_SESSION_MESG_AVG_NEG_VERTICAL_SPEED,
-   FIT_SESSION_MESG_MAX_POS_VERTICAL_SPEED,
-   FIT_SESSION_MESG_MAX_NEG_VERTICAL_SPEED,
-   FIT_SESSION_MESG_BEST_LAP_INDEX,
-   FIT_SESSION_MESG_MIN_ALTITUDE,
-   FIT_SESSION_MESG_PLAYER_SCORE,
-   FIT_SESSION_MESG_OPPONENT_SCORE,
-   FIT_SESSION_MESG_STROKE_COUNT,
-   FIT_SESSION_MESG_ZONE_COUNT,
-   FIT_SESSION_MESG_MAX_BALL_SPEED,
-   FIT_SESSION_MESG_AVG_BALL_SPEED,
-   FIT_SESSION_MESG_AVG_VERTICAL_OSCILLATION,
-   FIT_SESSION_MESG_AVG_STANCE_TIME_PERCENT,
-   FIT_SESSION_MESG_AVG_STANCE_TIME,
-   FIT_SESSION_MESG_AVG_VAM,
-   FIT_SESSION_MESG_EVENT,
-   FIT_SESSION_MESG_EVENT_TYPE,
-   FIT_SESSION_MESG_SPORT,
-   FIT_SESSION_MESG_SUB_SPORT,
-   FIT_SESSION_MESG_AVG_HEART_RATE,
-   FIT_SESSION_MESG_MAX_HEART_RATE,
-   FIT_SESSION_MESG_AVG_CADENCE,
-   FIT_SESSION_MESG_MAX_CADENCE,
-   FIT_SESSION_MESG_TOTAL_TRAINING_EFFECT,
-   FIT_SESSION_MESG_EVENT_GROUP,
-   FIT_SESSION_MESG_TRIGGER,
-   FIT_SESSION_MESG_SWIM_STROKE,
-   FIT_SESSION_MESG_POOL_LENGTH_UNIT,
-   FIT_SESSION_MESG_GPS_ACCURACY,
-   FIT_SESSION_MESG_AVG_TEMPERATURE,
-   FIT_SESSION_MESG_MAX_TEMPERATURE,
-   FIT_SESSION_MESG_MIN_HEART_RATE,
-   FIT_SESSION_MESG_OPPONENT_NAME,
-   FIT_SESSION_MESG_AVG_FRACTIONAL_CADENCE,
-   FIT_SESSION_MESG_MAX_FRACTIONAL_CADENCE,
-   FIT_SESSION_MESG_TOTAL_FRACTIONAL_CYCLES,
-   FIT_SESSION_MESG_SPORT_INDEX,
-   FIT_SESSION_MESG_TOTAL_ANAEROBIC_TRAINING_EFFECT,
-   FIT_SESSION_MESG_FIELDS
+    FIT_SESSION_MESG_TIMESTAMP,
+    FIT_SESSION_MESG_START_TIME,
+    FIT_SESSION_MESG_START_POSITION_LAT,
+    FIT_SESSION_MESG_START_POSITION_LONG,
+    FIT_SESSION_MESG_TOTAL_ELAPSED_TIME,
+    FIT_SESSION_MESG_TOTAL_TIMER_TIME,
+    FIT_SESSION_MESG_TOTAL_DISTANCE,
+    FIT_SESSION_MESG_TOTAL_CYCLES,
+    FIT_SESSION_MESG_NEC_LAT,
+    FIT_SESSION_MESG_NEC_LONG,
+    FIT_SESSION_MESG_SWC_LAT,
+    FIT_SESSION_MESG_SWC_LONG,
+    FIT_SESSION_MESG_AVG_STROKE_COUNT,
+    FIT_SESSION_MESG_TOTAL_WORK,
+    FIT_SESSION_MESG_TOTAL_MOVING_TIME,
+    FIT_SESSION_MESG_TIME_IN_HR_ZONE,
+    FIT_SESSION_MESG_TIME_IN_SPEED_ZONE,
+    FIT_SESSION_MESG_TIME_IN_CADENCE_ZONE,
+    FIT_SESSION_MESG_TIME_IN_POWER_ZONE,
+    FIT_SESSION_MESG_AVG_LAP_TIME,
+    FIT_SESSION_MESG_ENHANCED_AVG_SPEED,
+    FIT_SESSION_MESG_ENHANCED_MAX_SPEED,
+    FIT_SESSION_MESG_ENHANCED_AVG_ALTITUDE,
+    FIT_SESSION_MESG_ENHANCED_MIN_ALTITUDE,
+    FIT_SESSION_MESG_ENHANCED_MAX_ALTITUDE,
+    FIT_SESSION_MESG_MESSAGE_INDEX,
+    FIT_SESSION_MESG_TOTAL_CALORIES,
+    FIT_SESSION_MESG_TOTAL_FAT_CALORIES,
+    FIT_SESSION_MESG_AVG_SPEED,
+    FIT_SESSION_MESG_MAX_SPEED,
+    FIT_SESSION_MESG_AVG_POWER,
+    FIT_SESSION_MESG_MAX_POWER,
+    FIT_SESSION_MESG_TOTAL_ASCENT,
+    FIT_SESSION_MESG_TOTAL_DESCENT,
+    FIT_SESSION_MESG_FIRST_LAP_INDEX,
+    FIT_SESSION_MESG_NUM_LAPS,
+    FIT_SESSION_MESG_NUM_LENGTHS,
+    FIT_SESSION_MESG_NORMALIZED_POWER,
+    FIT_SESSION_MESG_TRAINING_STRESS_SCORE,
+    FIT_SESSION_MESG_INTENSITY_FACTOR,
+    FIT_SESSION_MESG_LEFT_RIGHT_BALANCE,
+    FIT_SESSION_MESG_AVG_STROKE_DISTANCE,
+    FIT_SESSION_MESG_POOL_LENGTH,
+    FIT_SESSION_MESG_THRESHOLD_POWER,
+    FIT_SESSION_MESG_NUM_ACTIVE_LENGTHS,
+    FIT_SESSION_MESG_AVG_ALTITUDE,
+    FIT_SESSION_MESG_MAX_ALTITUDE,
+    FIT_SESSION_MESG_AVG_GRADE,
+    FIT_SESSION_MESG_AVG_POS_GRADE,
+    FIT_SESSION_MESG_AVG_NEG_GRADE,
+    FIT_SESSION_MESG_MAX_POS_GRADE,
+    FIT_SESSION_MESG_MAX_NEG_GRADE,
+    FIT_SESSION_MESG_AVG_POS_VERTICAL_SPEED,
+    FIT_SESSION_MESG_AVG_NEG_VERTICAL_SPEED,
+    FIT_SESSION_MESG_MAX_POS_VERTICAL_SPEED,
+    FIT_SESSION_MESG_MAX_NEG_VERTICAL_SPEED,
+    FIT_SESSION_MESG_BEST_LAP_INDEX,
+    FIT_SESSION_MESG_MIN_ALTITUDE,
+    FIT_SESSION_MESG_PLAYER_SCORE,
+    FIT_SESSION_MESG_OPPONENT_SCORE,
+    FIT_SESSION_MESG_STROKE_COUNT,
+    FIT_SESSION_MESG_ZONE_COUNT,
+    FIT_SESSION_MESG_MAX_BALL_SPEED,
+    FIT_SESSION_MESG_AVG_BALL_SPEED,
+    FIT_SESSION_MESG_AVG_VERTICAL_OSCILLATION,
+    FIT_SESSION_MESG_AVG_STANCE_TIME_PERCENT,
+    FIT_SESSION_MESG_AVG_STANCE_TIME,
+    FIT_SESSION_MESG_AVG_VAM,
+    FIT_SESSION_MESG_EVENT,
+    FIT_SESSION_MESG_EVENT_TYPE,
+    FIT_SESSION_MESG_SPORT,
+    FIT_SESSION_MESG_SUB_SPORT,
+    FIT_SESSION_MESG_AVG_HEART_RATE,
+    FIT_SESSION_MESG_MAX_HEART_RATE,
+    FIT_SESSION_MESG_AVG_CADENCE,
+    FIT_SESSION_MESG_MAX_CADENCE,
+    FIT_SESSION_MESG_TOTAL_TRAINING_EFFECT,
+    FIT_SESSION_MESG_EVENT_GROUP,
+    FIT_SESSION_MESG_TRIGGER,
+    FIT_SESSION_MESG_SWIM_STROKE,
+    FIT_SESSION_MESG_POOL_LENGTH_UNIT,
+    FIT_SESSION_MESG_GPS_ACCURACY,
+    FIT_SESSION_MESG_AVG_TEMPERATURE,
+    FIT_SESSION_MESG_MAX_TEMPERATURE,
+    FIT_SESSION_MESG_MIN_HEART_RATE,
+    FIT_SESSION_MESG_OPPONENT_NAME,
+    FIT_SESSION_MESG_AVG_FRACTIONAL_CADENCE,
+    FIT_SESSION_MESG_MAX_FRACTIONAL_CADENCE,
+    FIT_SESSION_MESG_TOTAL_FRACTIONAL_CYCLES,
+    FIT_SESSION_MESG_SPORT_INDEX,
+    FIT_SESSION_MESG_AVG_LEFT_PCO,
+    FIT_SESSION_MESG_AVG_RIGHT_PCO,
+    FIT_SESSION_MESG_AVG_LEFT_POWER_PHASE,
+    FIT_SESSION_MESG_AVG_LEFT_POWER_PHASE_PEAK,
+    FIT_SESSION_MESG_AVG_RIGHT_POWER_PHASE,
+    FIT_SESSION_MESG_AVG_RIGHT_POWER_PHASE_PEAK,
+    FIT_SESSION_MESG_TOTAL_ANAEROBIC_TRAINING_EFFECT,
+    FIT_SESSION_MESG_FIELDS
 } FIT_SESSION_MESG_FIELD;
 
 typedef struct

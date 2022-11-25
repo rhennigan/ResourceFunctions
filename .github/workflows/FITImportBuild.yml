@@ -1,5 +1,7 @@
 name: FITImportBuild
 on: 
+  push:
+    branches: ["feature/FITImport"]
   workflow_dispatch:
 concurrency: 
   group: ${{ github.ref }}

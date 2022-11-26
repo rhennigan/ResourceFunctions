@@ -200,6 +200,30 @@ DLLEXPORT int FITImport(
                         break;
                     }
 
+                    case FIT_MESG_NUM_FILE_CREATOR:
+                    {
+                        const FIT_FILE_CREATOR_MESG *file_creator = (FIT_FILE_CREATOR_MESG *) mesg;
+                        idx++;
+                        write_file_creator(libData, data, idx, file_creator);
+                        break;
+                    }
+
+                    case FIT_MESG_NUM_SPORT:
+                    {
+                        const FIT_SPORT_MESG *sport = (FIT_SPORT_MESG *) mesg;
+                        idx++;
+                        write_sport(libData, data, idx, sport);
+                        break;
+                    }
+
+                    case FIT_MESG_NUM_DEVELOPER_DATA_ID:
+                    {
+                        const FIT_DEVELOPER_DATA_ID_MESG *developer_data_id = (FIT_DEVELOPER_DATA_ID_MESG *) mesg;
+                        idx++;
+                        write_developer_data_id(libData, data, idx, developer_data_id);
+                        break;
+                    }
+
                     default:
                     {
                         // idx++;
@@ -277,7 +301,7 @@ DLLEXPORT int FITMessageTypes (
     }
 
     dims[0] = length;
-    dims[1] = 1;
+    dims[1] = 6;
     err = libData->MTensor_new(MType_Integer, 2, dims, &data);
     if (err) {
         return FIT_IMPORT_ERROR_INTERNAL;
@@ -334,11 +358,19 @@ DLLEXPORT int FITMessageTypes (
 
                 mesg_index++;
                 // printf("Mesg %d (%d) - ", mesg_index++, mesg_num);
-
+                FIT_UINT16 size = Fit_GetMesgSize(mesg_num);
+                const FIT_MESG_DEF mesg_def = * Fit_GetMesgDef(mesg_num);
+                FIT_UINT8 arch = mesg_def.arch;
+                FIT_UINT8 fields = mesg_def.num_fields;
                 idx++;
                 pos[0] = idx;
-                pos[1] = 1;
-                libData->MTensor_setInteger(data, pos, mesg_num);
+                pos[1] = 0;
+                SetInteger(libData, data, pos, FIT_MESG_NUM_MESSAGE_INFORMATION);
+                SetInteger(libData, data, pos, mesg_num);
+                SetInteger(libData, data, pos, size);
+                SetInteger(libData, data, pos, arch);
+                SetInteger(libData, data, pos, fields);
+                SetInteger(libData, data, pos, DONE);
 
                 break;
                 }
@@ -854,6 +886,43 @@ static void write_zones_target(WolframLibraryData libData, MTensor data, int idx
     SetInteger(libData, data, pos, DONE);
 }
 
+static void write_file_creator(WolframLibraryData libData, MTensor data, int idx, const FIT_FILE_CREATOR_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_FILE_CREATOR);
+    SetInteger(libData, data, pos, mesg->software_version);
+    SetInteger(libData, data, pos, mesg->hardware_version);
+    SetInteger(libData, data, pos, DONE);
+}
+
+static void write_sport(WolframLibraryData libData, MTensor data, int idx, const FIT_SPORT_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_SPORT);
+    SetIntegerSequence(libData, data, pos, mesg->name, FIT_SPORT_MESG_NAME_COUNT);
+    SetInteger(libData, data, pos, mesg->sport);
+    SetInteger(libData, data, pos, mesg->sub_sport);
+    SetInteger(libData, data, pos, DONE);
+}
+
+static void write_developer_data_id(WolframLibraryData libData, MTensor data, int idx, const FIT_DEVELOPER_DATA_ID_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_DEVELOPER_DATA_ID);
+    SetIntegerSequence(libData, data, pos, mesg->developer_id, FIT_DEVELOPER_DATA_ID_MESG_DEVELOPER_ID_COUNT);
+    SetIntegerSequence(libData, data, pos, mesg->application_id, FIT_DEVELOPER_DATA_ID_MESG_APPLICATION_ID_COUNT);
+    SetInteger(libData, data, pos, mesg->application_version);
+    SetInteger(libData, data, pos, mesg->manufacturer_id);
+    SetInteger(libData, data, pos, mesg->developer_data_index);
+    SetInteger(libData, data, pos, DONE);
+}
+
 static void write_unknown(WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg)
 {
     mint pos[2];
@@ -921,55 +990,70 @@ static int count_usable_fit_messages(char* input, mint *err)
 
                switch(mesg_num)
                {
-                  case FIT_MESG_NUM_FILE_ID:
-                  {
-                     mesg_count++;
-                     break;
-                  }
-                  case FIT_MESG_NUM_USER_PROFILE:
-                  {
-                     mesg_count++;
-                     break;
-                  }
-                  case FIT_MESG_NUM_ACTIVITY:
-                  {
-                     mesg_count++;
-                     break;
-                  }
-                  case FIT_MESG_NUM_LAP:
-                  {
-                     mesg_count++;
-                     break;
-                  }
-                  case FIT_MESG_NUM_RECORD:
-                  {
-                     mesg_count++;
-                     break;
-                  }
-                  case FIT_MESG_NUM_EVENT:
-                  {
-                     mesg_count++;
-                     break;
-                  }
-                  case FIT_MESG_NUM_DEVICE_INFO:
-                  {
-                     mesg_count++;
-                     break;
-                  }
-                  case FIT_MESG_NUM_SESSION:
-                  {
-                     mesg_count++;
-                     break;
-                  }
-                  case FIT_MESG_NUM_DEVICE_SETTINGS:
+                    case FIT_MESG_NUM_FILE_ID:
                     {
-                         mesg_count++;
-                         break;
+                        mesg_count++;
+                        break;
                     }
-                  case FIT_MESG_NUM_ZONES_TARGET:
+                    case FIT_MESG_NUM_USER_PROFILE:
                     {
-                         mesg_count++;
-                         break;
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_ACTIVITY:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_LAP:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_RECORD:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_EVENT:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_DEVICE_INFO:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_SESSION:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_DEVICE_SETTINGS:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_ZONES_TARGET:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_FILE_CREATOR:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_SPORT:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_DEVELOPER_DATA_ID:
+                    {
+                        mesg_count++;
+                        break;
                     }
                   default:
                     break;

@@ -257,9 +257,23 @@ FITImport[ file: $$file|$$string, prop_, opts: OptionsPattern[ ] ] /;
             FITImport[ found, prop, opts ] /; FileExistsQ @ found
         ];
 
+FITImport[ file_, "MessageInformation", opts: OptionsPattern[ ] ] :=
+    optionsBlock[
+        Module[ { data, formatted, grouped },
+            data      = fitMessageTypes @ file;
+            formatted = makeFitAssociation /@ data;
+            grouped   = GroupBy[ formatted, (#MessageTypeName &) -> KeyDrop[ "MessageTypeName" ] ];
+            Append[ First[ # ], "Count" -> Length[ # ] ] & /@ grouped
+        ],
+        opts
+    ];
+
 FITImport[ file_, "MessageCounts", opts: OptionsPattern[ ] ] :=
     optionsBlock[
-        Counts[ fitMessageType /@ fitMessageTypes @ file ],
+        Module[ { data },
+            data = fitMessageTypes @ file;
+            Counts[ fitMessageType /@ data[[ All, 2 ]] ]
+        ],
         opts
     ];
 
@@ -328,6 +342,12 @@ FITImport[ file_, "AveragePowerPhasePlot", opts: OptionsPattern[ ] ] :=
         opts
     ];
 
+FITImport[ file_, "CriticalPowerCurvePlot", opts: OptionsPattern[ ] ] :=
+    optionsBlock[
+        criticalPowerCurve @ FITImport[ file, "Power", opts ],
+        opts
+    ];
+
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Error cases*)
@@ -374,11 +394,12 @@ $fitElements = {
     "Events",
     "RawData",
     "Records",
-    "MessageCounts",
+    "MessageInformation",
     "MessageData",
     "Messages",
     "PowerZonePlot",
-    "AveragePowerPhasePlot"
+    "AveragePowerPhasePlot",
+    "CriticalPowerCurvePlot"
 };
 
 $messageTypes = {
@@ -391,7 +412,10 @@ $messageTypes = {
     "Activity",
     "Lap",
     "DeviceSettings",
-    "ZonesTarget"
+    "ZonesTarget",
+    "FileCreator",
+    "Sport",
+    "DeveloperDataID"
 };
 
 (* ::**********************************************************************:: *)
@@ -1123,6 +1147,73 @@ phasePlotHalf[
 phasePlotHalf // endDefinition;
 
 (* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*criticalPowerCurve*)
+criticalPowerCurve // beginDefinition;
+
+criticalPowerCurve[ power_TemporalData ] :=
+    Module[ { t1, t2, duration, cpCurve },
+
+        t1 = power[ "FirstDate" ];
+        t2 = power[ "LastDate" ];
+        duration = t2 - t1;
+
+        cpCurve = Map[
+            { #1, Max @ MovingMap[ Mean, power, #1 ] } &,
+            TakeWhile[ $criticalPowerPoints, LessThan @ duration ]
+        ];
+
+        ListLinePlot[
+            Append[ cpCurve, { duration, Mean @ power } ],
+            ScalingFunctions -> { "Log", None },
+            Filling          -> Bottom,
+            Ticks            -> { $cpTicks, Automatic },
+            AspectRatio      -> 1 / 5,
+            PlotRange        -> {
+                { Quantity[ 1, "Seconds" ], All },
+                All
+            },
+            GridLines -> {
+                $cpTicks,
+                None
+            }
+        ]
+    ];
+
+criticalPowerCurve // endDefinition;
+
+$criticalPowerPoints = {
+    Quantity[  1, "Seconds" ],
+    Quantity[  5, "Seconds" ],
+    Quantity[ 10, "Seconds" ],
+    Quantity[ 20, "Seconds" ],
+    Quantity[ 30, "Seconds" ],
+    Quantity[  1, "Minutes" ],
+    Quantity[  3, "Minutes" ],
+    Quantity[  5, "Minutes" ],
+    Quantity[ 10, "Minutes" ],
+    Quantity[ 20, "Minutes" ],
+    Quantity[ 30, "Minutes" ],
+    Quantity[  1, "Hours"   ],
+    Quantity[ 90, "Minutes" ],
+    Quantity[  2, "Hours"   ],
+    Quantity[  3, "Hours"   ],
+    Quantity[  4, "Hours"   ],
+    Quantity[  5, "Hours"   ]
+};
+
+$cpTicks = {
+    Quantity[  5, "Seconds" ],
+    Quantity[ 20, "Seconds" ],
+    Quantity[  1, "Minutes" ],
+    Quantity[  5, "Minutes" ],
+    Quantity[ 20, "Minutes" ],
+    Quantity[  1, "Hours"   ],
+    Quantity[  2, "Hours"   ],
+    Quantity[  5, "Hours"   ]
+};
+
+(* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*toFileString*)
 toFileString // beginDefinition;
@@ -1291,17 +1382,21 @@ fitEventKeyQ[ ___  ] := False;
 (* ::Subsection::Closed:: *)
 (*Fit Keys*)
 fitKeys // beginDefinition;
-fitKeys[ "FileID"            ] := $fitFileIDKeys;
-fitKeys[ "UserProfile"       ] := $fitUserProfileKeys;
-fitKeys[ "Activity"          ] := $fitActivityKeys;
-fitKeys[ "Lap"               ] := $fitLapKeys;
-fitKeys[ "DeviceSettings"    ] := $fitDeviceSettingsKeys;
-fitKeys[ "Record"            ] := $fitRecordKeys;
-fitKeys[ "Event"             ] := $fitEventKeys;
-fitKeys[ "DeviceInformation" ] := $fitDeviceInformationKeys;
-fitKeys[ "Session"           ] := $fitSessionKeys;
-fitKeys[ "ZonesTarget"       ] := $fitZonesTargetKeys;
-fitKeys[ _                   ] := $fitDefaultKeys;
+fitKeys[ "FileID"             ] := $fitFileIDKeys;
+fitKeys[ "UserProfile"        ] := $fitUserProfileKeys;
+fitKeys[ "Activity"           ] := $fitActivityKeys;
+fitKeys[ "Lap"                ] := $fitLapKeys;
+fitKeys[ "DeviceSettings"     ] := $fitDeviceSettingsKeys;
+fitKeys[ "Record"             ] := $fitRecordKeys;
+fitKeys[ "Event"              ] := $fitEventKeys;
+fitKeys[ "DeviceInformation"  ] := $fitDeviceInformationKeys;
+fitKeys[ "Session"            ] := $fitSessionKeys;
+fitKeys[ "ZonesTarget"        ] := $fitZonesTargetKeys;
+fitKeys[ "FileCreator"        ] := $fitFileCreatorKeys;
+fitKeys[ "Sport"              ] := $fitSportKeys;
+fitKeys[ "DeveloperDataID"    ] := $fitDeveloperDataIDKeys;
+fitKeys[ "MessageInformation" ] := $fitMessageInformationKeys;
+fitKeys[ _                    ] := $fitDefaultKeys;
 fitKeys // endDefinition;
 
 (* ::**********************************************************************:: *)
@@ -1720,11 +1815,58 @@ $fitZonesTargetKeys = {
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*$fitFileCreatorKeys*)
+$fitFileCreatorKeys // ClearAll;
+$fitFileCreatorKeys = {
+    "MessageType",
+    "SoftwareVersion",
+    "HardwareVersion"
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$fitSportKeys*)
+$fitSportKeys // ClearAll;
+$fitSportKeys = {
+    "MessageType",
+    "Name",
+    "Sport",
+    "SubSport"
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$fitDeveloperDataIDKeys*)
+$fitDeveloperDataIDKeys // ClearAll;
+$fitDeveloperDataIDKeys = {
+    "MessageType",
+    "DeveloperID",
+    "ApplicationID",
+    "ApplicationVersion",
+    "ManufacturerID",
+    "DeveloperDataIndex"
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$fitDefaultKeys*)
 $fitDefaultKeys // ClearAll;
 $fitDefaultKeys = {
     "MessageType",
     "RawData"
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*$fitMessageInformationKeys*)
+$fitMessageInformationKeys // ClearAll;
+$fitMessageInformationKeys = {
+    "MessageTypeName",
+    "MessageNumber",
+    "MessageSize",
+    "FieldCount",
+    "ByteOrdering",
+    "Supported"
 };
 
 (* ::**********************************************************************:: *)
@@ -1815,8 +1957,10 @@ $fitValueTimings := $fitValueTimings = Internal`Bag[ ];
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*fitMessageType*)
-fitMessageType // ClearAll;
-fitMessageType[ v_ ] := Lookup[ $fitMessageTypes, v[[ 1 ]], "UNKNOWN" ];
+fitMessageType // beginDefinition;
+fitMessageType[ v_List ] := fitMessageType @ v[[ 1 ]];
+fitMessageType[ n_Integer ] := Lookup[ $fitMessageTypes, n, "UNKNOWN" ];
+fitMessageType // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -1914,96 +2058,97 @@ $capitalizationRules2 = {
 (* ::Subsubsection::Closed:: *)
 (*$fitMessageTypes*)
 $fitMessageTypes0 = <|
-    0     -> "FIT_MESG_NUM_FILE_ID",
-    1     -> "FIT_MESG_NUM_CAPABILITIES",
-    2     -> "FIT_MESG_NUM_DEVICE_SETTINGS",
-    3     -> "FIT_MESG_NUM_USER_PROFILE",
-    4     -> "FIT_MESG_NUM_HRM_PROFILE",
-    5     -> "FIT_MESG_NUM_SDM_PROFILE",
-    6     -> "FIT_MESG_NUM_BIKE_PROFILE",
-    7     -> "FIT_MESG_NUM_ZONES_TARGET",
-    8     -> "FIT_MESG_NUM_HR_ZONE",
-    9     -> "FIT_MESG_NUM_POWER_ZONE",
-    10    -> "FIT_MESG_NUM_MET_ZONE",
-    12    -> "FIT_MESG_NUM_SPORT",
-    15    -> "FIT_MESG_NUM_GOAL",
-    18    -> "FIT_MESG_NUM_SESSION",
-    19    -> "FIT_MESG_NUM_LAP",
-    20    -> "FIT_MESG_NUM_RECORD",
-    21    -> "FIT_MESG_NUM_EVENT",
-    23    -> "FIT_MESG_NUM_DEVICE_INFO",
-    26    -> "FIT_MESG_NUM_WORKOUT",
-    27    -> "FIT_MESG_NUM_WORKOUT_STEP",
-    28    -> "FIT_MESG_NUM_SCHEDULE",
-    30    -> "FIT_MESG_NUM_WEIGHT_SCALE",
-    31    -> "FIT_MESG_NUM_COURSE",
-    32    -> "FIT_MESG_NUM_COURSE_POINT",
-    33    -> "FIT_MESG_NUM_TOTALS",
-    34    -> "FIT_MESG_NUM_ACTIVITY",
-    35    -> "FIT_MESG_NUM_SOFTWARE",
-    37    -> "FIT_MESG_NUM_FILE_CAPABILITIES",
-    38    -> "FIT_MESG_NUM_MESG_CAPABILITIES",
-    39    -> "FIT_MESG_NUM_FIELD_CAPABILITIES",
-    49    -> "FIT_MESG_NUM_FILE_CREATOR",
-    51    -> "FIT_MESG_NUM_BLOOD_PRESSURE",
-    53    -> "FIT_MESG_NUM_SPEED_ZONE",
-    55    -> "FIT_MESG_NUM_MONITORING",
-    72    -> "FIT_MESG_NUM_TRAINING_FILE",
-    78    -> "FIT_MESG_NUM_HRV",
-    80    -> "FIT_MESG_NUM_ANT_RX",
-    81    -> "FIT_MESG_NUM_ANT_TX",
-    82    -> "FIT_MESG_NUM_ANT_CHANNEL_ID",
-    101   -> "FIT_MESG_NUM_LENGTH",
-    103   -> "FIT_MESG_NUM_MONITORING_INFO",
-    105   -> "FIT_MESG_NUM_PAD",
-    106   -> "FIT_MESG_NUM_SLAVE_DEVICE",
-    127   -> "FIT_MESG_NUM_CONNECTIVITY",
-    128   -> "FIT_MESG_NUM_WEATHER_CONDITIONS",
-    129   -> "FIT_MESG_NUM_WEATHER_ALERT",
-    131   -> "FIT_MESG_NUM_CADENCE_ZONE",
-    132   -> "FIT_MESG_NUM_HR",
-    142   -> "FIT_MESG_NUM_SEGMENT_LAP",
-    145   -> "FIT_MESG_NUM_MEMO_GLOB",
-    148   -> "FIT_MESG_NUM_SEGMENT_ID",
-    149   -> "FIT_MESG_NUM_SEGMENT_LEADERBOARD_ENTRY",
-    150   -> "FIT_MESG_NUM_SEGMENT_POINT",
-    151   -> "FIT_MESG_NUM_SEGMENT_FILE",
-    158   -> "FIT_MESG_NUM_WORKOUT_SESSION",
-    159   -> "FIT_MESG_NUM_WATCHFACE_SETTINGS",
-    160   -> "FIT_MESG_NUM_GPS_METADATA",
-    161   -> "FIT_MESG_NUM_CAMERA_EVENT",
-    162   -> "FIT_MESG_NUM_TIMESTAMP_CORRELATION",
-    164   -> "FIT_MESG_NUM_GYROSCOPE_DATA",
-    165   -> "FIT_MESG_NUM_ACCELEROMETER_DATA",
-    167   -> "FIT_MESG_NUM_THREE_D_SENSOR_CALIBRATION",
-    169   -> "FIT_MESG_NUM_VIDEO_FRAME",
-    174   -> "FIT_MESG_NUM_OBDII_DATA",
-    177   -> "FIT_MESG_NUM_NMEA_SENTENCE",
-    178   -> "FIT_MESG_NUM_AVIATION_ATTITUDE",
-    184   -> "FIT_MESG_NUM_VIDEO",
-    185   -> "FIT_MESG_NUM_VIDEO_TITLE",
-    186   -> "FIT_MESG_NUM_VIDEO_DESCRIPTION",
-    187   -> "FIT_MESG_NUM_VIDEO_CLIP",
-    188   -> "FIT_MESG_NUM_OHR_SETTINGS",
-    200   -> "FIT_MESG_NUM_EXD_SCREEN_CONFIGURATION",
-    201   -> "FIT_MESG_NUM_EXD_DATA_FIELD_CONFIGURATION",
-    202   -> "FIT_MESG_NUM_EXD_DATA_CONCEPT_CONFIGURATION",
-    206   -> "FIT_MESG_NUM_FIELD_DESCRIPTION",
-    207   -> "FIT_MESG_NUM_DEVELOPER_DATA_ID",
-    208   -> "FIT_MESG_NUM_MAGNETOMETER_DATA",
-    209   -> "FIT_MESG_NUM_BAROMETER_DATA",
-    210   -> "FIT_MESG_NUM_ONE_D_SENSOR_CALIBRATION",
-    225   -> "FIT_MESG_NUM_SET",
-    227   -> "FIT_MESG_NUM_STRESS_LEVEL",
-    258   -> "FIT_MESG_NUM_DIVE_SETTINGS",
-    259   -> "FIT_MESG_NUM_DIVE_GAS",
-    262   -> "FIT_MESG_NUM_DIVE_ALARM",
-    264   -> "FIT_MESG_NUM_EXERCISE_TITLE",
-    268   -> "FIT_MESG_NUM_DIVE_SUMMARY",
-    285   -> "FIT_MESG_NUM_JUMP",
-    317   -> "FIT_MESG_NUM_CLIMB_PRO",
-    375   -> "FIT_MESG_NUM_DEVICE_AUX_BATTERY_INFO",
-    65535 -> "FIT_MESG_NUM_INVALID"
+    0          -> "FIT_MESG_NUM_FILE_ID",
+    1          -> "FIT_MESG_NUM_CAPABILITIES",
+    2          -> "FIT_MESG_NUM_DEVICE_SETTINGS",
+    3          -> "FIT_MESG_NUM_USER_PROFILE",
+    4          -> "FIT_MESG_NUM_HRM_PROFILE",
+    5          -> "FIT_MESG_NUM_SDM_PROFILE",
+    6          -> "FIT_MESG_NUM_BIKE_PROFILE",
+    7          -> "FIT_MESG_NUM_ZONES_TARGET",
+    8          -> "FIT_MESG_NUM_HR_ZONE",
+    9          -> "FIT_MESG_NUM_POWER_ZONE",
+    10         -> "FIT_MESG_NUM_MET_ZONE",
+    12         -> "FIT_MESG_NUM_SPORT",
+    15         -> "FIT_MESG_NUM_GOAL",
+    18         -> "FIT_MESG_NUM_SESSION",
+    19         -> "FIT_MESG_NUM_LAP",
+    20         -> "FIT_MESG_NUM_RECORD",
+    21         -> "FIT_MESG_NUM_EVENT",
+    23         -> "FIT_MESG_NUM_DEVICE_INFO",
+    26         -> "FIT_MESG_NUM_WORKOUT",
+    27         -> "FIT_MESG_NUM_WORKOUT_STEP",
+    28         -> "FIT_MESG_NUM_SCHEDULE",
+    30         -> "FIT_MESG_NUM_WEIGHT_SCALE",
+    31         -> "FIT_MESG_NUM_COURSE",
+    32         -> "FIT_MESG_NUM_COURSE_POINT",
+    33         -> "FIT_MESG_NUM_TOTALS",
+    34         -> "FIT_MESG_NUM_ACTIVITY",
+    35         -> "FIT_MESG_NUM_SOFTWARE",
+    37         -> "FIT_MESG_NUM_FILE_CAPABILITIES",
+    38         -> "FIT_MESG_NUM_MESG_CAPABILITIES",
+    39         -> "FIT_MESG_NUM_FIELD_CAPABILITIES",
+    49         -> "FIT_MESG_NUM_FILE_CREATOR",
+    51         -> "FIT_MESG_NUM_BLOOD_PRESSURE",
+    53         -> "FIT_MESG_NUM_SPEED_ZONE",
+    55         -> "FIT_MESG_NUM_MONITORING",
+    72         -> "FIT_MESG_NUM_TRAINING_FILE",
+    78         -> "FIT_MESG_NUM_HRV",
+    80         -> "FIT_MESG_NUM_ANT_RX",
+    81         -> "FIT_MESG_NUM_ANT_TX",
+    82         -> "FIT_MESG_NUM_ANT_CHANNEL_ID",
+    101        -> "FIT_MESG_NUM_LENGTH",
+    103        -> "FIT_MESG_NUM_MONITORING_INFO",
+    105        -> "FIT_MESG_NUM_PAD",
+    106        -> "FIT_MESG_NUM_SLAVE_DEVICE",
+    127        -> "FIT_MESG_NUM_CONNECTIVITY",
+    128        -> "FIT_MESG_NUM_WEATHER_CONDITIONS",
+    129        -> "FIT_MESG_NUM_WEATHER_ALERT",
+    131        -> "FIT_MESG_NUM_CADENCE_ZONE",
+    132        -> "FIT_MESG_NUM_HR",
+    142        -> "FIT_MESG_NUM_SEGMENT_LAP",
+    145        -> "FIT_MESG_NUM_MEMO_GLOB",
+    148        -> "FIT_MESG_NUM_SEGMENT_ID",
+    149        -> "FIT_MESG_NUM_SEGMENT_LEADERBOARD_ENTRY",
+    150        -> "FIT_MESG_NUM_SEGMENT_POINT",
+    151        -> "FIT_MESG_NUM_SEGMENT_FILE",
+    158        -> "FIT_MESG_NUM_WORKOUT_SESSION",
+    159        -> "FIT_MESG_NUM_WATCHFACE_SETTINGS",
+    160        -> "FIT_MESG_NUM_GPS_METADATA",
+    161        -> "FIT_MESG_NUM_CAMERA_EVENT",
+    162        -> "FIT_MESG_NUM_TIMESTAMP_CORRELATION",
+    164        -> "FIT_MESG_NUM_GYROSCOPE_DATA",
+    165        -> "FIT_MESG_NUM_ACCELEROMETER_DATA",
+    167        -> "FIT_MESG_NUM_THREE_D_SENSOR_CALIBRATION",
+    169        -> "FIT_MESG_NUM_VIDEO_FRAME",
+    174        -> "FIT_MESG_NUM_OBDII_DATA",
+    177        -> "FIT_MESG_NUM_NMEA_SENTENCE",
+    178        -> "FIT_MESG_NUM_AVIATION_ATTITUDE",
+    184        -> "FIT_MESG_NUM_VIDEO",
+    185        -> "FIT_MESG_NUM_VIDEO_TITLE",
+    186        -> "FIT_MESG_NUM_VIDEO_DESCRIPTION",
+    187        -> "FIT_MESG_NUM_VIDEO_CLIP",
+    188        -> "FIT_MESG_NUM_OHR_SETTINGS",
+    200        -> "FIT_MESG_NUM_EXD_SCREEN_CONFIGURATION",
+    201        -> "FIT_MESG_NUM_EXD_DATA_FIELD_CONFIGURATION",
+    202        -> "FIT_MESG_NUM_EXD_DATA_CONCEPT_CONFIGURATION",
+    206        -> "FIT_MESG_NUM_FIELD_DESCRIPTION",
+    207        -> "FIT_MESG_NUM_DEVELOPER_DATA_ID",
+    208        -> "FIT_MESG_NUM_MAGNETOMETER_DATA",
+    209        -> "FIT_MESG_NUM_BAROMETER_DATA",
+    210        -> "FIT_MESG_NUM_ONE_D_SENSOR_CALIBRATION",
+    225        -> "FIT_MESG_NUM_SET",
+    227        -> "FIT_MESG_NUM_STRESS_LEVEL",
+    258        -> "FIT_MESG_NUM_DIVE_SETTINGS",
+    259        -> "FIT_MESG_NUM_DIVE_GAS",
+    262        -> "FIT_MESG_NUM_DIVE_ALARM",
+    264        -> "FIT_MESG_NUM_EXERCISE_TITLE",
+    268        -> "FIT_MESG_NUM_DIVE_SUMMARY",
+    285        -> "FIT_MESG_NUM_JUMP",
+    317        -> "FIT_MESG_NUM_CLIMB_PRO",
+    375        -> "FIT_MESG_NUM_DEVICE_AUX_BATTERY_INFO",
+    65535      -> "FIT_MESG_NUM_INVALID",
+    1768842863 -> "FIT_MESG_NUM_MESSAGE_INFORMATION"
 |>;
 
 $fitMessageTypes = toNiceCamelCase /@ $fitMessageTypes0;
@@ -2422,6 +2567,38 @@ fitValue[ "ZonesTarget", "PowerZoneCalculationType", v_ ] := fitPowerZoneCalc @ 
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*FileCreator*)
+fitValue[ "FileCreator", "SoftwareVersion", v_ ] := fitUINT16 @ v[[ 2 ]];
+fitValue[ "FileCreator", "HardwareVersion", v_ ] := fitUINT8 @ v[[ 3 ]];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*Sport*)
+fitValue[ "Sport", "Name"    , v_ ] := fitString @ v[[ 2;;17 ]];
+fitValue[ "Sport", "Sport"   , v_ ] := fitSport @ v[[ 18 ]];
+fitValue[ "Sport", "SubSport", v_ ] := fitSubSport @ v[[ 19 ]];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*DeveloperDataID*)
+fitValue[ "DeveloperDataID", "DeveloperID"       , v_ ] := fitHexString @ v[[ 2;;17 ]];
+fitValue[ "DeveloperDataID", "ApplicationID"     , v_ ] := fitHexString @ v[[ 18;;33 ]];
+fitValue[ "DeveloperDataID", "ApplicationVersion", v_ ] := fitUINT32 @ v[[ 34 ]];
+fitValue[ "DeveloperDataID", "ManufacturerID"    , v_ ] := fitManufacturer @ v[[ 35 ]];
+fitValue[ "DeveloperDataID", "DeveloperDataIndex", v_ ] := fitUINT8 @ v[[ 36 ]];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*MessageInformation*)
+fitValue[ "MessageInformation", "MessageTypeName", v_ ] := fitMessageType @ v[[ 2 ]];
+fitValue[ "MessageInformation", "MessageNumber"  , v_ ] := v[[ 2 ]];
+fitValue[ "MessageInformation", "MessageSize"    , v_ ] := v[[ 3 ]];
+fitValue[ "MessageInformation", "Supported"      , v_ ] := messageTypeQ @ fitMessageType @ v[[ 2 ]];
+fitValue[ "MessageInformation", "ByteOrdering"   , v_ ] := fitByteOrder @ v[[ 4 ]];
+fitValue[ "MessageInformation", "FieldCount"     , v_ ] := v[[ 5 ]];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*Default*)
 fitValue[ _, "RawData", v_ ] := ByteArray @ v[[ 2;; ]];
 fitValue[ _, _, _ ] := Missing[ "NotAvailable" ];
@@ -2434,6 +2611,22 @@ fitBool // ClearAll;
 fitBool[ 0 ] := False;
 fitBool[ 1 ] := True;
 fitBool[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitByteOrder*)
+fitByteOrder // ClearAll;
+fitByteOrder[ 0 ] := -1;
+fitByteOrder[ 1 ] :=  1;
+fitByteOrder[ ___ ] := Missing[ "NotAvailable" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitHexString*)
+fitHexString // ClearAll;
+fitHexString[ { $invalidUINT8.. } ] := Missing[ "NotAvailable" ];
+fitHexString[ v_List ] := StringJoin[ (IntegerString[ #, 16 ] &) /@ v ];
+fitHexString[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2728,8 +2921,8 @@ fitAverageSpeed[ ___ ] := Missing[ "NotAvailable" ];
 (* ::Subsubsection::Closed:: *)
 (*fitPower*)
 fitPower // ClearAll;
-fitPower[ $invalidUINT16 ] := Quantity[ 0, "Watts" ];
-fitPower[ n_Integer ] := Quantity[ n, "Watts" ];
+fitPower[ $invalidUINT16 ] := Quantity[ 0.0, "Watts" ];
+fitPower[ n_Integer ] := Quantity[ 1.0*n, "Watts" ];
 fitPower[ ___ ] := Missing[ "NotAvailable" ];
 
 (* ::**********************************************************************:: *)

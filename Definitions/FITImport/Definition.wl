@@ -415,7 +415,8 @@ $messageTypes = {
     "ZonesTarget",
     "FileCreator",
     "Sport",
-    "DeveloperDataID"
+    "DeveloperDataID",
+    "FieldDescription"
 };
 
 (* ::**********************************************************************:: *)
@@ -1395,6 +1396,7 @@ fitKeys[ "ZonesTarget"        ] := $fitZonesTargetKeys;
 fitKeys[ "FileCreator"        ] := $fitFileCreatorKeys;
 fitKeys[ "Sport"              ] := $fitSportKeys;
 fitKeys[ "DeveloperDataID"    ] := $fitDeveloperDataIDKeys;
+fitKeys[ "FieldDescription"   ] := $fitFieldDescriptionKeys;
 fitKeys[ "MessageInformation" ] := $fitMessageInformationKeys;
 fitKeys[ _                    ] := $fitDefaultKeys;
 fitKeys // endDefinition;
@@ -1849,6 +1851,24 @@ $fitDeveloperDataIDKeys = {
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*$fitFieldDescriptionKeys*)
+$fitFieldDescriptionKeys // ClearAll;
+$fitFieldDescriptionKeys = {
+    "MessageType",
+    "FieldName",
+    "Units",
+    "FitBaseUnitID",
+    "NativeMessageNumber",
+    "DeveloperDataIndex",
+    "FieldDefinitionNumber",
+    "FitBaseTypeID",
+    "Scale",
+    "Offset",
+    "NativeFieldNumber"
+};
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*$fitDefaultKeys*)
 $fitDefaultKeys // ClearAll;
 $fitDefaultKeys = {
@@ -1891,7 +1911,7 @@ formatFitData0[ data_ ] :=
             Throw[ Missing[ "NotAvailable" ], $tag ]
         ];
         tr = gu`AssociationTranspose @ fa;
-        filtered = Select[ tr, Composition[ Not, allSameOrMissingQ ] ];
+        filtered = Select[ tr, Composition[ Not, allMissingOrZeroQ ] ];
         res = gu`AssociationTranspose @ filtered;
         If[ Length @ res === 1,
             DeleteCases[ res, _Missing | Quantity[ 0 | 0.0, _ ], { 2 } ],
@@ -1903,10 +1923,19 @@ formatFitData0 // endDefinition;
 
 
 
-allSameOrMissingQ // ClearAll;
-allSameOrMissingQ[ { _ } ] := False;
-allSameOrMissingQ[ a_List ] := Or[ AllTrue[ a, MissingQ ], SameQ @@ a ];
-allSameOrMissingQ[ ___ ] := False;
+allMissingOrZeroQ // ClearAll;
+allMissingOrZeroQ[ { _ } ] := False;
+allMissingOrZeroQ[ a_List ] := AllTrue[ a, missingOrZeroQ ];
+allMissingOrZeroQ[ ___ ] := False;
+
+
+missingOrZeroQ // ClearAll;
+missingOrZeroQ[ _Missing ] := True;
+missingOrZeroQ[ 0 | 0.0 ] := True;
+missingOrZeroQ[ r_Real ] := Chop @ r === 0;
+missingOrZeroQ[ Quantity[ _? missingOrZeroQ, _ ] ] := True;
+missingOrZeroQ[ Interval[ { _? missingOrZeroQ, _? missingOrZeroQ } ] ] := True;
+missingOrZeroQ[ ___ ] := False;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2596,6 +2625,20 @@ fitValue[ "MessageInformation", "MessageSize"    , v_ ] := v[[ 3 ]];
 fitValue[ "MessageInformation", "Supported"      , v_ ] := messageTypeQ @ fitMessageType @ v[[ 2 ]];
 fitValue[ "MessageInformation", "ByteOrdering"   , v_ ] := fitByteOrder @ v[[ 4 ]];
 fitValue[ "MessageInformation", "FieldCount"     , v_ ] := v[[ 5 ]];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*FieldDescription*)
+fitValue[ "FieldDescription", "FieldName"            , v_ ] := fitString @ v[[ 2;;65 ]];
+fitValue[ "FieldDescription", "Units"                , v_ ] := fitString @ v[[ 66;;81 ]];
+fitValue[ "FieldDescription", "FitBaseUnitID"        , v_ ] := fitFitBaseUnit @ v[[ 82 ]];
+fitValue[ "FieldDescription", "NativeMessageNumber"  , v_ ] := fitUINT16 @ v[[ 83 ]];
+fitValue[ "FieldDescription", "DeveloperDataIndex"   , v_ ] := fitUINT8 @ v[[ 84 ]];
+fitValue[ "FieldDescription", "FieldDefinitionNumber", v_ ] := fitUINT8 @ v[[ 85 ]];
+fitValue[ "FieldDescription", "FitBaseTypeID"        , v_ ] := fitFitBaseType @ v[[ 86 ]];
+fitValue[ "FieldDescription", "Scale"                , v_ ] := fitUINT8 @ v[[ 87 ]];
+fitValue[ "FieldDescription", "Offset"               , v_ ] := fitSINT8 @ v[[ 88 ]];
+fitValue[ "FieldDescription", "NativeFieldNumber"    , v_ ] := fitUINT8 @ v[[ 89 ]];
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -5060,6 +5103,50 @@ $fitRadarThreatLevelType0 = <|
 |>;
 
 $fitRadarThreatLevelType = toNiceCamelCase /@ removePrefix[ $fitRadarThreatLevelType0, "FIT_RADAR_THREAT_LEVEL_TYPE_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitFitBaseUnit*)
+fitFitBaseUnit // ClearAll;
+fitFitBaseUnit[ n_Integer ] := Lookup[ $fitFitBaseUnit, n, Missing[ "NotAvailable" ] ];
+fitFitBaseUnit[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitFitBaseUnit0 = <|
+    0 -> "FIT_FIT_BASE_UNIT_OTHER",
+    1 -> "FIT_FIT_BASE_UNIT_KILOGRAM",
+    2 -> "FIT_FIT_BASE_UNIT_POUND"
+|>;
+
+$fitFitBaseUnit = toNiceCamelCase /@ removePrefix[ $fitFitBaseUnit0, "FIT_FIT_BASE_UNIT_" ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*fitFitBaseType*)
+fitFitBaseType // ClearAll;
+fitFitBaseType[ n_Integer ] := Lookup[ $fitFitBaseType, n, Missing[ "NotAvailable" ] ];
+fitFitBaseType[ ___ ] := Missing[ "NotAvailable" ];
+
+$fitFitBaseType0 = <|
+    0   -> "FIT_FIT_BASE_TYPE_ENUM",
+    1   -> "FIT_FIT_BASE_TYPE_SINT8",
+    2   -> "FIT_FIT_BASE_TYPE_UINT8",
+    131 -> "FIT_FIT_BASE_TYPE_SINT16",
+    132 -> "FIT_FIT_BASE_TYPE_UINT16",
+    133 -> "FIT_FIT_BASE_TYPE_SINT32",
+    134 -> "FIT_FIT_BASE_TYPE_UINT32",
+    7   -> "FIT_FIT_BASE_TYPE_STRING",
+    136 -> "FIT_FIT_BASE_TYPE_FLOAT32",
+    137 -> "FIT_FIT_BASE_TYPE_FLOAT64",
+    10  -> "FIT_FIT_BASE_TYPE_UINT8Z",
+    139 -> "FIT_FIT_BASE_TYPE_UINT16Z",
+    140 -> "FIT_FIT_BASE_TYPE_UINT32Z",
+    13  -> "FIT_FIT_BASE_TYPE_BYTE",
+    142 -> "FIT_FIT_BASE_TYPE_SINT64",
+    143 -> "FIT_FIT_BASE_TYPE_UINT64",
+    144 -> "FIT_FIT_BASE_TYPE_UINT64Z"
+|>;
+
+$fitFitBaseType = removePrefix[ $fitFitBaseType0, "FIT_FIT_BASE_TYPE_" ];
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)

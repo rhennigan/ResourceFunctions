@@ -200,6 +200,13 @@ typedef struct
     FIT_UINT8 FitConvert_GetFieldSize(FIT_UINT8 field);
 #endif
 
+///////////////////////////////////////////////////////////////////////
+#if defined(FIT_CONVERT_MULTI_THREAD)
+    FIT_UINT32 FitConvert_GetFileBytesRemaining(FIT_CONVERT_STATE *state);
+#else
+    FIT_UINT32 FitConvert_GetFileBytesRemaining();
+#endif
+
 #if defined(__cplusplus)
    }
 #endif

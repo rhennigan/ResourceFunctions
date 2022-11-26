@@ -224,6 +224,14 @@ DLLEXPORT int FITImport(
                         break;
                     }
 
+                    case FIT_MESG_NUM_FIELD_DESCRIPTION:
+                    {
+                        const FIT_FIELD_DESCRIPTION_MESG *field_description = (FIT_FIELD_DESCRIPTION_MESG *) mesg;
+                        idx++;
+                        write_field_description(libData, data, idx, field_description);
+                        break;
+                    }
+
                     default:
                     {
                         // idx++;
@@ -301,7 +309,7 @@ DLLEXPORT int FITMessageTypes (
     }
 
     dims[0] = length;
-    dims[1] = 6;
+    dims[1] = 7;
     err = libData->MTensor_new(MType_Integer, 2, dims, &data);
     if (err) {
         return FIT_IMPORT_ERROR_INTERNAL;
@@ -351,9 +359,11 @@ DLLEXPORT int FITMessageTypes (
                 #if defined(FIT_CONVERT_MULTI_THREAD)
                     const FIT_UINT8 *mesg = FitConvert_GetMessageData(&state);
                     FIT_UINT16 mesg_num = FitConvert_GetMessageNumber(&state);
+                    FIT_UINT32 remaining = FitConvert_GetFileBytesRemaining(&state);
                 #else
                     const FIT_UINT8 *mesg = FitConvert_GetMessageData();
                     FIT_UINT16 mesg_num = FitConvert_GetMessageNumber();
+                    FIT_UINT32 remaining = FitConvert_GetFileBytesRemaining();
                 #endif
 
                 mesg_index++;
@@ -370,6 +380,7 @@ DLLEXPORT int FITMessageTypes (
                 SetInteger(libData, data, pos, size);
                 SetInteger(libData, data, pos, arch);
                 SetInteger(libData, data, pos, fields);
+                SetInteger(libData, data, pos, remaining);
                 SetInteger(libData, data, pos, DONE);
 
                 break;
@@ -923,6 +934,25 @@ static void write_developer_data_id(WolframLibraryData libData, MTensor data, in
     SetInteger(libData, data, pos, DONE);
 }
 
+static void write_field_description(WolframLibraryData libData, MTensor data, int idx, const FIT_FIELD_DESCRIPTION_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_FIELD_DESCRIPTION);
+    SetIntegerSequence(libData, data, pos, mesg->field_name, FIT_FIELD_DESCRIPTION_MESG_FIELD_NAME_COUNT);
+    SetIntegerSequence(libData, data, pos, mesg->units, FIT_FIELD_DESCRIPTION_MESG_UNITS_COUNT);
+    SetInteger(libData, data, pos, mesg->fit_base_unit_id);
+    SetInteger(libData, data, pos, mesg->native_mesg_num);
+    SetInteger(libData, data, pos, mesg->developer_data_index);
+    SetInteger(libData, data, pos, mesg->field_definition_number);
+    SetInteger(libData, data, pos, mesg->fit_base_type_id);
+    SetInteger(libData, data, pos, mesg->scale);
+    SetInteger(libData, data, pos, mesg->offset);
+    SetInteger(libData, data, pos, mesg->native_field_num);
+    SetInteger(libData, data, pos, DONE);
+}
+
 static void write_unknown(WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg)
 {
     mint pos[2];
@@ -1051,6 +1081,11 @@ static int count_usable_fit_messages(char* input, mint *err)
                         break;
                     }
                     case FIT_MESG_NUM_DEVELOPER_DATA_ID:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_FIELD_DESCRIPTION:
                     {
                         mesg_count++;
                         break;

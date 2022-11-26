@@ -1,3 +1,6 @@
+#if !defined(FIT_IMPORT_H)
+#define FIT_IMPORT_H
+
 #include "WolframLibrary.h"
 #include "stdio.h"
 #include "string.h"
@@ -43,5 +46,8 @@ static void write_zones_target(     WolframLibraryData libData, MTensor data, in
 static void write_file_creator(     WolframLibraryData libData, MTensor data, int idx, const FIT_FILE_CREATOR_MESG      *mesg);
 static void write_sport(            WolframLibraryData libData, MTensor data, int idx, const FIT_SPORT_MESG             *mesg);
 static void write_developer_data_id(WolframLibraryData libData, MTensor data, int idx, const FIT_DEVELOPER_DATA_ID_MESG *mesg);
+static void write_field_description(WolframLibraryData libData, MTensor data, int idx, const FIT_FIELD_DESCRIPTION_MESG *mesg);
 
 static void write_unknown( WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg );
+
+#endif // !defined(FIT_IMPORT_H)

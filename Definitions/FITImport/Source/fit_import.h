@@ -37,7 +37,7 @@ static void write_file_id(          WolframLibraryData libData, MTensor data, in
 static void write_user_profile(     WolframLibraryData libData, MTensor data, int idx, const FIT_USER_PROFILE_MESG      *mesg);
 static void write_activity(         WolframLibraryData libData, MTensor data, int idx, const FIT_ACTIVITY_MESG          *mesg);
 static void write_lap(              WolframLibraryData libData, MTensor data, int idx, const FIT_LAP_MESG               *mesg);
-static void write_record(           WolframLibraryData libData, MTensor data, int idx, const FIT_RECORD_MESG            *mesg);
+static void write_record(           WolframLibraryData libData, MTensor data, int idx, const FIT_RECORD_MESG            *mesg, FIT_UINT16 last_hrv);
 static void write_event(            WolframLibraryData libData, MTensor data, int idx, const FIT_EVENT_MESG             *mesg);
 static void write_device_info(      WolframLibraryData libData, MTensor data, int idx, const FIT_DEVICE_INFO_MESG       *mesg);
 static void write_session(          WolframLibraryData libData, MTensor data, int idx, const FIT_SESSION_MESG           *mesg);
@@ -47,6 +47,8 @@ static void write_file_creator(     WolframLibraryData libData, MTensor data, in
 static void write_sport(            WolframLibraryData libData, MTensor data, int idx, const FIT_SPORT_MESG             *mesg);
 static void write_developer_data_id(WolframLibraryData libData, MTensor data, int idx, const FIT_DEVELOPER_DATA_ID_MESG *mesg);
 static void write_field_description(WolframLibraryData libData, MTensor data, int idx, const FIT_FIELD_DESCRIPTION_MESG *mesg);
+static void write_training_file(    WolframLibraryData libData, MTensor data, int idx, const FIT_TRAINING_FILE_MESG     *mesg);
+static void write_hrv(              WolframLibraryData libData, MTensor data, int idx, const FIT_HRV_MESG               *mesg);
 
 static void write_unknown( WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg );
 

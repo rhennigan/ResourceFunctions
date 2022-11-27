@@ -58,6 +58,8 @@ DLLEXPORT int FITImport(
     int idx = 0;
     int col = 0;
 
+    FIT_UINT16 last_hrv = FIT_UINT16_INVALID;
+
     #if defined(FIT_CONVERT_MULTI_THREAD)
         FIT_CONVERT_STATE state;
     #endif
@@ -156,7 +158,7 @@ DLLEXPORT int FITImport(
                     {
                         const FIT_RECORD_MESG *record = (FIT_RECORD_MESG *) mesg;
                         idx++;
-                        write_record(libData, data, idx, record);
+                        write_record(libData, data, idx, record, last_hrv);
                         break;
                     }
 
@@ -229,6 +231,23 @@ DLLEXPORT int FITImport(
                         const FIT_FIELD_DESCRIPTION_MESG *field_description = (FIT_FIELD_DESCRIPTION_MESG *) mesg;
                         idx++;
                         write_field_description(libData, data, idx, field_description);
+                        break;
+                    }
+
+                    case FIT_MESG_NUM_TRAINING_FILE:
+                    {
+                        const FIT_TRAINING_FILE_MESG *training_file = (FIT_TRAINING_FILE_MESG *) mesg;
+                        idx++;
+                        write_training_file(libData, data, idx, training_file);
+                        break;
+                    }
+
+                    case FIT_MESG_NUM_HRV:
+                    {
+                        const FIT_HRV_MESG *hrv = (FIT_HRV_MESG *) mesg;
+                        idx++;
+                        last_hrv = (*hrv).time[0];
+                        write_hrv(libData, data, idx, hrv);
                         break;
                     }
 
@@ -309,7 +328,7 @@ DLLEXPORT int FITMessageTypes (
     }
 
     dims[0] = length;
-    dims[1] = 7;
+    dims[1] = 8;
     err = libData->MTensor_new(MType_Integer, 2, dims, &data);
     if (err) {
         return FIT_IMPORT_ERROR_INTERNAL;
@@ -356,38 +375,39 @@ DLLEXPORT int FITMessageTypes (
             {
                 case FIT_CONVERT_MESSAGE_AVAILABLE:
                 {
-                #if defined(FIT_CONVERT_MULTI_THREAD)
-                    const FIT_UINT8 *mesg = FitConvert_GetMessageData(&state);
-                    FIT_UINT16 mesg_num = FitConvert_GetMessageNumber(&state);
-                    FIT_UINT32 remaining = FitConvert_GetFileBytesRemaining(&state);
-                #else
-                    const FIT_UINT8 *mesg = FitConvert_GetMessageData();
-                    FIT_UINT16 mesg_num = FitConvert_GetMessageNumber();
-                    FIT_UINT32 remaining = FitConvert_GetFileBytesRemaining();
-                #endif
+                    #if defined(FIT_CONVERT_MULTI_THREAD)
+                        const FIT_UINT8 *mesg = FitConvert_GetMessageData(&state);
+                        FIT_UINT16 mesg_num = FitConvert_GetMessageNumber(&state);
+                        FIT_UINT32 remaining = FitConvert_GetFileBytesRemaining(&state);
+                    #else
+                        const FIT_UINT8 *mesg = FitConvert_GetMessageData();
+                        FIT_UINT16 mesg_num = FitConvert_GetMessageNumber();
+                        FIT_UINT32 remaining = FitConvert_GetFileBytesRemaining();
+                    #endif
 
-                mesg_index++;
-                // printf("Mesg %d (%d) - ", mesg_index++, mesg_num);
-                FIT_UINT16 size = Fit_GetMesgSize(mesg_num);
-                const FIT_MESG_DEF mesg_def = * Fit_GetMesgDef(mesg_num);
-                FIT_UINT8 arch = mesg_def.arch;
-                FIT_UINT8 fields = mesg_def.num_fields;
-                idx++;
-                pos[0] = idx;
-                pos[1] = 0;
-                SetInteger(libData, data, pos, FIT_MESG_NUM_MESSAGE_INFORMATION);
-                SetInteger(libData, data, pos, mesg_num);
-                SetInteger(libData, data, pos, size);
-                SetInteger(libData, data, pos, arch);
-                SetInteger(libData, data, pos, fields);
-                SetInteger(libData, data, pos, remaining);
-                SetInteger(libData, data, pos, DONE);
+                    mesg_index++;
+                    // printf("Mesg %d (%d) - ", mesg_index++, mesg_num);
+                    FIT_UINT16 size = Fit_GetMesgSize(mesg_num);
+                    const FIT_MESG_DEF mesg_def = * Fit_GetMesgDef(mesg_num);
+                    FIT_UINT8 arch = mesg_def.arch;
+                    FIT_UINT8 fields = mesg_def.num_fields;
+                    idx++;
+                    pos[0] = idx;
+                    pos[1] = 0;
+                    SetInteger(libData, data, pos, FIT_MESG_NUM_MESSAGE_INFORMATION);
+                    SetInteger(libData, data, pos, mesg_num);
+                    SetInteger(libData, data, pos, size);
+                    SetInteger(libData, data, pos, arch);
+                    SetInteger(libData, data, pos, fields);
+                    SetInteger(libData, data, pos, remaining);
+                    SetInteger(libData, data, pos, mesg_index);
+                    SetInteger(libData, data, pos, DONE);
 
-                break;
+                    break;
                 }
 
                 default:
-                break;
+                    break;
             }
         } while (convert_return == FIT_CONVERT_MESSAGE_AVAILABLE);
     }
@@ -595,7 +615,7 @@ static void write_lap(WolframLibraryData libData, MTensor data, int idx, const F
     SetInteger(libData, data, pos, DONE);
 }
 
-static void write_record(WolframLibraryData libData, MTensor data, int idx, const FIT_RECORD_MESG *mesg)
+static void write_record(WolframLibraryData libData, MTensor data, int idx, const FIT_RECORD_MESG *mesg, FIT_UINT16 last_hrv)
 {
     mint pos[2];
     pos[0] = idx;
@@ -667,6 +687,7 @@ static void write_record(WolframLibraryData libData, MTensor data, int idx, cons
     SetInteger(libData, data, pos, mesg->performance_condition);
     SetInteger(libData, data, pos, mesg->unknown_90);
     SetInteger(libData, data, pos, mesg->respiration_rate);
+    SetInteger(libData, data, pos, last_hrv);
 
     SetInteger(libData, data, pos, DONE);
 
@@ -953,6 +974,31 @@ static void write_field_description(WolframLibraryData libData, MTensor data, in
     SetInteger(libData, data, pos, DONE);
 }
 
+static void write_training_file(WolframLibraryData libData, MTensor data, int idx, const FIT_TRAINING_FILE_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_TRAINING_FILE);
+    SetInteger(libData, data, pos, mesg->timestamp);
+    SetInteger(libData, data, pos, mesg->serial_number);
+    SetInteger(libData, data, pos, mesg->time_created);
+    SetInteger(libData, data, pos, mesg->manufacturer);
+    SetInteger(libData, data, pos, mesg->product);
+    SetInteger(libData, data, pos, mesg->type);
+    SetInteger(libData, data, pos, DONE);
+}
+
+static void write_hrv(WolframLibraryData libData, MTensor data, int idx, const FIT_HRV_MESG *mesg)
+{
+    mint pos[2];
+    pos[0] = idx;
+    pos[1] = 0;
+    SetInteger(libData, data, pos, FIT_MESG_NUM_HRV);
+    SetIntegerSequence(libData, data, pos, mesg->time, FIT_HRV_MESG_TIME_COUNT);
+    SetInteger(libData, data, pos, DONE);
+}
+
 static void write_unknown(WolframLibraryData libData, MTensor data, int idx, int mesgNum, const FIT_UINT8 *mesg)
 {
     mint pos[2];
@@ -1086,6 +1132,16 @@ static int count_usable_fit_messages(char* input, mint *err)
                         break;
                     }
                     case FIT_MESG_NUM_FIELD_DESCRIPTION:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_TRAINING_FILE:
+                    {
+                        mesg_count++;
+                        break;
+                    }
+                    case FIT_MESG_NUM_HRV:
                     {
                         mesg_count++;
                         break;

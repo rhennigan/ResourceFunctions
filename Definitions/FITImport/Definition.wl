@@ -9,8 +9,6 @@ FITImport // ClearAll;
 $inDef = False;
 $debug = False;
 
-$ContextAliases[ "gu`" ] = "GeneralUtilities`";
-
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*beginDefinition*)
@@ -108,8 +106,8 @@ $units := <| |>
 (*Paths*)
 $libFileLocation  := FileNameJoin @ { $libDirectory, $libFileName };
 $libFileName      := "FITImport." <> Internal`DynamicLibraryExtension[ ];
-$libDirectory     := gu`EnsureDirectory @ { $baseDir, "LibraryResources", $SystemID };
-$exampleDirectory := gu`EnsureDirectory @ { $baseDir, "ExampleData" };
+$libDirectory     := GeneralUtilities`EnsureDirectory @ { $baseDir, "LibraryResources", $SystemID };
+$exampleDirectory := GeneralUtilities`EnsureDirectory @ { $baseDir, "ExampleData" };
 
 $baseDir := $baseDir = FileNameJoin @ {
     $UserBaseDirectory,
@@ -191,6 +189,9 @@ FITImport::LibraryErrorOpenFile =
 FITImport::NoFTPValue =
 "No functional threshold power specified.";
 
+FITImport::NoRecordsAvailable =
+"No records available in the specified FIT file.";
+
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
 (*Attributes*)
@@ -258,9 +259,12 @@ FITImport[ file_? FileExistsQ, type: $$messageTypes, opts: OptionsPattern[ ] ] :
     ];
 
 FITImport[ file_? FileExistsQ, "Dataset", opts: OptionsPattern[ ] ] :=
-    catchTop @ Dataset @ KeyDrop[
-        FITImport[ file, "Data", opts ],
-        "MessageType"
+    catchTop @ Module[ { data },
+        data = FITImport[ file, "Data", opts ];
+        If[ MatchQ[ data, { __Association } ],\
+            Dataset @ KeyDrop[ data, "MessageType" ],
+            throwFailure[ "NoRecordsAvailable" ]
+        ]
     ];
 
 FITImport[ file_, type: "Events"|"Records"|"Laps", opts: OptionsPattern[ ] ] :=
@@ -1466,7 +1470,7 @@ addTempFile // endDefinition;
 (*$tempFile*)
 $tempFile // ClearAll;
 $tempFile := FileNameJoin @ {
-    gu`EnsureDirectory @ { $TemporaryDirectory, "FITImport" },
+    GeneralUtilities`EnsureDirectory @ { $TemporaryDirectory, "FITImport" },
     CreateUUID[ ] <> ".fit"
 };
 
@@ -2138,9 +2142,9 @@ formatFitData0[ data_ ] :=
         If[ ! MatchQ[ fa, { __Association } ],
             Throw[ Missing[ "NotAvailable" ], $tag ]
         ];
-        tr = gu`AssociationTranspose @ fa;
+        tr = GeneralUtilities`AssociationTranspose @ fa;
         filtered = Select[ tr, Composition[ Not, allMissingOrZeroQ ] ];
-        res = gu`AssociationTranspose @ filtered;
+        res = GeneralUtilities`AssociationTranspose @ filtered;
         If[ Length @ res === 1,
             DeleteCases[ res, _Missing | Quantity[ 0 | 0.0, _ ], { 2 } ],
             res

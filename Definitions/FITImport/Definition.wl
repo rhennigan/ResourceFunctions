@@ -146,6 +146,12 @@ FITImport::IncompatibleSystemID =
 FITImport::IncompatibleSystemID2 =
 "FITImport is not compatible with the system ID \"`1`\". Supported platforms are: `2`.";
 
+FITImport::CloudLibraryFunction =
+"FITImport is not supported in the cloud.";
+
+FITImport::LibraryFunctionLoadFail =
+"FITImport could not load the library function \"`1`\".";
+
 FITImport::CopyTemporaryFailed =
 "Failed to copy source to a temporary file.";
 
@@ -1474,7 +1480,7 @@ If[ MatchQ[ fitImportLibFunction, _LibraryFunction ],
 ];
 
 fitImportLibFunction // ClearAll;
-fitImportLibFunction := fitImportLibFunction = LibraryFunctionLoad[
+fitImportLibFunction := fitImportLibFunction = libraryFunctionLoad[
     $libraryFile,
     "FITImport",
     { String },
@@ -1491,12 +1497,32 @@ If[ MatchQ[ fitMessageTypesLibFunction, _LibraryFunction ],
 ];
 
 fitMessageTypesLibFunction // ClearAll;
-fitMessageTypesLibFunction := fitMessageTypesLibFunction = LibraryFunctionLoad[
+fitMessageTypesLibFunction := fitMessageTypesLibFunction = libraryFunctionLoad[
     $libraryFile,
     "FITMessageTypes",
     { String },
     { Integer, 2 }
 ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*libraryFunctionLoad*)
+libraryFunctionLoad // beginDefinition;
+
+libraryFunctionLoad[ file_, a___ ] :=
+    Quiet[
+        Check[
+            LibraryFunctionLoad[ file, a ],
+            If[ $CloudEvaluation,
+                throwFailure[ "CloudLibraryFunction" ],
+                throwFailure[ "LibraryFunctionLoadFail", file ]
+            ],
+            LibraryFunction::noopen
+        ],
+        LibraryFunction::noopen
+    ];
+
+libraryFunctionLoad // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)

@@ -612,3 +612,13 @@
 
     return state->convert_table[state->mesg_index].fields[field_index].size;
 }
+
+///////////////////////////////////////////////////////////////////////
+#if defined(FIT_CONVERT_MULTI_THREAD)
+   FIT_UINT32 FitConvert_GetFileBytesRemaining(FIT_CONVERT_STATE *state)
+#else
+   FIT_UINT32 FitConvert_GetFileBytesRemaining()
+#endif
+{
+    return state->file_bytes_left;
+}

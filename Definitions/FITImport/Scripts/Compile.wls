@@ -16,6 +16,20 @@ cFile = cicd`ScriptConfirmBy[ #, FileExistsQ ] &;
 cDir  = cicd`ScriptConfirmBy[ #, DirectoryQ  ] &;
 cStr  = cicd`ScriptConfirmBy[ #, StringQ     ] &;
 
+Quiet[
+    DeleteDirectory[
+        FileNameJoin @ {
+            $UserBaseDirectory,
+            "ApplicationData",
+            "ResourceFunctions",
+            "FITImport",
+            "LibraryResources"
+        },
+        DeleteContents -> True
+    ],
+    DeleteDirectory::nodir
+];
+
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Paths*)

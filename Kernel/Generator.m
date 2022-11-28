@@ -883,10 +883,10 @@ $defCellRules := $defCellRules = Dispatch @ {
     RowBox @ { "EvaluateInPlace", "[", evaluate__, "]" } :>
         evaluateInPlace @ evaluate
     ,
-    RowBox @ { "EvaluateInPlace", "@", evaluate__ } :>
+    RowBox @ { "EvaluateInPlace", " "|PatternSequence[ ],  "@", evaluate__ } :>
         evaluateInPlace @ evaluate
     ,
-    RowBox @ { evaluate__, "//", "EvaluateInPlace" } :>
+    RowBox @ { evaluate__, "//", " "|PatternSequence[ ], "EvaluateInPlace" } :>
         evaluateInPlace @ evaluate
     ,
     CellGroupData[ a: { ___, _List, ___ }, b_ ] :>

@@ -67,7 +67,7 @@ endDefinition[ s_Symbol, list_List ] :=
 endDefinition // endDefinition;
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Messages*)
 $$Function::Internal =
 "An unexpected error occurred. `1`";
@@ -75,33 +75,32 @@ $$Function::Internal =
 $$Messages
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Attributes*)
 $$Function // Attributes = $$Attributes;
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Options*)
 $$Function // Options = $$Options;
 
 (* ::**********************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Argument patterns*)
-$symbol = _Symbol? symbolQ;
-$string = _String? stringQ;
+$$ArgumentPatterns
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Main definition*)
 $$MainDefinition
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Error cases*)
 $$ErrorCases
 
 (* ::**********************************************************************:: *)
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Dependencies*)
 
 (* ::**********************************************************************:: *)
@@ -184,6 +183,6 @@ $bugReportLink := $bugReportLink = Hyperlink[
         "Scheme"   -> "https",
         "Domain"   -> "resources.wolframcloud.com",
         "Path"     -> { "FunctionRepository", "feedback-form" },
-        "Fragment" -> SymbolName @ $$Function
+        "Fragment" -> "$$Function"
     |>
 ];

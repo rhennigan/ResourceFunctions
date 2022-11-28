@@ -1,6 +1,6 @@
 PacletObject[ <|
     "Name" -> "RH_ResourceFunctions",
-    "Version" -> "2.0.0",
+    "Version" -> "2.1.0",
     "WolframVersion" -> "12.0+",
     "Loading" -> Automatic,
     "Extensions" -> {
@@ -8,14 +8,12 @@ PacletObject[ <|
             "Kernel",
             "Root" -> "Kernel",
             "HiddenImport" -> None,
-            "Context" -> {
-                "RH`ResourceFunctionsLoader`",
-                "RH`ResourceFunctions`"
-            },
+            "Context" -> { "RH`ResourceFunctionsLoader`", "RH`ResourceFunctions`" },
             "Symbols" -> {
                 "RH`ResourceFunctions`$BuildableNames",
                 "RH`ResourceFunctions`$ResourceFunctionDirectory",
                 "RH`ResourceFunctions`BuildDefinitionNotebook",
+                "RH`ResourceFunctions`EvaluateInPlace",
                 "RH`ResourceFunctions`GenerateDefinitionNotebook"
             }
         },

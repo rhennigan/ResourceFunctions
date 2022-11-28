@@ -9,8 +9,6 @@ FITImport // ClearAll;
 $inDef = False;
 $debug = False;
 
-$ContextAliases[ "gu`" ] = "GeneralUtilities`";
-
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*beginDefinition*)
@@ -108,8 +106,8 @@ $units := <| |>
 (*Paths*)
 $libFileLocation  := FileNameJoin @ { $libDirectory, $libFileName };
 $libFileName      := "FITImport." <> Internal`DynamicLibraryExtension[ ];
-$libDirectory     := gu`EnsureDirectory @ { $baseDir, "LibraryResources", $SystemID };
-$exampleDirectory := gu`EnsureDirectory @ { $baseDir, "ExampleData" };
+$libDirectory     := GeneralUtilities`EnsureDirectory @ { $baseDir, "LibraryResources", $SystemID };
+$exampleDirectory := GeneralUtilities`EnsureDirectory @ { $baseDir, "ExampleData" };
 
 $baseDir := $baseDir = FileNameJoin @ {
     $UserBaseDirectory,
@@ -142,6 +140,15 @@ FITImport::FileNotFound =
 
 FITImport::IncompatibleSystemID =
 "FITImport is not compatible with the system ID \"`1`\".";
+
+FITImport::IncompatibleSystemID2 =
+"FITImport is not compatible with the system ID \"`1`\". Supported platforms are: `2`.";
+
+FITImport::CloudLibraryFunction =
+"FITImport is not supported in the cloud.";
+
+FITImport::LibraryFunctionLoadFail =
+"FITImport could not load the library function \"`1`\".";
 
 FITImport::CopyTemporaryFailed =
 "Failed to copy source to a temporary file.";
@@ -181,6 +188,9 @@ FITImport::LibraryErrorOpenFile =
 
 FITImport::NoFTPValue =
 "No functional threshold power specified.";
+
+FITImport::NoRecordsAvailable =
+"No records available in the specified FIT file.";
 
 (* ::**********************************************************************:: *)
 (* ::Section:: *)
@@ -249,9 +259,12 @@ FITImport[ file_? FileExistsQ, type: $$messageTypes, opts: OptionsPattern[ ] ] :
     ];
 
 FITImport[ file_? FileExistsQ, "Dataset", opts: OptionsPattern[ ] ] :=
-    catchTop @ Dataset @ KeyDrop[
-        FITImport[ file, "Data", opts ],
-        "MessageType"
+    catchTop @ Module[ { data },
+        data = FITImport[ file, "Data", opts ];
+        If[ MatchQ[ data, { __Association } ],\
+            Dataset @ KeyDrop[ data, "MessageType" ],
+            throwFailure[ "NoRecordsAvailable" ]
+        ]
     ];
 
 FITImport[ file_, type: "Events"|"Records"|"Laps", opts: OptionsPattern[ ] ] :=
@@ -1067,12 +1080,22 @@ $pzLegend :=
     With[ { c = Reverse @ KeySort @ $powerZoneColors },
         SwatchLegend[
             Values @ c,
-            Style[ #, FontSize -> 10 ] & /@ (Keys @ c),
+            Style[ #, FontSize -> 10 ] & /@ Lookup[ $pzDescriptions, Keys @ c ],
             LegendMarkers -> Graphics @ { Rectangle[ ] },
             (* LegendLabel   -> "zone", *)
             LegendMargins -> 2
         ]
     ];
+
+$pzDescriptions = <|
+    1 -> "Active Recovery",
+    2 -> "Endurance",
+    3 -> "Tempo",
+    4 -> "Lactate Threshold",
+    5 -> "\!\(\*SubscriptBox[\(VO\), \(2\)]\) max",
+    6 -> "Anaerobic Capacity",
+    7 -> "Neuromuscular Power"
+|>;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -1447,7 +1470,7 @@ addTempFile // endDefinition;
 (*$tempFile*)
 $tempFile // ClearAll;
 $tempFile := FileNameJoin @ {
-    gu`EnsureDirectory @ { $TemporaryDirectory, "FITImport" },
+    GeneralUtilities`EnsureDirectory @ { $TemporaryDirectory, "FITImport" },
     CreateUUID[ ] <> ".fit"
 };
 
@@ -1461,7 +1484,7 @@ If[ MatchQ[ fitImportLibFunction, _LibraryFunction ],
 ];
 
 fitImportLibFunction // ClearAll;
-fitImportLibFunction := fitImportLibFunction = LibraryFunctionLoad[
+fitImportLibFunction := fitImportLibFunction = libraryFunctionLoad[
     $libraryFile,
     "FITImport",
     { String },
@@ -1478,12 +1501,32 @@ If[ MatchQ[ fitMessageTypesLibFunction, _LibraryFunction ],
 ];
 
 fitMessageTypesLibFunction // ClearAll;
-fitMessageTypesLibFunction := fitMessageTypesLibFunction = LibraryFunctionLoad[
+fitMessageTypesLibFunction := fitMessageTypesLibFunction = libraryFunctionLoad[
     $libraryFile,
     "FITMessageTypes",
     { String },
     { Integer, 2 }
 ];
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*libraryFunctionLoad*)
+libraryFunctionLoad // beginDefinition;
+
+libraryFunctionLoad[ file_, a___ ] :=
+    Quiet[
+        Check[
+            LibraryFunctionLoad[ file, a ],
+            If[ $CloudEvaluation,
+                throwFailure[ "CloudLibraryFunction" ],
+                throwFailure[ "LibraryFunctionLoadFail", file ]
+            ],
+            LibraryFunction::noopen
+        ],
+        LibraryFunction::noopen
+    ];
+
+libraryFunctionLoad // endDefinition;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -1499,7 +1542,7 @@ libraryFile // beginDefinition;
 libraryFile[ id_ ] := libraryFile[ id, $libFileLocation ];
 libraryFile[ id_, location_ ] := libraryFile[ id, location, $libData @ id ];
 
-libraryFile[ id_, file_, bytes_ ] /; sameLibQ[ file, bytes ] :=
+libraryFile[ id_, file_, bytes_ByteArray ] /; sameLibQ[ file, bytes ] :=
     file;
 
 libraryFile[ id_, location_, bytes_ByteArray ] :=
@@ -1509,9 +1552,25 @@ libraryFile[ id_, location_, bytes_ByteArray ] :=
     ];
 
 libraryFile[ id_, location_, _Missing ] :=
-    throwFailure[ "IncompatibleSystemID", id ];
+    With[ { s = supportedPlatformsString[ ] },
+        If[ StringQ @ s,
+            throwFailure[ "IncompatibleSystemID2", id, s ],
+            throwFailure[ "IncompatibleSystemID", id ]
+        ]
+    ];
 
 libraryFile // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*supportedPlatformsString*)
+supportedPlatformsString // ClearAll;
+
+supportedPlatformsString[ ] :=
+    supportedPlatformsString @ Keys @ $libData;
+
+supportedPlatformsString[ { a__String, b_String } ] :=
+    StringRiffle[ { a }, ", " ] <> ", and " <> b;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -2083,9 +2142,9 @@ formatFitData0[ data_ ] :=
         If[ ! MatchQ[ fa, { __Association } ],
             Throw[ Missing[ "NotAvailable" ], $tag ]
         ];
-        tr = gu`AssociationTranspose @ fa;
+        tr = GeneralUtilities`AssociationTranspose @ fa;
         filtered = Select[ tr, Composition[ Not, allMissingOrZeroQ ] ];
-        res = gu`AssociationTranspose @ filtered;
+        res = GeneralUtilities`AssociationTranspose @ filtered;
         If[ Length @ res === 1,
             DeleteCases[ res, _Missing | Quantity[ 0 | 0.0, _ ], { 2 } ],
             res
@@ -3836,6 +3895,16 @@ $powerZoneColors = <|
     7 -> RGBColor[ "#fb0052" ]
 |>;
 
+$garminPZColors = <|
+    1 -> RGBColor[ "#a6a6a6" ],
+    2 -> RGBColor[ "#3b97f3" ],
+    3 -> RGBColor[ "#82c91e" ],
+    4 -> RGBColor[ "#faca48" ],
+    5 -> RGBColor[ "#f98925" ],
+    6 -> RGBColor[ "#d32020" ],
+    7 -> RGBColor[ "#5a30d7" ]
+|>;
+
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*$powerZoneThresholds*)
@@ -5563,9 +5632,9 @@ $libData := $libData =
 
 (* !Excluded
 Libraries built using
-[GitHub Actions](https://github.com/rhennigan/ResourceFunctions/actions/runs/3554392258).
+[GitHub Actions](https://github.com/rhennigan/ResourceFunctions/actions/runs/3560426433).
 Source code can be found
-[here.](https://github.com/rhennigan/ResourceFunctions/tree/3ce68c517bb5386ad99bdf19614bf935ef3443b4/Definitions/FITImport/Source)
+[here.](https://github.com/rhennigan/ResourceFunctions/tree/3540ddd23eeb61e047aedf69f9f035c778a2dda9/Definitions/FITImport/Source)
 *)
 $libData0 = <|
     "Linux-x86-64"   -> EvaluateInPlace @ ReadByteArray @ FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResources", "Linux-x86-64"  , "FitnessData.so"    },

@@ -1,10 +1,10 @@
 <|
     "Name"        -> "FITImport",
-    "Description" -> "Import a fit file to analyze data from cycling computers, smart watches, and other devices",
+    "Description" -> "Import a FIT file to analyze data from cycling computers, smart watches, and other devices",
     "Author"      -> "Richard Hennigan (Wolfram Research)"
     ,
     "Keywords" -> {
-        "fit",
+        "FIT",
         "fitness",
         "activity",
         "cycling",

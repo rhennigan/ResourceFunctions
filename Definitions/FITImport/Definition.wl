@@ -1067,12 +1067,22 @@ $pzLegend :=
     With[ { c = Reverse @ KeySort @ $powerZoneColors },
         SwatchLegend[
             Values @ c,
-            Style[ #, FontSize -> 10 ] & /@ (Keys @ c),
+            Style[ #, FontSize -> 10 ] & /@ Lookup[ $pzDescriptions, Keys @ c ],
             LegendMarkers -> Graphics @ { Rectangle[ ] },
             (* LegendLabel   -> "zone", *)
             LegendMargins -> 2
         ]
     ];
+
+$pzDescriptions = <|
+    1 -> "Active Recovery",
+    2 -> "Endurance",
+    3 -> "Tempo",
+    4 -> "Lactate Threshold",
+    5 -> "\!\(\*SubscriptBox[\(VO\), \(2\)]\) max",
+    6 -> "Anaerobic Capacity",
+    7 -> "Neuromuscular Power"
+|>;
 
 (* ::**********************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -3836,6 +3846,16 @@ $powerZoneColors = <|
     7 -> RGBColor[ "#fb0052" ]
 |>;
 
+$garminPZColors = <|
+    1 -> RGBColor[ "#a6a6a6" ],
+    2 -> RGBColor[ "#3b97f3" ],
+    3 -> RGBColor[ "#82c91e" ],
+    4 -> RGBColor[ "#faca48" ],
+    5 -> RGBColor[ "#f98925" ],
+    6 -> RGBColor[ "#d32020" ],
+    7 -> RGBColor[ "#5a30d7" ]
+|>;
+
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*$powerZoneThresholds*)
@@ -5563,9 +5583,9 @@ $libData := $libData =
 
 (* !Excluded
 Libraries built using
-[GitHub Actions](https://github.com/rhennigan/ResourceFunctions/actions/runs/3554392258).
+[GitHub Actions](https://github.com/rhennigan/ResourceFunctions/actions/runs/3560426433).
 Source code can be found
-[here.](https://github.com/rhennigan/ResourceFunctions/tree/3ce68c517bb5386ad99bdf19614bf935ef3443b4/Definitions/FITImport/Source)
+[here.](https://github.com/rhennigan/ResourceFunctions/tree/3540ddd23eeb61e047aedf69f9f035c778a2dda9/Definitions/FITImport/Source)
 *)
 $libData0 = <|
     "Linux-x86-64"   -> EvaluateInPlace @ ReadByteArray @ FileNameJoin @ { DirectoryName @ $InputFileName, "LibraryResources", "Linux-x86-64"  , "FitnessData.so"    },

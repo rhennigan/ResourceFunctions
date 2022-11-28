@@ -143,6 +143,9 @@ FITImport::FileNotFound =
 FITImport::IncompatibleSystemID =
 "FITImport is not compatible with the system ID \"`1`\".";
 
+FITImport::IncompatibleSystemID2 =
+"FITImport is not compatible with the system ID \"`1`\". Supported platforms are: `2`.";
+
 FITImport::CopyTemporaryFailed =
 "Failed to copy source to a temporary file.";
 
@@ -1509,7 +1512,7 @@ libraryFile // beginDefinition;
 libraryFile[ id_ ] := libraryFile[ id, $libFileLocation ];
 libraryFile[ id_, location_ ] := libraryFile[ id, location, $libData @ id ];
 
-libraryFile[ id_, file_, bytes_ ] /; sameLibQ[ file, bytes ] :=
+libraryFile[ id_, file_, bytes_ByteArray ] /; sameLibQ[ file, bytes ] :=
     file;
 
 libraryFile[ id_, location_, bytes_ByteArray ] :=
@@ -1519,9 +1522,25 @@ libraryFile[ id_, location_, bytes_ByteArray ] :=
     ];
 
 libraryFile[ id_, location_, _Missing ] :=
-    throwFailure[ "IncompatibleSystemID", id ];
+    With[ { s = supportedPlatformsString[ ] },
+        If[ StringQ @ s,
+            throwFailure[ "IncompatibleSystemID2", id, s ],
+            throwFailure[ "IncompatibleSystemID", id ]
+        ]
+    ];
 
 libraryFile // endDefinition;
+
+(* ::**********************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*supportedPlatformsString*)
+supportedPlatformsString // ClearAll;
+
+supportedPlatformsString[ ] :=
+    supportedPlatformsString @ Keys @ $libData;
+
+supportedPlatformsString[ { a__String, b_String } ] :=
+    StringRiffle[ { a }, ", " ] <> ", and " <> b;
 
 (* ::**********************************************************************:: *)
 (* ::Subsubsection::Closed:: *)

@@ -1,4 +1,4 @@
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Package header*)
 
@@ -7,7 +7,7 @@ Package[ "RH`ResourceFunctions`" ]
 PackageExport[ "BuildDefinitionNotebook"    ]
 PackageExport[ "GenerateDefinitionNotebook" ]
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*BuildDefinitionNotebook*)
 BuildDefinitionNotebook[ name_String? buildableNameQ ] :=
@@ -28,7 +28,7 @@ BuildDefinitionNotebook[ name_String? buildableNameQ ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*GenerateDefinitionNotebook*)
 GenerateDefinitionNotebook[ name_String? buildableNameQ ] :=
@@ -45,13 +45,13 @@ GenerateDefinitionNotebook[ dir_? DirectoryQ ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*buildableNameQ*)
 buildableNameQ[ name_ ] := MemberQ[ $BuildableNames, name ];
 buildableNameQ[ ___   ] := False;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*generateDefinitionNotebook*)
 generateDefinitionNotebook // ClearAll;
@@ -59,13 +59,13 @@ generateDefinitionNotebook // ClearAll;
 generateDefinitionNotebook[ dir_? DirectoryQ ] :=
     TemplateApply[ $template, deleteMissing @ generateTemplateData @ dir ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*deleteMissing*)
 deleteMissing // ClearAll;
 deleteMissing[ info_ ] := DeleteCases[ info, _Missing | { } | _? FailureQ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*generateTemplateData*)
 generateTemplateData // ClearAll;
@@ -91,7 +91,7 @@ generateTemplateData[ dir_? DirectoryQ, info_ ] := <|
     "Author Notes"              -> generateAuthorNotes[       dir, info ]
 |>;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Name*)
 generateName // ClearAll;
@@ -105,7 +105,7 @@ generateName[ dir_, info_, name_String ] :=
 generateName[ ___ ] :=
     Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Description*)
 generateDescription // ClearAll;
@@ -118,14 +118,19 @@ generateDescription[ dir_, info_, desc_String ] :=
 
 generateDescription[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Function*)
 generateFunction // ClearAll;
-generateFunction[ dir_, info_ ] := generateDefinitionCells[ info, dir ];
+
+generateFunction[ dir_, info_ ] :=
+    Block[ { $NotebookInlineStorageLimit = Infinity },
+        generateDefinitionCells[ info, dir ]
+    ];
+
 generateFunction[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Usage*)
 generateUsage // ClearAll;
@@ -149,7 +154,7 @@ generateUsage[ dir_, info_, file_? FileExistsQ ] :=
 
 generateUsage[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*makeUsageGroup*)
 makeUsageGroup // ClearAll;
@@ -160,7 +165,7 @@ makeUsageGroup[ { usage_, desc_ } ] :=
         makeUsageDesc @ desc
     };
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*makeUsageInput*)
 makeUsageInput // ClearAll;
@@ -172,7 +177,7 @@ makeUsageInput[ usage_String ] :=
         usageInputCell @ templated
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*usageInputCell*)
 usageInputCell // ClearAll;
@@ -182,7 +187,7 @@ usageInputCell[ BoxData[ boxes_ ] ] := usageInputCell @ boxes;
 usageInputCell[ boxes_ ] :=
     Cell[ BoxData @ boxes, "UsageInputs", FontFamily -> "Source Sans Pro" ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*makeUsageDesc*)
 makeUsageDesc // ClearAll;
@@ -193,7 +198,7 @@ makeUsageDesc[ desc_String ] :=
         "UsageDescription"
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*findUsageFile*)
 findUsageFile // ClearAll;
@@ -205,7 +210,7 @@ findUsageFile[ dir_ ] :=
         SelectFirst[ files, FileExistsQ ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Notes*)
 generateNotes // ClearAll;
@@ -229,7 +234,7 @@ generateNotes[ dir_, info_, file_? FileExistsQ ] :=
 
 generateNotes[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*findNotesFile*)
 findNotesFile // ClearAll;
@@ -241,7 +246,7 @@ findNotesFile[ dir_ ] :=
         SelectFirst[ files, FileExistsQ ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*makeNotesCell*)
 makeNotesCell // ClearAll;
@@ -255,7 +260,7 @@ makeNotesCell[ table_ /; MatrixQ[ table, StringQ ] ] :=
             MatchQ[ grid, { { __Cell }.. } ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*eliminateNewLineWhitespace*)
 eliminateNewLineWhitespace[ str_String ] :=
@@ -264,7 +269,7 @@ eliminateNewLineWhitespace[ str_String ] :=
 $newLine           = "\r\n" | "\n";
 $newLineWhitespace = WhitespaceCharacter...~~$newLine~~WhitespaceCharacter...;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*notesTableItem*)
 notesTableItem // ClearAll;
@@ -275,7 +280,7 @@ notesTableItem[ str_String ] :=
         Sequence @@ templated
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Examples*)
 generateExamples // ClearAll;
@@ -291,7 +296,7 @@ generateExamples[ dir_, info_, exFile_, defFile_ ] :=
 
 generateExamples[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*findExamplesFile*)
 findExamplesFile // ClearAll;
@@ -309,7 +314,7 @@ findExamplesFile[ info: KeyValuePattern @ { }, dir_ ] :=
         SelectFirst[ Join[ files1, files2, files3 ], FileExistsQ ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*generateExampleCells*)
 generateExampleCells // ClearAll;
@@ -322,14 +327,14 @@ generateExampleCells[ dir_, info_, def_, ex_? FileExistsQ ] :=
 
 generateExampleCells[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*fileFormat*)
 fileFormat[ file_ ] := fileFormat[ file, ToUpperCase @ FileExtension @ file ];
 fileFormat[ file_, "NB" ] := "NB";
 fileFormat[ file_, _ ] := FileFormat @ file;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*examplesFromNotebook*)
 examplesFromNotebook // ClearAll;
@@ -352,7 +357,7 @@ examplesFromNotebook[ dir_, info_, def_, ex_ ] :=
 
 examplesFromNotebook[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*examplesFromPackage*)
 examplesFromPackage // ClearAll;
@@ -369,7 +374,7 @@ examplesFromPackage[ dir_, info_, defFile_? FileExistsQ, file_? FileExistsQ ] :=
 
 examplesFromPackage[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*contextBlock*)
 contextBlock // Attributes = { HoldAll };
@@ -395,7 +400,7 @@ contextBlock[ context_, contextPath_, eval_ ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Contributed By*)
 generateContributedBy // ClearAll;
@@ -409,7 +414,7 @@ generateContributedBy[ dir_, info_, author_String ] :=
 generateContributedBy[ ___ ] :=
     Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Keywords*)
 generateKeywords // ClearAll;
@@ -422,7 +427,7 @@ generateKeywords[ dir_, info_, keywords: { __String } ] :=
 
 generateKeywords[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Categories*)
 generateCategories // ClearAll;
@@ -439,7 +444,7 @@ generateCategories[ dir_, info_, cats: { __String } ] :=
 
 generateCategories[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Related Symbols*)
 generateRelatedSymbols // ClearAll;
@@ -452,7 +457,7 @@ generateRelatedSymbols[ dir_, info_, syms: { __String } ] :=
 
 generateRelatedSymbols[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Related Resource Objects*)
 generateRelatedResources // ClearAll;
@@ -469,7 +474,7 @@ generateRelatedResources[ dir_, info_, res: { __String } ] :=
 
 generateRelatedResources[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Source/Reference Citation*)
 generateCitation // ClearAll;
@@ -486,7 +491,7 @@ generateCitation[ dir_, info_, citation: { __String } ] :=
 
 generateCitation[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Links*)
 generateLinks // ClearAll;
@@ -503,7 +508,7 @@ generateLinks[ dir_, info_, links: { (_String|_Hyperlink).. } ] :=
 
 generateLinks[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*makeLinkCell*)
 makeLinkCell // ClearAll;
@@ -522,7 +527,7 @@ makeLinkCell[ Hyperlink[ label_String, url_String, ___ ] ] :=
 
 makeLinkCell[ ___ ] := Nothing;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*VerificationTests*)
 generateVerificationTests // ClearAll;
@@ -539,7 +544,7 @@ generateVerificationTests[ dir_, info_, vtFile_ ] :=
 
 generateVerificationTests[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*generateVerificationTestCells*)
 generateVerificationTestCells // ClearAll;
@@ -554,7 +559,7 @@ generateVerificationTestCells[ dir_, info_, vtFile_? FileExistsQ ] :=
 
 generateVerificationTestCells[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*vtCellsFromNotebook*)
 vtCellsFromNotebook // ClearAll;
@@ -577,7 +582,7 @@ vtCellsFromNotebook[ dir_, info_, file_ ] :=
 
 vtCellsFromNotebook[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*vtCellsFromPackage*)
 vtCellsFromPackage // ClearAll;
@@ -602,7 +607,7 @@ vtCellsFromPackage[ dir_, info_, file_ ] :=
 
 vtCellsFromPackage[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*findVerificationTestsFile*)
 findVerificationTestsFile // ClearAll;
@@ -619,18 +624,18 @@ findVerificationTestsFile[ info: KeyValuePattern @ { }, dir_ ] :=
         firstMatchingFile[ patt, dir, IgnoreCase -> True ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Author Notes*)
 generateAuthorNotes // ClearAll;
 (* TODO *)
 generateAuthorNotes[ ___ ] := Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Metadata*)
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*getMetadata*)
 getMetadata // ClearAll;
@@ -649,7 +654,7 @@ getMetadata[ info_Association ] := info;
 
 getMetadata[ ___ ] := <| |>;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*findMetadataFile*)
 findMetadataFile // ClearAll;
@@ -661,11 +666,11 @@ findMetadataFile[ dir_ ] :=
         SelectFirst[ files, FileExistsQ ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Definition Utilities*)
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*generateDefinitionCells*)
 generateDefinitionCells // ClearAll;
@@ -692,7 +697,7 @@ generateDefinitionCells[ info_, file_? FileExistsQ ] :=
 generateDefinitionCells[ ___ ] :=
     Missing[ ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*findDefinitionFile*)
 findDefinitionFile // ClearAll;
@@ -705,7 +710,7 @@ findDefinitionFile[ info_, dir_ ] :=
         SelectFirst[ files, FileExistsQ ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*toSimpleString*)
 toSimpleString // ClearAll;
@@ -735,17 +740,17 @@ toSimpleString[ list_List ] :=
         StringJoin @ strings /; AllTrue[ strings, StringQ ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*evaluateStringTemplates*)
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*stringTemplateEvaluate*)
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*deleteHeaderStripes*)
 deleteHeaderStripes // ClearAll;
@@ -757,12 +762,16 @@ deleteHeaderStripes[ cells_ ] :=
         Infinity
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*$defCellRules*)
 $defCellRules // ClearAll;
 
 $defCellRules := $defCellRules = Dispatch @ {
+    RowBox @ { "(*", " ", RowBox @ { ":", RowBox @ { "!", ___ } }, " ", "*)" } :> Sequence[ ]
+    ,
+    RowBox @ { } :> Sequence[ ]
+    ,
     RowBox @ { a_ } :> a
     ,
     Cell[ BoxData @ RowBox @ { a___, "\n" }, b___ ] :>
@@ -875,6 +884,10 @@ $defCellRules := $defCellRules = Dispatch @ {
     ,
     Cell[ BoxData[ "" ], __ ] :> Sequence[ ]
     ,
+    Cell[ BoxData[ ], __ ] :> Sequence[ ]
+    ,
+    BoxData[ b_BoxData ] :> b
+    ,
     RowBox @ { RowBox @ { "Excluded", "[", a___, "]" }, ";" } :>
         RowBox @ { "Excluded", "[", a, "]" }
     ,
@@ -893,7 +906,7 @@ $defCellRules := $defCellRules = Dispatch @ {
         CellGroupData[ Flatten @ a, b ]
 };
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*evaluateInPlace*)
 evaluateInPlace[ boxes_ ] :=
@@ -905,7 +918,7 @@ evaluateInPlace[ boxes_ ] :=
 evaluateInPlace[ boxes__ ] :=
     evaluateInPlace @ RowBox @ { boxes };
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*commentWrapper*)
 commentWrapper[ str_String ] /;
@@ -918,11 +931,11 @@ commentWrapper[ str_String ] /;
     ] :=
         commentWrapper @ StringTrim @ str;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Examples*)
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*createPackageNotebook*)
 createPackageNotebook // ClearAll;
@@ -971,12 +984,12 @@ createPackageNotebook0[ file_, visible_ ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*$notebookGroupingMethod*)
 $notebookGroupingMethod = Automatic;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*packageNotebookToCells*)
 packageNotebookToCells // ClearAll;
@@ -989,7 +1002,7 @@ packageNotebookToCells[ Notebook[ cells_, ___ ] ] :=
             Infinity
         ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*fixDelimiters*)
 fixDelimiters // ClearAll;
@@ -997,7 +1010,7 @@ fixDelimiters // ClearAll;
 fixDelimiters[ cells_ ] :=
     cells /. Cell[ "", "ExampleDelimiter" ] -> $exampleDelimiter;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*$exampleDelimiter*)
 $exampleDelimiter =
@@ -1016,14 +1029,14 @@ $exampleDelimiter =
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*demoteHeaders*)
 demoteHeaders // ClearAll;
 demoteHeaders[ cells_ ] :=
     demoteHeaders0[ cells, $currentHeaderLevel ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*demoteHeaders0*)
 demoteHeaders0 // ClearAll;
@@ -1045,12 +1058,12 @@ demoteHeaders0[ cells_, n_Integer? Positive ] :=
 
 demoteHeaders0[ cells_, _ ] := cells;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*$currentHeaderLevel*)
 $currentHeaderLevel = 1;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*evaluateInputs*)
 evaluateInputs // ClearAll;
@@ -1064,7 +1077,7 @@ evaluateInputs[ cells_ ] /; TrueQ @ $evaluateInputs :=
 
 evaluateInputs[ cells_ ] := cells;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*evaluateInputBoxes*)
 evaluateInputBoxes // ClearAll;
@@ -1077,7 +1090,7 @@ evaluateInputBoxes[ boxes_ ] :=
         Cases[ held, HoldComplete[ expr_ ] :> createInOutGroup[ $line, expr ] ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*createInOutGroup*)
 createInOutGroup // ClearAll;
@@ -1141,7 +1154,7 @@ createInOutGroup[ $line_, expr_ ] :=
         Cell @ CellGroupData[ Flatten @ { input, messages, output }, Open ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*makeInputCell*)
 makeInputCell // ClearAll;
@@ -1158,7 +1171,7 @@ makeInputCell[ line_, expr_ ] :=
     ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*messageTemplate*)
 messageTemplate // ClearAll;
@@ -1178,18 +1191,18 @@ messageTemplate[ symbol_Symbol, tag__String, args_HoldComplete ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Utilities*)
 
 MessageQuietedQ // ClearAll;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Attributes*)
 MessageQuietedQ // Attributes = { HoldFirst };
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Main definition*)
 MessageQuietedQ[ msg: MessageName[ _Symbol, tag___ ] ] :=
@@ -1201,18 +1214,18 @@ MessageQuietedQ[ msg: MessageName[ _Symbol, tag___ ] ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Dependencies*)
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*inheritingOffQ*)
 inheritingOffQ // ClearAll;
 inheritingOffQ[ _String, ___ ] := False;
 inheritingOffQ[ msg_, tag_ ] := MatchQ[ MessageName[ General, tag ], _$Off ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*messageQuietedQ*)
 messageQuietedQ // ClearAll;
@@ -1235,7 +1248,7 @@ messageQuietedQ[ msg: MessageName[ _Symbol, tag___ ] ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*generalMessagePattern*)
 generalMessagePattern // ClearAll;
@@ -1248,17 +1261,17 @@ generalMessagePattern[ msg: MessageName[ _Symbol, tag___ ] ] :=
         HoldPattern[ msg | MessageName[ General, tag ] ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*$template*)
 $template := $template =
     Get @ DefinitionNotebookClient`DefinitionTemplateLocation[ "Function" ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*General Utilities*)
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*firstMatchingFile*)
 firstMatchingFile // ClearAll;
@@ -1268,7 +1281,7 @@ firstMatchingFile[ { patt_, rest___ }, args___ ] :=
 
 firstMatchingFile[ { }, ___ ] := Missing[ "NotFound" ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*reassignCellIDs*)
 reassignCellIDs[ expr_ ] :=
@@ -1291,7 +1304,7 @@ reassignCellIDs[ expr_ ] :=
         ]
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*cellHash*)
 cellHash[ Cell[ content_, ___ ] ] :=

@@ -1,4 +1,4 @@
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Package header*)
 
@@ -8,12 +8,12 @@ PackageExport[ "EvaluateInPlace" ]
 
 PackageScope[ "AutoTemplateStrings" ]
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*EvaluateInPlace*)
 EvaluateInPlace[ expr_ ] := expr;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*AutoTemplateStrings*)
 AutoTemplateStrings // ClearAll;
@@ -44,7 +44,7 @@ AutoTemplateStrings[ cells_ ] :=
         eval /. $autoTemplateRules
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*excludedStringQ*)
 excludedStringQ[ str_String? StringQ ] :=
@@ -54,7 +54,7 @@ excludedStringQ[ ___ ] := False;
 
 $exclusionPrefix = WhitespaceCharacter... ~~ "!Excluded" ~~ WhitespaceCharacter;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*evaluateStringTemplates*)
 evaluateStringTemplates // ClearAll;
@@ -73,7 +73,7 @@ evaluateStringTemplates[ cells_ ] :=
         }
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*stringTemplateEvaluate*)
 stringTemplateEvaluate // ClearAll;
@@ -137,7 +137,7 @@ insertEvaluated[
 insertEvaluated[ expr_ ] :=
     Cell[ BoxData @ ToBoxes @ expr, "Input", FontFamily -> "Source Sans Pro" ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*$autoTemplateRules*)
 $autoTemplateRules // ClearAll;
@@ -160,7 +160,7 @@ $autoTemplateRules := $autoTemplateRules = Dispatch @ {
         RuleCondition @ stringTemplateInput @ s
 };
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*templateStringQ*)
 templateStringQ // ClearAll;
@@ -193,7 +193,7 @@ hyperlinkBox[ label_, url_ ] :=
         ButtonNote -> url
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*stringTemplateInput*)
 stringTemplateInput // ClearAll;
@@ -258,7 +258,7 @@ stringTemplateInput[ str_String, BoxData ] :=
         FontFamily -> "Source Sans Pro"
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*templateString*)
 templateString // ClearAll;
@@ -268,7 +268,7 @@ templateString[ s_ ] :=
         "$$icon" :> ResourceSystemClient`Private`$resourceObjectNotebookBlob
     ];
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*literalString*)
 literalString // ClearAll;

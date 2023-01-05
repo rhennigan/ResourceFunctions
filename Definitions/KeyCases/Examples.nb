@@ -1,0 +1,3380 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* Created By: SaveReadableNotebook *)
+(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)
+
+Notebook[
+ {
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      BoxData[
+       {
+        RowBox[
+         {
+          RowBox[
+           {
+            "Get",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "FileNameJoin",
+              " ",
+              "@",
+              " ",
+              RowBox[
+               {
+                "{",
+                " ",
+                RowBox[
+                 {
+                  RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                  ",",
+                  " ",
+                  "\"Definition.wl\""
+                 }
+                ],
+                " ",
+                "}"
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          ";"
+         }
+        ],
+        "\n",
+        RowBox[
+         {
+          "TestReport",
+          " ",
+          "@",
+          " ",
+          RowBox[
+           {
+            "FileNameJoin",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "{",
+              " ",
+              RowBox[
+               {
+                RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                ",",
+                " ",
+                "\"Tests.wlt\""
+               }
+              ],
+              " ",
+              "}"
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ],
+      "Code",
+      "Excluded",
+      CellLabel -> "In[5]:="
+     ],
+     Cell[
+      BoxData[
+       InterpretationBox[
+        RowBox[
+         {
+          TagBox["TestReportObject", "SummaryHead"],
+          "[",
+          DynamicModuleBox[
+           {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+           TemplateBox[
+            {
+             PaneSelectorBox[
+              {
+               False ->
+                GridBox[
+                 {
+                  {
+                   PaneBox[
+                    ButtonBox[
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]
+                     ],
+                     ButtonFunction :> (Typeset`open$$ = True),
+                     Appearance -> None,
+                     BaseStyle -> { },
+                     Evaluator -> Automatic,
+                     Method -> "Preemptive"
+                    ],
+                    Alignment -> {Center, Center},
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ]
+                   ],
+                   GraphicsBox[
+                    {
+                     InsetBox[
+                      BoxData[
+                       FormBox[
+                        PaneBox[
+                         DynamicBox[
+                          FEPrivate`FrontEndResource[
+                           "MUnitExpressions",
+                           "SuccessIcon"
+                          ]
+                         ],
+                         Alignment -> Center,
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        TraditionalForm
+                       ]
+                      ]
+                     ]
+                    },
+                    PlotRange -> {{0, 1}, {0, 1}},
+                    Background -> GrayLevel[0.93],
+                    Axes -> False,
+                    AspectRatio -> 1,
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ],
+                    Frame -> True,
+                    FrameTicks -> None,
+                    FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TagBox[
+                          InterpretationBox[
+                           StyleBox["\"100%\"", ShowStringCharacters -> False],
+                           1.,
+                           AutoDelete -> True
+                          ],
+                          PercentForm
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      RowBox[
+                       {
+                        TagBox["\"Tests run: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["16", "SummaryItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                    BaseStyle -> {
+                     ShowStringCharacters -> False,
+                     NumberMarks -> False,
+                     PrintPrecision -> 3,
+                     ShowSyntaxStyles -> False
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                 AutoDelete -> False,
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                 BaselinePosition -> {1, 1}
+                ],
+               True ->
+                GridBox[
+                 {
+                  {
+                   PaneBox[
+                    ButtonBox[
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]
+                     ],
+                     ButtonFunction :> (Typeset`open$$ = False),
+                     Appearance -> None,
+                     BaseStyle -> { },
+                     Evaluator -> Automatic,
+                     Method -> "Preemptive"
+                    ],
+                    Alignment -> {Center, Center},
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ]
+                   ],
+                   GraphicsBox[
+                    {
+                     InsetBox[
+                      BoxData[
+                       FormBox[
+                        PaneBox[
+                         DynamicBox[
+                          FEPrivate`FrontEndResource[
+                           "MUnitExpressions",
+                           "SuccessIcon"
+                          ]
+                         ],
+                         Alignment -> Center,
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        TraditionalForm
+                       ]
+                      ]
+                     ]
+                    },
+                    PlotRange -> {{0, 1}, {0, 1}},
+                    Background -> GrayLevel[0.93],
+                    Axes -> False,
+                    AspectRatio -> 1,
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ],
+                    Frame -> True,
+                    FrameTicks -> None,
+                    FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TagBox[
+                          InterpretationBox[
+                           StyleBox["\"100%\"", ShowStringCharacters -> False],
+                           1.,
+                           AutoDelete -> True
+                          ],
+                          PercentForm
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      RowBox[
+                       {
+                        TagBox["\"Tests run: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["16", "SummaryItem"]
+                       }
+                      ]
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Succeeded: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["16", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Failed: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox[
+                         "\"Failed with wrong results: \"",
+                         "SummaryItemAnnotation"
+                        ],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox[
+                         "\"Failed with messages: \"",
+                         "SummaryItemAnnotation"
+                        ],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Failed with errors: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["0", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TemplateBox[
+                          {"0.0050009`", "\"s\"", "seconds", "\"Seconds\""},
+                          "Quantity",
+                          SyntaxForm -> Mod
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                    BaseStyle -> {
+                     ShowStringCharacters -> False,
+                     NumberMarks -> False,
+                     PrintPrecision -> 3,
+                     ShowSyntaxStyles -> False
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                 AutoDelete -> False,
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                 BaselinePosition -> {1, 1}
+                ]
+              },
+              Dynamic[Typeset`open$$],
+              ImageSize -> Automatic
+             ]
+            },
+            "SummaryPanel"
+           ],
+           DynamicModuleValues :> { }
+          ],
+          "]"
+         }
+        ],
+        TestReportObject[
+         <|
+          "Title" -> "Test Report: Tests.wlt",
+          "Aborted" -> False,
+          "TestResults" -> <|
+           4436669637522091997 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 4436669637522091997,
+              "TestID" -> "Initialization",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SetOptions[
+                 ResourceFunction["MessageFailure"],
+                 "TestMode" -> True
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["TestMode" -> True]],
+              "ActualOutput" ->
+               HoldForm[
+                {
+                 "MessageFunction" -> Automatic,
+                 "Verbose" -> False,
+                 "Stack" -> False,
+                 "TestMode" -> True
+                }
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622679813*^9,
+              "AbsoluteTimeUsed" -> 0.0009999,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 1976
+             |>
+            ],
+           4244160540239883173 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 4244160540239883173,
+              "TestID" -> "BasicExamples-1",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 Association["a" -> 1, "b" -> 2, "c" -> 3],
+                 Alternatives["a", "b"]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[Association["a" -> 1, "b" -> 2]],
+              "ActualOutput" -> HoldForm[Association["a" -> 1, "b" -> 2]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622680813*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 3080
+             |>
+            ],
+           8130083625077771229 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 8130083625077771229,
+              "TestID" -> "BasicExamples-2",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 Association["a" -> 1, "b" -> 2, "c" -> 3],
+                 Alternatives["a", "b", "d"]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[Association["a" -> 1, "b" -> 2]],
+              "ActualOutput" -> HoldForm[Association["a" -> 1, "b" -> 2]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8819166226818137*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 3144
+             |>
+            ],
+           4116842534593178921 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 4116842534593178921,
+              "TestID" -> "BasicExamples-3",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 Association["a" -> 1, b -> 2, "c" -> 3],
+                 Blank[String]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[Association["a" -> 1, "c" -> 3]],
+              "ActualOutput" -> HoldForm[Association["a" -> 1, "c" -> 3]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8819166226818137*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 3088
+             |>
+            ],
+           6449924029351452733 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 6449924029351452733,
+              "TestID" -> "BasicExamples-4",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 Association[1 -> 1, 2 :> 2^2, 3 :> 3^2],
+                 Condition[Pattern[n, Blank[]], n < 3]
+                ]
+               ],
+              "ExpectedOutput" -> HoldForm[Association[1 -> 1, 2 :> 2^2]],
+              "ActualOutput" -> HoldForm[Association[1 -> 1, 2 :> 2^2]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.8819166226818137*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 3112
+             |>
+            ],
+           7651488641613041849 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 7651488641613041849,
+              "TestID" -> "BasicExamples-5",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[Alternatives["a", "b"]][
+                 Association["a" -> 1, "b" -> 2, "c" -> 3]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[Association["a" -> 1, "b" -> 2]],
+              "ActualOutput" -> HoldForm[Association["a" -> 1, "b" -> 2]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622682813*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 3080
+             |>
+            ],
+           8401551898879479405 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 8401551898879479405,
+              "TestID" -> "Scope-1",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 {"a" -> 1, "b" -> 2, "c" -> 3},
+                 Alternatives["a", "b"]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[Association["a" -> 1, "b" -> 2]],
+              "ActualOutput" -> HoldForm[Association["a" -> 1, "b" -> 2]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622682813*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 1864
+             |>
+            ],
+           3733211572808949638 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 3733211572808949638,
+              "TestID" -> "Scope-2",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 MyData[a -> 1, b -> 2, c -> 3],
+                 Alternatives[a, b]
+                ]
+               ],
+              "ExpectedOutput" -> HoldForm[Association[a -> 1, b -> 2]],
+              "ActualOutput" -> HoldForm[Association[a -> 1, b -> 2]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622682813*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 1960
+             |>
+            ],
+           8070889950369949933 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 8070889950369949933,
+              "TestID" -> "Scope-3",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 Unevaluated[
+                  {
+                   Echo["a"] -> 1 + 1,
+                   Echo["b"] -> 2 + 2,
+                   Echo["c"] -> 3 + 3
+                  }
+                 ],
+                 HoldPattern[Echo[Alternatives["a", "b"]]]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[
+                HoldPattern[
+                 KeyValuePattern @ {Echo["a"] -> 1 + 1, Echo["b"] -> 2 + 2}
+                ]
+               ],
+              "ActualOutput" ->
+               HoldForm[
+                Association[Echo["a"] -> 1 + 1, Echo["b"] -> 2 + 2]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622683813*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 2016
+             |>
+            ],
+           5178859802744598197 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 5178859802744598197,
+              "TestID" -> "PropertiesAndRelations-1",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 Block[ {Echo}, Association[Echo["key"] -> Echo["value"]] ],
+                 Blank[Echo]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[
+                HoldPattern[
+                 KeyValuePattern @ {Echo["key"] -> Echo["value"]}
+                ]
+               ],
+              "ActualOutput" ->
+               HoldForm[Association[Echo["key"] -> Echo["value"]]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622683813*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 3128
+             |>
+            ],
+           766232633632023688 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 766232633632023688,
+              "TestID" -> "PossibleIssues-1",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 {"a" -> 1, "b" -> 2, "c" -> 3, "b" -> 4},
+                 Alternatives["a", "b"]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[Association["a" -> 1, "b" -> 4]],
+              "ActualOutput" -> HoldForm[Association["a" -> 1, "b" -> 4]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622684812*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 1872
+             |>
+            ],
+           8940845425856982007 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 8940845425856982007,
+              "TestID" -> "PossibleIssues-2",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 MyData[x, a -> 1, b -> 2, c -> 3],
+                 Alternatives[a, b]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[
+                Failure["KeyCases::InvalidKeyValuePairs", Blank[]]
+               ],
+              "ActualOutput" ->
+               HoldForm[
+                Failure[
+                 "KeyCases::InvalidKeyValuePairs",
+                 <|
+                  "MessageParameters" :> {HoldForm[HoldForm[MyData[x, a -> 1, b -> 2, c -> 3]]]},
+                  "MessageTemplate" :>
+                   MessageName[KeyCases, "InvalidKeyValuePairs"]
+                 |>
+                ]
+               ],
+              "ExpectedMessages" ->
+               HoldForm[{MessageName[KeyCases, "InvalidKeyValuePairs"]}],
+              "ActualMessages" -> {
+               HoldForm[
+                Message[
+                 MessageName[KeyCases, "InvalidKeyValuePairs"],
+                 HoldForm[HoldForm[MyData[x, a -> 1, b -> 2, c -> 3]]]
+                ]
+               ]
+              },
+              "AbsoluteTime" -> 3.881916622684812*^9,
+              "AbsoluteTimeUsed" -> 0.0010011,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 13376
+             |>
+            ],
+           8890597808956050925 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 8890597808956050925,
+              "TestID" -> "NeatExamples-1",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 Unevaluated[
+                  Association[1 + 1 -> Echo[2], 2 + 2 -> Echo[4]]
+                 ],
+                 Blank[]
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[Association[1 + 1 -> Echo[2], 2 + 2 -> Echo[4]]],
+              "ActualOutput" ->
+               HoldForm[Association[1 + 1 -> Echo[2], 2 + 2 -> Echo[4]]],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622686814*^9,
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 1952
+             |>
+            ],
+           4330931909690094752 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 4330931909690094752,
+              "TestID" -> "ErrorCases-1",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" -> HoldForm[KeyCases[]],
+              "ExpectedOutput" ->
+               HoldForm[
+                Failure["KeyCases::WrongNumberOfArguments", Blank[]]
+               ],
+              "ActualOutput" ->
+               HoldForm[
+                Failure[
+                 "KeyCases::WrongNumberOfArguments",
+                 <|
+                  "MessageParameters" :> {HoldForm[0]},
+                  "MessageTemplate" :>
+                   MessageName[KeyCases, "WrongNumberOfArguments"]
+                 |>
+                ]
+               ],
+              "ExpectedMessages" ->
+               HoldForm[{MessageName[KeyCases, "WrongNumberOfArguments"]}],
+              "ActualMessages" -> {
+               HoldForm[
+                Message[
+                 MessageName[KeyCases, "WrongNumberOfArguments"],
+                 HoldForm[0]
+                ]
+               ]
+              },
+              "AbsoluteTime" -> 3.881916622687813*^9,
+              "AbsoluteTimeUsed" -> 0.0010001,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 11800
+             |>
+            ],
+           9049271688270464886 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 9049271688270464886,
+              "TestID" -> "ErrorCases-2",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                KeyCases[
+                 {"a" -> 1, "b" -> 2, "c" -> 3},
+                 Alternatives["a", "b"],
+                 "c"
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[
+                Failure["KeyCases::WrongNumberOfArguments", Blank[]]
+               ],
+              "ActualOutput" ->
+               HoldForm[
+                Failure[
+                 "KeyCases::WrongNumberOfArguments",
+                 <|
+                  "MessageParameters" :> {HoldForm[3]},
+                  "MessageTemplate" :>
+                   MessageName[KeyCases, "WrongNumberOfArguments"]
+                 |>
+                ]
+               ],
+              "ExpectedMessages" ->
+               HoldForm[{MessageName[KeyCases, "WrongNumberOfArguments"]}],
+              "ActualMessages" -> {
+               HoldForm[
+                Message[
+                 MessageName[KeyCases, "WrongNumberOfArguments"],
+                 HoldForm[3]
+                ]
+               ]
+              },
+              "AbsoluteTime" -> 3.881916622688813*^9,
+              "AbsoluteTimeUsed" -> 0.0010001,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 12224
+             |>
+            ],
+           4901906185174037259 ->
+            TestResultObject[
+             <|
+              "TestKey" -> 4901906185174037259,
+              "TestID" -> "Cleanup",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\KeyCases\\Tests.wlt",
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "Outcome" -> "Success",
+              "Input" ->
+               HoldForm[
+                SetOptions[
+                 ResourceFunction["MessageFailure"],
+                 "TestMode" -> False
+                ]
+               ],
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["TestMode" -> False]],
+              "ActualOutput" ->
+               HoldForm[
+                {
+                 "MessageFunction" -> Automatic,
+                 "Verbose" -> False,
+                 "Stack" -> False,
+                 "TestMode" -> False
+                }
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualMessages" -> { },
+              "AbsoluteTime" -> 3.881916622689813*^9,
+              "AbsoluteTimeUsed" -> 0.0009997,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 1960
+             |>
+            ]
+          |>,
+          "TestsSucceededKeys" -> {
+           4436669637522091997,
+           4244160540239883173,
+           8130083625077771229,
+           4116842534593178921,
+           6449924029351452733,
+           7651488641613041849,
+           8401551898879479405,
+           3733211572808949638,
+           8070889950369949933,
+           5178859802744598197,
+           766232633632023688,
+           8940845425856982007,
+           8890597808956050925,
+           4330931909690094752,
+           9049271688270464886,
+           4901906185174037259
+          },
+          "TestsFailedWrongResultsKeys" -> { },
+          "TestsFailedWithMessagesKeys" -> { },
+          "TestsFailedWithErrorsKeys" -> { }
+         |>
+        ],
+        Editable -> False,
+        SelectWithContents -> True,
+        Selectable -> False
+       ]
+      ],
+      "Output",
+      "Excluded",
+      CellLabel -> "Out[6]="
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Basic Examples",
+      "Subsection",
+      CellLabel -> "In[3]:="
+     ],
+     Cell[
+      "Choose keys in an association that match a pattern:",
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "<|",
+                RowBox[
+                 {
+                  RowBox[{"\"a\"", "->", "1"}],
+                  ",",
+                  RowBox[{"\"b\"", "->", "2"}],
+                  ",",
+                  RowBox[{"\"c\"", "->", "3"}]
+                 }
+                ],
+                "|>"
+               }
+              ],
+              ",",
+              RowBox[{"\"a\"", "|", "\"b\""}]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"\"a\"", "\[Rule]", "1"}],
+              ",",
+              RowBox[{"\"b\"", "\[Rule]", "2"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "<|",
+                RowBox[
+                 {
+                  RowBox[{"\"a\"", "->", "1"}],
+                  ",",
+                  RowBox[{"b", "->", "2"}],
+                  ",",
+                  RowBox[{"\"c\"", "->", "3"}]
+                 }
+                ],
+                "|>"
+               }
+              ],
+              ",",
+              "_String"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"\"a\"", "\[Rule]", "1"}],
+              ",",
+              RowBox[{"\"c\"", "\[Rule]", "3"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "<|",
+                RowBox[
+                 {
+                  RowBox[{"1", "->", "1"}],
+                  ",",
+                  RowBox[{"2", ":>", RowBox[{"2", "^", "2"}]}],
+                  ",",
+                  RowBox[{"3", ":>", RowBox[{"3", "^", "2"}]}]
+                 }
+                ],
+                "|>"
+               }
+              ],
+              ",",
+              RowBox[{"n_", "/;", RowBox[{"n", "<", "3"}]}]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"1", "\[Rule]", "1"}],
+              ",",
+              RowBox[{"2", "\[RuleDelayed]", SuperscriptBox["2", "2"]}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[3]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           "Use the operator form of ",
+           Cell[
+            BoxData["KeyCases"],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           ":"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               RowBox[
+                {"KeyCases", "[", RowBox[{"\"a\"", "|", "\"b\""}], "]"}
+               ],
+               "[",
+               RowBox[
+                {
+                 "<|",
+                 RowBox[
+                  {
+                   RowBox[{"\"a\"", "->", "1"}],
+                   ",",
+                   RowBox[{"\"b\"", "->", "2"}],
+                   ",",
+                   RowBox[{"\"c\"", "->", "3"}]
+                  }
+                 ],
+                 "|>"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "\[LeftAssociation]",
+               RowBox[
+                {
+                 RowBox[{"\"a\"", "\[Rule]", "1"}],
+                 ",",
+                 RowBox[{"\"b\"", "\[Rule]", "2"}]
+                }
+               ],
+               "\[RightAssociation]"
+              }
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell["Scope", "Subsection", CellLabel -> "In[2]:="],
+     Cell["Use a list of rules:", "Text"],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "{",
+                RowBox[
+                 {
+                  RowBox[{"\"a\"", "->", "1"}],
+                  ",",
+                  RowBox[{"\"b\"", "->", "2"}],
+                  ",",
+                  RowBox[{"\"c\"", "->", "3"}]
+                 }
+                ],
+                "}"
+               }
+              ],
+              ",",
+              RowBox[{"\"a\"", "|", "\"b\""}]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"\"a\"", "\[Rule]", "1"}],
+              ",",
+              RowBox[{"\"b\"", "\[Rule]", "2"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           Cell[
+            BoxData["KeyCases"],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " accepts any expression whose arguments consist of ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "Rule",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/Rule",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " or ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "RuleDelayed",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/RuleDelayed",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " key-value pairs:"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "KeyCases",
+               "[",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "MyData",
+                   "[",
+                   RowBox[
+                    {
+                     RowBox[{"a", "->", "1"}],
+                     ",",
+                     RowBox[{"b", "->", "2"}],
+                     ",",
+                     RowBox[{"c", "->", "3"}]
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 ",",
+                 RowBox[{"a", "|", "b"}]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "\[LeftAssociation]",
+               RowBox[
+                {
+                 RowBox[{"a", "\[Rule]", "1"}],
+                 ",",
+                 RowBox[{"b", "\[Rule]", "2"}]
+                }
+               ],
+               "\[RightAssociation]"
+              }
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           "Use ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "Unevaluated",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/Unevaluated",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " and ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "HoldPattern",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/HoldPattern",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " to prevent evaluation:"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "KeyCases",
+               "[",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "Unevaluated",
+                   "[",
+                   RowBox[
+                    {
+                     "{",
+                     RowBox[
+                      {
+                       RowBox[
+                        {
+                         RowBox[{"Echo", "[", "\"a\"", "]"}],
+                         "->",
+                         RowBox[{"1", "+", "1"}]
+                        }
+                       ],
+                       ",",
+                       RowBox[
+                        {
+                         RowBox[{"Echo", "[", "\"b\"", "]"}],
+                         "->",
+                         RowBox[{"2", "+", "2"}]
+                        }
+                       ],
+                       ",",
+                       RowBox[
+                        {
+                         RowBox[{"Echo", "[", "\"c\"", "]"}],
+                         "->",
+                         RowBox[{"3", "+", "3"}]
+                        }
+                       ]
+                      }
+                     ],
+                     "}"
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 ",",
+                 RowBox[
+                  {
+                   "HoldPattern",
+                   "[",
+                   RowBox[{"Echo", "[", RowBox[{"\"a\"", "|", "\"b\""}], "]"}],
+                   "]"
+                  }
+                 ]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "\[LeftAssociation]",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   RowBox[{"Echo", "[", "\"a\"", "]"}],
+                   "\[Rule]",
+                   RowBox[{"1", "+", "1"}]
+                  }
+                 ],
+                 ",",
+                 RowBox[
+                  {
+                   RowBox[{"Echo", "[", "\"b\"", "]"}],
+                   "\[Rule]",
+                   RowBox[{"2", "+", "2"}]
+                  }
+                 ]
+                }
+               ],
+               "\[RightAssociation]"
+              }
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell["Options", "Subsection", CellLabel -> "In[2]:="],
+  Cell[
+   CellGroupData[
+    {
+     Cell["Applications", "Subsection", CellLabel -> "In[1]:="],
+     Cell[
+      BoxData[
+       RowBox[
+        {
+         RowBox[{"ClearAll", "[", "fib", "]"}],
+         ";",
+         " ",
+         RowBox[{"$OutputSizeLimit", "=", "100000"}],
+         ";",
+         " ",
+         RowBox[{"$Line", "=", "0"}],
+         ";"
+        }
+       ]
+      ],
+      "Input",
+      "Excluded",
+      CellLabel -> "In[1]:="
+     ],
+     Cell["Filter definitions for a function:", "Text"],
+     Cell[
+      BoxData[
+       {
+        RowBox[
+         {RowBox[{RowBox[{"fib", "[", "0", "]"}], ":=", "0"}], ";"}
+        ],
+        "\[IndentingNewLine]",
+        RowBox[
+         {RowBox[{RowBox[{"fib", "[", "1", "]"}], ":=", "1"}], ";"}
+        ],
+        "\[IndentingNewLine]",
+        RowBox[
+         {
+          RowBox[
+           {
+            RowBox[
+             {"fib", "[", RowBox[{"x_Integer", "?", "Positive"}], "]"}
+            ],
+            ":=",
+            RowBox[
+             {
+              RowBox[{"fib", "[", "x", "]"}],
+              "=",
+              RowBox[
+               {
+                RowBox[{"fib", "[", RowBox[{"x", "-", "1"}], "]"}],
+                "+",
+                RowBox[{"fib", "[", RowBox[{"x", "-", "2"}], "]"}]
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          ";"
+         }
+        ],
+        "\[IndentingNewLine]",
+        RowBox[
+         {
+          RowBox[{RowBox[{"fib", "[", "___", "]"}], ":=", "$Failed"}],
+          ";"
+         }
+        ]
+       }
+      ],
+      "Input",
+      CellLabel -> "In[1]:="
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"fib", "[", "500", "]"}]],
+         "Input",
+         CellLabel -> "In[5]:="
+        ],
+        Cell[
+         BoxData[
+          "139423224561697880139724382870407283950070256587697307264108962948325571622863290691557658876222521294125"
+         ],
+         "Output",
+         CellLabel -> "Out[5]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[RowBox[{"DownValues", "[", "fib", "]"}]],
+         "Input",
+         CellLabel -> "In[6]:="
+        ],
+        Cell[
+         BoxData[
+          TemplateBox[
+           <|
+            "shortenedBoxes" ->
+             TagBox[
+              RowBox[
+               {
+                "{",
+                RowBox[
+                 {
+                  RowBox[
+                   {
+                    RowBox[
+                     {"HoldPattern", "[", RowBox[{"fib", "[", "0", "]"}], "]"}
+                    ],
+                    "\[RuleDelayed]",
+                    "0"
+                   }
+                  ],
+                  ",",
+                  RowBox[
+                   {
+                    RowBox[
+                     {"HoldPattern", "[", RowBox[{"fib", "[", "1", "]"}], "]"}
+                    ],
+                    "\[RuleDelayed]",
+                    "1"
+                   }
+                  ],
+                  ",",
+                  RowBox[
+                   {
+                    RowBox[
+                     {"HoldPattern", "[", RowBox[{"fib", "[", "2", "]"}], "]"}
+                    ],
+                    "\[RuleDelayed]",
+                    "1"
+                   }
+                  ],
+                  ",",
+                  RowBox[
+                   {
+                    RowBox[
+                     {"HoldPattern", "[", RowBox[{"fib", "[", "3", "]"}], "]"}
+                    ],
+                    "\[RuleDelayed]",
+                    "2"
+                   }
+                  ],
+                  ",",
+                  TemplateBox[{"495"}, "OutputSizeLimit`Skeleton"],
+                  ",",
+                  RowBox[
+                   {
+                    RowBox[
+                     {"HoldPattern", "[", RowBox[{"fib", "[", "499", "]"}], "]"}
+                    ],
+                    "\[RuleDelayed]",
+                    "86168291600238450732788312165664788095941068326060883324529903470149056115823592713458328176574447204501"
+                   }
+                  ],
+                  ",",
+                  RowBox[
+                   {
+                    RowBox[
+                     {"HoldPattern", "[", RowBox[{"fib", "[", "500", "]"}], "]"}
+                    ],
+                    "\[RuleDelayed]",
+                    "139423224561697880139724382870407283950070256587697307264108962948325571622863290691557658876222521294125"
+                   }
+                  ],
+                  ",",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      "HoldPattern",
+                      "[",
+                      RowBox[
+                       {"fib", "[", RowBox[{"x_Integer", "?", "Positive"}], "]"}
+                      ],
+                      "]"
+                     }
+                    ],
+                    "\[RuleDelayed]",
+                    RowBox[
+                     {
+                      "(",
+                      RowBox[
+                       {
+                        RowBox[{"fib", "[", "x", "]"}],
+                        "=",
+                        RowBox[
+                         {
+                          RowBox[{"fib", "[", RowBox[{"x", "-", "1"}], "]"}],
+                          "+",
+                          RowBox[{"fib", "[", RowBox[{"x", "-", "2"}], "]"}]
+                         }
+                        ]
+                       }
+                      ],
+                      ")"
+                     }
+                    ]
+                   }
+                  ],
+                  ",",
+                  RowBox[
+                   {
+                    RowBox[
+                     {"HoldPattern", "[", RowBox[{"fib", "[", "___", "]"}], "]"}
+                    ],
+                    "\[RuleDelayed]",
+                    "$Failed"
+                   }
+                  ]
+                 }
+                ],
+                "}"
+               }
+              ],
+              Short[#1, 8] &
+             ],
+            "line" -> 6,
+            "sessionID" -> 34171562997420732722,
+            "byteCount" -> 119088,
+            "size" -> 8,
+            "stored" -> False,
+            "expr" -> Missing["NotStored"],
+            "wrap" -> OutputSizeLimit`Defer,
+            "version" -> 1
+           |>,
+           "OutputSizeLimitTemplate"
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[6]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[
+             {
+              "%",
+              ",",
+              RowBox[
+               {
+                "HoldPattern",
+                "[",
+                RowBox[
+                 {
+                  "_",
+                  "[",
+                  RowBox[
+                   {"fib", "[", RowBox[{"Except", "[", "_Integer", "]"}], "]"}
+                  ],
+                  "]"
+                 }
+                ],
+                "]"
+               }
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[7]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "HoldPattern",
+                  "[",
+                  RowBox[
+                   {"fib", "[", RowBox[{"x_Integer", "?", "Positive"}], "]"}
+                  ],
+                  "]"
+                 }
+                ],
+                "\[RuleDelayed]",
+                RowBox[
+                 {
+                  "(",
+                  RowBox[
+                   {
+                    RowBox[{"fib", "[", "x", "]"}],
+                    "=",
+                    RowBox[
+                     {
+                      RowBox[{"fib", "[", RowBox[{"x", "-", "1"}], "]"}],
+                      "+",
+                      RowBox[{"fib", "[", RowBox[{"x", "-", "2"}], "]"}]
+                     }
+                    ]
+                   }
+                  ],
+                  ")"
+                 }
+                ]
+               }
+              ],
+              ",",
+              RowBox[
+               {
+                RowBox[
+                 {"HoldPattern", "[", RowBox[{"fib", "[", "___", "]"}], "]"}
+                ],
+                "\[RuleDelayed]",
+                "$Failed"
+               }
+              ]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[7]="
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Properties and Relations",
+      "Subsection",
+      CellLabel -> "In[8]:="
+     ],
+     Cell[
+      TextData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[{StyleBox["as", "TI"], ",", StyleBox["patt", "TI"]}],
+            "]"
+           }
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " is effectively equivalent to ",
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            TagBox[
+             ButtonBox[
+              StyleBox[
+               "KeySelect",
+               "SymbolsRefLink",
+               ShowStringCharacters -> True,
+               FontFamily -> "Source Sans Pro"
+              ],
+              BaseStyle ->
+               Dynamic[
+                FEPrivate`If[
+                 CurrentValue["MouseOver"],
+                 {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                 {"Link"}
+                ]
+               ],
+              ButtonData -> "paclet:ref/KeySelect",
+              ContentPadding -> False
+             ],
+             MouseAppearanceTag["LinkHand"]
+            ],
+            "[",
+            RowBox[
+             {
+              StyleBox["as", "TI"],
+              ",",
+              RowBox[
+               {
+                TagBox[
+                 ButtonBox[
+                  StyleBox[
+                   "MatchQ",
+                   "SymbolsRefLink",
+                   ShowStringCharacters -> True,
+                   FontFamily -> "Source Sans Pro"
+                  ],
+                  BaseStyle ->
+                   Dynamic[
+                    FEPrivate`If[
+                     CurrentValue["MouseOver"],
+                     {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                     {"Link"}
+                    ]
+                   ],
+                  ButtonData -> "paclet:ref/MatchQ",
+                  ContentPadding -> False
+                 ],
+                 MouseAppearanceTag["LinkHand"]
+                ],
+                "[",
+                StyleBox["patt", "TI"],
+                "]"
+               }
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ":"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "<|",
+                RowBox[
+                 {
+                  RowBox[{"\"a\"", "->", "1"}],
+                  ",",
+                  RowBox[{"\"b\"", "->", "2"}],
+                  ",",
+                  RowBox[{"\"c\"", "->", "3"}]
+                 }
+                ],
+                "|>"
+               }
+              ],
+              ",",
+              RowBox[{"\"a\"", "|", "\"b\""}]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"\"a\"", "\[Rule]", "1"}],
+              ",",
+              RowBox[{"\"b\"", "\[Rule]", "2"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeySelect",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "<|",
+                RowBox[
+                 {
+                  RowBox[{"\"a\"", "->", "1"}],
+                  ",",
+                  RowBox[{"\"b\"", "->", "2"}],
+                  ",",
+                  RowBox[{"\"c\"", "->", "3"}]
+                 }
+                ],
+                "|>"
+               }
+              ],
+              ",",
+              RowBox[
+               {"MatchQ", "[", RowBox[{"\"a\"", "|", "\"b\""}], "]"}
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"\"a\"", "\[Rule]", "1"}],
+              ",",
+              RowBox[{"\"b\"", "\[Rule]", "2"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      TextData[
+       {
+        Cell[
+         BoxData["KeyCases"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " will not evaluate keys when matching:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "as",
+            "=",
+            RowBox[
+             {
+              "Block",
+              "[",
+              RowBox[
+               {
+                RowBox[{"{", "Echo", "}"}],
+                ",",
+                RowBox[
+                 {
+                  "<|",
+                  RowBox[
+                   {
+                    RowBox[{"Echo", "[", "\"key\"", "]"}],
+                    "->",
+                    RowBox[{"Echo", "[", "\"value\"", "]"}]
+                   }
+                  ],
+                  "|>"
+                 }
+                ]
+               }
+              ],
+              "]"
+             }
+            ]
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"Echo", "[", "\"key\"", "]"}],
+              "\[Rule]",
+              RowBox[{"Echo", "[", "\"value\"", "]"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[3]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {"KeyCases", "[", RowBox[{"as", ",", "_Echo"}], "]"}
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[4]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"Echo", "[", "\"key\"", "]"}],
+              "\[Rule]",
+              RowBox[{"Echo", "[", "\"value\"", "]"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[4]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      TextData[
+       {
+        "Compare to ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "KeySelect",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/KeySelect",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " with ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "MatchQ",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/MatchQ",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ":"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeySelect",
+            "[",
+            RowBox[{"as", ",", RowBox[{"MatchQ", "[", "_Echo", "]"}]}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[5]:="
+        ],
+        Cell[BoxData["\"key\""], "Echo"],
+        Cell[
+         BoxData[
+          RowBox[{"\[LeftAssociation]", "\[RightAssociation]"}]
+         ],
+         "Output",
+         CellLabel -> "Out[5]="
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Possible Issues",
+      "Subsection",
+      CellLabel -> "In[6]:="
+     ],
+     Cell[
+      TextData[
+       {
+        Cell[
+         BoxData["KeyCases"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " returns an ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Association",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Association",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ", so duplicates are not preserved:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "{",
+                RowBox[
+                 {
+                  RowBox[{"\"a\"", "->", "1"}],
+                  ",",
+                  RowBox[{"\"b\"", "->", "2"}],
+                  ",",
+                  RowBox[{"\"c\"", "->", "3"}],
+                  ",",
+                  RowBox[{"\"b\"", "->", "4"}]
+                 }
+                ],
+                "}"
+               }
+              ],
+              ",",
+              RowBox[{"\"a\"", "|", "\"b\""}]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"\"a\"", "\[Rule]", "1"}],
+              ",",
+              RowBox[{"\"b\"", "\[Rule]", "4"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      TextData[
+       {
+        "This behavior is consistent with ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "KeySelect",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/KeySelect",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        ":"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeySelect",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "{",
+                RowBox[
+                 {
+                  RowBox[{"\"a\"", "->", "1"}],
+                  ",",
+                  RowBox[{"\"b\"", "->", "2"}],
+                  ",",
+                  RowBox[{"\"c\"", "->", "3"}],
+                  ",",
+                  RowBox[{"\"b\"", "->", "4"}]
+                 }
+                ],
+                "}"
+               }
+              ],
+              ",",
+              RowBox[
+               {"MatchQ", "[", RowBox[{"\"a\"", "|", "\"b\""}], "]"}
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[{"\"a\"", "\[Rule]", "1"}],
+              ",",
+              RowBox[{"\"b\"", "\[Rule]", "4"}]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell["All arguments must be valid rules:", "Text"],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "KeyCases",
+               "[",
+               RowBox[
+                {
+                 RowBox[
+                  {
+                   "MyData",
+                   "[",
+                   RowBox[
+                    {
+                     "x",
+                     ",",
+                     RowBox[{"a", "->", "1"}],
+                     ",",
+                     RowBox[{"b", "->", "2"}],
+                     ",",
+                     RowBox[{"c", "->", "3"}]
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 ",",
+                 RowBox[{"a", "|", "b"}]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             TemplateBox[
+              {
+               "KeyCases",
+               "InvalidKeyValuePairs",
+               "\"The argument \\!\\(\\*RowBox[{\\\"MyData\\\", \\\"[\\\", RowBox[{\\\"x\\\", \\\",\\\", RowBox[{\\\"a\\\", \\\"\[Rule]\\\", \\\"1\\\"}], \\\",\\\", RowBox[{\\\"b\\\", \\\"\[Rule]\\\", \\\"2\\\"}], \\\",\\\", RowBox[{\\\"c\\\", \\\"\[Rule]\\\", \\\"3\\\"}]}], \\\"]\\\"}]\\) is not a valid Association or set of rules.\"",
+               2,
+               1,
+               11,
+               34171562997420732722,
+               "Local",
+               "Global`KeyCases"
+              },
+              "MessageTemplate2"
+             ]
+            ],
+            "Message",
+            "MSG",
+            CellLabel -> "During evaluation of In[1]:="
+           ],
+           Cell[
+            BoxData[
+             InterpretationBox[
+              RowBox[
+               {
+                TagBox["Failure", "SummaryHead"],
+                "[",
+                DynamicModuleBox[
+                 {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+                 TemplateBox[
+                  {
+                   PaneSelectorBox[
+                    {
+                     False ->
+                      GridBox[
+                       {
+                        {
+                         FrameBox[
+                          StyleBox[
+                           "\"\[WarningSign]\"",
+                           Directive["Message", 35],
+                           StripOnInput -> False
+                          ],
+                          ContentPadding -> False,
+                          FrameStyle -> None,
+                          FrameMargins -> {{0, 0}, {0, 0}},
+                          StripOnInput -> False
+                         ],
+                         GridBox[
+                          {
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Message: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox[
+                                 "\"The argument \\!\\(\\*TagBox[RowBox[{\\\"MyData\\\", \\\"[\\\", RowBox[{\\\"x\\\", \\\",\\\", RowBox[{\\\"a\\\", \\\"\[Rule]\\\", \\\"1\\\"}], \\\",\\\", RowBox[{\\\"b\\\", \\\"\[Rule]\\\", \\\"2\\\"}], \\\",\\\", RowBox[{\\\"c\\\", \\\"\[Rule]\\\", \\\"3\\\"}]}], \\\"]\\\"}], Function[Short[Slot[1], 5]]]\\) is not a valid Association or set of rules.\"",
+                                 "SummaryItem"
+                                ]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All, Automatic}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           },
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Tag: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox["\"KeyCases::InvalidKeyValuePairs\"", "SummaryItem"]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All, Automatic}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           }
+                          },
+                          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                          AutoDelete -> False,
+                          GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                          GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                          BaseStyle -> {
+                           ShowStringCharacters -> False,
+                           NumberMarks -> False,
+                           PrintPrecision -> 3,
+                           ShowSyntaxStyles -> False
+                          }
+                         ]
+                        }
+                       },
+                       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                       AutoDelete -> False,
+                       GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                       BaselinePosition -> {1, 1}
+                      ],
+                     True ->
+                      GridBox[
+                       {
+                        {
+                         FrameBox[
+                          StyleBox[
+                           "\"\[WarningSign]\"",
+                           Directive["Message", 35],
+                           StripOnInput -> False
+                          ],
+                          ContentPadding -> False,
+                          FrameStyle -> None,
+                          FrameMargins -> {{0, 0}, {0, 0}},
+                          StripOnInput -> False
+                         ],
+                         GridBox[
+                          {
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Message: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox[
+                                 "\"The argument \\!\\(\\*TagBox[RowBox[{\\\"MyData\\\", \\\"[\\\", RowBox[{\\\"x\\\", \\\",\\\", RowBox[{\\\"a\\\", \\\"\[Rule]\\\", \\\"1\\\"}], \\\",\\\", RowBox[{\\\"b\\\", \\\"\[Rule]\\\", \\\"2\\\"}], \\\",\\\", RowBox[{\\\"c\\\", \\\"\[Rule]\\\", \\\"3\\\"}]}], \\\"]\\\"}], Function[Short[Slot[1], 5]]]\\) is not a valid Association or set of rules.\"",
+                                 "SummaryItem"
+                                ]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All, Automatic}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           },
+                           {
+                            TagBox[
+                             GridBox[
+                              {
+                               {
+                                TagBox["\"Tag: \"", "SummaryItemAnnotation"],
+                                "\[InvisibleSpace]",
+                                TagBox["\"KeyCases::InvalidKeyValuePairs\"", "SummaryItem"]
+                               }
+                              },
+                              GridBoxItemSize -> {"Columns" -> {6.5, All, Automatic}},
+                              GridBoxAlignment -> {"Columns" -> {{Left}}},
+                              GridBoxSpacings -> {"Columns" -> {{0}}}
+                             ],
+                             "SummaryItem"
+                            ]
+                           }
+                          },
+                          GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                          AutoDelete -> False,
+                          GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                          GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                          BaseStyle -> {
+                           ShowStringCharacters -> False,
+                           NumberMarks -> False,
+                           PrintPrecision -> 3,
+                           ShowSyntaxStyles -> False
+                          }
+                         ]
+                        }
+                       },
+                       GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                       AutoDelete -> False,
+                       GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                       BaselinePosition -> {1, 1}
+                      ]
+                    },
+                    Dynamic[Typeset`open$$],
+                    ImageSize -> Automatic
+                   ]
+                  },
+                  "SummaryPanel"
+                 ],
+                 DynamicModuleValues :> { }
+                ],
+                "]"
+               }
+              ],
+              Failure[
+               "KeyCases::InvalidKeyValuePairs",
+               <|
+                "MessageParameters" :> {HoldForm[HoldForm[MyData[x, a -> 1, b -> 2, c -> 3]]]},
+                "MessageTemplate" :>
+                 MessageName[KeyCases, "InvalidKeyValuePairs"]
+               |>
+              ],
+              Editable -> False,
+              SelectWithContents -> True,
+              Selectable -> False
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell["Neat Examples", "Subsection", CellLabel -> "In[2]:="],
+     Cell[
+      TextData[
+       {
+        "Reproduce the behavior of ",
+        ButtonBox[
+         "UnevaluatedAssociation",
+         BaseStyle -> "Hyperlink",
+         ButtonData -> {
+          URL[
+           "https://resources.wolframcloud.com/FunctionRepository/resources/UnevaluatedAssociation"
+          ],
+          None
+         },
+         ButtonNote -> "https://resources.wolframcloud.com/FunctionRepository/resources/UnevaluatedAssociation"
+        ],
+        ":"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "KeyCases",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "Unevaluated",
+                "[",
+                RowBox[
+                 {
+                  "<|",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      RowBox[{"1", "+", "1"}],
+                      "->",
+                      RowBox[{"Echo", "[", "2", "]"}]
+                     }
+                    ],
+                    ",",
+                    RowBox[
+                     {
+                      RowBox[{"2", "+", "2"}],
+                      "->",
+                      RowBox[{"Echo", "[", "4", "]"}]
+                     }
+                    ]
+                   }
+                  ],
+                  "|>"
+                 }
+                ],
+                "]"
+               }
+              ],
+              ",",
+              "_"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[
+               {
+                RowBox[{"1", "+", "1"}],
+                "\[Rule]",
+                RowBox[{"Echo", "[", "2", "]"}]
+               }
+              ],
+              ",",
+              RowBox[
+               {
+                RowBox[{"2", "+", "2"}],
+                "\[Rule]",
+                RowBox[{"Echo", "[", "4", "]"}]
+               }
+              ]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            InterpretationBox[
+             TagBox[
+              FrameBox[
+               PaneBox[
+                GridBox[
+                 {
+                  {
+                   StyleBox[
+                    StyleBox[
+                     AdjustmentBox[
+                      "\"[\[FilledSmallSquare]]\"",
+                      BoxBaselineShift -> -0.25,
+                      BoxMargins -> {{0, 0}, {-1, -1}}
+                     ],
+                     "ResourceFunctionIcon",
+                     FontColor ->
+                      RGBColor[
+                       0.8745098039215686,
+                       0.2784313725490196,
+                       0.03137254901960784
+                      ]
+                    ],
+                    ShowStringCharacters -> False,
+                    FontFamily -> "Source Sans Pro Black",
+                    FontSize -> 0.65 * Inherited,
+                    FontWeight -> "Heavy",
+                    PrivateFontOptions -> {"OperatorSubstitution" -> False}
+                   ],
+                   StyleBox[
+                    RowBox[
+                     {
+                      StyleBox[
+                       "\"UnevaluatedAssociation\"",
+                       "ResourceFunctionLabel"
+                      ],
+                      " "
+                     }
+                    ],
+                    ShowAutoStyles -> False,
+                    ShowStringCharacters -> False,
+                    FontSize -> 0.9 * Inherited,
+                    FontColor -> GrayLevel[0.1]
+                   ]
+                  }
+                 },
+                 GridBoxSpacings -> {"Columns" -> {{0.25}}}
+                ],
+                Alignment -> Left,
+                BaseStyle -> {LineSpacing -> {0, 0}, LineBreakWithin -> False},
+                BaselinePosition -> Baseline,
+                FrameMargins -> {{3, 0}, {0, 0}}
+               ],
+               Background -> RGBColor[0.968627, 0.976471, 0.984314],
+               BaselinePosition -> Baseline,
+               DefaultBaseStyle -> { },
+               FrameMargins -> {{0, 0}, {1, 1}},
+               FrameStyle -> RGBColor[0.831373, 0.847059, 0.85098],
+               RoundingRadius -> 4
+              ],
+              {
+               "FunctionResourceBox",
+               RGBColor[
+                0.8745098039215686,
+                0.2784313725490196,
+                0.03137254901960784
+               ],
+               "\"UnevaluatedAssociation\""
+              },
+              TagBoxNote -> "FunctionResourceBox"
+             ],
+             ResourceFunction["UnevaluatedAssociation"],
+             SelectWithContents -> True,
+             Selectable -> False
+            ],
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                RowBox[{"1", "+", "1"}],
+                "->",
+                RowBox[{"Echo", "[", "2", "]"}]
+               }
+              ],
+              ",",
+              RowBox[
+               {
+                RowBox[{"2", "+", "2"}],
+                "->",
+                RowBox[{"Echo", "[", "4", "]"}]
+               }
+              ]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "\[LeftAssociation]",
+            RowBox[
+             {
+              RowBox[
+               {
+                RowBox[{"1", "+", "1"}],
+                "\[Rule]",
+                RowBox[{"Echo", "[", "2", "]"}]
+               }
+              ],
+              ",",
+              RowBox[
+               {
+                RowBox[{"2", "+", "2"}],
+                "\[Rule]",
+                RowBox[{"Echo", "[", "4", "]"}]
+               }
+              ]
+             }
+            ],
+            "\[RightAssociation]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      BoxData[
+       RowBox[
+        {
+         RowBox[
+          {
+           RowBox[
+            {
+             "With",
+             "[",
+             RowBox[
+              {
+               RowBox[
+                {
+                 "{",
+                 RowBox[
+                  {
+                   "b",
+                   "=",
+                   RowBox[
+                    {
+                     "FunctionResource`InertResourceFunctionBoxes",
+                     "[",
+                     "\"UnevaluatedAssociation\"",
+                     "]"
+                    }
+                   ]
+                  }
+                 ],
+                 "}"
+                }
+               ],
+               ",",
+               "\[IndentingNewLine]",
+               RowBox[
+                {
+                 "InterpretationBox",
+                 "[",
+                 RowBox[
+                  {
+                   "b",
+                   ",",
+                   RowBox[
+                    {
+                     "ResourceFunction",
+                     "[",
+                     "\"UnevaluatedAssociation\"",
+                     "]"
+                    }
+                   ],
+                   ",",
+                   RowBox[{"Selectable", "->", "False"}],
+                   ",",
+                   RowBox[{"SelectWithContents", "->", "True"}]
+                  }
+                 ],
+                 "]"
+                }
+               ]
+              }
+             ],
+             "\[IndentingNewLine]",
+             "]"
+            }
+           ],
+           "//",
+           "RawBoxes"
+          }
+         ],
+         "//",
+         "CopyToClipboard"
+        }
+       ]
+      ],
+      "Input",
+      "Excluded",
+      CellLabel -> "In[4]:="
+     ]
+    },
+    Open
+   ]
+  ]
+ },
+ WindowStatusArea -> Automatic,
+ DockedCells -> {
+  Cell[
+   BoxData[TemplateBox[{}, "ToolsGridTemplate"]],
+   "DockedCell",
+   CellFrameMargins -> {{0, 0}, {2, 2}},
+   CellFrame -> {{0, 0}, {1, 0}}
+  ]
+ },
+ TaggingRules -> <|
+  "InformationPopupMenuItemAdded" -> True,
+  "AutoUpdate" -> True,
+  "NotebookIndexQ" -> True,
+  "NotebookLastIndexed" ->
+   DateObject[
+    {2023, 1, 5, 9, 3, 14.1385722},
+    "Instant",
+    "Gregorian",
+    -5.
+   ],
+  "NotebookUUID" -> "12d7ad6e-8f42-4d4f-950b-0d693a9e8105"
+ |>,
+ FrontEndVersion -> "13.2 for Microsoft Windows (64-bit) (November 18, 2022)",
+ StyleDefinitions ->
+  FrontEnd`FileName[
+   {"Wolfram"},
+   "FunctionResourceDefinitionStyles.nb",
+   CharacterEncoding -> "UTF-8"
+  ],
+ ExpressionUUID -> "12d7ad6e-8f42-4d4f-950b-0d693a9e8105"
+]

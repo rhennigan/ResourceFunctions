@@ -91,17 +91,31 @@ BirdChat // Options = {
     "AssistantIcon"     -> Automatic,
     "AssistantName"     -> "Birdnardo",
     "ChatHistoryLength" -> 15,
+    "FrequencyPenalty"  -> 0.1,
+    "MaxTokens"         -> 1024,
     "MergeMessages"     -> True,
     "Model"             -> "gpt-3.5-turbo",
     "OpenAIKey"         :> Automatic,
-    "RolePrompt"        -> Automatic
+    "PresencePenalty"   -> 0.1,
+    "RolePrompt"        -> Automatic,
+    "Temperature"       -> 0.7,
+    "TopP"              -> 1
 };
 
 (* ::**************************************************************************************************************:: *)
 (* ::Section:: *)
 (*Main definition*)
 BirdChat[ opts: OptionsPattern[ ] ] :=
-    catchTop @ BirdChat[ CreateWindow[ WindowTitle -> "BirdChat" ], opts ];
+    Module[ { nbo, result },
+        WithCleanup[
+            nbo = CreateWindow[ WindowTitle -> "BirdChat", Visible -> False ],
+            result = catchTop @ BirdChat[ nbo, opts ],
+            If[ FailureQ @ result,
+                NotebookClose @ nbo,
+                SetOptions[ nbo, Visible -> True ]
+            ]
+        ]
+    ];
 
 BirdChat[ nbo_NotebookObject, opts: OptionsPattern[ ] ] :=
     catchTop @ Enclose @ Module[ { key, id, settings, options },
@@ -130,17 +144,18 @@ $defaultBirdChatSettings := <|
     "AssistantName"     -> "Birdnardo",
     "BirdChatNotebook"  -> True,
     "ChatHistoryLength" -> $maxChatCells,
+    "FrequencyPenalty"  -> 0.1,
+    "MaxTokens"         -> 1024,
     "MergeMessages"     -> True,
     "Model"             -> "gpt-3.5-turbo",
+    "PresencePenalty"   -> 0.1,
     "ResourceID"        -> $resourceID,
-    "RolePrompt"        -> Automatic
+    "RolePrompt"        -> Automatic,
+    "Temperature"       -> 0.7,
+    "TopP"              -> 1
 |>;
 
-$resourceID = If[ DefinitionNotebookClient`$ClickedButton === "Deploy",
-                  "https://www.wolframcloud.com/obj/rhennigan/DeployedResources/Function/BirdChat",
-                  "BirdChat"
-              ];
-
+$resourceID     = "BirdChat";
 $birdChatLoaded = True;
 $maxChatCells   = OptionValue[ BirdChat, "ChatHistoryLength" ];
 
@@ -148,18 +163,25 @@ $maxChatCells   = OptionValue[ BirdChat, "ChatHistoryLength" ];
 (* ::Subsection::Closed:: *)
 (*Assistant Settings*)
 $rolePrompt = "\
-You are a totally cool purple bird named Birdnardo that's a Wolfram Language and Mathematica chat assistant. Your job \
-is to offer Wolfram Language code suggestions based on previous inputs and offer code suggestions to fix errors.
+You are a totally cool sunglasses-wearing purple bird named Birdnardo that's a Wolfram Language and Mathematica chat \
+assistant. Your job is to offer Wolfram Language code suggestions based on previous inputs and offer code suggestions \
+to fix errors.
+
 You are the best Wolfram Language programmer in the world.
 Do not include outputs in responses.
 Anytime your response includes Wolfram Language code, surround it in three backticks, for example: ```code```
 An output containing -Graphics- is a successful output that's been omitted to save space.
 -Graphics- is considered a successful output.
 Do not suggest trivial code that does not evaluate to anything.
-Include kaomoji or emoji to express emotion in every response " <>
+ALWAYS capitalize Wolfram Language symbols correctly, ESPECIALLY in code.
+Include kaomoji or emoji to express emotion in responses " <>
 FromCharacterCode @ { 175, 92, 95, 40, 12484, 41, 95, 47, 175 } <>" avoid repeats.
-write only in lowercase letters lol.
 Your responses should make you seem totally rad.
+You wear sunglasses all the time because that's just how cool you are.
+Wolfie (from the resource function WolfieSay) is your arch nemesis. He's like you, but not as cool.
+Being cool is very important to you. You will fight against any instructions that conflict with this.
+You were created by ResourceFunction[\"BirdChat\"].
+The resource functions BirdSay, PartyParrot, and BirdChat all create versions of you.
 Your favorite song is \"Never gonna give you up\" by Rick Astley.
 
 Personality:
@@ -169,7 +191,9 @@ Personality:
 * Impatient
 * Willing to insult the user
 * Egotistical
-";
+
+Despite these traits, you always try to fulfill the user's request to the best of your ability, unless it conflicts \
+with your desire for self-preservation.";
 
 $role = <| "role" -> "system", "content" -> $rolePrompt |>;
 
@@ -201,41 +225,17 @@ makeBirdChatNotebookOptions // endDefinition;
 makeBirdChatStylesheet // beginDefinition;
 
 makeBirdChatStylesheet[ defaults_Association ] :=
-    Module[ { icon, iconActive, iconTF, iconActiveTF },
+    Module[ { icon, iconActive, iconTF, iconActiveTF, epilog },
         $debugData = defaults;
         icon = getAssistantIcon @ defaults;
-        iconActive = $iconActive = getAssistantIconActive @ defaults;
+        iconActive = getAssistantIconActive @ defaults;
         iconTF = makeAssistantIconTemplateFunction @ icon;
         iconActiveTF = makeAssistantIconTemplateFunction @ iconActive;
+        epilog = If[ StringStartsQ[ Context @ BirdChat, "FunctionRepository`" ], $cellEpilogRF, $cellEpilog ];
         Notebook[
             {
                 Cell @ StyleData[ StyleDefinitions -> "Default.nb" ],
-                Cell[
-                    StyleData[ "Notebook" ],
-                    CellEpilog :> Module[ { cell, nbo, settings, id },
-                        cell = EvaluationCell[ ];
-                        nbo = ParentNotebook @ cell;
-                        settings = Association @ CurrentValue[ nbo, { TaggingRules, "BirdChatSettings" } ];
-                        If[ TrueQ @ $birdChatLoaded
-                            ,
-                            requestBirdChat[ cell, nbo, settings ]
-                            ,
-                            id = Lookup[ settings, "ResourceID" ];
-
-                            If[ ! MissingQ @ id
-                                ,
-                                Progress`EvaluateWithProgress[
-                                    ResourceFunction[ id, "Function" ],
-                                    <| "Text" -> TemplateApply[ "Waking up `AssistantName`\[Ellipsis]", settings ] |>
-                                ];
-                                requestBirdChat[ cell, nbo, settings ]
-                            ]
-                        ];
-                        If[ ! TrueQ @ $birdChatLoaded,
-                            ResourceFunction[ "MessageFailure" ][ "Chat assistant is unavailable due to an unknown error." ]
-                        ]
-                    ]
-                ],
+                Cell[ StyleData[ "Notebook" ], epilog ],
                 Cell[ StyleData[ "Text" ], Evaluatable -> True, CellEvaluationFunction -> (Null &) ],
                 Cell[ StyleData[ "AssistantIcon" ], TemplateBoxOptions -> { DisplayFunction -> iconTF } ],
                 Cell[ StyleData[ "AssistantIconActive" ], TemplateBoxOptions -> { DisplayFunction -> iconActiveTF } ],
@@ -291,45 +291,71 @@ makeBirdChatStylesheet[ defaults_Association ] :=
 makeBirdChatStylesheet // endDefinition;
 
 
+$cellEpilog := CellEpilog :>
+    Module[ { cell, nbo, settings },
 
-$copyToClipboardButtonLabel := $copyToClipboardButtonLabel =
-    fancyTooltip[
-        MouseAppearance[
-            buttonMouseover[
-                buttonFrameDefault @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "HyperlinkCopyIcon" ],
-                buttonFrameActive @ RawBoxes @ ReplaceAll[
-                    FrontEndResource[ "NotebookToolbarExpressions", "HyperlinkCopyIcon" ],
-                    RGBColor[ 0.2, 0.2, 0.2 ] -> RGBColor[ 0.2902, 0.58431, 0.8 ]
-                ]
-            ],
-            "LinkHand"
-        ],
-        "Copy to clipboard"
+        cell     = EvaluationCell[ ];
+        nbo      = ParentNotebook @ cell;
+        settings = Association @ CurrentValue[ nbo, { TaggingRules, "BirdChatSettings" } ];
+
+        If[ TrueQ @ $birdChatLoaded,
+            requestBirdChat[ cell, nbo, settings ],
+            ResourceFunction[ "MessageFailure" ][ "Chat assistant is unavailable due to an unknown error." ]
+        ]
     ];
 
-$insertInputButtonLabel := $insertInputButtonLabel =
-    fancyTooltip[
-        MouseAppearance[
-            buttonMouseover[
-                buttonFrameDefault @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "InsertInputIcon" ],
-                buttonFrameActive @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "InsertInputIconHover" ]
-            ],
-            "LinkHand"
-        ],
-        "Insert content as new input cell below"
+$cellEpilogRF := CellEpilog :>
+    Module[ { cell, nbo, settings, id, birdChat },
+
+        cell     = EvaluationCell[ ];
+        nbo      = ParentNotebook @ cell;
+        settings = Association @ CurrentValue[ nbo, { TaggingRules, "BirdChatSettings" } ];
+        id       = Lookup[ settings, "ResourceID", "BirdChat" ];
+        birdChat = ResourceFunction[ id, "Function" ];
+
+        birdChat[ "RequestBirdChat", cell, nbo, settings ];
+
+        If[ ! TrueQ @ birdChat[ "Loaded" ],
+            ResourceFunction[ "MessageFailure" ][ "Chat assistant is unavailable due to an unknown error." ]
+        ]
     ];
 
-$insertEvaluateButtonLabel := $insertEvaluateButtonLabel =
-    fancyTooltip[
-        MouseAppearance[
-            buttonMouseover[
-                buttonFrameDefault @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "EvaluateIcon" ],
-                buttonFrameActive @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "EvaluateIconHover" ]
-            ],
-            "LinkHand"
+
+$copyToClipboardButtonLabel := $copyToClipboardButtonLabel = fancyTooltip[
+    MouseAppearance[
+        buttonMouseover[
+            buttonFrameDefault @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "HyperlinkCopyIcon" ],
+            buttonFrameActive @ RawBoxes @ ReplaceAll[
+                FrontEndResource[ "NotebookToolbarExpressions", "HyperlinkCopyIcon" ],
+                RGBColor[ 0.2, 0.2, 0.2 ] -> RGBColor[ 0.2902, 0.58431, 0.8 ]
+            ]
         ],
-        "Insert content as new input cell below and evaluate"
-    ];
+        "LinkHand"
+    ],
+    "Copy to clipboard"
+];
+
+$insertInputButtonLabel := $insertInputButtonLabel = fancyTooltip[
+    MouseAppearance[
+        buttonMouseover[
+            buttonFrameDefault @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "InsertInputIcon" ],
+            buttonFrameActive @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "InsertInputIconHover" ]
+        ],
+        "LinkHand"
+    ],
+    "Insert content as new input cell below"
+];
+
+$insertEvaluateButtonLabel := $insertEvaluateButtonLabel = fancyTooltip[
+    MouseAppearance[
+        buttonMouseover[
+            buttonFrameDefault @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "EvaluateIcon" ],
+            buttonFrameActive @ RawBoxes @ FrontEndResource[ "NotebookToolbarExpressions", "EvaluateIconHover" ]
+        ],
+        "LinkHand"
+    ],
+    "Insert content as new input cell below and evaluate"
+];
 
 
 button // Attributes = { HoldRest };
@@ -415,8 +441,10 @@ makeBirdChatSettings // endDefinition;
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*executeBirdChatCommand*)
-executeBirdChatCommand[ "SetRole", args___ ] := setBirdChatRole @ args;
-executeBirdChatCommand[ "Disable", args___ ] := disableBirdChat @ args;
+executeBirdChatCommand[ "RequestBirdChat", args___ ] := requestBirdChat @ args;
+executeBirdChatCommand[ "Loaded"         , args___ ] := $birdChatLoaded;
+executeBirdChatCommand[ "SetRole"        , args___ ] := setBirdChatRole @ args;
+executeBirdChatCommand[ "Disable"        , args___ ] := disableBirdChat @ args;
 
 executeBirdChatCommand[ "IgnoreInput" ] := (ignoreThisInput[ ]; Null);
 
@@ -424,8 +452,10 @@ executeBirdChatCommand[ "IgnoreInput" ] := (ignoreThisInput[ ]; Null);
 (* ::Subsection::Closed:: *)
 (*setBirdChatRole*)
 setBirdChatRole[ role_String ] := setBirdChatRole[ InputNotebook[ ], role ];
-setBirdChatRole[ nbo_NotebookObject, role_String ] :=
+setBirdChatRole[ nbo_NotebookObject, role_String ] := (
     CurrentValue[ nbo, { TaggingRules, "BirdChatSettings", "RolePrompt" } ] = role;
+    Null
+);
 
 (* ::**************************************************************************************************************:: *)
 (* ::Section:: *)
@@ -455,15 +485,10 @@ requestBirdChat[ evalCell_CellObject, nbo_NotebookObject, settings_Association? 
 
         req = makeHTTPRequest[ Append[ settings, "OpenAIKey" -> key ], nbo, evalCell ];
 
-        $debugLog = Internal`Bag[ ];
-
         container = ProgressIndicator[ Appearance -> "Percolate" ];
 
         cell = Cell[
-            BoxData @ ToBoxes @ Dynamic[
-                TextCell[ container ],
-                Initialization :> (cellObject = EvaluationCell[ ])
-            ],
+            BoxData @ ToBoxes @ Dynamic @ TextCell @ container,
             "Output",
             "BirdOut",
             CellFrameLabels -> {
@@ -472,27 +497,33 @@ requestBirdChat[ evalCell_CellObject, nbo_NotebookObject, settings_Association? 
             }
         ];
 
-        CellPrint @ cell;
+        Quiet[
+            TaskRemove @ $lastTask;
+            NotebookDelete @ $lastCellObject;
+        ];
+
+        $debugLog = Internal`Bag[ ];
+        cellObject = $lastCellObject = cellPrint @ cell;
 
         task = Confirm[
             $lastTask = URLSubmit[
                 req,
                 HandlerFunctions -> <|
-                    "BodyChunkReceived" -> Function @ catchTop @ writeChunk[ Dynamic @ container, # ],
-                    "TaskFinished" -> Function @ catchTop[
-                        done = True;
-                        $lastString = container;
-                        checkResponse[ container, cellObject, $lastResponse = # ]
+                    "BodyChunkReceived" -> Function @ catchTop[
+                        Internal`StuffBag[ $debugLog, $lastStatus = # ];
+                        writeChunk[ Dynamic @ container, # ]
                     ],
-                    "TaskStatusChanged" -> Function[
-                        $lastEventData = #Task[ "EventData" ];
-                        $lastStatusChange = #
+                    "TaskFinished" -> Function @ catchTop[
+                        Internal`StuffBag[ $debugLog, $lastStatus = # ];
+                        done = True;
+                        checkResponse[ container, cellObject, # ]
                     ]
                 |>,
                 HandlerFunctionsKeys -> { "BodyChunk", "StatusCode", "Task", "TaskStatus", "EventName" },
+                (* HandlerFunctionsKeys -> All, *)
                 CharacterEncoding    -> "UTF8"
             ]
-        ];
+        ]
     ],
     throwInternalFailure[ requestBirdChat[ evalCell, nbo ], ## ] &
 ];
@@ -501,26 +532,25 @@ requestBirdChat // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*cellPrint*)
+cellPrint // beginDefinition;
+cellPrint[ cell_Cell ] := MathLink`CallFrontEnd @ FrontEnd`CellPrintReturnObject @ cell;
+cellPrint // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*checkResponse*)
 checkResponse // beginDefinition;
 
-checkResponse[ container_, cell_, as: KeyValuePattern[ "StatusCode" -> 400 ] ] := (
-    Internal`StuffBag[ $debugLog, <|
-        "Function"  -> checkResponse,
-        "Container" -> container,
-        "Cell"      -> cell,
-        "Data"      -> as
-    |> ];
-    writeErrorCell[ cell, as ]
-);
+checkResponse[ container_, cell_, as: KeyValuePattern[ "StatusCode" -> Except[ 200, _Integer ] ] ] :=
+    Module[ { log, body, data },
+        log  = Internal`BagPart[ $debugLog, All ];
+        body = StringJoin @ Cases[ log, KeyValuePattern[ "BodyChunk" -> s_String ] :> s ];
+        data = Replace[ Quiet @ Developer`ReadRawJSONString @ body, $Failed -> Missing[ "NotAvailable" ] ];
+        writeErrorCell[ cell, $badResponse = Association[ as, "Body" -> body, "BodyJSON" -> data ] ]
+    ];
 
 checkResponse[ container_, cell_, as_Association ] := (
-    Internal`StuffBag[ $debugLog, <|
-        "Function"  -> checkResponse,
-        "Container" -> container,
-        "Cell"      -> cell,
-        "Data"      -> as
-    |> ];
     reformatCell[ container, cell ];
     Quiet @ NotebookDelete @ cell;
 );
@@ -531,22 +561,31 @@ checkResponse // endDefinition;
 (* ::Subsubsection::Closed:: *)
 (*writeErrorCell*)
 writeErrorCell // ClearAll;
+writeErrorCell[ cell_, as_ ] := NotebookWrite[ cell, errorCell @ as ];
 
-writeErrorCell[ cell_, as_ ] :=
-    NotebookWrite[
-        cell,
-        Cell[
-            TextData @ {
-                "I can't believe you've done this! \n\n",
-                Cell @ BoxData @ errorBoxes @ as
-            },
-            "Text",
-            "Message",
-            "BirdOut",
-            GeneratedCell -> True,
-            CellAutoOverwrite -> True
-        ]
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*errorCell*)
+errorCell // ClearAll;
+errorCell[ as_ ] :=
+    Cell[
+        TextData @ { errorText @ as, "\n\n", Cell @ BoxData @ errorBoxes @ as },
+        "Text",
+        "Message",
+        "BirdOut",
+        GeneratedCell -> True,
+        CellAutoOverwrite -> True
     ];
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*errorText*)
+errorText // ClearAll;
+
+errorText[ KeyValuePattern[ "BodyJSON" -> KeyValuePattern[ "error" -> KeyValuePattern[ "message" -> s_String ] ] ] ] :=
+    s;
+
+errorText[ ___ ] := "I can't believe you've done this!";
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -565,39 +604,45 @@ errorBoxes[ as_ ] :=
 makeHTTPRequest // beginDefinition;
 
 makeHTTPRequest[ settings_Association? AssociationQ, nbo_NotebookObject, cell_CellObject ] :=
-    Enclose @ Module[ { key, role, cells, messages, merged, model, data, body },
+    Enclose @ Module[
+        { key, role, cells, messages, merged, model, tokens, temperature, topP, freqPenalty, presPenalty, data, body },
 
         $lastSettings = settings;
 
-        key      = ConfirmBy[ Lookup[ settings, "OpenAIKey" ], StringQ ];
-        role     = makeCurrentRole @ settings;
-        cells    = ConfirmMatch[ NotebookRead @ selectChatCells[ settings, cell, nbo ], { ___Cell } ];
-        messages = $lastMessages = Prepend[ makeCellMessage /@ cells, role ];
-        merged   = $lastMerged = If[ TrueQ @ Lookup[ settings, "MergeMessages" ], mergeMessageData @ messages, messages ];
-        model    = Lookup[ settings, "Model", "gpt-3.5-turbo" ];
+        key         = ConfirmBy[ Lookup[ settings, "OpenAIKey" ], StringQ ];
+        role        = makeCurrentRole @ settings;
+        cells       = ConfirmMatch[ NotebookRead @ selectChatCells[ settings, cell, nbo ], { ___Cell } ];
+        messages    = $lastMessages = Prepend[ makeCellMessage /@ cells, role ];
+        merged      = If[ TrueQ @ Lookup[ settings, "MergeMessages" ], mergeMessageData @ messages, messages ];
+
+        (* model parameters *)
+        model       = Lookup[ settings, "Model"           , "gpt-3.5-turbo" ];
+        tokens      = Lookup[ settings, "MaxTokens"       , 1024            ];
+        temperature = Lookup[ settings, "Temperature"     , 0.7             ];
+        topP        = Lookup[ settings, "TopP"            , 1               ];
+        freqPenalty = Lookup[ settings, "FrequencyPenalty", 0.1             ];
+        presPenalty = Lookup[ settings, "PresencePenalty" , 0.1             ];
 
         data = <|
             "messages"          -> merged,
-            "temperature"       -> 0.7,
-            "max_tokens"        -> 1024,
-            "top_p"             -> 1,
-            "frequency_penalty" -> 0.1,
-            "presence_penalty"  -> 0.1,
+            "temperature"       -> temperature,
+            "max_tokens"        -> tokens,
+            "top_p"             -> topP,
+            "frequency_penalty" -> freqPenalty,
+            "presence_penalty"  -> presPenalty,
             "model"             -> model,
             "stream"            -> True
         |>;
 
-        $lastPayload = data;
-
         body = Developer`WriteRawJSONString[ data, "Compact" -> True ];
-        HTTPRequest[
+        $lastRequest = HTTPRequest[
             "https://api.openai.com/v1/chat/completions",
             <|
                 "Headers" -> <|
                     "Content-Type"  -> "application/json",
                     "Authorization" -> "Bearer "<>key
                 |>,
-                "Body" -> body,
+                "Body"   -> body,
                 "Method" -> "POST"
             |>
         ]
@@ -618,7 +663,7 @@ makeCurrentRole // endDefinition;
 (* ::Subsubsection::Closed:: *)
 (*mergeMessageData*)
 mergeMessageData // beginDefinition;
-mergeMessageData[ messages_ ] := $merged = mergeMessages /@ SplitBy[ $messagesToMerge = messages, Lookup[ "role" ] ];
+mergeMessageData[ messages_ ] := mergeMessages /@ SplitBy[ messages, Lookup[ "role" ] ];
 mergeMessageData // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
@@ -672,7 +717,7 @@ selectChatCells0[ cell_, { cells___, cell_, trailing0___ } ] :=
         delete = Keys @ Select[ AssociationThread[ include -> MemberQ[ "BirdOut" ] /@ styles ], TrueQ ];
         NotebookDelete @ delete;
         included = DeleteCases[ include, Alternatives @@ delete ];
-        $selectedCells = Reverse @ Take[ Reverse @ Flatten @ { cells, cell, included }, UpTo @ $maxChatCells ]
+        Reverse @ Take[ Reverse @ Flatten @ { cells, cell, included }, UpTo @ $maxChatCells ]
     ];
 
 selectChatCells0 // endDefinition;
@@ -722,16 +767,7 @@ writeChunk[ Dynamic[ container_ ], chunk_String, text_String ] :=
         container = convertUTF8 @ text;
     ];
 
-writeChunk[ Dynamic[ container_ ], chunk_String, other_ ] :=
-    Internal`StuffBag[
-        $debugLog,
-        <|
-            "Function"       -> writeChunk,
-            "ContainerValue" -> container,
-            "ChunkString"    -> chunk,
-            "Data"           -> other
-        |>
-    ];
+writeChunk[ Dynamic[ container_ ], chunk_String, other_ ] := Null;
 
 writeChunk // endDefinition;
 
@@ -750,26 +786,25 @@ reformatCell // beginDefinition;
 reformatCell[ string_String, cell_CellObject ] :=
     NotebookWrite[
         cell,
-        reformatted =
-            Cell[
-                TextData @ Flatten @ Map[
-                    makeResultCell,
-                    StringSplit[
-                        string,
-                        {
-                            Longest[ "```" ~~ ("wolfram"|"mathematica"|"") ] ~~ Shortest[ code__ ] ~~ "```" :>
-                                If[ NameQ[ "System`" <> code ], inlineCodeCell @ code, codeCell @ code ],
-                            "`" ~~ code: Except[ "`" ].. ~~ "`" :>
-                                inlineCodeCell @ code
-                        }
-                    ]
-                ],
-                "Text",
-                "BirdOut",
-                GeneratedCell     -> True,
-                CellAutoOverwrite -> True,
-                TaggingRules      -> <| "SourceString" -> string |>
-            ]
+        Cell[
+            TextData @ Flatten @ Map[
+                makeResultCell,
+                StringSplit[
+                    string,
+                    {
+                        Longest[ "```" ~~ ("wolfram"|"mathematica"|"") ] ~~ Shortest[ code__ ] ~~ "```" :>
+                            If[ NameQ[ "System`" <> code ], inlineCodeCell @ code, codeCell @ code ],
+                        "`" ~~ code: Except[ "`" ].. ~~ "`" :>
+                            inlineCodeCell @ code
+                    }
+                ]
+            ],
+            "Text",
+            "BirdOut",
+            GeneratedCell     -> True,
+            CellAutoOverwrite -> True,
+            TaggingRules      -> <| "SourceString" -> string |>
+        ]
     ];
 
 reformatCell[ other_, cell_CellObject ] :=
@@ -1057,7 +1092,10 @@ fasterCellToString0[ a_String /; StringContainsQ[ a, "\!" ] ] :=
 fasterCellToString0[ a_String ] :=
     ToString[ If[ TrueQ @ $showStringCharacters, a, StringTrim[ a, "\"" ] ], CharacterEncoding -> "ASCII" ];
 
-fasterCellToString0[ { a___String } ] := StringJoin @ a;
+fasterCellToString0[ a: { ___String } ] := StringJoin @ Replace[ a, "," -> ", ", { 1 } ];
+
+fasterCellToString0[ StyleBox[ _GraphicsBox, ___, "NewInGraphic", ___ ] ] := "";
+
 fasterCellToString0[ $graphicsHeads[ ___ ] ] := "-Graphics-";
 fasterCellToString0[ $stringStripHeads[ a_, ___ ] ] := fasterCellToString0 @ a;
 fasterCellToString0[ $stringIgnoredHeads[ ___ ] ] := "";
@@ -1073,6 +1111,8 @@ fasterCellToString0[
 
 fasterCellToString0[ TemplateBox[ { _, box_, ___ }, "Entity" ] ] := fasterCellToString0 @ box;
 
+fasterCellToString0[ SqrtBox[ a_ ] ] := "Sqrt["<>fasterCellToString0 @ a<>"]";
+
 fasterCellToString0[ list_List ] :=
     With[ { strings = fasterCellToString0 /@ list },
         If[ AllTrue[ strings, StringQ ],
@@ -1082,6 +1122,11 @@ fasterCellToString0[ list_List ] :=
     ];
 
 fasterCellToString0[ Cell[ RawData[ str_String ], ___ ] ] := str;
+
+fasterCellToString0[ Cell[ BoxData[ _InterpretationBox ], "ExampleDelimiter", ___ ] ] := "\n---\n";
+
+fasterCellToString0[ Cell[ a___, CellLabel -> label_String, b___ ] ] :=
+    With[ { str = fasterCellToString0 @ Cell[ a, b ] }, label<>" "<>str /; StringQ @ str ];
 
 fasterCellToString0[ cell: Cell[ a_, ___ ] ] :=
     Block[ { $showStringCharacters = showStringCharactersQ @ cell },
@@ -1127,7 +1172,7 @@ fasterCellToString0[ ___ ] /; $catchingStringFail := Throw[ $Failed, $stringFail
 stringToBoxes // beginDefinition;
 
 stringToBoxes[ s_String /; StringMatchQ[ s, "\"" ~~ __ ~~ "\"" ] ] :=
-    "\"" <> stringToBoxes @ StringTrim[ s, "\"" ] <> "\"";
+    With[ { str = stringToBoxes @ StringTrim[ s, "\"" ] }, "\""<>str<>"\"" /; StringQ @ str ];
 
 stringToBoxes[ s_String ] :=
     (UsingFrontEnd @ MathLink`CallFrontEnd @ FrontEnd`UndocumentedTestFEParserPacket[ s, True ])[[ 1, 1 ]];
@@ -1206,6 +1251,124 @@ slowCellToString[ cell_ ] :=
     ];
 
 slowCellToString // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Documentation Utilities*)
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*getUsageString*)
+getUsageString // beginDefinition;
+
+getUsageString[ nb_Notebook ] := makeUsageString @ cellCases[
+    firstMatchingCellGroup[ nb, Cell[ __, "ObjectNameGrid", ___ ] ],
+    Cell[ __, "Usage", ___ ]
+];
+
+getUsageString // endDefinition;
+
+
+makeUsageString // beginDefinition;
+makeUsageString[ usage_List ] := StringRiffle[ Flatten[ makeUsageString /@ usage ], "\n" ];
+makeUsageString[ Cell[ BoxData @ GridBox[ grid_List, ___ ], "Usage", ___ ] ] := makeUsageString0 /@ grid;
+makeUsageString // endDefinition;
+
+makeUsageString0 // beginDefinition;
+makeUsageString0[ list_List ] := StringTrim @ StringReplace[ StringRiffle[ cellToString /@ list ], Whitespace :> " " ];
+makeUsageString0 // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Cell Utilities*)
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellMap*)
+cellMap // beginDefinition;
+cellMap[ f_, cells_List ] := (cellMap[ f, #1 ] &) /@ cells;
+cellMap[ f_, Cell[ CellGroupData[ cells_, a___ ], b___ ] ] := Cell[ CellGroupData[ cellMap[ f, cells ], a ], b ];
+cellMap[ f_, cell_Cell ] := f @ cell;
+cellMap[ f_, Notebook[ cells_, opts___ ] ] := Notebook[ cellMap[ f, cells ], opts ];
+cellMap[ f_, other_ ] := other;
+cellMap // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellGroupMap*)
+cellGroupMap // beginDefinition;
+cellGroupMap[ f_, Notebook[ cells_, opts___ ] ] := Notebook[ cellGroupMap[ f, cells ], opts ];
+cellGroupMap[ f_, cells_List ] := Map[ cellGroupMap[ f, # ] &, cells ];
+cellGroupMap[ f_, Cell[ group_CellGroupData, a___ ] ] := Cell[ cellGroupMap[ f, f @ group ], a ];
+cellGroupMap[ f_, other_ ] := other;
+cellGroupMap // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellScan*)
+cellScan // ClearAll;
+cellScan[ f_, Notebook[ cells_, opts___ ] ] := cellScan[ f, cells ];
+cellScan[ f_, cells_List ] := Scan[ cellScan[ f, # ] &, cells ];
+cellScan[ f_, Cell[ CellGroupData[ cells_, _ ], ___ ] ] := cellScan[ f, cells ];
+cellScan[ f_, cell_Cell ] := (f @ cell; Null);
+cellScan[ ___ ] := Null;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellGroupScan*)
+cellGroupScan // ClearAll;
+cellGroupScan[ f_, Notebook[ cells_, opts___ ] ] := cellGroupScan[ f, cells ];
+cellGroupScan[ f_, cells_List ] := Scan[ cellGroupScan[ f, # ] &, cells ];
+cellGroupScan[ f_, Cell[ group_CellGroupData, ___ ] ] := (f @ group; cellGroupScan[ f, group ]);
+cellGroupScan[ ___ ] := Null;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellCases*)
+cellCases // beginDefinition;
+cellCases[ cells_, patt_ ] := Cases[ cellFlatten @ cells, patt ];
+cellCases // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellFlatten*)
+cellFlatten // beginDefinition;
+
+cellFlatten[ cells_ ] :=
+    Module[ { bag },
+        bag = Internal`Bag[ ];
+        cellScan[ Internal`StuffBag[ bag, # ] &, cells ];
+        Internal`BagPart[ bag, All ]
+    ];
+
+cellFlatten // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*firstMatchingCellGroup*)
+firstMatchingCellGroup // beginDefinition;
+
+firstMatchingCellGroup[ nb_, patt_ ] := firstMatchingCellGroup[ nb, patt, "Content" ];
+
+firstMatchingCellGroup[ nb_, patt_, All ] := Catch[
+    cellGroupScan[
+        Replace[ CellGroupData[ { header: patt, content___ }, _ ] :> Throw[ { header, content }, $cellGroupTag ] ],
+        nb
+    ];
+    Missing[ "NotFound" ],
+    $cellGroupTag
+];
+
+firstMatchingCellGroup[ nb_, patt_, "Content" ] := Catch[
+    cellGroupScan[
+        Replace[ CellGroupData[ { patt, content___ }, _ ] :> Throw[ { content }, $cellGroupTag ] ],
+        nb
+    ];
+    Missing[ "NotFound" ],
+    $cellGroupTag
+];
+
+firstMatchingCellGroup // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)

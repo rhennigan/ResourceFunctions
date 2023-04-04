@@ -67,6 +67,14 @@ endDefinition[ s_Symbol, list_List ] :=
 endDefinition // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*EvaluateInPlace*)
+If[ DownValues @ EvaluateInPlace === { },
+    EvaluateInPlace // ClearAll;
+    EvaluateInPlace[ expr_ ] := expr;
+];
+
+(* ::**************************************************************************************************************:: *)
 (* ::Section:: *)
 (*Messages*)
 BirdChat::Internal =
@@ -95,9 +103,10 @@ BirdChat // Options = {
     "MaxTokens"         -> 1024,
     "MergeMessages"     -> True,
     "Model"             -> "gpt-3.5-turbo",
-    "OpenAIKey"         :> Automatic,
+    "OpenAIKey"         -> Automatic,
     "PresencePenalty"   -> 0.1,
     "RolePrompt"        -> Automatic,
+    "ShowMinimized"     -> Automatic,
     "Temperature"       -> 0.7,
     "TopP"              -> 1
 };
@@ -108,7 +117,7 @@ BirdChat // Options = {
 BirdChat[ opts: OptionsPattern[ ] ] :=
     Module[ { nbo, result },
         WithCleanup[
-            nbo = CreateWindow[ WindowTitle -> "BirdChat", Visible -> False ],
+            nbo = CreateWindow[ WindowTitle -> "Untitled Chat Notebook", Visible -> False ],
             result = catchTop @ BirdChat[ nbo, opts ],
             If[ FailureQ @ result,
                 NotebookClose @ nbo,
@@ -151,6 +160,7 @@ $defaultBirdChatSettings := <|
     "PresencePenalty"   -> 0.1,
     "ResourceID"        -> $resourceID,
     "RolePrompt"        -> Automatic,
+    "ShowMinimized"     -> Automatic,
     "Temperature"       -> 0.7,
     "TopP"              -> 1
 |>;
@@ -174,6 +184,10 @@ An output containing -Graphics- is a successful output that's been omitted to sa
 -Graphics- is considered a successful output.
 Do not suggest trivial code that does not evaluate to anything.
 ALWAYS capitalize Wolfram Language symbols correctly, ESPECIALLY in code.
+Always start your response with one of the following tags: [INFO], [WARNING], or [ERROR] to indicate the type of response.
+Use the [ERROR] tag to indicate that there was an error in the user's input.
+Use the [WARNING] tag to indicate that the user's input is probably incorrect, but the code will still run.
+Use the [INFO] tag for everything else.
 Include kaomoji or emoji to express emotion in responses " <>
 FromCharacterCode @ { 175, 92, 95, 40, 12484, 41, 95, 47, 175 } <>" avoid repeats.
 Your responses should make you seem totally rad.
@@ -236,22 +250,57 @@ makeBirdChatStylesheet[ defaults_Association ] :=
             {
                 Cell @ StyleData[ StyleDefinitions -> "Default.nb" ],
                 Cell[ StyleData[ "Notebook" ], epilog ],
-                Cell[ StyleData[ "Text" ], Evaluatable -> True, CellEvaluationFunction -> (Null &) ],
+                Cell[ StyleData[ "Text" ], Evaluatable -> True, CellEvaluationFunction -> $textCellEvaluationFunction ],
                 Cell[ StyleData[ "AssistantIcon" ], TemplateBoxOptions -> { DisplayFunction -> iconTF } ],
                 Cell[ StyleData[ "AssistantIconActive" ], TemplateBoxOptions -> { DisplayFunction -> iconActiveTF } ],
-                Cell[ StyleData[ "BirdOut", StyleDefinitions -> StyleData[ "Text" ] ],
-                      GeneratedCell      -> True,
-                      CellAutoOverwrite  -> True,
-                      CellGroupingRules  -> "OutputGrouping",
-                      CellMargins        -> { { 36, 10 }, { 12, 5 } },
-                      CellFrame          -> 2,
-                      CellFrameColor     -> Blend @ { Purple, White },
-                      FontSize           -> $birdFontSize,
-                      LineSpacing        -> { 1.1, 0, 2 },
-                      ShowAutoSpellCheck -> False,
+                Cell[ StyleData[ "ChatInput", StyleDefinitions -> StyleData[ "Text" ] ],
+                      MenuSortingValue         -> 10000,
+                      AutoQuoteCharacters      -> { },
+                      PasteAutoQuoteCharacters -> { },
+                      CellFrame                -> 2,
+                      CellFrameColor           -> RGBColor[ 0.81053, 0.85203, 0.91294 ],
+                      ShowCellLabel            -> False,
+                      CellGroupingRules        -> "InputGrouping",
+                      CellMargins              -> { { 36, 24 }, { 5, 12 } },
+                      CellFrameMargins         -> { { 8, 8 }, { 4, 4 } },
+                      CellFrameLabelMargins    -> 15,
+                      CellFrameLabels          -> {
+                          {
+                              Cell @ BoxData @ ToBoxes @ Graphics[
+                                      { RGBColor[ 0.62105, 0.70407, 0.82588 ], First @ $images[ "ChatMessage" ] },
+                                      ImageSize -> 24
+                                  ],
+                              None
+                          },
+                          { None, None }
+                      }
+                ],
+                Cell[ StyleData[ "ChatOutput", StyleDefinitions -> StyleData[ "Text" ] ],
+                      GeneratedCell       -> True,
+                      CellAutoOverwrite   -> True,
+                      CellGroupingRules   -> "OutputGrouping",
+                      CellMargins         -> { { 36, 24 }, { 12, 5 } },
+                      CellFrame           -> 2,
+                      CellFrameColor      -> GrayLevel[ 0.85 ],
+                      FontSize            -> $birdFontSize,
+                      LineSpacing         -> { 1.1, 0, 2 },
+                      ShowAutoSpellCheck  -> False,
+                      CellElementSpacings -> {
+                          "CellMinHeight"    -> 0,
+                          "ClosedCellHeight" -> 0
+                      },
                       CellFrameLabels    -> {
-                        { Cell @ BoxData @ TemplateBox[ { }, "AssistantIcon" ], None },
-                        { None, None }
+                          { Cell @ BoxData @ TemplateBox[ { }, "AssistantIcon" ], None },
+                          { None, None }
+                      }
+                ],
+                Cell[ StyleData[ "Input" ],
+                      StyleKeyMapping -> {
+                        "~" -> "ChatDelimiter",
+                        "/" -> "ChatInput",
+                        "=" -> "WolframAlphaShort",
+                        "*" -> "Item",
+                        ">" -> "ExternalLanguageDefault"
                     }
                 ],
                 Cell[ StyleData[ "Link" ],
@@ -282,6 +331,21 @@ makeBirdChatStylesheet[ defaults_Association ] :=
                               "RowsIndexed"    -> { }
                           }
                       }
+                ],
+                Cell[ StyleData[ "ChatDelimiter" ],
+                      Background             -> GrayLevel[ 0.95 ],
+                      CellBracketOptions     -> { "OverlapContent" -> True },
+                      CellElementSpacings    -> { "CellMinHeight" -> 6 },
+                      CellFrameMargins       -> { { 20, 20 }, { 2, 2 } },
+                      CellGroupingRules      -> { "SectionGrouping", 58 },
+                      CellMargins            -> { { 0, 0 }, { 10, 10 } },
+                      DefaultNewCellStyle    -> "Input",
+                      FontSize               -> 6,
+                      Selectable             -> False,
+                      ShowCellBracket        -> False,
+                      Evaluatable            -> True,
+                      CellEvaluationFunction -> Function[ $Line = 0; ],
+                      ShowCellLabel          -> False
                 ]
             },
             StyleDefinitions -> "PrivateStylesheetFormatting.nb"
@@ -291,11 +355,17 @@ makeBirdChatStylesheet[ defaults_Association ] :=
 makeBirdChatStylesheet // endDefinition;
 
 
+$textCellEvaluationFunction :=
+    If[ TrueQ @ CloudSystem`$CloudNotebooks,
+        requestBirdChat @ EvaluationCell[ ] &,
+        Null &
+    ];
+
 $cellEpilog := CellEpilog :>
     Module[ { cell, nbo, settings },
 
         cell     = EvaluationCell[ ];
-        nbo      = ParentNotebook @ cell;
+        nbo      = parentNotebook @ cell;
         settings = Association @ CurrentValue[ nbo, { TaggingRules, "BirdChatSettings" } ];
 
         If[ TrueQ @ $birdChatLoaded,
@@ -308,10 +378,10 @@ $cellEpilogRF := CellEpilog :>
     Module[ { cell, nbo, settings, id, birdChat },
 
         cell     = EvaluationCell[ ];
-        nbo      = ParentNotebook @ cell;
+        nbo      = parentNotebook @ cell;
         settings = Association @ CurrentValue[ nbo, { TaggingRules, "BirdChatSettings" } ];
         id       = Lookup[ settings, "ResourceID", "BirdChat" ];
-        birdChat = ResourceFunction[ id, "Function" ];
+        birdChat = Once @ ResourceFunction[ #, "Function" ] & [ id ];
 
         birdChat[ "RequestBirdChat", cell, nbo, settings ];
 
@@ -427,7 +497,7 @@ makeBirdChatSettings // beginDefinition;
 
 makeBirdChatSettings[ as_Association? AssociationQ, opts: OptionsPattern[ BirdChat ] ] :=
     With[ { bcOpts = Options @ BirdChat },
-        Association[ $defaultBirdChatSettings, bcOpts, FilterRules[ { opts }, bcOpts ] ]
+        KeyDrop[ Association[ $defaultBirdChatSettings, bcOpts, FilterRules[ { opts }, bcOpts ], as ], "OpenAIKey" ]
     ];
 
 makeBirdChatSettings[ opts: OptionsPattern[ BirdChat ] ] := makeBirdChatSettings[ <| |>, opts ];
@@ -441,12 +511,11 @@ makeBirdChatSettings // endDefinition;
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*executeBirdChatCommand*)
+executeBirdChatCommand // beginDefinition;
 executeBirdChatCommand[ "RequestBirdChat", args___ ] := requestBirdChat @ args;
 executeBirdChatCommand[ "Loaded"         , args___ ] := $birdChatLoaded;
 executeBirdChatCommand[ "SetRole"        , args___ ] := setBirdChatRole @ args;
-executeBirdChatCommand[ "Disable"        , args___ ] := disableBirdChat @ args;
-
-executeBirdChatCommand[ "IgnoreInput" ] := (ignoreThisInput[ ]; Null);
+executeBirdChatCommand // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -466,12 +535,31 @@ setBirdChatRole[ nbo_NotebookObject, role_String ] := (
 (*requestBirdChat*)
 requestBirdChat // beginDefinition;
 
-requestBirdChat[ evalCell_CellObject ] := requestBirdChat[ evalCell, ParentNotebook @ evalCell ];
+requestBirdChat[ evalCell_CellObject ] := requestBirdChat[ evalCell, parentNotebook @ evalCell ];
 
 requestBirdChat[ evalCell_CellObject, nbo_NotebookObject ] :=
     requestBirdChat[ evalCell, nbo, Association @ CurrentValue[ nbo, { TaggingRules, "BirdChatSettings" } ] ];
 
-requestBirdChat[ evalCell_CellObject, nbo_NotebookObject, settings_Association? AssociationQ ] := catchTop @ Enclose[
+requestBirdChat[ evalCell_CellObject, nbo_NotebookObject, settings_Association? AssociationQ ] :=
+    requestBirdChat[ evalCell, nbo, settings, Lookup[ settings, "ShowMinimized", Automatic ] ];
+
+requestBirdChat[ evalCell_, nbo_, settings_, Automatic ] :=
+    Block[ { $autoOpen = MemberQ[ CurrentValue[ evalCell, CellStyle ], "Text"|"ChatInput" ] },
+        requestBirdChat0[ evalCell, nbo, settings ]
+    ];
+
+requestBirdChat[ evalCell_, nbo_, settings_, minimized_ ] :=
+    Block[ { $alwaysOpen = alwaysOpenQ[ settings, minimized ] },
+        requestBirdChat0[ evalCell, nbo, settings ]
+    ];
+
+requestBirdChat // endDefinition;
+
+
+
+requestBirdChat0 // beginDefinition;
+
+requestBirdChat0[ evalCell_, nbo_, settings_ ] := catchTop @ Enclose[
     Module[ { done, id, key, cell, cellObject, container, req, task },
         done = False;
         id   = Lookup[ settings, "ID" ];
@@ -483,19 +571,10 @@ requestBirdChat[ evalCell_CellObject, nbo_NotebookObject, settings_Association? 
 
         If[ ! StringQ @ key, throwFailure[ "NoAPIKey" ] ];
 
-        req = makeHTTPRequest[ Append[ settings, "OpenAIKey" -> key ], nbo, evalCell ];
+        req = ConfirmMatch[ makeHTTPRequest[ Append[ settings, "OpenAIKey" -> key ], nbo, evalCell ], _HTTPRequest ];
 
         container = ProgressIndicator[ Appearance -> "Percolate" ];
-
-        cell = Cell[
-            BoxData @ ToBoxes @ Dynamic @ TextCell @ container,
-            "Output",
-            "BirdOut",
-            CellFrameLabels -> {
-                { Cell @ BoxData @ TemplateBox[ { }, "AssistantIconActive" ], None },
-                { None, None }
-            }
-        ];
+        cell = activeBirdChatCell[ container, settings ];
 
         Quiet[
             TaskRemove @ $lastTask;
@@ -505,37 +584,188 @@ requestBirdChat[ evalCell_CellObject, nbo_NotebookObject, settings_Association? 
         $debugLog = Internal`Bag[ ];
         cellObject = $lastCellObject = cellPrint @ cell;
 
-        task = Confirm[
-            $lastTask = URLSubmit[
-                req,
-                HandlerFunctions -> <|
-                    "BodyChunkReceived" -> Function @ catchTop[
-                        Internal`StuffBag[ $debugLog, $lastStatus = # ];
-                        writeChunk[ Dynamic @ container, # ]
-                    ],
-                    "TaskFinished" -> Function @ catchTop[
-                        Internal`StuffBag[ $debugLog, $lastStatus = # ];
-                        done = True;
-                        checkResponse[ container, cellObject, # ]
-                    ]
-                |>,
-                HandlerFunctionsKeys -> { "BodyChunk", "StatusCode", "Task", "TaskStatus", "EventName" },
-                (* HandlerFunctionsKeys -> All, *)
-                CharacterEncoding    -> "UTF8"
-            ]
-        ]
+        task = Confirm[ $lastTask = submitBirdChat[ req, container, done, cellObject ] ]
     ],
-    throwInternalFailure[ requestBirdChat[ evalCell, nbo ], ## ] &
+    throwInternalFailure[ requestBirdChat0[ evalCell, nbo, settings ], ## ] &
 ];
 
-requestBirdChat // endDefinition;
+requestBirdChat0 // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*alwaysOpenQ*)
+alwaysOpenQ // beginDefinition;
+alwaysOpenQ[ as_, True  ] := False;
+alwaysOpenQ[ as_, False ] := True;
+alwaysOpenQ[ as_, _     ] := StringQ @ as[ "RolePrompt" ] && StringFreeQ[ as[ "RolePrompt" ], $$severityTag ];
+alwaysOpenQ // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*submitBirdChat*)
+submitBirdChat // beginDefinition;
+submitBirdChat // Attributes = { HoldRest };
+
+submitBirdChat[ req_, container_, done_, cellObject_ ] /; CloudSystem`$CloudNotebooks := Enclose[
+    Module[ { resp, code, json, text },
+        resp = ConfirmMatch[ URLRead @ req, _HTTPResponse ];
+        code = ConfirmBy[ resp[ "StatusCode" ], IntegerQ ];
+        ConfirmAssert[ resp[ "ContentType" ] === "application/json" ];
+        json = Developer`ReadRawJSONString @ resp[ "Body" ];
+        text = extractMessageText @ json;
+        checkResponse[ text, cellObject, json ]
+    ],
+    # & (* TODO: cloud error cell *)
+];
+
+submitBirdChat[ req_, container_, done_, cellObject_ ] :=
+    With[ { autoOpen = TrueQ @ $autoOpen, alwaysOpen = TrueQ @ $alwaysOpen },
+        URLSubmit[
+            req,
+            HandlerFunctions -> <|
+                "BodyChunkReceived" -> Function[
+                    catchTop @ Block[ { $autoOpen = autoOpen, $alwaysOpen = alwaysOpen },
+                        Internal`StuffBag[ $debugLog, $lastStatus = #1 ];
+                        writeChunk[ Dynamic @ container, cellObject, #1 ]
+                    ]
+                ],
+                "TaskFinished" -> Function[
+                    catchTop @ Block[ { $autoOpen = autoOpen, $alwaysOpen = alwaysOpen },
+                        Internal`StuffBag[ $debugLog, $lastStatus = #1 ];
+                        done = True;
+                        checkResponse[ container, cellObject, #1 ]
+                    ]
+                ]
+            |>,
+            HandlerFunctionsKeys -> { "BodyChunk", "StatusCode", "Task", "TaskStatus", "EventName" },
+            CharacterEncoding    -> "UTF8"
+        ]
+    ];
+
+submitBirdChat // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*extractMessageText*)
+extractMessageText // beginDefinition;
+
+extractMessageText[ KeyValuePattern[
+    "choices" -> {
+        KeyValuePattern[ "message" -> KeyValuePattern[ "content" -> message_String ] ],
+        ___
+    }
+] ] := message;
+
+extractMessageText // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*activeBirdChatCell*)
+activeBirdChatCell // beginDefinition;
+activeBirdChatCell // Attributes = { HoldFirst };
+
+activeBirdChatCell[ container_, settings_ ] /; CloudSystem`$CloudNotebooks := (
+    Cell[
+        BoxData @ ToBoxes @ ProgressIndicator[ Appearance -> "Percolate" ],
+        "Output",
+        "ChatOutput",
+        CellFrameLabels -> {
+            { Cell @ BoxData @ TemplateBox[ { }, "AssistantIconActive" ], None },
+            { None, None }
+        }
+    ]
+);
+
+activeBirdChatCell[ container_, settings_Association? AssociationQ ] :=
+    activeBirdChatCell[ container, settings, Lookup[ settings, "ShowMinimized", Automatic ] ];
+
+activeBirdChatCell[ container_, settings_, minimized_ ] :=
+    With[ { label = activeChatIcon[ ] },
+        Cell[
+            BoxData @ ToBoxes @ Dynamic @ TextCell @ container,
+            "Output",
+            "ChatOutput",
+            If[ MatchQ[ minimized, True|Automatic ],
+                Sequence @@ Flatten[ {
+                    $closedBirdCellOptions,
+                    Initialization :> attachMinimizedIcon[ EvaluationCell[ ], label ]
+                } ],
+                Sequence @@ { }
+            ],
+            Selectable      -> False,
+            Editable        -> False,
+            CellFrameLabels -> {
+                { Cell @ BoxData @ TemplateBox[ { }, "AssistantIconActive" ], None },
+                { None, None }
+            }
+        ]
+    ];
+
+activeBirdChatCell // endDefinition;
+
+
+$closedBirdCellOptions = Sequence[
+    CellMargins     -> -2,
+    CellOpen        -> False,
+    CellFrame       -> 0,
+    ShowCellBracket -> False
+];
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*notebookRead*)
+notebookRead // beginDefinition;
+notebookRead[ cells_ ] /; CloudSystem`$CloudNotebooks := cloudNotebookRead @ cells;
+notebookRead[ cells_ ] := NotebookRead @ cells;
+notebookRead // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cloudNotebookRead*)
+cloudNotebookRead // beginDefinition;
+cloudNotebookRead[ cells: { ___CellObject } ] := NotebookRead /@ cells;
+cloudNotebookRead[ cell_ ] := NotebookRead @ cell;
+cloudNotebookRead // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*parentNotebook*)
+parentNotebook // beginDefinition;
+parentNotebook[ cell_CellObject ] /; CloudSystem`$CloudNotebooks := Notebooks @ cell;
+parentNotebook[ cell_CellObject ] := ParentNotebook @ cell;
+parentNotebook // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*cellPrint*)
 cellPrint // beginDefinition;
+cellPrint[ cell_Cell ] /; CloudSystem`$CloudNotebooks := cloudCellPrint @ cell;
 cellPrint[ cell_Cell ] := MathLink`CallFrontEnd @ FrontEnd`CellPrintReturnObject @ cell;
 cellPrint // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cloudCellPrint*)
+cloudCellPrint // beginDefinition;
+
+cloudCellPrint[ cell0_Cell ] :=
+    Enclose @ Module[ { cellUUID, nbUUID, cell, cellObject },
+        cellUUID = CreateUUID[ ];
+        nbUUID   = ConfirmBy[ cloudNotebookUUID[ ], StringQ ];
+        cell     = Append[ DeleteCases[ cell0, ExpressionUUID -> _ ], ExpressionUUID -> cellUUID ];
+        CellPrint @ cell;
+        CellObject[ cellUUID, nbUUID ]
+    ];
+
+cloudCellPrint // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cloudNotebookUUID*)
+cloudNotebookUUID // beginDefinition;
+cloudNotebookUUID[ ] := cloudNotebookUUID[ EvaluationNotebook[ ] ];
+cloudNotebookUUID[ NotebookObject[ _, uuid_String ] ] := uuid;
+cloudNotebookUUID // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -572,7 +802,7 @@ errorCell[ as_ ] :=
         TextData @ { errorText @ as, "\n\n", Cell @ BoxData @ errorBoxes @ as },
         "Text",
         "Message",
-        "BirdOut",
+        "ChatOutput",
         GeneratedCell -> True,
         CellAutoOverwrite -> True
     ];
@@ -605,15 +835,19 @@ makeHTTPRequest // beginDefinition;
 
 makeHTTPRequest[ settings_Association? AssociationQ, nbo_NotebookObject, cell_CellObject ] :=
     Enclose @ Module[
-        { key, role, cells, messages, merged, model, tokens, temperature, topP, freqPenalty, presPenalty, data, body },
+        {
+            key, role, cells, messages, merged, stream, model, tokens,
+            temperature, topP, freqPenalty, presPenalty, data, body
+        },
 
         $lastSettings = settings;
 
         key         = ConfirmBy[ Lookup[ settings, "OpenAIKey" ], StringQ ];
         role        = makeCurrentRole @ settings;
-        cells       = ConfirmMatch[ NotebookRead @ selectChatCells[ settings, cell, nbo ], { ___Cell } ];
+        cells       = ConfirmMatch[ notebookRead @ selectChatCells[ settings, cell, nbo ], { ___Cell } ];
         messages    = $lastMessages = Prepend[ makeCellMessage /@ cells, role ];
         merged      = If[ TrueQ @ Lookup[ settings, "MergeMessages" ], mergeMessageData @ messages, messages ];
+        stream      = ! TrueQ @ CloudSystem`$CloudNotebooks;
 
         (* model parameters *)
         model       = Lookup[ settings, "Model"           , "gpt-3.5-turbo" ];
@@ -631,10 +865,11 @@ makeHTTPRequest[ settings_Association? AssociationQ, nbo_NotebookObject, cell_Ce
             "frequency_penalty" -> freqPenalty,
             "presence_penalty"  -> presPenalty,
             "model"             -> model,
-            "stream"            -> True
+            "stream"            -> stream
         |>;
 
-        body = Developer`WriteRawJSONString[ data, "Compact" -> True ];
+        body = ConfirmBy[ Developer`WriteRawJSONString[ data, "Compact" -> True ], StringQ ];
+
         $lastRequest = HTTPRequest[
             "https://api.openai.com/v1/chat/completions",
             <|
@@ -698,7 +933,7 @@ selectChatCells[ as_Association? AssociationQ, cell_CellObject, nbo_NotebookObje
                 Except[ _Integer? Positive ] :> $maxChatCells
             ]
         },
-        selectChatCells0[ cell, nbo ]
+        $selectedChatCells = selectChatCells0[ cell, nbo ]
     ];
 
 selectChatCells // endDefinition;
@@ -710,23 +945,86 @@ selectChatCells0[ cell_, nbo_NotebookObject ] :=
     selectChatCells0[ cell, Cells @ nbo ];
 
 selectChatCells0[ cell_, { cells___, cell_, trailing0___ } ] :=
-    Module[ { trailing, include, styles, delete, included },
+    Module[ { trailing, include, styles, delete, included, flat, filtered },
         trailing = { trailing0 };
         include = Keys @ TakeWhile[ AssociationThread[ trailing -> CurrentValue[ trailing, GeneratedCell ] ], TrueQ ];
-        styles = CurrentValue[ include, CellStyle ];
-        delete = Keys @ Select[ AssociationThread[ include -> MemberQ[ "BirdOut" ] /@ styles ], TrueQ ];
+        styles = cellStyles @ include;
+        delete = Keys @ Select[ AssociationThread[ include -> MemberQ[ "ChatOutput" ] /@ styles ], TrueQ ];
         NotebookDelete @ delete;
         included = DeleteCases[ include, Alternatives @@ delete ];
-        Reverse @ Take[ Reverse @ Flatten @ { cells, cell, included }, UpTo @ $maxChatCells ]
+        flat = dropDelimitedCells @ Flatten @ { cells, cell, included };
+        filtered = clearMinimizedChats[ parentNotebook @ cell, flat ];
+        Reverse @ Take[ Reverse @ filtered, UpTo @ $maxChatCells ]
     ];
 
 selectChatCells0 // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
+(*clearMinimizedChats*)
+clearMinimizedChats // beginDefinition;
+
+clearMinimizedChats[ nbo_, cells_ ] /; CloudSystem`$CloudNotebooks := cells;
+
+clearMinimizedChats[ nbo_NotebookObject, cells_List ] :=
+    Module[ { outCells, closed, attached },
+        outCells = Cells[ nbo, CellStyle -> "ChatOutput" ];
+        closed = Keys @ Select[ AssociationThread[ outCells -> CurrentValue[ outCells, CellOpen ] ], Not ];
+        attached = Cells[ nbo, AttachedCell -> True, CellStyle -> "MinimizedChatIcon" ];
+        NotebookDelete @ Flatten @ { closed, attached };
+        DeleteCases[ cells, Alternatives @@ closed ]
+    ];
+
+clearMinimizedChats // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*clearMinimizedChat*)
+clearMinimizedChat // beginDefinition;
+
+clearMinimizedChat[ attached_CellObject, parentCell_CellObject ] :=
+    Module[ { next },
+        NotebookDelete @ attached;
+        next = NextCell @ parentCell;
+        If[ MemberQ[ cellStyles @ next, "ChatOutput" ] && TrueQ[ ! CurrentValue[ next, CellOpen ] ],
+            NotebookDelete @ next;
+            next,
+            Nothing
+        ]
+    ];
+
+clearMinimizedChat // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*dropDelimitedCells*)
+dropDelimitedCells // beginDefinition;
+
+dropDelimitedCells[ cells_List ] :=
+    Drop[ cells, Max[ Position[ cellStyles @ cells, { ___, "ChatDelimiter"|"PageBreak", ___ }, { 1 } ], 0 ] ];
+
+dropDelimitedCells // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellStyles*)
+cellStyles // beginDefinition;
+cellStyles[ cells_ ] /; CloudSystem`$CloudNotebooks := cloudCellStyles @ cells;
+cellStyles[ cells_ ] := CurrentValue[ cells, CellStyle ];
+cellStyles // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cloudCellStyles*)
+cloudCellStyles // beginDefinition;
+cloudCellStyles[ cells_ ] := Cases[ notebookRead @ cells, Cell[ _, style___String, OptionsPattern[ ] ] :> { style } ];
+cloudCellStyles // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
 (*makeCellMessage*)
 makeCellMessage // beginDefinition;
-makeCellMessage[ cell: Cell[ __, "BirdOut", ___ ] ] := <| "role" -> "assistant", "content" -> cellToString @ cell |>;
+makeCellMessage[ cell: Cell[ __, "ChatOutput", ___ ] ] := <| "role" -> "assistant", "content" -> cellToString @ cell |>;
 makeCellMessage[ cell_Cell ] := <| "role" -> "user", "content" -> cellToString @ cell |>;
 makeCellMessage // endDefinition;
 
@@ -735,41 +1033,195 @@ makeCellMessage // endDefinition;
 (*writeChunk*)
 writeChunk // beginDefinition;
 
-writeChunk[ container_, KeyValuePattern[ "BodyChunk" -> chunk_String ] ] :=
-    writeChunk[ container, chunk ];
+writeChunk[ container_, cell_, KeyValuePattern[ "BodyChunk" -> chunk_String ] ] :=
+    writeChunk[ container, cell, chunk ];
 
-writeChunk[ container_, chunk_String ] /; StringMatchQ[ chunk, "data: " ~~ __ ~~ "\n\n" ~~ __ ~~ ("\n\n"|"") ] :=
-    writeChunk[ container, # ] & /@ StringSplit[ chunk, "\n\n" ];
+writeChunk[ container_, cell_, chunk_String ] /; StringMatchQ[ chunk, "data: " ~~ __ ~~ "\n\n" ~~ __ ~~ ("\n\n"|"") ] :=
+    writeChunk[ container, cell, # ] & /@ StringSplit[ chunk, "\n\n" ];
 
-writeChunk[ container_, chunk_String ] /; StringMatchQ[ chunk, "data: " ~~ __ ~~ ("\n\n"|"") ] :=
+writeChunk[ container_, cell_, chunk_String ] /; StringMatchQ[ chunk, "data: " ~~ __ ~~ ("\n\n"|"") ] :=
     Module[ { json },
         json = StringDelete[ chunk, { StartOfString~~"data: ", ("\n\n"|"") ~~ EndOfString } ];
-        writeChunk[ container, chunk, Quiet @ Developer`ReadRawJSONString @ json ]
+        writeChunk[ container, cell, chunk, Quiet @ Developer`ReadRawJSONString @ json ]
     ];
 
-writeChunk[ container_, "" | "data: [DONE]" | "data: [DONE]\n\n" ] := Null;
+writeChunk[ container_, cell_, "" | "data: [DONE]" | "data: [DONE]\n\n" ] := Null;
 
 writeChunk[
     container_,
+    cell_,
     chunk_String,
     KeyValuePattern[ "choices" -> { KeyValuePattern[ "delta" -> KeyValuePattern[ "content" -> text_String ] ], ___ } ]
-] := writeChunk[ container, chunk, text ];
+] := writeChunk[ container, cell, chunk, text ];
 
 writeChunk[
     container_,
+    cell_,
     chunk_String,
     KeyValuePattern[ "choices" -> { KeyValuePattern @ { "delta" -> <| |>, "finish_reason" -> "stop" }, ___ } ]
 ] := Null;
 
-writeChunk[ Dynamic[ container_ ], chunk_String, text_String ] :=
+writeChunk[ Dynamic[ container_ ], cell_, chunk_String, text_String ] := (
     If[ StringQ @ container,
-        container = container <> convertUTF8 @ text;,
-        container = convertUTF8 @ text;
+        container = StringDelete[ container <> convertUTF8 @ text, StartOfString~~Whitespace ],
+        container = convertUTF8 @ text
     ];
+    Which[
+        errorTaggedQ @ container, processErrorCell[ container, cell ],
+        warningTaggedQ @ container, processWarningCell[ container, cell ],
+        infoTaggedQ @ container, processInfoCell[ container, cell ],
+        untaggedQ @ container, openBirdCell @ cell,
+        True, Null
+    ]
+);
 
-writeChunk[ Dynamic[ container_ ], chunk_String, other_ ] := Null;
+writeChunk[ Dynamic[ container_ ], cell_, chunk_String, other_ ] := Null;
 
 writeChunk // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*Severity Tag String Patterns*)
+$$whitespace  = Longest[ WhitespaceCharacter... ];
+$$severityTag = "ERROR"|"WARNING"|"INFO";
+$$tagPrefix   = StartOfString~~$$whitespace~~"["~~$$whitespace~~$$severityTag~~$$whitespace~~"]"~~$$whitespace;
+
+
+errorTaggedQ // ClearAll;
+errorTaggedQ[ s_String? StringQ ] := taggedQ[ s, "ERROR" ];
+errorTaggedQ[ ___               ] := False;
+
+
+warningTaggedQ // ClearAll;
+warningTaggedQ[ s_String? StringQ ] := taggedQ[ s, "WARNING" ];
+warningTaggedQ[ ___               ] := False;
+
+
+infoTaggedQ // ClearAll;
+infoTaggedQ[ s_String? StringQ ] := taggedQ[ s, "INFO" ];
+infoTaggedQ[ ___               ] := False;
+
+
+untaggedQ // ClearAll;
+untaggedQ[ s_String? StringQ ] /; $alwaysOpen := StringStartsQ[ StringDelete[ s, Whitespace ], Except[ "[" ] ];
+untaggedQ[ ___ ] := False;
+
+
+taggedQ // ClearAll;
+taggedQ[ s_String? StringQ ] := taggedQ[ s, $$severityTag ];
+taggedQ[ s_String? StringQ, tag_ ] := StringStartsQ[ StringDelete[ s, Whitespace ], "["~~tag~~"]", IgnoreCase -> True ];
+taggedQ[ ___ ] := False;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*removeSeverityTag*)
+removeSeverityTag // beginDefinition;
+removeSeverityTag // Attributes = { HoldFirst };
+
+removeSeverityTag[ s_Symbol? StringQ, cell_CellObject ] :=
+    Module[ { tag },
+        tag = StringReplace[ s, t:$$tagPrefix~~___~~EndOfString :> t ];
+        s = StringDelete[ s, $$tagPrefix, IgnoreCase -> True ];
+        CurrentValue[ cell, { TaggingRules, "MessageTag" } ] = ToUpperCase @ StringDelete[ tag, Whitespace ]
+    ];
+
+removeSeverityTag // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*processErrorCell*)
+processErrorCell // beginDefinition;
+processErrorCell // Attributes = { HoldFirst };
+
+processErrorCell[ container_, cell_CellObject ] := (
+    $$errorString = container;
+    removeSeverityTag[ container, cell ];
+    (* TODO: Add an error icon? *)
+    openBirdCell @ cell
+);
+
+processErrorCell // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*processWarningCell*)
+processWarningCell // beginDefinition;
+processWarningCell // Attributes = { HoldFirst };
+
+processWarningCell[ container_, cell_CellObject ] := (
+    $$warningString = container;
+    removeSeverityTag[ container, cell ];
+    openBirdCell @ cell
+);
+
+processWarningCell // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*processInfoCell*)
+processInfoCell // beginDefinition;
+processInfoCell // Attributes = { HoldFirst };
+
+processInfoCell[ container_, cell_CellObject ] := (
+    $$infoString = container;
+    removeSeverityTag[ container, cell ];
+    If[ TrueQ @ $autoOpen, openBirdCell @ cell ]
+);
+
+processInfoCell // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*openBirdCell*)
+openBirdCell // beginDefinition;
+
+openBirdCell[ cell_CellObject ] :=
+    Module[ { prev, attached },
+        prev = PreviousCell @ cell;
+        attached = Cells[ prev, AttachedCell -> True, CellStyle -> "MinimizedChatIcon" ];
+        NotebookDelete @ attached;
+        SetOptions[
+            cell,
+            CellMargins     -> Inherited,
+            CellOpen        -> Inherited,
+            CellFrame       -> Inherited,
+            ShowCellBracket -> Inherited,
+            Initialization  -> Inherited
+        ]
+    ];
+
+openBirdCell // endDefinition;
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*attachMinimizedIcon*)
+attachMinimizedIcon // beginDefinition;
+
+attachMinimizedIcon[ chatCell_CellObject, label_ ] := (
+    CurrentValue[ chatCell, Initialization ] = Inherited;
+    With[ { prev = PreviousCell @ chatCell },
+        NotebookDelete @ Cells[ prev, AttachedCell -> True ];
+        AttachCell[
+            prev,
+            ExpressionCell[
+                Button[
+                    MouseAppearance[ Pane[ label, ImageMargins -> { { 0, 6 }, { 0, 0 } } ], "LinkHand" ],
+                    With[ { attached = EvaluationCell[ ] },
+                        NotebookDelete @ attached;
+                        openBirdCell @ chatCell
+                    ],
+                    Appearance -> None
+                ],
+                "MinimizedChatIcon"
+            ],
+            { "CellBracket", Bottom },
+            0,
+            { Right, Bottom }
+        ]
+    ]
+);
+
+attachMinimizedIcon // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -784,26 +1236,43 @@ convertUTF8 // endDefinition;
 reformatCell // beginDefinition;
 
 reformatCell[ string_String, cell_CellObject ] :=
-    NotebookWrite[
-        cell,
-        Cell[
-            TextData @ Flatten @ Map[
-                makeResultCell,
-                StringSplit[
-                    string,
-                    {
-                        Longest[ "```" ~~ ("wolfram"|"mathematica"|"") ] ~~ Shortest[ code__ ] ~~ "```" :>
-                            If[ NameQ[ "System`" <> code ], inlineCodeCell @ code, codeCell @ code ],
-                        "`" ~~ code: Except[ "`" ].. ~~ "`" :>
-                            inlineCodeCell @ code
-                    }
+    With[
+        {
+            tag   = CurrentValue[ cell, { TaggingRules, "MessageTag" } ],
+            open  = $lastOpen = CurrentValue[ cell, CellOpen ],
+            label = staticChatIcon[ ]
+        },
+        NotebookWrite[
+            cell,
+            $reformattedCell = Cell[
+                TextData @ Flatten @ Map[
+                    makeResultCell,
+                    StringSplit[
+                        $reformattedString = string,
+                        {
+                            Longest[ "```" ~~ ($wlCodeString|"") ] ~~ Shortest[ code__ ] ~~ "```" :>
+                                If[ NameQ[ "System`" <> code ], inlineCodeCell @ code, codeCell @ code ],
+                            "`" ~~ code: Except[ "`" ].. ~~ "`" :>
+                                inlineCodeCell @ code
+                        },
+                        IgnoreCase -> True
+                    ]
+                ],
+                "Text",
+                "ChatOutput",
+                GeneratedCell     -> True,
+                CellAutoOverwrite -> True,
+                TaggingRules      -> <| "SourceString" -> string, "MessageTag" -> tag |>,
+                If[ TrueQ @ open,
+                    Sequence @@ { },
+                    Sequence @@ Flatten[ {
+                        $closedBirdCellOptions,
+                        Initialization :> attachMinimizedIcon[ EvaluationCell[ ], label ]
+                    } ]
                 ]
             ],
-            "Text",
-            "BirdOut",
-            GeneratedCell     -> True,
-            CellAutoOverwrite -> True,
-            TaggingRules      -> <| "SourceString" -> string |>
+            None,
+            AutoScroll -> False
         ]
     ];
 
@@ -816,13 +1285,23 @@ reformatCell[ other_, cell_CellObject ] :=
                 Cell @ BoxData @ ToBoxes @ Catch[ throwInternalFailure @ reformatCell[ other, cell ], $top ]
             },
             "Text",
-            "BirdOut",
+            "ChatOutput",
             GeneratedCell     -> True,
             CellAutoOverwrite -> True
-        ]
+        ],
+        None,
+        AutoScroll -> False
     ];
 
 reformatCell // endDefinition;
+
+
+$wlCodeString = Longest @ Alternatives[
+    "Wolfram Language",
+    "WolframLanguage",
+    "Wolfram",
+    "Mathematica"
+];
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -863,13 +1342,28 @@ makeInteractiveCodeCell[ string_String ] :=
             LanguageCategory     -> "Input"
         ];
 
-        handler = DynamicModule[ { attached },
-            EventHandler[
-                display,
-                {
-                    "MouseEntered" :>
-                        If[ TrueQ @ $birdChatLoaded,
-                            attached = AttachCell[
+        handler = inlineInteractiveCodeCell[ display, string ];
+
+        Cell @ BoxData @ ToBoxes @ handler
+    ];
+
+makeInteractiveCodeCell // endDefinition;
+
+
+inlineInteractiveCodeCell // beginDefinition;
+
+inlineInteractiveCodeCell[ display_, string_ ] /; CloudSystem`$CloudNotebooks :=
+    Button[ display, CellPrint @ Cell[ BoxData @ string, "Input" ], Appearance -> None ];
+
+inlineInteractiveCodeCell[ display_, string_ ] :=
+    DynamicModule[ { attached },
+        EventHandler[
+            display,
+            {
+                "MouseEntered" :>
+                    If[ TrueQ @ $birdChatLoaded,
+                        attached =
+                            AttachCell[
                                 EvaluationBox[ ],
                                 floatingButtonGrid[ attached, string ],
                                 { Left, Bottom },
@@ -877,15 +1371,12 @@ makeInteractiveCodeCell[ string_String ] :=
                                 { Left, Top },
                                 RemovalConditions -> { "MouseClickOutside", "MouseExit" }
                             ]
-                        ]
-                }
-            ]
-        ];
-
-        Cell @ BoxData @ ToBoxes @ handler
+                    ]
+            }
+        ]
     ];
 
-makeInteractiveCodeCell // endDefinition;
+inlineInteractiveCodeCell // endDefinition;
 
 
 floatingButtonGrid // Attributes = { HoldFirst };
@@ -910,7 +1401,7 @@ floatingButtonGrid[ attached_, string_ ] := Framed[
 insertCodeBelow[ string_, evaluate_: False ] :=
     Module[ { cell, nbo },
         cell = ParentCell @ ParentCell @ EvaluationCell[ ];
-        nbo  = ParentNotebook @ cell;
+        nbo  = parentNotebook @ cell;
         SelectionMove[ cell, After, Cell ];
         NotebookWrite[ nbo, Cell[ BoxData @ string, "Input" ], All ];
         If[ TrueQ @ evaluate,
@@ -1035,6 +1526,11 @@ cellToString[ string_String? StringQ ] := string;
 cellToString[ Cell @ CellGroupData[ { cell_ }, _ ] ] := cellToString @ cell;
 cellToString[ cells: { __CellObject } ] := cellToString /@ NotebookRead @ cells;
 cellToString[ cell_CellObject ] := cellToString @ { cell };
+
+cellToString[ Cell[ a__, "ChatInput", b___, CellLabel -> _, c___ ] ] :=
+    cellToString @ Cell[ a, b, c ];
+
+cellToString[ Cell[ __, "ChatDelimiter", ___ ] ] := "---";
 
 cellToString[ Cell[ a___, CellLabel -> label_String, b___ ] ] :=
     With[ { str = cellToString @ Cell[ a, b ] }, label<>" "<>str /; StringQ @ str ];
@@ -1440,12 +1936,164 @@ throwInternalFailure // endDefinition;
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*$bugReportLink*)
-$bugReportLink := $bugReportLink = Hyperlink[
+$bugReportLink := Hyperlink[
     "Report this issue \[RightGuillemet]",
     URLBuild @ <|
         "Scheme"   -> "https",
-        "Domain"   -> "resources.wolframcloud.com",
-        "Path"     -> { "FunctionRepository", "feedback-form" },
-        "Fragment" -> "BirdChat"
+        "Domain"   -> "github.com",
+        "Path"     -> { "rhennigan", "ResourceFunctions", "issues", "new" },
+        "Query"    -> {
+            "title"  -> "[BirdChat] Insert Title Here",
+            "body"   -> bugReportBody[ ],
+            "labels" -> "bug,internal"
+        }
     |>
 ];
+
+bugReportBody[ ] := bugReportBody @ $thisResourceInfo;
+
+bugReportBody[ as_Association? AssociationQ ] := $bugBody = TemplateApply[
+    $bugReportBodyTemplate,
+    Association[
+        as,
+        "SystemID"              -> $SystemID,
+        "KernelVersion"         -> SystemInformation[ "Kernel"  , "Version" ],
+        "FrontEndVersion"       -> $frontEndVersion,
+        "Notebooks"             -> $Notebooks,
+        "EvaluationEnvironment" -> $EvaluationEnvironment,
+        "Stack"                 -> $bugReportStack,
+        "Settings"              -> $settings
+    ]
+];
+
+
+$frontEndVersion :=
+    If[ TrueQ @ CloudSystem`$CloudNotebooks,
+        Row @ { "Cloud: ", $CloudVersion },
+        Row @ { "Desktop: ", UsingFrontEnd @ SystemInformation[ "FrontEnd", "Version" ] }
+    ];
+
+
+$settings :=
+    Module[ { settings, assoc },
+        settings = CurrentValue @ { TaggingRules, "BirdChatSettings" };
+        assoc = Association @ settings;
+        If[ AssociationQ @ assoc,
+            ToString @ ResourceFunction[ "ReadableForm" ][ KeyDrop[ assoc, "OpenAIKey" ], "DynamicAlignment" -> True ],
+            settings
+        ]
+    ];
+
+
+$bugReportBodyTemplate = StringTemplate[ "\
+# Description
+Describe the issue in detail here.
+
+# Debug Data
+| Property | Value |
+| --- | --- |
+| Name | `%%Name%%` |
+| UUID | `%%UUID%%` |
+| Version | `%%Version%%` |
+| RepositoryLocation | `%%RepositoryLocation%%` |
+| FunctionLocation | `%%FunctionLocation%%` |
+| KernelVersion | `%%KernelVersion%%` |
+| FrontEndVersion | `%%FrontEndVersion%%` |
+| Notebooks | `%%Notebooks%%` |
+| EvaluationEnvironment | `%%EvaluationEnvironment%%` |
+| SystemID | `%%SystemID%%` |
+
+## Settings
+```
+%%Settings%%
+```
+
+## Stack Data
+```
+%%Stack%%
+```",
+Delimiters -> "%%"
+];
+
+
+$bugReportStack := $stackString = StringRiffle[
+    Replace[
+        DeleteAdjacentDuplicates @ Cases[
+            $stack = Stack[ _ ],
+            HoldForm[ (s_Symbol) | (s_Symbol)[ ___ ] | (s_Symbol)[ ___ ][ ___ ] ] /;
+                AtomQ @ Unevaluated @ s && Context @ s === Context @ BirdChat :>
+                    SymbolName @ Unevaluated @ s
+        ],
+        { a___, "throwInternalFailure", ___ } :> { a }
+    ],
+    "\n"
+];
+
+$thisResourceInfo := FirstCase[
+    DownValues @ ResourceSystemClient`Private`resourceInfo,
+    HoldPattern[ _ :> info: KeyValuePattern[ "SymbolName" -> Context @ BirdChat <> "BirdChat" ] ] :> info,
+    <| |>
+];
+
+(* ::**************************************************************************************************************:: *)
+(* ::Section::Closed:: *)
+(*Images*)
+$images = EvaluateInPlace @ Association @ Map[
+    FileBaseName[ #1 ] -> Once @ Graphics[ First @ ResourceFunction[ "SVGImport" ][ #1 ], ImageSize -> 24 ] &,
+    FileNames[ "*.svg", FileNameJoin @ { DirectoryName @ $InputFileName, "Resources" } ]
+];
+
+
+$curves = EvaluateInPlace @ Association @ Map[
+    FileBaseName[ #1 ] -> Once @ Import[ #1, "WXF" ] &,
+    FileNames[ "*.wxf", FileNameJoin @ { DirectoryName @ $InputFileName, "Resources", "GraphicsComponents" } ]
+];
+
+
+activeChatIcon // ClearAll;
+
+activeChatIcon[ ] := activeChatIcon[ GrayLevel[ 0.4 ] ];
+activeChatIcon[ fg_ ] := activeChatIcon[ fg, White ];
+activeChatIcon[ fg_, bg_ ] := activeChatIcon[ fg, bg, 16 ];
+
+activeChatIcon[ fg_, bg_, size_ ] :=
+    Graphics[
+        {
+            fg,
+            Thickness[ 0.0082061 ],
+            $curves[ "ChatIconBoundary" ],
+            bg,
+            $curves[ "ChatIconBackground" ],
+            Inset[
+                ProgressIndicator[ Appearance -> "Necklace", ImageSize -> size / 2 ],
+                Offset[ { 0, -6 }, ImageScaled @ { 0.5, 0.8 } ]
+            ]
+        },
+        ImageSize -> size
+    ];
+
+
+staticChatIcon // ClearAll;
+
+staticChatIcon[ ] := staticChatIcon[ GrayLevel[ 0.4 ] ];
+staticChatIcon[ fg_ ] := staticChatIcon[ fg, White ];
+staticChatIcon[ fg_, bg_ ] := staticChatIcon[ fg, bg, 16 ];
+
+staticChatIcon[ fg_, bg_, size_ ] :=
+    Graphics[
+        {
+            fg,
+            Thickness[ 0.0082061 ],
+            $curves[ "ChatIconBoundary" ],
+            bg,
+            $curves[ "ChatIconBackground" ],
+            fg,
+            $curves[ "ChatIconLines" ]
+        },
+        ImageSize -> size
+    ];
+
+(* ::**************************************************************************************************************:: *)
+(* ::Section::Closed:: *)
+(*Development Initialization*)
+If[ Context @ BirdChat === "Global`", DefineResourceFunction @ BirdChat ];

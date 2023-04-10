@@ -76,7 +76,7 @@ If[ DownValues @ IconizeInPlace  === { }, IconizeInPlace  = # & ];
 $generatingNotebook = EvaluateInPlace @ TrueQ @ RH`ResourceFunctions`$GeneratingNotebook;
 
 $images = IconizeInPlace[
-    Association @ Map[
+    $images = Association @ Map[
         FileBaseName @ # -> Import[ #, "WXF" ] &,
         FileNames[
             "*.wxf",
@@ -87,7 +87,7 @@ $images = IconizeInPlace[
 ];
 
 $curves = IconizeInPlace[
-    Association @ Map[
+    $curves = Association @ Map[
         FileBaseName @ # -> Import[ #, "WXF" ] &,
         FileNames[
             "*.wxf",
@@ -98,7 +98,7 @@ $curves = IconizeInPlace[
 ];
 
 $styleDataCells = IconizeInPlace[
-    Association @ Cases[
+    $styleDataCells = Association @ Cases[
         ReadList @ FileNameJoin @ Flatten @ { DirectoryName @ $InputFileName, "Resources", "Styles.wl" },
         cell: Cell[ StyleData[ name_String, ___ ], ___ ] :> name -> cell
     ],
@@ -106,12 +106,16 @@ $styleDataCells = IconizeInPlace[
 ];
 
 $apiKeyDialogDescription = IconizeInPlace[
-    Get @ FileNameJoin @ Flatten @ { DirectoryName @ $InputFileName, "Resources", "APIKeyDialogDescription.wl" },
+    $apiKeyDialogDescription = Get @ FileNameJoin @ Flatten @ {
+        DirectoryName @ $InputFileName,
+        "Resources",
+        "APIKeyDialogDescription.wl"
+    },
     "APIKeyDialogDescription"
 ];
 
 $promptStrings = IconizeInPlace[
-    Module[ { dir },
+    $promptStrings = Module[ { dir },
         dir = FileNameJoin @ { DirectoryName @ $InputFileName, "Resources", "Prompts" };
         Association @ Map[
             Function[
@@ -547,7 +551,13 @@ makeBirdChatSettings // beginDefinition;
 
 makeBirdChatSettings[ as_Association? AssociationQ, opts: OptionsPattern[ BirdChat ] ] :=
     With[ { bcOpts = Options @ BirdChat },
-        KeyDrop[ Association[ $defaultBirdChatSettings, bcOpts, FilterRules[ { opts }, bcOpts ], as ], "OpenAIKey" ]
+        KeyDrop[
+            KeyMap[
+                ToString,
+                Association[ $defaultBirdChatSettings, bcOpts, FilterRules[ { opts }, bcOpts ], as ]
+            ],
+            "OpenAIKey"
+        ]
     ];
 
 makeBirdChatSettings[ opts: OptionsPattern[ BirdChat ] ] := makeBirdChatSettings[ <| |>, opts ];
@@ -918,7 +928,7 @@ cellPrint // endDefinition;
 cloudCellPrint // beginDefinition;
 
 cloudCellPrint[ cell0_Cell ] :=
-    Enclose @ Module[ { cellUUID, nbUUID, cell, cellObject },
+    Enclose @ Module[ { cellUUID, nbUUID, cell },
         cellUUID = CreateUUID[ ];
         nbUUID   = ConfirmBy[ cloudNotebookUUID[ ], StringQ ];
         cell     = Append[ DeleteCases[ cell0, ExpressionUUID -> _ ], ExpressionUUID -> cellUUID ];
@@ -1518,7 +1528,7 @@ reformatCell[ settings_, string_, tag_, open_, label_ ] := Cell[
     "ChatOutput",
     GeneratedCell     -> True,
     CellAutoOverwrite -> True,
-    TaggingRules      -> <| "SourceString" -> string, "MessageTag" -> tag |>,
+    TaggingRules      -> <| "CellToStringData" -> string, "MessageTag" -> tag |>,
     If[ TrueQ @ open,
         Sequence @@ { },
         Sequence @@ Flatten @ {
@@ -1785,7 +1795,8 @@ inlineInteractiveCodeCell[ display_, string_, lang_ ] :=
                             ]
                     ]
             }
-        ]
+        ],
+        TaggingRules -> <| "CellToStringData" -> string |>
     ];
 
 inlineInteractiveCodeCell // endDefinition;
@@ -2175,6 +2186,10 @@ cellToString[ Cell[ code_, "ExternalLanguage", ___, $$cellEvaluationLanguage -> 
         "ExternalEvaluate[\""<>lang<>"\", \""<>string<>"\"]" /; StringQ @ string
     ];
 
+(* Cached source string *)
+cellToString[ _[ __, TaggingRules -> KeyValuePattern[ "CellToStringData" -> data_ ], ___ ] ] :=
+    cellToString0 @ data;
+
 (* Begin recursive serialization of the cell content *)
 cellToString[ cell_ ] := cellToString0 @ cell;
 
@@ -2410,6 +2425,12 @@ fasterCellToString0[ GridBox[ grid_? MatrixQ, ___ ] ] :=
 
 fasterCellToString0[ Cell[ TextData @ { _, _, text_String, _, Cell[ _, "ExampleCount", ___ ] }, ___ ] ] :=
     fasterCellToString0 @ text;
+
+fasterCellToString0[ _[
+    __,
+    TaggingRules -> Association @ OrderlessPatternSequence[ "CellToStringData" -> data_, ___ ],
+    ___
+] ] := fasterCellToString0 @ data;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)

@@ -153,7 +153,9 @@ BirdChat::BadResponseMessage =
 BirdChat // Options = {
     "AssistantIcon"     -> Automatic,
     "AssistantTheme"    -> "Birdnardo",
+    "AutoFormat"        -> True,
     "ChatHistoryLength" -> 15,
+    "DynamicAutoFormat" -> Automatic,
     "FrequencyPenalty"  -> 0.1,
     "MaxTokens"         -> Automatic,
     "MergeMessages"     -> True,
@@ -207,8 +209,10 @@ BirdChat[ command_String, args___ ] := catchTop @ executeBirdChatCommand[ comman
 $defaultBirdChatSettings := <|
     "AssistantIcon"     -> Automatic,
     "AssistantTheme"    -> "Birdnardo",
+    "AutoFormat"        -> True,
     "BirdChatNotebook"  -> True,
     "ChatHistoryLength" -> $maxChatCells,
+    "DynamicAutoFormat" -> Automatic,
     "FrequencyPenalty"  -> 0.1,
     "MaxTokens"         -> Automatic,
     "MergeMessages"     -> True,
@@ -237,6 +241,13 @@ $externalLanguageRules = Flatten @ {
     "SH"         -> "Shell",
     Cases[ $$externalLanguage, lang_ :> (lang -> lang) ]
 };
+
+$closedBirdCellOptions = Sequence[
+    CellMargins     -> -2,
+    CellOpen        -> False,
+    CellFrame       -> 0,
+    ShowCellBracket -> False
+];
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -662,6 +673,7 @@ requestBirdChat[ evalCell_, nbo_, settings_, Automatic ] :=
 
 requestBirdChat[ evalCell_, nbo_, settings_, minimized_ ] :=
     Block[ { $alwaysOpen = alwaysOpenQ[ settings, minimized ] },
+        $lastAlwaysOpen = $alwaysOpen;
         requestBirdChat0[ evalCell, nbo, settings ]
     ];
 
@@ -672,8 +684,7 @@ requestBirdChat // endDefinition;
 requestBirdChat0 // beginDefinition;
 
 requestBirdChat0[ evalCell_, nbo_, settings_ ] := catchTop @ Enclose[
-    Module[ { done, id, key, cell, cellObject, container, req, task },
-        done = False;
+    Module[ { id, key, cell, cellObject, container, req, task },
         id   = Lookup[ settings, "ID" ];
         key  = toAPIKey[ Automatic, id ];
 
@@ -693,7 +704,7 @@ requestBirdChat0[ evalCell_, nbo_, settings_ ] := catchTop @ Enclose[
         $debugLog = Internal`Bag[ ];
         cellObject = $lastCellObject = cellPrint @ cell;
 
-        task = Confirm[ $lastTask = submitBirdChat[ req, container, done, cellObject ] ]
+        task = Confirm[ $lastTask = submitBirdChat[ container, req, cellObject, settings ] ]
     ],
     throwInternalFailure[ requestBirdChat0[ evalCell, nbo, settings ], ## ] &
 ];
@@ -713,21 +724,21 @@ alwaysOpenQ // endDefinition;
 (* ::Subsubsection::Closed:: *)
 (*submitBirdChat*)
 submitBirdChat // beginDefinition;
-submitBirdChat // Attributes = { HoldRest };
+submitBirdChat // Attributes = { HoldFirst };
 
-submitBirdChat[ req_, container_, done_, cellObject_ ] /; CloudSystem`$CloudNotebooks := Enclose[
+submitBirdChat[ container_, req_, cellObject_, settings_ ] /; CloudSystem`$CloudNotebooks := Enclose[
     Module[ { resp, code, json, text },
         resp = ConfirmMatch[ URLRead @ req, _HTTPResponse ];
         code = ConfirmBy[ resp[ "StatusCode" ], IntegerQ ];
         ConfirmAssert[ resp[ "ContentType" ] === "application/json" ];
         json = Developer`ReadRawJSONString @ resp[ "Body" ];
         text = $lastMessageText = extractMessageText @ json;
-        checkResponse[ text, cellObject, json ]
+        checkResponse[ settings, text, cellObject, json ]
     ],
     # & (* TODO: cloud error cell *)
 ];
 
-submitBirdChat[ req_, container_, done_, cellObject_ ] :=
+submitBirdChat[ container_, req_, cellObject_, settings_ ] :=
     With[ { autoOpen = TrueQ @ $autoOpen, alwaysOpen = TrueQ @ $alwaysOpen },
         URLSubmit[
             req,
@@ -741,8 +752,7 @@ submitBirdChat[ req_, container_, done_, cellObject_ ] :=
                 "TaskFinished" -> Function[
                     catchTop @ Block[ { $autoOpen = autoOpen, $alwaysOpen = alwaysOpen },
                         Internal`StuffBag[ $debugLog, $lastStatus = #1 ];
-                        done = True;
-                        checkResponse[ container, cellObject, #1 ]
+                        checkResponse[ settings, container, cellObject, #1 ]
                     ]
                 ]
             |>,
@@ -789,21 +799,28 @@ activeBirdChatCell[ container_, settings_Association? AssociationQ ] :=
     activeBirdChatCell[ container, settings, Lookup[ settings, "ShowMinimized", Automatic ] ];
 
 activeBirdChatCell[ container_, settings_, minimized_ ] :=
-    With[ { label = activeChatIcon[ ], id = $SessionID },
-        (* Print @ Dynamic @ Refresh[
-            RawBoxes @ Cell[ TextData @ reformatTextData @ container, "ChatOutput", "Text" ],
-            TrackedSymbols :> { },
-            UpdateInterval -> 1
-        ]; *)
+    With[
+        {
+            label    = activeChatIcon[ ],
+            id       = $SessionID,
+            reformat = dynamicAutoFormatQ @ settings
+        },
         Cell[
-            BoxData @ ToBoxes @ Dynamic[
-                Refresh[
-                    dynamicTextDisplay @ container,
-                    TrackedSymbols :> { },
-                    UpdateInterval -> 0.2
+            BoxData @ ToBoxes @
+                If[ TrueQ @ reformat,
+                    Dynamic[
+                        Refresh[
+                            dynamicTextDisplay[ container, reformat ],
+                            TrackedSymbols :> { },
+                            UpdateInterval -> 0.2
+                        ],
+                        Initialization :> If[ $SessionID =!= id, NotebookDelete @ EvaluationCell[ ] ]
+                    ],
+                    Dynamic[
+                        dynamicTextDisplay[ container, reformat ],
+                        Initialization :> If[ $SessionID =!= id, NotebookDelete @ EvaluationCell[ ] ]
+                    ]
                 ],
-                Initialization :> If[ $SessionID =!= id, NotebookDelete @ EvaluationCell[ ] ]
-            ],
             "Output",
             "ChatOutput",
             If[ MatchQ[ minimized, True|Automatic ],
@@ -824,27 +841,44 @@ activeBirdChatCell[ container_, settings_, minimized_ ] :=
 
 activeBirdChatCell // endDefinition;
 
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*dynamicAutoFormatQ*)
+dynamicAutoFormatQ // beginDefinition;
+dynamicAutoFormatQ[ KeyValuePattern[ "DynamicAutoFormat" -> format: (True|False) ] ] := format;
+dynamicAutoFormatQ[ KeyValuePattern[ "AutoFormat" -> format_ ] ] := TrueQ @ format;
+dynamicAutoFormatQ // endDefinition;
 
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*dynamicTextDisplay*)
 dynamicTextDisplay // beginDefinition;
 
-dynamicTextDisplay[ text_String ] :=
-    Block[ { $dynamicText = True },
-        RawBoxes @ Cell[ TextData @ reformatTextData @ text ]
+dynamicTextDisplay[ text_String, True ] :=
+    With[ { id = $SessionID },
+        Dynamic[
+            Refresh[
+                Block[ { $dynamicText = True }, RawBoxes @ Cell @ TextData @ reformatTextData @ text ],
+                TrackedSymbols :> { },
+                UpdateInterval -> 0.2
+            ],
+            Initialization :> If[ $SessionID =!= id, NotebookDelete @ EvaluationCell[ ] ]
+        ]
     ];
 
-dynamicTextDisplay[ _Symbol ] := ProgressIndicator[ Appearance -> "Percolate" ];
+dynamicTextDisplay[ text_String, False ] :=
+    With[ { id = $SessionID },
+        Dynamic[
+            RawBoxes @ Cell @ TextData @ text,
+            Initialization :> If[ $SessionID =!= id, NotebookDelete @ EvaluationCell[ ] ]
+        ]
+    ];
 
-dynamicTextDisplay[ other_ ] := other;
+dynamicTextDisplay[ _Symbol, _ ] := ProgressIndicator[ Appearance -> "Percolate" ];
+
+dynamicTextDisplay[ other_, _ ] := other;
 
 dynamicTextDisplay // endDefinition;
-
-
-$closedBirdCellOptions = Sequence[
-    CellMargins     -> -2,
-    CellOpen        -> False,
-    CellFrame       -> 0,
-    ShowCellBracket -> False
-];
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -907,7 +941,7 @@ cloudNotebookUUID // endDefinition;
 (*checkResponse*)
 checkResponse // beginDefinition;
 
-checkResponse[ container_, cell_, as: KeyValuePattern[ "StatusCode" -> Except[ 200, _Integer ] ] ] :=
+checkResponse[ settings_, container_, cell_, as: KeyValuePattern[ "StatusCode" -> Except[ 200, _Integer ] ] ] :=
     Module[ { log, body, data },
         log  = Internal`BagPart[ $debugLog, All ];
         body = StringJoin @ Cases[ log, KeyValuePattern[ "BodyChunk" -> s_String ] :> s ];
@@ -915,8 +949,8 @@ checkResponse[ container_, cell_, as: KeyValuePattern[ "StatusCode" -> Except[ 2
         writeErrorCell[ cell, $badResponse = Association[ as, "Body" -> body, "BodyJSON" -> data ] ]
     ];
 
-checkResponse[ container_, cell_, as_Association ] := (
-    writeReformattedCell[ container, cell ];
+checkResponse[ settings_, container_, cell_, as_Association ] := (
+    writeReformattedCell[ settings, container, cell ];
     Quiet @ NotebookDelete @ cell;
 );
 
@@ -1258,6 +1292,8 @@ $$whitespace  = Longest[ WhitespaceCharacter... ];
 $$severityTag = "ERROR"|"WARNING"|"INFO";
 $$tagPrefix   = StartOfString~~$$whitespace~~"["~~$$whitespace~~$$severityTag~~$$whitespace~~"]"~~$$whitespace;
 
+$maxTagLength = Max[ StringLength /@ (List @@ $$severityTag) ] + 2;
+
 
 errorTaggedQ // ClearAll;
 errorTaggedQ[ s_String? StringQ ] := taggedQ[ s, "ERROR" ];
@@ -1275,7 +1311,13 @@ infoTaggedQ[ ___               ] := False;
 
 
 untaggedQ // ClearAll;
-untaggedQ[ s_String? StringQ ] /; $alwaysOpen := StringStartsQ[ $lastUntagged = StringDelete[ s, Whitespace ], Except[ "[" ] ];
+untaggedQ[ s0_String? StringQ ] /; $alwaysOpen :=
+    With[ { s = StringDelete[ $lastUntagged = s0, Whitespace ] },
+        Or[ StringStartsQ[ s, Except[ "[" ] ],
+            StringLength @ s >= $maxTagLength && ! StringStartsQ[ s, $$tagPrefix, IgnoreCase -> True ]
+        ]
+    ];
+
 untaggedQ[ ___ ] := False;
 
 
@@ -1422,7 +1464,7 @@ convertUTF8 // endDefinition;
 (*writeReformattedCell*)
 writeReformattedCell // beginDefinition;
 
-writeReformattedCell[ string_String, cell_CellObject ] :=
+writeReformattedCell[ settings_, string_String, cell_CellObject ] :=
     With[
         {
             tag   = CurrentValue[ cell, { TaggingRules, "MessageTag" } ],
@@ -1432,24 +1474,27 @@ writeReformattedCell[ string_String, cell_CellObject ] :=
         Block[ { $dynamicText = False },
             NotebookWrite[
                 cell,
-                $reformattedCell = reformatCell[ string, tag, open, label ],
+                $reformattedCell = reformatCell[ settings, string, tag, open, label ],
                 None,
                 AutoScroll -> False
             ]
         ]
     ];
 
-writeReformattedCell[ other_, cell_CellObject ] :=
+writeReformattedCell[ settings_, other_, cell_CellObject ] :=
     NotebookWrite[
         cell,
         Cell[
             TextData @ {
                 "I can't believe you've done this! \n\n",
-                Cell @ BoxData @ ToBoxes @ Catch[ throwInternalFailure @ writeReformattedCell[ other, cell ], $top ]
+                Cell @ BoxData @ ToBoxes @ Catch[
+                    throwInternalFailure @ writeReformattedCell[ settings, other, cell ],
+                    $top
+                ]
             },
             "Text",
             "ChatOutput",
-            GeneratedCell     -> True,
+            GeneratedCell -> True,
             CellAutoOverwrite -> True
         ],
         None,
@@ -1464,8 +1509,11 @@ writeReformattedCell // endDefinition;
 (*reformatCell*)
 reformatCell // beginDefinition;
 
-reformatCell[ string_, tag_, open_, label_ ] := Cell[
-    TextData @ reformatTextData @ string,
+reformatCell[ settings_, string_, tag_, open_, label_ ] := Cell[
+    If[ TrueQ @ settings[ "AutoFormat" ],
+        TextData @ reformatTextData @ string,
+        TextData @ string
+    ],
     "Text",
     "ChatOutput",
     GeneratedCell     -> True,
@@ -2204,16 +2252,16 @@ fasterCellToString0[ "," ] := ", ";
 fasterCellToString0[ FromCharacterCode[ 62371 ] ] := "\n\t";
 
 (* StandardForm strings *)
-fasterCellToString0[ a_String /; StringMatchQ[ a, "\""~~___~~"\!"~~___~~"\"" ] ] :=
+fasterCellToString0[ a_String /; StringMatchQ[ a, "\""~~___~~("\\!"|"\!")~~___~~"\"" ] ] :=
     With[ { res = ToString @ ToExpression[ a, InputForm ] },
         If[ TrueQ @ $showStringCharacters,
             res,
             StringTrim[ res, "\"" ]
-        ] /; FreeQ[ res, s_String /; StringContainsQ[ s, "\!" ] ]
+        ] /; FreeQ[ res, s_String /; StringContainsQ[ s, ("\\!"|"\!") ] ]
     ];
 
-fasterCellToString0[ a_String /; StringContainsQ[ a, "\!" ] ] :=
-    With[ { res = stringToBoxes @ a }, res /; FreeQ[ res, s_String /; StringContainsQ[ s, "\!" ] ] ];
+fasterCellToString0[ a_String /; StringContainsQ[ a, ("\\!"|"\!") ] ] :=
+    With[ { res = stringToBoxes @ a }, res /; FreeQ[ res, s_String /; StringContainsQ[ s, ("\\!"|"\!") ] ] ];
 
 (* Other strings *)
 fasterCellToString0[ a_String ] :=
@@ -2390,7 +2438,12 @@ makeGraphicsString[ gfx_ ] := makeGraphicsString[ gfx, makeGraphicsExpression @ 
 
 makeGraphicsString[ gfx_, HoldComplete[ expr: _Graphics|_Graphics3D|_Image|_Image3D|_Graph ] ] :=
     StringReplace[
-        ToString[ Unevaluated @ expr, InputForm, PageWidth -> 100, CharacterEncoding -> "ASCII" ],
+        ToString[
+            Unevaluated @ expr,
+            InputForm,
+            PageWidth         -> $cellPageWidth,
+            CharacterEncoding -> $cellCharacterEncoding
+        ],
         "\r\n" -> "\n"
     ];
 
@@ -2431,8 +2484,15 @@ stringToBoxes // beginDefinition;
 stringToBoxes[ s_String /; StringMatchQ[ s, "\"" ~~ __ ~~ "\"" ] ] :=
     With[ { str = stringToBoxes @ StringTrim[ s, "\"" ] }, "\""<>str<>"\"" /; StringQ @ str ];
 
-stringToBoxes[ s_String ] :=
-    UsingFrontEnd @ MathLink`CallFrontEnd @ FrontEnd`UndocumentedTestFEParserPacket[ s, True ][[ 1, 1 ]];
+stringToBoxes[ string_String ] :=
+    stringToBoxes[
+        string,
+        (* TODO: there could be a kernel implementation of this *)
+        Quiet @ UsingFrontEnd @ MathLink`CallFrontEnd @ FrontEnd`UndocumentedTestFEParserPacket[ string, True ]
+    ];
+
+stringToBoxes[ string_, { BoxData[ boxes_ ], ___ } ] := boxes;
+stringToBoxes[ string_, other_ ] := string;
 
 stringToBoxes // endDefinition;
 
@@ -2458,55 +2518,26 @@ makeGridString // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
-(*fastCellToString*)
-fastCellToString // ClearAll;
-
-fastCellToString[ cell_ ] :=
-    With[ { string = ReplaceRepeated[ cell, $cellToStringReplacementRules ] },
-        Internal`StuffBag[ $cellToStringBag, { fastCellToString, cell } ];
-        Replace[
-            StringTrim[ string, WhitespaceCharacter ],
-            "" -> Missing[ "NotFound" ]
-        ] /; StringQ @ string
-    ];
-
-fastCellToString[ ___ ] := $Failed;
-
-$cellToStringReplacementRules := $cellToStringReplacementRules = Dispatch @ {
-    StyleBox[ a_String, ___ ]                        :> a,
-    ButtonBox[ a_String, ___ ]                       :> a,
-    TooltipBox[ a_String, ___ ]                      :> a,
-    TagBox[ a_String, ___ ]                          :> a,
-    SuperscriptBox[ a_String, b_String ]             :> a<>"^"<>b,
-    SubscriptBox[ a_String, b_String ]               :> a<>"_"<>b,
-    RowBox[ a: { ___String } ]                       :> StringJoin @ a,
-    TemplateBox[ { a_String, ___ }, "RefLink", ___ ] :> a,
-    FormBox[ a_String, ___ ]                         :> a,
-    InterpretationBox[ a_String, ___ ]               :> a,
-    BoxData[ a_String ]                              :> a,
-    BoxData[ a: { ___String } ]                      :> StringRiffle[ a, "\n" ],
-    TextData[ a_String ]                             :> a,
-    TextData[ a: { ___String } ]                     :> StringJoin @ a,
-    Cell[ a_String, ___ ]                            :> a,
-    s_String /; StringContainsQ[ s, "\!" ]           :> With[ { res = stringToBoxes @ s },
-        res /; FreeQ[ res, ss_String /; StringContainsQ[ ss, "\!" ] ]
-    ]
-};
-
-(* ::**************************************************************************************************************:: *)
-(* ::Subsubsection::Closed:: *)
 (*slowCellToString*)
 slowCellToString // beginDefinition;
 
-slowCellToString[ cell_ ] :=
-    Module[ { plain, string },
-        plain = Quiet @ FrontEndExecute @ FrontEnd`ExportPacket[ cell, "PlainText" ];
+slowCellToString[ cell_Cell ] :=
+    Module[ { format, plain, string },
+
+        format = If[ TrueQ @ $showStringCharacters, "InputText", "PlainText" ];
+        plain  = Quiet @ UsingFrontEnd @ FrontEndExecute @ FrontEnd`ExportPacket[ cell, format ];
         string = Replace[ plain, { { s_String? StringQ, ___ } :> s, ___ :> $Failed } ];
+
         If[ StringQ @ string,
             Replace[ StringTrim[ string, WhitespaceCharacter ], "" -> Missing[ "NotFound" ] ],
             $Failed
         ]
     ];
+
+slowCellToString[ boxes_BoxData ] := slowCellToString @ Cell @ boxes;
+slowCellToString[ text_TextData ] := Block[ { $showStringCharacters = False }, slowCellToString @ Cell @ text ];
+slowCellToString[ text_String   ] := slowCellToString @ TextData @ text;
+slowCellToString[ boxes_        ] := slowCellToString @ BoxData @ boxes;
 
 slowCellToString // endDefinition;
 

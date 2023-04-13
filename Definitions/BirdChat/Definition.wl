@@ -2995,10 +2995,12 @@ $bugReportStack := $stackString = StringRiffle[
     "\n"
 ];
 
-$thisResourceInfo := FirstCase[
+$thisResourceInfo := With[ { name = Context @ BirdChat <> "BirdChat" },
+    FirstCase[
         DownValues @ ResourceSystemClient`Private`resourceInfo,
-    HoldPattern[ _ :> info: KeyValuePattern[ "SymbolName" -> Context @ BirdChat <> "BirdChat" ] ] :> info,
+        HoldPattern[ _ :> info: KeyValuePattern[ "SymbolName" -> name ] ] :> info,
         <| |>
+    ]
 ];
 
 (* ::**************************************************************************************************************:: *)

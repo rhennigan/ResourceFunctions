@@ -3032,6 +3032,6 @@ staticChatIcon[ ___ ] := $icons[ "MinimizedChat" ];
 If[ Context @ AIAssistant === "Global`",
     Quiet @ Unset @ Once @ ResourceFunction[ "AIAssistant", "Function" ];
     Quiet @ Unset @ Once @ ResourceFunction[ #, "Function" ] & [ $resourceID ];
-    DeleteObject @ ResourceFunction[ "AIAssistant" ];
+    Quiet @ DeleteObject @ ResourceFunction[ "AIAssistant" ];
     DefineResourceFunction[ Symbol[ "Global`AIAssistant" ][ ## ] &, "AIAssistant" ]
 ];

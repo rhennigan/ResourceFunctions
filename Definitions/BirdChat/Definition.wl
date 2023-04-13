@@ -145,6 +145,9 @@ BirdChat::InvalidAPIKey =
 BirdChat::UnknownResponse =
 "Unexpected response from OpenAI server";
 
+BirdChat::RateLimitReached =
+"Rate limit reached for requests. Please try again later.";
+
 BirdChat::UnknownStatusCode =
 "Unexpected response from OpenAI server with status code `StatusCode`";
 
@@ -1000,6 +1003,9 @@ errorText[ ___ ] := "I can't believe you've done this!";
 (* ::Subsubsection::Closed:: *)
 (*errorBoxes*)
 errorBoxes // ClearAll;
+
+errorBoxes[ as: KeyValuePattern[ "StatusCode" -> 429 ] ] :=
+    ToBoxes @ messageFailure[ BirdChat::RateLimitReached, as ];
 
 errorBoxes[ as: KeyValuePattern[ "StatusCode" -> code: Except[ 200 ] ] ] :=
     ToBoxes @ messageFailure[ BirdChat::UnknownStatusCode, as ];
@@ -2990,9 +2996,9 @@ $bugReportStack := $stackString = StringRiffle[
 ];
 
 $thisResourceInfo := FirstCase[
-    DownValues @ ResourceSystemClient`Private`resourceInfo,
+        DownValues @ ResourceSystemClient`Private`resourceInfo,
     HoldPattern[ _ :> info: KeyValuePattern[ "SymbolName" -> Context @ BirdChat <> "BirdChat" ] ] :> info,
-    <| |>
+        <| |>
 ];
 
 (* ::**************************************************************************************************************:: *)

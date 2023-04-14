@@ -1274,6 +1274,9 @@ writeChunk[ container_, cell_, chunk_String ] /; StringMatchQ[ chunk, "data: " ~
 
 writeChunk[ container_, cell_, "" | "data: [DONE]" | "data: [DONE]\n\n" ] := Null;
 
+(* Errors are handled by checkResult, so don't do anything here *)
+writeChunk[ container_, cell_, _String?(StringStartsQ[ "{"~~WhitespaceCharacter...~~"\"error\":" ]) ] := Null;
+
 writeChunk[
     container_,
     cell_,

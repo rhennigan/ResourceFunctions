@@ -67,7 +67,7 @@
             "https://openai.com/blog/chatgpt/"
         ],
         Hyperlink[
-            "What Is ChatGPT Doing... and Why Does It Work?",
+            "What Is ChatGPT Doing\[Ellipsis] and Why Does It Work?",
             "https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/"
         ],
         Hyperlink[

@@ -181,10 +181,11 @@ AIAssistant // Options = {
 AIAssistant[ opts: OptionsPattern[ ] ] :=
     Module[ { nbo, result },
         WithCleanup[
-            nbo = CreateWindow[ Visible -> False ],
+            nbo = NotebookPut[ Notebook @ { Cell[ "", "ChatInput" ] }, Visible -> False ],
             result = catchTop @ AIAssistant[ nbo, opts ],
             If[ FailureQ @ result,
                 NotebookClose @ nbo,
+                SelectionMove[ First @ Cells @ nbo, Before, CellContents ];
                 SetOptions[ nbo, Visible -> True ];
                 SetSelectedNotebook @ nbo
             ]
@@ -255,6 +256,8 @@ $closedBirdCellOptions = Sequence[
     CellFrame       -> 0,
     ShowCellBracket -> False
 ];
+
+$$chunk = _String | { ___String };
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -957,7 +960,7 @@ checkResponse // beginDefinition;
 checkResponse[ settings_, container_, cell_, as: KeyValuePattern[ "StatusCode" -> Except[ 200, _Integer ] ] ] :=
     Module[ { log, body, data },
         log  = Internal`BagPart[ $debugLog, All ];
-        body = StringJoin @ Cases[ log, KeyValuePattern[ "BodyChunk" -> s_String ] :> s ];
+        body = StringJoin @ Cases[ log, KeyValuePattern[ "BodyChunk" -> s: $$chunk ] :> StringJoin @ s ];
         data = Replace[ Quiet @ Developer`ReadRawJSONString @ body, $Failed -> Missing[ "NotAvailable" ] ];
         writeErrorCell[ cell, $badResponse = Association[ as, "Body" -> body, "BodyJSON" -> data ] ]
     ];
@@ -981,11 +984,15 @@ writeErrorCell[ cell_, as_ ] := NotebookWrite[ cell, errorCell @ as ];
 errorCell // ClearAll;
 errorCell[ as_ ] :=
     Cell[
-        TextData @ { errorText @ as, "\n\n", Cell @ BoxData @ errorBoxes @ as },
+        TextData @ {
+            StyleBox[ "\[WarningSign] ", FontColor -> Darker @ Red, FontSize -> 1.5 Inherited ],
+            errorText @ as,
+            "\n\n",
+            Cell @ BoxData @ errorBoxes @ as
+        },
         "Text",
-        "Message",
         "ChatOutput",
-        GeneratedCell -> True,
+        GeneratedCell     -> True,
         CellAutoOverwrite -> True
     ];
 
@@ -997,7 +1004,7 @@ errorText // ClearAll;
 errorText[ KeyValuePattern[ "BodyJSON" -> KeyValuePattern[ "error" -> KeyValuePattern[ "message" -> s_String ] ] ] ] :=
     s;
 
-errorText[ ___ ] := "I can't believe you've done this!";
+errorText[ ___ ] := "An unexpected error occurred.";
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -1255,8 +1262,8 @@ makeCellMessage // endDefinition;
 (*writeChunk*)
 writeChunk // beginDefinition;
 
-writeChunk[ container_, cell_, KeyValuePattern[ "BodyChunk" -> chunk_String ] ] :=
-    writeChunk[ container, cell, chunk ];
+writeChunk[ container_, cell_, KeyValuePattern[ "BodyChunk" -> chunk: $$chunk ] ] :=
+    writeChunk[ container, cell, StringJoin @ chunk ];
 
 writeChunk[ container_, cell_, chunk_String ] /; StringMatchQ[ chunk, "data: " ~~ __ ~~ "\n\n" ~~ __ ~~ ("\n\n"|"") ] :=
     writeChunk[ container, cell, # ] & /@ StringSplit[ chunk, "\n\n" ];
@@ -1268,6 +1275,9 @@ writeChunk[ container_, cell_, chunk_String ] /; StringMatchQ[ chunk, "data: " ~
     ];
 
 writeChunk[ container_, cell_, "" | "data: [DONE]" | "data: [DONE]\n\n" ] := Null;
+
+(* Errors are handled by checkResult, so don't do anything here *)
+writeChunk[ container_, cell_, _String?(StringStartsQ[ "{"~~WhitespaceCharacter...~~"\"error\":" ]) ] := Null;
 
 writeChunk[
     container_,
@@ -1502,7 +1512,7 @@ writeReformattedCell[ settings_, other_, cell_CellObject ] :=
         cell,
         Cell[
             TextData @ {
-                "I can't believe you've done this! \n\n",
+                "An unexpected error occurred.\n\n",
                 Cell @ BoxData @ ToBoxes @ Catch[
                     throwInternalFailure @ writeReformattedCell[ settings, other, cell ],
                     $top
@@ -2437,6 +2447,8 @@ fasterCellToString0[ _[
     TaggingRules -> Association @ OrderlessPatternSequence[ "CellToStringData" -> data_, ___ ],
     ___
 ] ] := fasterCellToString0 @ data;
+
+fasterCellToString0[ DynamicModuleBox[ a___ ] ] := "DynamicModule[<<" <> ToString @ Length @ HoldComplete @ a <> ">>]";
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)

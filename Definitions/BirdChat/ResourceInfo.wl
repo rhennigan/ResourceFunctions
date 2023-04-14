@@ -50,19 +50,30 @@
     "RelatedSymbols" -> {
         "FindTextualAnswer",
         "WolframAlpha",
-        "Interpreter"
+        "Interpreter",
+        "Information"
     }
     ,
     "RelatedResourceObjects" -> {
-        "BirdSay",
+        "AIAssistant",
+        "SummarizeDefinition",
         "ChristopherWolfram/OpenAILink",
-        "SummarizeDefinition"
+        "Wolfram/ChatGPTPluginKit",
+        "AntonAntonov/OpenAIMode"
     }
     ,
     "Links" -> {
         Hyperlink[
             "Introducing ChatGPT",
             "https://openai.com/blog/chatgpt/"
+        ],
+        Hyperlink[
+            "What Is ChatGPT Doing\[Ellipsis] and Why Does It Work?",
+            "https://writings.stephenwolfram.com/2023/02/what-is-chatgpt-doing-and-why-does-it-work/"
+        ],
+        Hyperlink[
+            "Wolfram Tools for AIs: Computational Intelligence Connections",
+            "https://www.wolfram.com/resources/tools-for-AIs/"
         ],
         Hyperlink[
             "BirdChat | rhennigan/ResourceFunctions | GitHub",

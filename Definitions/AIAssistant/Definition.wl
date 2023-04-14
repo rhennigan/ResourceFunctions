@@ -2446,6 +2446,8 @@ fasterCellToString0[ _[
     ___
 ] ] := fasterCellToString0 @ data;
 
+fasterCellToString0[ DynamicModuleBox[ a___ ] ] := "DynamicModule[<<" <> ToString @ Length @ HoldComplete @ a <> ">>]";
+
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsubsection::Closed:: *)
 (*Missing Definition*)

@@ -181,10 +181,11 @@ AIAssistant // Options = {
 AIAssistant[ opts: OptionsPattern[ ] ] :=
     Module[ { nbo, result },
         WithCleanup[
-            nbo = CreateWindow[ Visible -> False ],
+            nbo = NotebookPut[ Notebook @ { Cell[ "", "ChatInput" ] }, Visible -> False ],
             result = catchTop @ AIAssistant[ nbo, opts ],
             If[ FailureQ @ result,
                 NotebookClose @ nbo,
+                SelectionMove[ First @ Cells @ nbo, Before, CellContents ];
                 SetOptions[ nbo, Visible -> True ];
                 SetSelectedNotebook @ nbo
             ]

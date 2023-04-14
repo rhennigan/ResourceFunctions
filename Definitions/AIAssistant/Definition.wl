@@ -1002,7 +1002,7 @@ errorText // ClearAll;
 errorText[ KeyValuePattern[ "BodyJSON" -> KeyValuePattern[ "error" -> KeyValuePattern[ "message" -> s_String ] ] ] ] :=
     s;
 
-errorText[ ___ ] := "I can't believe you've done this!";
+errorText[ ___ ] := "An unexpected error occurred.";
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
@@ -1510,7 +1510,7 @@ writeReformattedCell[ settings_, other_, cell_CellObject ] :=
         cell,
         Cell[
             TextData @ {
-                "I can't believe you've done this! \n\n",
+                "An unexpected error occurred.\n\n",
                 Cell @ BoxData @ ToBoxes @ Catch[
                     throwInternalFailure @ writeReformattedCell[ settings, other, cell ],
                     $top

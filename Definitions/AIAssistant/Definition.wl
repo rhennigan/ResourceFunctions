@@ -982,9 +982,13 @@ writeErrorCell[ cell_, as_ ] := NotebookWrite[ cell, errorCell @ as ];
 errorCell // ClearAll;
 errorCell[ as_ ] :=
     Cell[
-        TextData @ { errorText @ as, "\n\n", Cell @ BoxData @ errorBoxes @ as },
+        TextData @ {
+            StyleBox[ "\[WarningSign] ", FontColor -> Darker @ Red, FontSize -> 1.5 Inherited ],
+            errorText @ as,
+            "\n\n",
+            Cell @ BoxData @ errorBoxes @ as
+        },
         "Text",
-        "Message",
         "ChatOutput",
         GeneratedCell -> True,
         CellAutoOverwrite -> True

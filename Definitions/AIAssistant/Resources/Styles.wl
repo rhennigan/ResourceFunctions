@@ -63,7 +63,7 @@ Cell[
 (* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*DotDotDotMenuCell*)
-Cell[
+(* Cell[
     StyleData[ "DotDotDotMenuCell", StyleDefinitions -> StyleData[ "Text" ] ],
     With[
         {
@@ -86,7 +86,10 @@ Cell[
                 RemovalConditions -> { "EvaluatorQuit" }
             ]
     ]
-]
+] *)
+
+(* Disable menu button for now *)
+Cell[ StyleData[ "DotDotDotMenuCell", StyleDefinitions -> StyleData[ "Text" ] ] ]
 
 (* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)

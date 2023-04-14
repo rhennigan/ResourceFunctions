@@ -257,6 +257,8 @@ $closedBirdCellOptions = Sequence[
     ShowCellBracket -> False
 ];
 
+$$chunk = _String | { ___String };
+
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Assistant Settings*)
@@ -958,7 +960,7 @@ checkResponse // beginDefinition;
 checkResponse[ settings_, container_, cell_, as: KeyValuePattern[ "StatusCode" -> Except[ 200, _Integer ] ] ] :=
     Module[ { log, body, data },
         log  = Internal`BagPart[ $debugLog, All ];
-        body = StringJoin @ Cases[ log, KeyValuePattern[ "BodyChunk" -> s_String ] :> s ];
+        body = StringJoin @ Cases[ log, KeyValuePattern[ "BodyChunk" -> s: $$chunk ] :> StringJoin @ s ];
         data = Replace[ Quiet @ Developer`ReadRawJSONString @ body, $Failed -> Missing[ "NotAvailable" ] ];
         writeErrorCell[ cell, $badResponse = Association[ as, "Body" -> body, "BodyJSON" -> data ] ]
     ];
@@ -1260,8 +1262,8 @@ makeCellMessage // endDefinition;
 (*writeChunk*)
 writeChunk // beginDefinition;
 
-writeChunk[ container_, cell_, KeyValuePattern[ "BodyChunk" -> chunk_String ] ] :=
-    writeChunk[ container, cell, chunk ];
+writeChunk[ container_, cell_, KeyValuePattern[ "BodyChunk" -> chunk: $$chunk ] ] :=
+    writeChunk[ container, cell, StringJoin @ chunk ];
 
 writeChunk[ container_, cell_, chunk_String ] /; StringMatchQ[ chunk, "data: " ~~ __ ~~ "\n\n" ~~ __ ~~ ("\n\n"|"") ] :=
     writeChunk[ container, cell, # ] & /@ StringSplit[ chunk, "\n\n" ];

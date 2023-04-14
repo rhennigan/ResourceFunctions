@@ -50,7 +50,8 @@
     "RelatedSymbols" -> {
         "FindTextualAnswer",
         "WolframAlpha",
-        "Interpreter"
+        "Interpreter",
+        "Information"
     }
     ,
     "RelatedResourceObjects" -> {

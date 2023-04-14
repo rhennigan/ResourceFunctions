@@ -990,7 +990,7 @@ errorCell[ as_ ] :=
         },
         "Text",
         "ChatOutput",
-        GeneratedCell -> True,
+        GeneratedCell     -> True,
         CellAutoOverwrite -> True
     ];
 

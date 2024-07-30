@@ -189,7 +189,7 @@ inlineTemplateBoxes0 := (
     Needs[ "Wolfram`Chatbook`" -> None ];
     inlineTemplateBoxes0 = Symbol @ SelectFirst[
         { "Wolfram`Chatbook`InlineTemplateBoxes", "Wolfram`Chatbook`Common`inlineTemplateBoxes" },
-        NameQ,
+        definedQ,
         throwInternalFailure @ inlineTemplateBoxes0
     ]
 );
@@ -232,10 +232,17 @@ explodeCell0 := (
     Needs[ "Wolfram`Chatbook`" -> None ];
     explodeCell0 = Symbol @ SelectFirst[
         { "Wolfram`Chatbook`ExplodeCell", "Wolfram`Chatbook`Common`explodeCell" },
-        NameQ,
+        definedQ,
         throwInternalFailure @ explodeCell0
     ]
 );
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*definedQ*)
+definedQ // beginDefinition;
+definedQ[ name_String ] := ToExpression[ name, InputForm, System`Private`HasAnyEvaluationsQ ];
+definedQ // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)

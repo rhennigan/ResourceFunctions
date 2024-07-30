@@ -155,7 +155,8 @@ e: ExportMarkdownString[ ___ ] :=
 (* ::Subsubsection::Closed:: *)
 (*determineContentTypes*)
 determineContentTypes // beginDefinition;
-determineContentTypes[ None|Automatic ] := { "Text" };
+determineContentTypes[ None ] := { "Text" };
+determineContentTypes[ Automatic|"Chatbook" ] := { "Text", "Image" };
 determineContentTypes[ f_ ] := { "Text", "Image" };
 determineContentTypes // endDefinition;
 
@@ -167,7 +168,7 @@ determineContentTypes // endDefinition;
 (* ::Subsubsection::Closed:: *)
 (*convertInput*)
 convertInput // beginDefinition;
-convertInput[ expr_ ] := ReplaceAll[ convertInput0 @ expr, $extraReplacements ];
+convertInput[ expr_ ] := convertInput0 @ expr;
 convertInput // endDefinition;
 
 convertInput0 // beginDefinition;
@@ -179,23 +180,13 @@ convertInput0[ expr: $$supported ] := expr;
 convertInput0[ expr_ ] := RawBoxes @ StyleBox[ MakeBoxes @ expr, ShowStringCharacters -> False ];
 convertInput0 // endDefinition;
 
-$extraReplacements := $extraReplacements = Dispatch @ {
-    TemplateBox[ { label_, url_String | URL[ url_String ] }, "HyperlinkURL", ___ ] :>
-        ButtonBox[ label, BaseStyle -> "Hyperlink", ButtonData -> { url, None } ]
-    ,
-    TemplateBox[ { label_, { url_String | URL[ url_String ], _ }, _ }, "HyperlinkDefault", ___ ] :>
-        ButtonBox[ label, BaseStyle -> "Hyperlink", ButtonData -> { url, None } ]
-};
-
 (* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*convertCell*)
 convertCell // beginDefinition;
-convertCell[ TextCell[ e_, opts: OptionsPattern[ ] ] ] := convertCell @ TextCell[ e, "ChatOutput", opts ];
-convertCell[ ExpressionCell[ e_, opts: OptionsPattern[ ] ] ] := convertCell @ ExpressionCell[ e, "ChatOutput", opts ];
 convertCell[ cell: _TextCell|_ExpressionCell ] := convertCell @ ToBoxes @ cell;
 convertCell[ InterpretationBox[ cell_Cell, ___ ] ] := convertCell @ cell;
-convertCell[ cell_Cell ] := postHackCellStyles @ cell;
+convertCell[ cell_Cell ] := cell;
 convertCell // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
@@ -232,7 +223,7 @@ feParseCellGroup[ group_CellGroup ] := Enclose[
             NotebookClose @ nbo
         ];
         cells = ConfirmMatch[ Flatten @ { First[ nb, $Failed ] }, { Cell[ _CellGroupData, ___ ] }, "Cells" ];
-        postHackCellStyles @ First @ cells
+        First @ cells
     ],
     throwInternalFailure
 ];
@@ -251,34 +242,12 @@ convertNotebook[ notebook_ ] := Enclose[
             nb = ConfirmMatch[ NotebookGet @ nbo, _Notebook, "Notebook" ],
             NotebookClose @ nbo
         ];
-        postHackCellStyles @ nb
+        nb
     ],
     throwInternalFailure
 ];
 
 convertNotebook // endDefinition;
-
-(* ::**************************************************************************************************************:: *)
-(* ::Subsubsection::Closed:: *)
-(*postHackCellStyles*)
-postHackCellStyles // beginDefinition;
-
-postHackCellStyles[ Notebook[ cells_, opts___ ] ] :=
-    Notebook[ postHackCellStyles @ cells, opts ];
-
-postHackCellStyles[ cells_List ] :=
-    postHackCellStyles /@ cells;
-
-postHackCellStyles[ Cell[ CellGroupData[ cells_, spec_ ], opts___ ] ] :=
-    Cell[ CellGroupData[ postHackCellStyles @ cells, spec ], opts ];
-
-postHackCellStyles[ Cell[ BoxData[ content_ ], opts: OptionsPattern[ ] ] ] :=
-    StyleBox[ StyleBox[ content, opts ], ShowStringCharacters -> False ];
-
-postHackCellStyles[ cell_Cell ] :=
-    cell;
-
-postHackCellStyles // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)

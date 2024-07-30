@@ -88,7 +88,7 @@ Notebook[
       ],
       "Code",
       "Excluded",
-      CellLabel -> "In[3]:="
+      CellLabel -> "In[6]:="
      ],
      Cell[
       BoxData[
@@ -220,7 +220,7 @@ Notebook[
                        {
                         TagBox["\"Tests count: \"", "SummaryItemAnnotation"],
                         "\[InvisibleSpace]",
-                        TagBox["2", "SummaryItem"]
+                        TagBox["5", "SummaryItem"]
                        }
                       ]
                      }
@@ -360,7 +360,7 @@ Notebook[
                        {
                         TagBox["\"Tests count: \"", "SummaryItemAnnotation"],
                         "\[InvisibleSpace]",
-                        TagBox["2", "SummaryItem"]
+                        TagBox["5", "SummaryItem"]
                        }
                       ]
                      },
@@ -369,7 +369,7 @@ Notebook[
                        {
                         TagBox["\"Success count: \"", "SummaryItemAnnotation"],
                         "\[InvisibleSpace]",
-                        TagBox["2", "SummaryItem"]
+                        TagBox["5", "SummaryItem"]
                        }
                       ],
                       "\[SpanFromLeft]"
@@ -382,7 +382,7 @@ Notebook[
                         TagBox[
                          TemplateBox[
                           {
-                           "0.0009987`3.8489200520443383",
+                           "1.7233333`6.687914273469968",
                            "\"s\"",
                            "seconds",
                            "\"Seconds\""
@@ -432,19 +432,19 @@ Notebook[
           "Title" -> "Test Report: Tests.wlt",
           "Aborted" -> False,
           "TestResults" -> <|
-           2431238366390007527 ->
+           2407236007607761634 ->
             TestObject[
              <|
               "MetaInformation" -> None,
-              "AbsoluteTime" -> 3.9308437730193447*^9,
+              "AbsoluteTime" -> 3.9313393566790015*^9,
               "SameTest" -> MatchQ,
               "SameMessages" -> Testing`MessageMatchQ,
               "MemoryConstraint" -> Infinity,
               "TimeConstraint" -> Infinity,
-              "CreationID" -> "1bc14c85-6794-4cf9-aa57-4018291ce5da",
-              "TestID" -> "Initialization",
+              "CreationID" -> "5223f0a4-d6cf-470d-bc49-a3d43a74dced",
+              "TestID" -> "Initialization@@Definitions/ExportMarkdownString/Tests.wlt:4,1-9,2",
               "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ExportMarkdownString\\Tests.wlt",
-              "EvaluationID" -> "895ed790-93cb-448c-a443-4ae71946d750",
+              "EvaluationID" -> "a330836b-1c5d-4cb2-8444-a7091466785b",
               "Input" ->
                HoldForm[
                 SetOptions[
@@ -463,9 +463,9 @@ Notebook[
                 }
                ],
               "ActualMessages" -> { },
-              "AbsoluteTimeUsed" -> 0.0009987,
-              "CPUTimeUsed" -> 0.,
-              "MemoryUsed" -> 4400,
+              "AbsoluteTimeUsed" -> 0.001,
+              "CPUTimeUsed" -> 0.016000000000000014,
+              "MemoryUsed" -> 4160,
               "IntermediateTestsTree" -> { },
               "ExpectedOutput" ->
                HoldForm[KeyValuePattern["TestMode" -> True]],
@@ -473,19 +473,143 @@ Notebook[
               "FailureType" -> None
              |>
             ],
-           146975663481834776 ->
+           7249847921931875929 ->
             TestObject[
              <|
               "MetaInformation" -> None,
-              "AbsoluteTime" -> 3.9308437730223452*^9,
+              "AbsoluteTime" -> 3.9313393566800015*^9,
               "SameTest" -> MatchQ,
               "SameMessages" -> Testing`MessageMatchQ,
               "MemoryConstraint" -> Infinity,
               "TimeConstraint" -> Infinity,
-              "CreationID" -> "2799ee13-8175-4d0d-ab07-4ea95e79465e",
-              "TestID" -> "Cleanup",
+              "CreationID" -> "7483f338-f884-48db-8b63-a42a9b3c45ca",
+              "TestID" -> "BasicExamples-1",
               "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ExportMarkdownString\\Tests.wlt",
-              "EvaluationID" -> "191c0102-80c6-4a07-9022-5057956b5dd6",
+              "EvaluationID" -> "db09bc93-92f1-478f-99dd-2bec5dd83c8b",
+              "Input" ->
+               HoldForm[
+                ExportMarkdownString[
+                 Row[
+                  {
+                   Style["bold", FontWeight -> Bold],
+                   " and ",
+                   Style["italic", FontSlant -> Italic],
+                   " text"
+                  }
+                 ]
+                ]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualOutput" -> HoldForm["**bold** and *italic* text"],
+              "ActualMessages" -> { },
+              "AbsoluteTimeUsed" -> 0.,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 6016,
+              "IntermediateTestsTree" -> { },
+              "ExpectedOutput" -> HoldForm["**bold** and *italic* text"],
+              "Outcome" -> "Success",
+              "FailureType" -> None
+             |>
+            ],
+           4696643994832714093 ->
+            TestObject[
+             <|
+              "MetaInformation" -> None,
+              "AbsoluteTime" -> 3.9313393566820022*^9,
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "CreationID" -> "ce1b8b3c-6519-4370-af89-06808a3198cb",
+              "TestID" -> "BasicExamples-2",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ExportMarkdownString\\Tests.wlt",
+              "EvaluationID" -> "88894ed0-cf10-4a50-acc7-7eae322897d2",
+              "Input" ->
+               HoldForm[
+                ExportMarkdownString[
+                 TableForm[
+                  {{a, b}, {c, d}},
+                  TableHeadings -> {None, {"First", "Second"}}
+                 ]
+                ]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualOutput" ->
+               HoldForm[
+                "| First | Second |\n| ----- | ------ |\n| a     | b      |\n| c     | d      |"
+               ],
+              "ActualMessages" -> { },
+              "AbsoluteTimeUsed" -> 0.0091078,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 202624,
+              "IntermediateTestsTree" -> { },
+              "ExpectedOutput" ->
+               HoldForm[
+                "| First | Second |\n| ----- | ------ |\n| a     | b      |\n| c     | d      |"
+               ],
+              "Outcome" -> "Success",
+              "FailureType" -> None
+             |>
+            ],
+           949750824697867220 ->
+            TestObject[
+             <|
+              "MetaInformation" -> None,
+              "AbsoluteTime" -> 3.93133935669111*^9,
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "CreationID" -> "00490381-c441-4fa7-a94c-a51aa17eaa46",
+              "TestID" -> "BasicExamples-3",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ExportMarkdownString\\Tests.wlt",
+              "EvaluationID" -> "903cfe86-24e7-4411-bd7d-bf047eadc1be",
+              "Input" ->
+               HoldForm[
+                ExportMarkdownString[
+                 Row[
+                  {
+                   "This can format ",
+                   Style[TraditionalForm, "InlineCode"],
+                   " too: ",
+                   TraditionalForm[
+                    Integrate[Sin[x]/Log[x], x]
+                   ]
+                  }
+                 ]
+                ]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualOutput" ->
+               HoldForm[
+                "This can format ``TraditionalForm`` too: $$\\int \\frac{\\sin (x)}{\\log (x)} \\, dx$$"
+               ],
+              "ActualMessages" -> { },
+              "AbsoluteTimeUsed" -> 1.7122249,
+              "CPUTimeUsed" -> 1.141,
+              "MemoryUsed" -> 25488696,
+              "IntermediateTestsTree" -> { },
+              "ExpectedOutput" ->
+               HoldForm[
+                "This can format ``TraditionalForm`` too: $$\\int \\frac{\\sin (x)}{\\log (x)} \\, dx$$"
+               ],
+              "Outcome" -> "Success",
+              "FailureType" -> None
+             |>
+            ],
+           9121735135724128813 ->
+            TestObject[
+             <|
+              "MetaInformation" -> None,
+              "AbsoluteTime" -> 3.9313393584053343*^9,
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "CreationID" -> "71ed1a09-d5f8-4966-a1f3-81bed3eb9fd2",
+              "TestID" -> "Cleanup@@Definitions/ExportMarkdownString/Tests.wlt:58,1-63,2",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ExportMarkdownString\\Tests.wlt",
+              "EvaluationID" -> "4d56f860-42ae-4fb7-a252-848aad36e0d4",
               "Input" ->
                HoldForm[
                 SetOptions[
@@ -504,9 +628,9 @@ Notebook[
                 }
                ],
               "ActualMessages" -> { },
-              "AbsoluteTimeUsed" -> 0.,
+              "AbsoluteTimeUsed" -> 0.0010006,
               "CPUTimeUsed" -> 0.,
-              "MemoryUsed" -> 4184,
+              "MemoryUsed" -> 4192,
               "IntermediateTestsTree" -> { },
               "ExpectedOutput" ->
                HoldForm[KeyValuePattern["TestMode" -> False]],
@@ -519,7 +643,13 @@ Notebook[
           "TestsNotEvaluatedKeys" -> { },
           "TestsFailedWrongResultsKeys" -> { },
           "TestsFailedWithMessagesKeys" -> { },
-          "TestsSucceededKeys" -> {2431238366390007527, 146975663481834776}
+          "TestsSucceededKeys" -> {
+           2407236007607761634,
+           7249847921931875929,
+           4696643994832714093,
+           949750824697867220,
+           9121735135724128813
+          }
          |>
         ],
         Editable -> False,
@@ -529,7 +659,7 @@ Notebook[
       ],
       "Output",
       "Excluded",
-      CellLabel -> "Out[4]="
+      CellLabel -> "Out[7]="
      ]
     },
     Open
@@ -541,7 +671,7 @@ Notebook[
      Cell[
       "Basic Examples",
       "Subsection",
-      CellLabel -> "In[8]:="
+      CellLabel -> "In[4]:="
      ],
      Cell["Convert an expression to markdown:", "Text"],
      Cell[
@@ -689,6 +819,91 @@ Notebook[
        {
         Cell[
          BoxData[
+          RowBox[
+           {
+            "ExportMarkdownString",
+            "[",
+            RowBox[
+             {
+              "Row",
+              "[",
+              RowBox[
+               {
+                "{",
+                RowBox[
+                 {
+                  "\"This can format \"",
+                  ",",
+                  RowBox[
+                   {
+                    "Style",
+                    "[",
+                    RowBox[{"TraditionalForm", ",", "\"InlineCode\""}],
+                    "]"
+                   }
+                  ],
+                  ",",
+                  "\" too: \"",
+                  ",",
+                  RowBox[
+                   {
+                    "TraditionalForm",
+                    "[",
+                    RowBox[
+                     {
+                      "Integrate",
+                      "[",
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          RowBox[{"Sin", "[", "x", "]"}],
+                          "/",
+                          RowBox[{"Log", "[", "x", "]"}]
+                         }
+                        ],
+                        ",",
+                        " ",
+                        "x"
+                       }
+                      ],
+                      "]"
+                     }
+                    ],
+                    "]"
+                   }
+                  ]
+                 }
+                ],
+                "}"
+               }
+              ],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[
+         BoxData[
+          "\"This can format ``TraditionalForm`` too: $$\\\\int \\\\frac{\\\\sin (x)}{\\\\log (x)} \\\\, dx$$\""
+         ],
+         "Output",
+         CellLabel -> "Out[3]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
           InterpretationBox[
            Cell["\t", "ExampleDelimiter"],
            $Line = 0;
@@ -818,6 +1033,174 @@ Notebook[
          ],
          "ExampleDelimiter"
         ],
+        Cell[
+         TextData[
+          {
+           "A ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "CellGroup",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/CellGroup",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           ":"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ExportMarkdownString",
+               "[",
+               RowBox[
+                {
+                 "CellGroup",
+                 "[",
+                 RowBox[
+                  {
+                   "{",
+                   "\[IndentingNewLine]",
+                   RowBox[
+                    {
+                     RowBox[
+                      {
+                       "TextCell",
+                       "[",
+                       RowBox[
+                        {
+                         RowBox[
+                          {
+                           "Row",
+                           "[",
+                           RowBox[
+                            {
+                             "{",
+                             RowBox[
+                              {
+                               "\"Format math using \"",
+                               ",",
+                               RowBox[
+                                {
+                                 "Style",
+                                 "[",
+                                 RowBox[{"TraditionalForm", ",", "\"InlineCode\""}],
+                                 "]"
+                                }
+                               ]
+                              }
+                             ],
+                             "}"
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         ",",
+                         "\"Text\""
+                        }
+                       ],
+                       "]"
+                      }
+                     ],
+                     ",",
+                     "\[IndentingNewLine]",
+                     RowBox[
+                      {
+                       "ExpressionCell",
+                       "[",
+                       RowBox[
+                        {
+                         "TraditionalForm",
+                         "[",
+                         RowBox[
+                          {
+                           "Integrate",
+                           "[",
+                           RowBox[
+                            {
+                             RowBox[{"Sin", "[", RowBox[{"Sin", "[", "x", "]"}], "]"}],
+                             ",",
+                             RowBox[{"{", RowBox[{"x", ",", "0", ",", "1"}], "}"}]
+                            }
+                           ],
+                           "]"
+                          }
+                         ],
+                         "]"
+                        }
+                       ],
+                       "]"
+                      }
+                     ]
+                    }
+                   ],
+                   "\[IndentingNewLine]",
+                   "}"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             "\"Format math using ``TraditionalForm``\\n\\n$$\\\\int_0^1 \\\\sin (\\\\sin (x)) \\\\, dx$$\""
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
         Cell["Convert a notebook:", "Text"],
         Cell[
          CellGroupData[
@@ -871,11 +1254,11 @@ Notebook[
   Cell[
    CellGroupData[
     {
-     Cell["Scope", "Subsection"],
+     Cell["Scope", "Subsection", CellLabel -> "In[2]:="],
      Cell[
       CellGroupData[
        {
-        Cell["Cells", "Subsubsection", CellLabel -> "In[6]:="],
+        Cell["Cells", "Subsubsection", CellLabel -> "In[1]:="],
         Cell[
          TextData[
           {
@@ -1355,7 +1738,7 @@ Notebook[
      Cell[
       CellGroupData[
        {
-        Cell["Notebooks", "Subsubsection", CellLabel -> "In[5]:="],
+        Cell["Notebooks", "Subsubsection", CellLabel -> "In[2]:="],
         Cell[
          TextData[
           {
@@ -1421,10 +1804,10 @@ Notebook[
               <|
                "obj" ->
                 NotebookObject[
-                 "b1a2c72e-ad10-8440-af63-095228c686bc",
-                 "6b1acf7c-887c-de41-8bf8-8ea32793ca85"
+                 "0c44c3c9-64a1-0d44-8ac2-4c22a9685e74",
+                 "aa312bba-6bb2-8d44-aab5-a0ff21e4f21d"
                 ],
-               "label" -> "\"Untitled-61\""
+               "label" -> "\"Untitled-5\""
               |>,
               "NotebookObjectUUIDsUnsaved"
              ]
@@ -1610,6 +1993,29 @@ Notebook[
                             ],
                             ",",
                             "\"Text\""
+                           }
+                          ],
+                          "]"
+                         }
+                        ],
+                        ",",
+                        "\[IndentingNewLine]",
+                        RowBox[
+                         {
+                          "TraditionalForm",
+                          "[",
+                          RowBox[
+                           {
+                            "Limit",
+                            "[",
+                            RowBox[
+                             {
+                              RowBox[{"f", "[", "x", "]"}],
+                              ",",
+                              RowBox[{"x", "\[Rule]", "a"}]
+                             }
+                            ],
+                            "]"
                            }
                           ],
                           "]"
@@ -1993,6 +2399,18 @@ Notebook[
                               ],
                               "Text"
                              ],
+                             Cell[
+                              BoxData[
+                               FormBox[
+                                TemplateBox[
+                                 {RowBox[{"f", "(", "x", ")"}], "x", "a"},
+                                 "Limit2Arg",
+                                 SyntaxForm -> Limit
+                                ],
+                                TraditionalForm
+                               ]
+                              ]
+                             ],
                              Cell["Other Stuff", "Section"],
                              Cell["Items", "Subsection"],
                              Cell["First", "Item"],
@@ -2081,11 +2499,11 @@ Notebook[
                                TagBox[
                                 GridBox[
                                  {
-                                  {"\"authenticity\"", "\"randomly\"", "\"whoop\""},
-                                  {"\"share\"", "\"removable\"", "\"tropopause\""},
-                                  {"\"wax\"", "\"metatarsus\"", "\"belatedly\""},
-                                  {"\"systole\"", "\"stealthy\"", "\"portability\""},
-                                  {"\"unloading\"", "\"unimpeachable\"", "\"unaddressed\""}
+                                  {"\"lilac\"", "\"geophysical\"", "\"archduchess\""},
+                                  {"\"hunch\"", "\"coup\"", "\"concluding\""},
+                                  {"\"housemate\"", "\"sh\"", "\"concernedly\""},
+                                  {"\"digs\"", "\"stripe\"", "\"unmistakable\""},
+                                  {"\"neighborliness\"", "\"perplexed\"", "\"congruent\""}
                                  },
                                  GridBoxAlignment -> {
                                   "Columns" -> {Left, Center, Right},
@@ -2143,6 +2561,19 @@ Notebook[
                            }
                           ],
                           "Text"
+                         ]
+                        },
+                        {
+                         Cell[
+                          BoxData[
+                           FormBox[
+                            TemplateBox[
+                             {RowBox[{"f", "(", "x", ")"}], "x", "a"},
+                             "Limit2Arg"
+                            ],
+                            TraditionalForm
+                           ]
+                          ]
                          ]
                         },
                         {Cell["Other Stuff", "Section"]},
@@ -2246,11 +2677,11 @@ Notebook[
                            TagBox[
                             GridBox[
                              {
-                              {"\"authenticity\"", "\"randomly\"", "\"whoop\""},
-                              {"\"share\"", "\"removable\"", "\"tropopause\""},
-                              {"\"wax\"", "\"metatarsus\"", "\"belatedly\""},
-                              {"\"systole\"", "\"stealthy\"", "\"portability\""},
-                              {"\"unloading\"", "\"unimpeachable\"", "\"unaddressed\""}
+                              {"\"lilac\"", "\"geophysical\"", "\"archduchess\""},
+                              {"\"hunch\"", "\"coup\"", "\"concluding\""},
+                              {"\"housemate\"", "\"sh\"", "\"concernedly\""},
+                              {"\"digs\"", "\"stripe\"", "\"unmistakable\""},
+                              {"\"neighborliness\"", "\"perplexed\"", "\"congruent\""}
                              },
                              AutoDelete -> False,
                              GridBoxAlignment -> {
@@ -2300,6 +2731,9 @@ Notebook[
                     ],
                     "Text"
                    ],
+                   TraditionalForm[
+                    Limit[f[x], x -> a]
+                   ],
                    TextCell["Other Stuff", "Section"],
                    TextCell["Items", "Subsection"],
                    TextCell["First", "Item"],
@@ -2332,11 +2766,11 @@ Notebook[
                    ],
                    Grid[
                     {
-                     {"authenticity", "randomly", "whoop"},
-                     {"share", "removable", "tropopause"},
-                     {"wax", "metatarsus", "belatedly"},
-                     {"systole", "stealthy", "portability"},
-                     {"unloading", "unimpeachable", "unaddressed"}
+                     {"lilac", "geophysical", "archduchess"},
+                     {"hunch", "coup", "concluding"},
+                     {"housemate", "sh", "concernedly"},
+                     {"digs", "stripe", "unmistakable"},
+                     {"neighborliness", "perplexed", "congruent"}
                     },
                     Alignment -> {{Left, Center, Right}, Automatic}
                    ]
@@ -2363,7 +2797,7 @@ Notebook[
               ],
               Cell[
                BoxData[
-                "\"# Title\\n\\n## Stuff\\n\\nHere is some stuff:\\n\\n```wl\\nIn[1]:= 1 + 1\\n\\nOut[1]= 2\\n```\\n\\nA [link](https://www.wolfram.com) in text.\\n\\n## Other Stuff\\n\\n### Items\\n\\n* First\\n\\n* Second\\n\\n\\t* Third (subitem)\\n\\n### Formatting\\n\\n**This text** is bold.\\n\\n*This text* is italic.\\n\\n***This text*** is both.\\n\\n#### Tables\\n\\n| First | Second | Third |\\n| :---- | :----- | :---- |\\n| a     | b      | c     |\\n| d     | e      | f     |\\n\\n|              |               |             |\\n| :----------- | :-----------: | ----------: |\\n| authenticity | randomly      | whoop       |\\n| share        | removable     | tropopause  |\\n| wax          | metatarsus    | belatedly   |\\n| systole      | stealthy      | portability |\\n| unloading    | unimpeachable | unaddressed |\""
+                "\"# Title\\n\\n## Stuff\\n\\nHere is some stuff:\\n\\n```wl\\nIn[1]:= 1 + 1\\n\\nOut[1]= 2\\n```\\n\\nA [link](https://www.wolfram.com) in text.\\n\\n$$\\\\underset{x\\\\to a}{\\\\lim }f(x)$$\\n\\n## Other Stuff\\n\\n### Items\\n\\n* First\\n\\n* Second\\n\\n\\t* Third (subitem)\\n\\n### Formatting\\n\\n**This text** is bold.\\n\\n*This text* is italic.\\n\\n***This text*** is both.\\n\\n#### Tables\\n\\n| First | Second | Third |\\n| :---- | :----- | :---- |\\n| a     | b      | c     |\\n| d     | e      | f     |\\n\\n|                |             |              |\\n| :------------- | :---------: | -----------: |\\n| lilac          | geophysical | archduchess  |\\n| hunch          | coup        | concluding   |\\n| housemate      | sh          | concernedly  |\\n| digs           | stripe      | unmistakable |\\n| neighborliness | perplexed   | congruent    |\""
                ],
                "Output",
                CellLabel -> "Out[2]="
@@ -3174,8 +3608,563 @@ Notebook[
     Open
    ]
   ],
-  Cell["Properties and Relations", "Subsection"],
-  Cell["Possible Issues", "Subsection"],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Properties and Relations",
+      "Subsection",
+      CellLabel -> "In[3]:="
+     ],
+     Cell[
+      TextData[
+       {
+        "For many simple markdown strings, ",
+        Cell[
+         BoxData["ExportMarkdownString"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " and ",
+        ButtonBox[
+         "ImportMarkdownString",
+         BaseStyle -> "Hyperlink",
+         ButtonData -> {
+          URL[
+           "https://resources.wolframcloud.com/FunctionRepository/resources/ImportMarkdownString/"
+          ],
+          None
+         },
+         ButtonNote -> "https://resources.wolframcloud.com/FunctionRepository/resources/ImportMarkdownString/"
+        ],
+        " are effectively inverses of one another:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "ExportMarkdownString",
+            "[",
+            RowBox[
+             {
+              InterpretationBox[
+               TagBox[
+                FrameBox[
+                 PaneBox[
+                  GridBox[
+                   {
+                    {
+                     StyleBox[
+                      StyleBox[
+                       AdjustmentBox[
+                        "\"[\[FilledSmallSquare]]\"",
+                        BoxBaselineShift -> -0.25,
+                        BoxMargins -> {{0, 0}, {-1, -1}}
+                       ],
+                       "ResourceFunctionIcon",
+                       FontColor ->
+                        RGBColor[
+                         0.8745098039215686,
+                         0.2784313725490196,
+                         0.03137254901960784
+                        ]
+                      ],
+                      ShowStringCharacters -> False,
+                      FontFamily -> "Source Sans Pro Black",
+                      FontSize -> 0.65 * Inherited,
+                      FontWeight -> "Heavy",
+                      PrivateFontOptions -> {"OperatorSubstitution" -> False}
+                     ],
+                     StyleBox[
+                      RowBox[
+                       {
+                        StyleBox[
+                         "\"ImportMarkdownString\"",
+                         "ResourceFunctionLabel"
+                        ],
+                        " "
+                       }
+                      ],
+                      ShowAutoStyles -> False,
+                      ShowStringCharacters -> False,
+                      FontSize -> 0.9 * Inherited,
+                      FontColor -> GrayLevel[0.1]
+                     ]
+                    }
+                   },
+                   GridBoxSpacings -> {"Columns" -> {{0.25}}}
+                  ],
+                  Alignment -> Left,
+                  BaseStyle -> {LineSpacing -> {0, 0}, LineBreakWithin -> False},
+                  BaselinePosition -> Baseline,
+                  FrameMargins -> {{3, 0}, {0, 0}}
+                 ],
+                 Background -> RGBColor[0.968627, 0.976471, 0.984314],
+                 BaselinePosition -> Baseline,
+                 DefaultBaseStyle -> { },
+                 FrameMargins -> {{0, 0}, {1, 1}},
+                 FrameStyle -> RGBColor[0.831373, 0.847059, 0.85098],
+                 RoundingRadius -> 4
+                ],
+                {
+                 "FunctionResourceBox",
+                 RGBColor[
+                  0.8745098039215686,
+                  0.2784313725490196,
+                  0.03137254901960784
+                 ],
+                 "\"ImportMarkdownString\""
+                },
+                TagBoxNote -> "FunctionResourceBox"
+               ],
+               ResourceFunction["ImportMarkdownString"],
+               SelectWithContents -> True,
+               Selectable -> False
+              ],
+              "[",
+              "\"**bold** and *italic* text\"",
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData["\"**bold** and *italic* text\""],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Possible Issues",
+      "Subsection",
+      CellLabel -> "In[3]:="
+     ],
+     Cell[
+      TextData[
+       {
+        Cell[
+         BoxData["ExportMarkdownString"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " uses a set of heuristics to determine when to show string characters:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "ExportMarkdownString",
+            "[",
+            RowBox[{"f", "[", "\"abc\"", "]"}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData["\"f[abc]\""],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "ExportMarkdownString",
+            "[",
+            RowBox[
+             {
+              "ExpressionCell",
+              "[",
+              RowBox[
+               {RowBox[{"f", "[", "\"abc\"", "]"}], ",", "\"Input\""}
+              ],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[2]:="
+        ],
+        Cell[
+         BoxData["\"```wl\\nf[\\\"abc\\\"]\\n```\""],
+         "Output",
+         CellLabel -> "Out[2]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      TextData[
+       {
+        "Explicitly control this behavior using the ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "ShowStringCharacters",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/ShowStringCharacters",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " option with ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Style",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Style",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " in the appropriate place:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "ExportMarkdownString",
+            "[",
+            RowBox[
+             {
+              "Style",
+              "[",
+              RowBox[
+               {
+                RowBox[{"f", "[", "\"abc\"", "]"}],
+                ",",
+                RowBox[{"ShowStringCharacters", "->", "True"}]
+               }
+              ],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[3]:="
+        ],
+        Cell[
+         BoxData["\"f[\\\"abc\\\"]\""],
+         "Output",
+         CellLabel -> "Out[3]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "ExportMarkdownString",
+            "[",
+            RowBox[
+             {
+              "ExpressionCell",
+              "[",
+              RowBox[
+               {
+                RowBox[
+                 {
+                  "Style",
+                  "[",
+                  RowBox[
+                   {
+                    RowBox[{"f", "[", "\"abc\"", "]"}],
+                    ",",
+                    RowBox[{"ShowStringCharacters", "->", "False"}]
+                   }
+                  ],
+                  "]"
+                 }
+                ],
+                ",",
+                "\"Input\""
+               }
+              ],
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[4]:="
+        ],
+        Cell[
+         BoxData["\"```wl\\nf[abc]\\n```\""],
+         "Output",
+         CellLabel -> "Out[4]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           "Use ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "Defer",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/Defer",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " instead of ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "Unevaluated",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/Unevaluated",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " to prevent evaluation of arguments:"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ExportMarkdownString",
+               "[",
+               RowBox[
+                {
+                 "Unevaluated",
+                 "[",
+                 RowBox[
+                  {
+                   "Table",
+                   "[",
+                   RowBox[
+                    {
+                     RowBox[{"i", "^", "2"}],
+                     ",",
+                     RowBox[{"{", RowBox[{"i", ",", "10"}], "}"}]
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData["\"{1, 4, 9, 16, 25, 36, 49, 64, 81, 100}\""],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ExportMarkdownString",
+               "[",
+               RowBox[
+                {
+                 "Defer",
+                 "[",
+                 RowBox[
+                  {
+                   "Table",
+                   "[",
+                   RowBox[
+                    {
+                     RowBox[{"i", "^", "2"}],
+                     ",",
+                     RowBox[{"{", RowBox[{"i", ",", "10"}], "}"}]
+                    }
+                   ],
+                   "]"
+                  }
+                 ],
+                 "]"
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[2]:="
+           ],
+           Cell[
+            BoxData["\"Table[i^2, {i, 10}]\""],
+            "Output",
+            CellLabel -> "Out[2]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
   Cell["Neat Examples", "Subsection"]
  },
  WindowToolbars -> "MultipurposeBar",
@@ -3188,7 +4177,7 @@ Notebook[
   ]
  },
  TaggingRules -> <|"AutoUpdate" -> True, "TryRealOnly" -> False|>,
- FrontEndVersion -> "14.1 for Microsoft Windows (64-bit) (July 21, 2024)",
+ FrontEndVersion -> "14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
  StyleDefinitions ->
   FrontEnd`FileName[
    {"Wolfram"},

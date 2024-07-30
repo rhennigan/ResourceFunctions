@@ -1,0 +1,2250 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* Created By: SaveReadableNotebook *)
+(* https://resources.wolframcloud.com/FunctionRepository/resources/SaveReadableNotebook *)
+
+Notebook[
+ {
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      BoxData[
+       {
+        RowBox[
+         {
+          RowBox[
+           {
+            "Get",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "FileNameJoin",
+              " ",
+              "@",
+              " ",
+              RowBox[
+               {
+                "{",
+                " ",
+                RowBox[
+                 {
+                  RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                  ",",
+                  " ",
+                  "\"Definition.wl\""
+                 }
+                ],
+                " ",
+                "}"
+               }
+              ]
+             }
+            ]
+           }
+          ],
+          ";"
+         }
+        ],
+        "\n",
+        RowBox[
+         {
+          "TestReport",
+          " ",
+          "@",
+          " ",
+          RowBox[
+           {
+            "FileNameJoin",
+            " ",
+            "@",
+            " ",
+            RowBox[
+             {
+              "{",
+              " ",
+              RowBox[
+               {
+                RowBox[{"NotebookDirectory", "[", " ", "]"}],
+                ",",
+                " ",
+                "\"Tests.wlt\""
+               }
+              ],
+              " ",
+              "}"
+             }
+            ]
+           }
+          ]
+         }
+        ]
+       }
+      ],
+      "Code",
+      "Excluded",
+      CellLabel -> "In[8]:="
+     ],
+     Cell[
+      BoxData[
+       InterpretationBox[
+        RowBox[
+         {
+          TagBox["TestReportObject", "SummaryHead"],
+          "[",
+          DynamicModuleBox[
+           {Typeset`open$$ = False, Typeset`embedState$$ = "Ready"},
+           TemplateBox[
+            {
+             PaneSelectorBox[
+              {
+               False ->
+                GridBox[
+                 {
+                  {
+                   PaneBox[
+                    ButtonBox[
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxOpener"]
+                     ],
+                     ButtonFunction :> (Typeset`open$$ = True),
+                     Appearance -> None,
+                     BaseStyle -> { },
+                     Evaluator -> Automatic,
+                     Method -> "Preemptive"
+                    ],
+                    Alignment -> {Center, Center},
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ]
+                   ],
+                   GraphicsBox[
+                    {
+                     InsetBox[
+                      BoxData[
+                       FormBox[
+                        PaneBox[
+                         DynamicBox[
+                          FEPrivate`FrontEndResource[
+                           "MUnitExpressions",
+                           "SuccessIcon"
+                          ]
+                         ],
+                         Alignment -> Center,
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        TraditionalForm
+                       ]
+                      ]
+                     ]
+                    },
+                    PlotRange -> {{0, 1}, {0, 1}},
+                    Background -> GrayLevel[0.93],
+                    Axes -> False,
+                    AspectRatio -> 1,
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ],
+                    Frame -> True,
+                    FrameTicks -> None,
+                    FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TagBox[
+                          InterpretationBox[
+                           StyleBox["\"100%\"", ShowStringCharacters -> False],
+                           1.,
+                           AutoDelete -> True
+                          ],
+                          PercentForm
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      RowBox[
+                       {
+                        TagBox["\"Tests count: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["5", "SummaryItem"]
+                       }
+                      ]
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                    BaseStyle -> {
+                     ShowStringCharacters -> False,
+                     NumberMarks -> False,
+                     PrintPrecision -> 3,
+                     ShowSyntaxStyles -> False
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                 AutoDelete -> False,
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                 BaselinePosition -> {1, 1}
+                ],
+               True ->
+                GridBox[
+                 {
+                  {
+                   PaneBox[
+                    ButtonBox[
+                     DynamicBox[
+                      FEPrivate`FrontEndResource["FEBitmaps", "SummaryBoxCloser"]
+                     ],
+                     ButtonFunction :> (Typeset`open$$ = False),
+                     Appearance -> None,
+                     BaseStyle -> { },
+                     Evaluator -> Automatic,
+                     Method -> "Preemptive"
+                    ],
+                    Alignment -> {Center, Center},
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ]
+                   ],
+                   GraphicsBox[
+                    {
+                     InsetBox[
+                      BoxData[
+                       FormBox[
+                        PaneBox[
+                         DynamicBox[
+                          FEPrivate`FrontEndResource[
+                           "MUnitExpressions",
+                           "SuccessIcon"
+                          ]
+                         ],
+                         Alignment -> Center,
+                         ImageSize ->
+                          Dynamic[
+                           {
+                            Automatic,
+                            Times[
+                             3.5,
+                             Times[
+                              CurrentValue["FontCapHeight"],
+                              AbsoluteCurrentValue[Magnification]^(-1)
+                             ]
+                            ]
+                           }
+                          ]
+                        ],
+                        TraditionalForm
+                       ]
+                      ]
+                     ]
+                    },
+                    PlotRange -> {{0, 1}, {0, 1}},
+                    Background -> GrayLevel[0.93],
+                    Axes -> False,
+                    AspectRatio -> 1,
+                    ImageSize ->
+                     Dynamic[
+                      {
+                       Automatic,
+                       Times[
+                        3.5,
+                        Times[
+                         CurrentValue["FontCapHeight"],
+                         AbsoluteCurrentValue[Magnification]^(-1)
+                        ]
+                       ]
+                      }
+                     ],
+                    Frame -> True,
+                    FrameTicks -> None,
+                    FrameStyle -> Directive[Thickness[Tiny], GrayLevel[0.55]]
+                   ],
+                   GridBox[
+                    {
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Title: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["\"Test Report: Tests.wlt\"", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success rate: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TagBox[
+                          InterpretationBox[
+                           StyleBox["\"100%\"", ShowStringCharacters -> False],
+                           1.,
+                           AutoDelete -> True
+                          ],
+                          PercentForm
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      RowBox[
+                       {
+                        TagBox["\"Tests count: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["5", "SummaryItem"]
+                       }
+                      ]
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Success count: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox["5", "SummaryItem"]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     },
+                     {
+                      RowBox[
+                       {
+                        TagBox["\"Time elapsed: \"", "SummaryItemAnnotation"],
+                        "\[InvisibleSpace]",
+                        TagBox[
+                         TemplateBox[
+                          {
+                           "0.0425160999999999999`5.080098413360378",
+                           "\"s\"",
+                           "seconds",
+                           "\"Seconds\""
+                          },
+                          "Quantity",
+                          SyntaxForm -> Mod
+                         ],
+                         "SummaryItem"
+                        ]
+                       }
+                      ],
+                      "\[SpanFromLeft]"
+                     }
+                    },
+                    GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Automatic}}},
+                    AutoDelete -> False,
+                    GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                    GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+                    BaseStyle -> {
+                     ShowStringCharacters -> False,
+                     NumberMarks -> False,
+                     PrintPrecision -> 3,
+                     ShowSyntaxStyles -> False
+                    }
+                   ]
+                  }
+                 },
+                 GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}},
+                 AutoDelete -> False,
+                 GridBoxItemSize -> {"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}},
+                 BaselinePosition -> {1, 1}
+                ]
+              },
+              Dynamic[Typeset`open$$],
+              ImageSize -> Automatic
+             ]
+            },
+            "SummaryPanel"
+           ],
+           DynamicModuleValues :> { }
+          ],
+          "]"
+         }
+        ],
+        TestReportObject[
+         <|
+          "Title" -> "Test Report: Tests.wlt",
+          "Aborted" -> False,
+          "TestResults" -> <|
+           1235106876468855031 ->
+            TestObject[
+             <|
+              "MetaInformation" -> None,
+              "AbsoluteTime" -> 3.9313393636593606*^9,
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "CreationID" -> "5c4493bf-3c7a-4fbc-bfc8-8e20e87c2907",
+              "TestID" -> "Initialization",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ImportMarkdownString\\Tests.wlt",
+              "EvaluationID" -> "13c2b01c-e383-45b2-bad9-d46f0364f3cf",
+              "Input" ->
+               HoldForm[
+                SetOptions[
+                 ResourceFunction["MessageFailure"],
+                 "TestMode" -> True
+                ]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualOutput" ->
+               HoldForm[
+                {
+                 "MessageFunction" -> Automatic,
+                 "Verbose" -> False,
+                 "Stack" -> False,
+                 "TestMode" -> True
+                }
+               ],
+              "ActualMessages" -> { },
+              "AbsoluteTimeUsed" -> 0.0009992,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 4336,
+              "IntermediateTestsTree" -> { },
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["TestMode" -> True]],
+              "Outcome" -> "Success",
+              "FailureType" -> None
+             |>
+            ],
+           704168978695150128 ->
+            TestObject[
+             <|
+              "MetaInformation" -> None,
+              "AbsoluteTime" -> 3.9313393636613605*^9,
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "CreationID" -> "bc0de87b-3f00-4f41-b317-95c2d40098f5",
+              "TestID" -> "BasicExamples-1",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ImportMarkdownString\\Tests.wlt",
+              "EvaluationID" -> "13a29d24-2961-4227-ba42-82152e477f24",
+              "Input" ->
+               HoldForm[
+                ImportMarkdownString["**bold** and *italic* text"]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualOutput" ->
+               HoldForm[
+                RawBoxes[
+                 Cell[
+                  TextData[
+                   {
+                    StyleBox["bold", FontWeight -> Bold],
+                    " and ",
+                    StyleBox["italic", FontSlant -> Italic],
+                    " text"
+                   }
+                  ],
+                  "Text",
+                  Background -> None
+                 ]
+                ]
+               ],
+              "ActualMessages" -> { },
+              "AbsoluteTimeUsed" -> 0.0110043,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 5032,
+              "IntermediateTestsTree" -> { },
+              "ExpectedOutput" ->
+               HoldForm[
+                RawBoxes[
+                 Cell[
+                  TextData[
+                   {
+                    StyleBox[
+                     "bold",
+                     BlankNullSequence[],
+                     FontWeight -> Bold,
+                     BlankNullSequence[]
+                    ],
+                    " and ",
+                    StyleBox[
+                     "italic",
+                     BlankNullSequence[],
+                     FontSlant -> Italic,
+                     BlankNullSequence[]
+                    ],
+                    " text"
+                   }
+                  ],
+                  "Text",
+                  BlankNullSequence[]
+                 ]
+                ]
+               ],
+              "Outcome" -> "Success",
+              "FailureType" -> None
+             |>
+            ],
+           4601533924305412559 ->
+            TestObject[
+             <|
+              "MetaInformation" -> None,
+              "AbsoluteTime" -> 3.9313393636723648*^9,
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "CreationID" -> "09d7ed06-ef7c-495a-a4c2-8b6fd3eb3916",
+              "TestID" -> "BasicExamples-2",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ImportMarkdownString\\Tests.wlt",
+              "EvaluationID" -> "b8ceb3ee-aff9-4d48-8338-9312046b50f0",
+              "Input" ->
+               HoldForm[
+                ImportMarkdownString[
+                 "Math formatting: $$\\int_0^1 \\sin (\\sin (x)) \\, dx$$"
+                ]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualOutput" ->
+               HoldForm[
+                RawBoxes[
+                 Cell[
+                  TextData[
+                   {
+                    "Math formatting: ",
+                    Cell[
+                     BoxData[
+                      FormBox[
+                       TemplateBox[
+                        <|
+                         "boxes" ->
+                          FormBox[
+                           RowBox[
+                            {
+                             SubsuperscriptBox["\[Integral]", "0", "1"],
+                             "sin",
+                             RowBox[
+                              {"(", RowBox[{"sin", "(", StyleBox["x", "TI"], ")"}], ")"}
+                             ],
+                             "\[DifferentialD]",
+                             StyleBox["x", "TI"]
+                            }
+                           ],
+                           TraditionalForm
+                          ],
+                         "errors" -> { },
+                         "input" -> "\\int_0^1 \\sin (\\sin (x)) \\, dx",
+                         "state" -> "Boxes"
+                        |>,
+                        "TeXAssistantTemplate"
+                       ],
+                       TraditionalForm
+                      ]
+                     ]
+                    ]
+                   }
+                  ],
+                  "Text",
+                  Background -> None
+                 ]
+                ]
+               ],
+              "ActualMessages" -> { },
+              "AbsoluteTimeUsed" -> 0.0235126,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 9856,
+              "IntermediateTestsTree" -> { },
+              "ExpectedOutput" ->
+               HoldForm[
+                RawBoxes[
+                 Cell[
+                  TextData[
+                   {
+                    "Math formatting: ",
+                    Cell[
+                     BoxData[
+                      FormBox[
+                       TemplateBox[
+                        Blank[],
+                        "TeXAssistantTemplate",
+                        BlankNullSequence[]
+                       ],
+                       TraditionalForm
+                      ]
+                     ]
+                    ]
+                   }
+                  ],
+                  "Text",
+                  BlankNullSequence[]
+                 ]
+                ]
+               ],
+              "Outcome" -> "Success",
+              "FailureType" -> None
+             |>
+            ],
+           1482750589469416211 ->
+            TestObject[
+             <|
+              "MetaInformation" -> None,
+              "AbsoluteTime" -> 3.9313393636968769*^9,
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "CreationID" -> "228301a6-e84b-4889-86fa-eb572a565596",
+              "TestID" -> "BasicExamples-3",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ImportMarkdownString\\Tests.wlt",
+              "EvaluationID" -> "46ba0061-74d3-41ab-b445-bf5b9e1d6459",
+              "Input" ->
+               HoldForm[
+                ImportMarkdownString[
+                 "Visit [this website](https://www.wolfram.com) for more information."
+                ]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualOutput" ->
+               HoldForm[
+                RawBoxes[
+                 Cell[
+                  TextData[
+                   {
+                    "Visit ",
+                    ButtonBox[
+                     "this website",
+                     BaseStyle -> "Hyperlink",
+                     ButtonData -> {URL["https://www.wolfram.com"], None},
+                     ButtonNote -> "https://www.wolfram.com"
+                    ],
+                    " for more information."
+                   }
+                  ],
+                  "Text",
+                  Background -> None
+                 ]
+                ]
+               ],
+              "ActualMessages" -> { },
+              "AbsoluteTimeUsed" -> 0.0059998,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 5088,
+              "IntermediateTestsTree" -> { },
+              "ExpectedOutput" ->
+               HoldForm[
+                RawBoxes[
+                 Cell[
+                  TextData[
+                   {
+                    "Visit ",
+                    ButtonBox[
+                     "this website",
+                     OrderlessPatternSequence[
+                      BlankNullSequence[],
+                      BaseStyle -> "Hyperlink",
+                      ButtonData -> {URL["https://www.wolfram.com"], None}
+                     ]
+                    ],
+                    " for more information."
+                   }
+                  ],
+                  "Text",
+                  BlankNullSequence[]
+                 ]
+                ]
+               ],
+              "Outcome" -> "Success",
+              "FailureType" -> None
+             |>
+            ],
+           2433268177290464489 ->
+            TestObject[
+             <|
+              "MetaInformation" -> None,
+              "AbsoluteTime" -> 3.9313393637038773*^9,
+              "SameTest" -> MatchQ,
+              "SameMessages" -> Testing`MessageMatchQ,
+              "MemoryConstraint" -> Infinity,
+              "TimeConstraint" -> Infinity,
+              "CreationID" -> "fdf2f10c-da5b-460b-8919-4ad411f54845",
+              "TestID" -> "Cleanup",
+              "TestFileName" -> "H:\\Documents\\ResourceFunctions\\Definitions\\ImportMarkdownString\\Tests.wlt",
+              "EvaluationID" -> "3de9ba2e-1708-4562-8a0c-2a7be1910789",
+              "Input" ->
+               HoldForm[
+                SetOptions[
+                 ResourceFunction["MessageFailure"],
+                 "TestMode" -> False
+                ]
+               ],
+              "ExpectedMessages" -> HoldForm[{}],
+              "ActualOutput" ->
+               HoldForm[
+                {
+                 "MessageFunction" -> Automatic,
+                 "Verbose" -> False,
+                 "Stack" -> False,
+                 "TestMode" -> False
+                }
+               ],
+              "ActualMessages" -> { },
+              "AbsoluteTimeUsed" -> 0.0010002,
+              "CPUTimeUsed" -> 0.,
+              "MemoryUsed" -> 4192,
+              "IntermediateTestsTree" -> { },
+              "ExpectedOutput" ->
+               HoldForm[KeyValuePattern["TestMode" -> False]],
+              "Outcome" -> "Success",
+              "FailureType" -> None
+             |>
+            ]
+          |>,
+          "FailureResults" -> <| |>,
+          "TestsNotEvaluatedKeys" -> { },
+          "TestsFailedWrongResultsKeys" -> { },
+          "TestsFailedWithMessagesKeys" -> { },
+          "TestsSucceededKeys" -> {
+           1235106876468855031,
+           704168978695150128,
+           4601533924305412559,
+           1482750589469416211,
+           2433268177290464489
+          }
+         |>
+        ],
+        Editable -> False,
+        SelectWithContents -> True,
+        Selectable -> False
+       ]
+      ],
+      "Output",
+      "Excluded",
+      CellLabel -> "Out[9]="
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Basic Examples",
+      "Subsection",
+      CellLabel -> "In[40]:="
+     ],
+     Cell[
+      "Import a markdown string as a formatted expression:",
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "ImportMarkdownString",
+            "[",
+            "\"**bold** and *italic* text\"",
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData[
+          Cell[
+           TextData[
+            {
+             StyleBox["bold", FontWeight -> Bold],
+             " and ",
+             StyleBox["italic", FontSlant -> Italic],
+             " text"
+            }
+           ],
+           "Text",
+           Background -> None
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           "Inline ",
+           Cell[
+            BoxData[
+             FormBox[
+              StyleBox[
+               RowBox[
+                {
+                 "T",
+                 AdjustmentBox[
+                  "E",
+                  BoxBaselineShift -> 0.5,
+                  BoxMargins -> {{-0.3, 0}, {0, 0}}
+                 ],
+                 "X"
+                }
+               ],
+               SingleLetterItalics -> False
+              ],
+              TraditionalForm
+             ]
+            ]
+           ],
+           " formatting:"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ImportMarkdownString",
+               "[",
+               "\"Math formatting: $$\\\\int_0^1 \\\\sin (\\\\sin (x)) \\\\, dx$$\"",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             Cell[
+              TextData[
+               {
+                "Math formatting: ",
+                Cell[
+                 BoxData[
+                  FormBox[
+                   TemplateBox[
+                    <|
+                     "boxes" ->
+                      FormBox[
+                       RowBox[
+                        {
+                         SubsuperscriptBox["\[Integral]", "0", "1"],
+                         "sin",
+                         RowBox[
+                          {"(", RowBox[{"sin", "(", StyleBox["x", "TI"], ")"}], ")"}
+                         ],
+                         "\[DifferentialD]",
+                         StyleBox["x", "TI"]
+                        }
+                       ],
+                       TraditionalForm
+                      ],
+                     "errors" -> { },
+                     "input" -> "\\int_0^1 \\sin (\\sin (x)) \\, dx",
+                     "state" -> "Boxes"
+                    |>,
+                    "TeXAssistantTemplate"
+                   ],
+                   TraditionalForm
+                  ]
+                 ]
+                ]
+               }
+              ],
+              "Text",
+              Background -> None
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell["Hyperlinks:", "Text"],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ImportMarkdownString",
+               "[",
+               "\"Visit [this website](https://www.wolfram.com) for more information.\"",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             Cell[
+              TextData[
+               {
+                "Visit ",
+                ButtonBox[
+                 "this website",
+                 BaseStyle -> "Hyperlink",
+                 ButtonData -> {URL["https://www.wolfram.com"], None},
+                 ButtonNote -> "https://www.wolfram.com"
+                ],
+                " for more information."
+               }
+              ],
+              "Text",
+              Background -> None
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell["Automatic documentation links:", "Text"],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ImportMarkdownString",
+               "[",
+               "\"My favorite Wolfram Language symbols are `Plot` and `Table`.\"",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             Cell[
+              TextData[
+               {
+                "My favorite Wolfram Language symbols are ",
+                Cell[
+                 BoxData[
+                  TemplateBox[
+                   {
+                    "Plot",
+                    "paclet:ref/Plot",
+                    "https://reference.wolfram.com/language/ref/Plot.html"
+                   },
+                   "TextRefLink",
+                   DisplayFunction ->
+                    (Function[
+                     TagBox[
+                      ButtonBox[
+                       StyleBox[
+                        #1,
+                        ShowStringCharacters -> True,
+                        FontFamily -> "Source Sans Pro"
+                       ],
+                       BaseStyle -> "Link",
+                       ButtonData -> #2,
+                       ContentPadding -> False
+                      ],
+                      MouseAppearanceTag["LinkHand"]
+                     ]
+                    ])
+                  ]
+                 ]
+                ],
+                " and ",
+                Cell[
+                 BoxData[
+                  TemplateBox[
+                   {
+                    "Table",
+                    "paclet:ref/Table",
+                    "https://reference.wolfram.com/language/ref/Table.html"
+                   },
+                   "TextRefLink",
+                   DisplayFunction ->
+                    (Function[
+                     TagBox[
+                      ButtonBox[
+                       StyleBox[
+                        #1,
+                        ShowStringCharacters -> True,
+                        FontFamily -> "Source Sans Pro"
+                       ],
+                       BaseStyle -> "Link",
+                       ButtonData -> #2,
+                       ContentPadding -> False
+                      ],
+                      MouseAppearanceTag["LinkHand"]
+                     ]
+                    ])
+                  ]
+                 ]
+                ],
+                "."
+               }
+              ],
+              "Text",
+              Background -> None
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell["Inline code and code blocks:", "Text"],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ImportMarkdownString",
+               "[",
+               "\"Plot a function `f[x]` with:\n```wl\nPlot[f[x], {x, -5, 5}]\n```\"",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             Cell[
+              TextData[
+               {
+                "Plot a function ",
+                Cell[
+                 BoxData[
+                  TemplateBox[
+                   {RowBox[{"f", "[", "x", "]"}]},
+                   "ChatCodeInlineTemplate",
+                   DisplayFunction ->
+                    (Function[
+                     FrameBox[
+                      #1,
+                      Background -> GrayLevel[1],
+                      BaselinePosition -> Scaled[0.275],
+                      FrameMargins -> {{3, 3}, {2, 2}},
+                      FrameStyle ->
+                       Directive[AbsoluteThickness[1], GrayLevel[0.92941]],
+                      ImageMargins -> {{0, 0}, {0, 0}}
+                     ]
+                    ])
+                  ]
+                 ],
+                 "ChatCode",
+                 Background -> None
+                ],
+                " with: \n",
+                Cell[
+                 BoxData[
+                  TemplateBox[
+                   {
+                    Cell[
+                     BoxData[
+                      RowBox[
+                       {
+                        "Plot",
+                        "[",
+                        RowBox[
+                         {
+                          RowBox[{"f", "[", "x", "]"}],
+                          ",",
+                          RowBox[
+                           {
+                            "{",
+                            RowBox[{"x", ",", RowBox[{"-", "5"}], ",", "5"}],
+                            "}"
+                           }
+                          ]
+                         }
+                        ],
+                        "]"
+                       }
+                      ]
+                     ],
+                     "ChatCode",
+                     "Input",
+                     Background -> GrayLevel[1]
+                    ]
+                   },
+                   "ChatCodeBlockTemplate",
+                   DisplayFunction ->
+                    (Function[
+                     FrameBox[
+                      #1,
+                      Background -> GrayLevel[1],
+                      FrameMargins -> {{10, 10}, {6, 6}},
+                      FrameStyle ->
+                       Directive[AbsoluteThickness[1], GrayLevel[0.92941]],
+                      ImageMargins -> {{0, 0}, {8, 8}},
+                      ImageSize -> {Full, Automatic}
+                     ]
+                    ])
+                  ]
+                 ],
+                 "ChatCodeBlock",
+                 Background -> None
+                ]
+               }
+              ],
+              "Text",
+              Background -> None
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell["Images:", "Text"],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ImportMarkdownString",
+               "[",
+               "\"A markdown image: ![rose](http://exampledata.wolfram.com/rose.gif)\"",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             Cell[
+              TextData[
+               {
+                "A markdown image: ",
+                Cell[
+                 BoxData[
+                  PaneBox[
+                   TagBox[
+                    TooltipBox[
+                     TagBox[
+                      TooltipBox[
+                       GraphicsBox[
+                        RasterBox[
+                         CompressedData[
+                          "\n1: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\n/wcbkxau\n          "
+                         ],
+                         {{0, 0}, {223, 164}},
+                         {0, 255},
+                         ColorFunction -> RGBColor
+                        ],
+                        ImageSize -> Automatic,
+                        ImageSizeRaw -> {223., 164.},
+                        PlotRange -> {{0, 223}, {0, 164}}
+                       ],
+                       "\"rose\"",
+                       TooltipStyle -> "TextStyling"
+                      ],
+                      Annotation[#1, "rose", "Tooltip"] &
+                     ],
+                     "\"rose\""
+                    ],
+                    "MarkdownImage",
+                    TaggingRules -> <|
+                     "CellToStringData" -> "![rose](http://exampledata.wolfram.com/rose.gif)"
+                    |>,
+                    AutoDelete -> True
+                   ],
+                   ImageMargins -> {{0, 0}, {10, 10}}
+                  ]
+                 ]
+                ]
+               }
+              ],
+              "Text",
+              Background -> None
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell["Document structures:", "Text"],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ImportMarkdownString",
+               "[",
+               "\"# My Title\n\n## First section\n\n* Item 1\n* Item 2\n  * Subitem 1\n  * Subitem 2\n\n## Second section\n\nThis is *really* cool.\n\n---\n\nThat was a horizontal delimiter.\"",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             Cell[
+              TextData[
+               {
+                Cell[
+                 BoxData[
+                  PaneBox[
+                   StyleBox[
+                    "\"My Title\"",
+                    "Title",
+                    ShowStringCharacters -> False
+                   ],
+                   ImageMargins -> {{0, 0}, {5, 15}}
+                  ]
+                 ],
+                 "InlineSection",
+                 Background -> None
+                ],
+                "\n",
+                Cell[
+                 BoxData[
+                  PaneBox[
+                   StyleBox[
+                    "\"First section\"",
+                    "Section",
+                    ShowStringCharacters -> False
+                   ],
+                   ImageMargins -> {{0, 0}, {5, 15}}
+                  ]
+                 ],
+                 "InlineSection",
+                 Background -> None
+                ],
+                "\n",
+                StyleBox[
+                 "\[Bullet]",
+                 "InlineItem",
+                 FontColor -> GrayLevel[0.5]
+                ],
+                " Item 1 \n",
+                StyleBox[
+                 "\[Bullet]",
+                 "InlineItem",
+                 FontColor -> GrayLevel[0.5]
+                ],
+                " Item 2\n  ",
+                StyleBox[
+                 "\[Bullet]",
+                 "InlineItem",
+                 FontColor -> GrayLevel[0.5]
+                ],
+                " Subitem 1\n  ",
+                StyleBox[
+                 "\[Bullet]",
+                 "InlineItem",
+                 FontColor -> GrayLevel[0.5]
+                ],
+                " Subitem 2 \n",
+                Cell[
+                 BoxData[
+                  PaneBox[
+                   StyleBox[
+                    "\"Second section\"",
+                    "Section",
+                    ShowStringCharacters -> False
+                   ],
+                   ImageMargins -> {{0, 0}, {5, 15}}
+                  ]
+                 ],
+                 "InlineSection",
+                 Background -> None
+                ],
+                "\nThis is ",
+                StyleBox["really", FontSlant -> Italic],
+                " cool. \n",
+                Cell[
+                 BoxData[
+                  TagBox[
+                   GridBox[
+                    {
+                     {TemplateBox[{0}, "Spacer1"]},
+                     {TemplateBox[{0}, "Spacer1"]}
+                    },
+                    AutoDelete -> False,
+                    FrameStyle ->
+                     Directive[GrayLevel[0.8], AbsoluteThickness[1]],
+                    GridBoxDividers -> {
+                     "Columns" -> {False, {True}, False},
+                     "Rows" -> {False, {True}, False}
+                    },
+                    GridBoxItemSize -> {"Columns" -> {{Fit}}, "Rows" -> {{Automatic}}}
+                   ],
+                   "Grid"
+                  ]
+                 ],
+                 "MarkdownDelimiter",
+                 ShowStringCharacters -> False,
+                 Background -> None
+                ],
+                "\nThat was a horizontal delimiter."
+               }
+              ],
+              "Text",
+              Background -> None
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell[
+   CellGroupData[
+    {
+     Cell["Scope", "Subsection", CellLabel -> "In[2]:="],
+     Cell[
+      TextData[
+       {
+        "Get a ",
+        Cell[
+         BoxData[
+          TagBox[
+           ButtonBox[
+            StyleBox[
+             "Cell",
+             "SymbolsRefLink",
+             ShowStringCharacters -> True,
+             FontFamily -> "Source Sans Pro"
+            ],
+            BaseStyle ->
+             Dynamic[
+              FEPrivate`If[
+               CurrentValue["MouseOver"],
+               {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+               {"Link"}
+              ]
+             ],
+            ButtonData -> "paclet:ref/Cell",
+            ContentPadding -> False
+           ],
+           MouseAppearanceTag["LinkHand"]
+          ]
+         ],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " expression from a markdown string:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "ImportMarkdownString",
+            "[",
+            RowBox[{"\"**bold** and *italic* text\"", ",", "\"Cell\""}],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            "Cell",
+            "[",
+            RowBox[
+             {
+              RowBox[
+               {
+                "TextData",
+                "[",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      "StyleBox",
+                      "[",
+                      RowBox[
+                       {
+                        "\"bold\"",
+                        ",",
+                        RowBox[{"FontWeight", "\[Rule]", "Bold"}]
+                       }
+                      ],
+                      "]"
+                     }
+                    ],
+                    ",",
+                    "\" and \"",
+                    ",",
+                    RowBox[
+                     {
+                      "StyleBox",
+                      "[",
+                      RowBox[
+                       {
+                        "\"italic\"",
+                        ",",
+                        RowBox[{"FontSlant", "\[Rule]", "Italic"}]
+                       }
+                      ],
+                      "]"
+                     }
+                    ],
+                    ",",
+                    "\" text\""
+                   }
+                  ],
+                  "}"
+                 }
+                ],
+                "]"
+               }
+              ],
+              ",",
+              "\"Text\"",
+              ",",
+              RowBox[{"Background", "\[Rule]", "None"}]
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      BoxData[RowBox[{"CellPrint", "[", "%", "]"}]],
+      "Input",
+      CellLabel -> "In[2]:="
+     ],
+     Cell[
+      TextData[
+       {
+        StyleBox["bold", FontWeight -> Bold],
+        " and ",
+        StyleBox["italic", FontSlant -> Italic],
+        " text"
+       }
+      ],
+      "Text",
+      GeneratedCell -> True,
+      CellAutoOverwrite -> True,
+      Background -> None
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           "Get a ",
+           Cell[
+            BoxData[
+             TagBox[
+              ButtonBox[
+               StyleBox[
+                "Notebook",
+                "SymbolsRefLink",
+                ShowStringCharacters -> True,
+                FontFamily -> "Source Sans Pro"
+               ],
+               BaseStyle ->
+                Dynamic[
+                 FEPrivate`If[
+                  CurrentValue["MouseOver"],
+                  {"Link", FontColor -> RGBColor[0.8549, 0.39608, 0.1451]},
+                  {"Link"}
+                 ]
+                ],
+               ButtonData -> "paclet:ref/Notebook",
+               ContentPadding -> False
+              ],
+              MouseAppearanceTag["LinkHand"]
+             ]
+            ],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " expression with content divided into multiple cells:"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "Short",
+               "[",
+               RowBox[
+                {
+                 "notebook",
+                 "=",
+                 RowBox[
+                  {
+                   "ImportMarkdownString",
+                   "[",
+                   RowBox[
+                    {
+                     "\"# My Title\n\n## First section\n\nLook at this cat:\n\n```wl\nColorNegate[\[FreeformPrompt][\\\"picture of a cat\\\"]]\n```\n\n## Second section\n\n![rose](http://exampledata.wolfram.com/rose.gif)\"",
+                     ",",
+                     "\"Notebook\""
+                    }
+                   ],
+                   "]"
+                  }
+                 ]
+                }
+               ],
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[9]:="
+           ],
+           Cell[
+            BoxData[
+             TagBox[
+              RowBox[
+               {
+                "Notebook",
+                "[",
+                RowBox[
+                 {
+                  "{",
+                  RowBox[
+                   {
+                    RowBox[
+                     {
+                      "Cell",
+                      "[",
+                      RowBox[{"\"My Title\"", ",", "\"Title\""}],
+                      "]"
+                     }
+                    ],
+                    ",",
+                    RowBox[{"\[LeftSkeleton]", "4", "\[RightSkeleton]"}],
+                    ",",
+                    RowBox[
+                     {
+                      "Cell",
+                      "[",
+                      RowBox[
+                       {
+                        RowBox[
+                         {
+                          "TextData",
+                          "[",
+                          RowBox[
+                           {
+                            "{",
+                            RowBox[
+                             {
+                              "Cell",
+                              "[",
+                              RowBox[
+                               {
+                                "BoxData",
+                                "[",
+                                RowBox[
+                                 {
+                                  "PaneBox",
+                                  "[",
+                                  RowBox[
+                                   {
+                                    RowBox[
+                                     {
+                                      "TagBox",
+                                      "[",
+                                      RowBox[{"\[LeftSkeleton]", "1", "\[RightSkeleton]"}],
+                                      "]"
+                                     }
+                                    ],
+                                    ",",
+                                    RowBox[
+                                     {
+                                      "ImageMargins",
+                                      "\[Rule]",
+                                      RowBox[{"\[LeftSkeleton]", "1", "\[RightSkeleton]"}]
+                                     }
+                                    ]
+                                   }
+                                  ],
+                                  "]"
+                                 }
+                                ],
+                                "]"
+                               }
+                              ],
+                              "]"
+                             }
+                            ],
+                            "}"
+                           }
+                          ],
+                          "]"
+                         }
+                        ],
+                        ",",
+                        "\"Text\""
+                       }
+                      ],
+                      "]"
+                     }
+                    ]
+                   }
+                  ],
+                  "}"
+                 }
+                ],
+                "]"
+               }
+              ],
+              Short
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[9]//Short="
+           ]
+          },
+          Open
+         ]
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[RowBox[{"NotebookPut", "[", "%", "]"}]],
+            "Input",
+            CellLabel -> "In[10]:="
+           ],
+           Cell[
+            BoxData[
+             TemplateBox[
+              <|
+               "obj" ->
+                NotebookObject[
+                 "3aee0ae1-ee3f-9949-b281-da4b1cdc6e6a",
+                 "38538b4e-3725-194a-ba21-39314b79823f"
+                ],
+               "label" -> "\"Untitled-25\""
+              |>,
+              "NotebookObjectUUIDsUnsaved"
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[10]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell["Options", "Subsection"],
+  Cell["Applications", "Subsection"],
+  Cell[
+   CellGroupData[
+    {
+     Cell[
+      "Properties and Relations",
+      "Subsection",
+      CellLabel -> "In[7]:="
+     ],
+     Cell[
+      TextData[
+       {
+        "For many simple markdown strings, ",
+        ButtonBox[
+         "ExportMarkdownString",
+         BaseStyle -> "Hyperlink",
+         ButtonData -> {
+          URL[
+           "https://resources.wolframcloud.com/FunctionRepository/resources/ExportMarkdownString/"
+          ],
+          None
+         },
+         ButtonNote -> "https://resources.wolframcloud.com/FunctionRepository/resources/ExportMarkdownString/"
+        ],
+        " and ",
+        Cell[
+         BoxData["ImportMarkdownString"],
+         "InlineFormula",
+         FontFamily -> "Source Sans Pro"
+        ],
+        " are effectively inverses of one another:"
+       }
+      ],
+      "Text"
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          RowBox[
+           {
+            InterpretationBox[
+             TagBox[
+              FrameBox[
+               PaneBox[
+                GridBox[
+                 {
+                  {
+                   StyleBox[
+                    StyleBox[
+                     AdjustmentBox[
+                      "\"[\[FilledSmallSquare]]\"",
+                      BoxBaselineShift -> -0.25,
+                      BoxMargins -> {{0, 0}, {-1, -1}}
+                     ],
+                     "ResourceFunctionIcon",
+                     FontColor ->
+                      RGBColor[
+                       0.8745098039215686,
+                       0.2784313725490196,
+                       0.03137254901960784
+                      ]
+                    ],
+                    ShowStringCharacters -> False,
+                    FontFamily -> "Source Sans Pro Black",
+                    FontSize -> 0.65 * Inherited,
+                    FontWeight -> "Heavy",
+                    PrivateFontOptions -> {"OperatorSubstitution" -> False}
+                   ],
+                   StyleBox[
+                    RowBox[
+                     {
+                      StyleBox[
+                       "\"ExportMarkdownString\"",
+                       "ResourceFunctionLabel"
+                      ],
+                      " "
+                     }
+                    ],
+                    ShowAutoStyles -> False,
+                    ShowStringCharacters -> False,
+                    FontSize -> 0.9 * Inherited,
+                    FontColor -> GrayLevel[0.1]
+                   ]
+                  }
+                 },
+                 GridBoxSpacings -> {"Columns" -> {{0.25}}}
+                ],
+                Alignment -> Left,
+                BaseStyle -> {LineSpacing -> {0, 0}, LineBreakWithin -> False},
+                BaselinePosition -> Baseline,
+                FrameMargins -> {{3, 0}, {0, 0}}
+               ],
+               Background -> RGBColor[0.968627, 0.976471, 0.984314],
+               BaselinePosition -> Baseline,
+               DefaultBaseStyle -> { },
+               FrameMargins -> {{0, 0}, {1, 1}},
+               FrameStyle -> RGBColor[0.831373, 0.847059, 0.85098],
+               RoundingRadius -> 4
+              ],
+              {
+               "FunctionResourceBox",
+               RGBColor[
+                0.8745098039215686,
+                0.2784313725490196,
+                0.03137254901960784
+               ],
+               "\"ExportMarkdownString\""
+              },
+              TagBoxNote -> "FunctionResourceBox"
+             ],
+             ResourceFunction["ExportMarkdownString"],
+             SelectWithContents -> True,
+             Selectable -> False
+            ],
+            "[",
+            RowBox[
+             {
+              "ImportMarkdownString",
+              "[",
+              "\"**bold** and *italic* text\"",
+              "]"
+             }
+            ],
+            "]"
+           }
+          ]
+         ],
+         "Input",
+         CellLabel -> "In[1]:="
+        ],
+        Cell[
+         BoxData["\"**bold** and *italic* text\""],
+         "Output",
+         CellLabel -> "Out[1]="
+        ]
+       },
+       Open
+      ]
+     ],
+     Cell[
+      CellGroupData[
+       {
+        Cell[
+         BoxData[
+          InterpretationBox[
+           Cell["\t", "ExampleDelimiter"],
+           $Line = 0;
+          ]
+         ],
+         "ExampleDelimiter"
+        ],
+        Cell[
+         TextData[
+          {
+           Cell[
+            BoxData["ImportMarkdownString"],
+            "InlineFormula",
+            FontFamily -> "Source Sans Pro"
+           ],
+           " supports some additional special syntax for Wolfram Language code blocks:"
+          }
+         ],
+         "Text"
+        ],
+        Cell[
+         CellGroupData[
+          {
+           Cell[
+            BoxData[
+             RowBox[
+              {
+               "ImportMarkdownString",
+               "[",
+               "\"Natural language inputs:\n\n```wl\nGeoDistance[\[FreeformPrompt][\\\"Los Angeles, CA\\\"], \[FreeformPrompt][\\\"San Francisco, CA\\\"]]\n```\"",
+               "]"
+              }
+             ]
+            ],
+            "Input",
+            CellLabel -> "In[1]:="
+           ],
+           Cell[
+            BoxData[
+             Cell[
+              TextData[
+               {
+                "Natural language inputs: \n",
+                Cell[
+                 BoxData[
+                  TemplateBox[
+                   {
+                    Cell[
+                     BoxData[
+                      RowBox[
+                       {
+                        "GeoDistance",
+                        "[",
+                        RowBox[
+                         {
+                          TemplateBox[
+                           <|
+                            "query" -> "Los Angeles, CA",
+                            "boxes" ->
+                             TemplateBox[
+                              {
+                               "\"Los Angeles\"",
+                               RowBox[
+                                {
+                                 "Entity",
+                                 "[",
+                                 RowBox[
+                                  {
+                                   "\"City\"",
+                                   ",",
+                                   RowBox[
+                                    {
+                                     "{",
+                                     RowBox[
+                                      {
+                                       "\"LosAngeles\"",
+                                       ",",
+                                       "\"California\"",
+                                       ",",
+                                       "\"UnitedStates\""
+                                      }
+                                     ],
+                                     "}"
+                                    }
+                                   ]
+                                  }
+                                 ],
+                                 "]"
+                                }
+                               ],
+                               "\"Entity[\\\"City\\\", {\\\"LosAngeles\\\", \\\"California\\\", \\\"UnitedStates\\\"}]\"",
+                               "\"city\""
+                              },
+                              "Entity"
+                             ],
+                            "allassumptions" -> { },
+                            "assumptions" -> { },
+                            "open" -> {1},
+                            "querystate" -> {
+                             "Online" -> True,
+                             "Allowed" -> True,
+                             "mparse.jsp" -> 1.0377842,
+                             "Messages" -> { }
+                            },
+                            "contextinfo" -> Automatic,
+                            "version" -> 5
+                           |>,
+                           "LinguisticAssistantTemplate"
+                          ],
+                          ",",
+                          TemplateBox[
+                           <|
+                            "query" -> "San Francisco, CA",
+                            "boxes" ->
+                             TemplateBox[
+                              {
+                               "\"San Francisco\"",
+                               RowBox[
+                                {
+                                 "Entity",
+                                 "[",
+                                 RowBox[
+                                  {
+                                   "\"City\"",
+                                   ",",
+                                   RowBox[
+                                    {
+                                     "{",
+                                     RowBox[
+                                      {
+                                       "\"SanFrancisco\"",
+                                       ",",
+                                       "\"California\"",
+                                       ",",
+                                       "\"UnitedStates\""
+                                      }
+                                     ],
+                                     "}"
+                                    }
+                                   ]
+                                  }
+                                 ],
+                                 "]"
+                                }
+                               ],
+                               "\"Entity[\\\"City\\\", {\\\"SanFrancisco\\\", \\\"California\\\", \\\"UnitedStates\\\"}]\"",
+                               "\"city\""
+                              },
+                              "Entity"
+                             ],
+                            "allassumptions" -> { },
+                            "assumptions" -> { },
+                            "open" -> {1},
+                            "querystate" -> {
+                             "Online" -> True,
+                             "Allowed" -> True,
+                             "mparse.jsp" -> 0.6304088,
+                             "Messages" -> { }
+                            },
+                            "contextinfo" -> Automatic,
+                            "version" -> 5
+                           |>,
+                           "LinguisticAssistantTemplate"
+                          ]
+                         }
+                        ],
+                        "]"
+                       }
+                      ]
+                     ],
+                     "ChatCode",
+                     "Input",
+                     Background -> GrayLevel[1]
+                    ]
+                   },
+                   "ChatCodeBlockTemplate",
+                   DisplayFunction ->
+                    (Function[
+                     FrameBox[
+                      #1,
+                      Background -> GrayLevel[1],
+                      FrameMargins -> {{10, 10}, {6, 6}},
+                      FrameStyle ->
+                       Directive[AbsoluteThickness[1], GrayLevel[0.92941]],
+                      ImageMargins -> {{0, 0}, {8, 8}},
+                      ImageSize -> {Full, Automatic}
+                     ]
+                    ])
+                  ]
+                 ],
+                 "ChatCodeBlock",
+                 Background -> None
+                ]
+               }
+              ],
+              "Text",
+              Background -> None
+             ]
+            ],
+            "Output",
+            CellLabel -> "Out[1]="
+           ]
+          },
+          Open
+         ]
+        ]
+       },
+       Open
+      ]
+     ]
+    },
+    Open
+   ]
+  ],
+  Cell["Possible Issues", "Subsection"],
+  Cell["Neat Examples", "Subsection"]
+ },
+ DockedCells -> {
+  Cell[
+   BoxData[TemplateBox[{}, "ToolsGridTemplate"]],
+   "DockedCell",
+   CellFrameMargins -> {{0, 0}, {2, 2}},
+   CellFrame -> {{0, 0}, {1, 0}}
+  ]
+ },
+ TaggingRules -> <|"AutoUpdate" -> True, "TryRealOnly" -> False|>,
+ FrontEndVersion -> "14.1 for Microsoft Windows (64-bit) (July 16, 2024)",
+ StyleDefinitions ->
+  FrontEnd`FileName[
+   {"Wolfram"},
+   "FunctionResourceDefinitionStyles.nb",
+   CharacterEncoding -> "UTF-8"
+  ],
+ ExpressionUUID -> "3d6aefed-c651-b749-8f39-584756d9e5bd"
+]

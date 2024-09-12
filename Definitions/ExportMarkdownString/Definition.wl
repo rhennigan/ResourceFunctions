@@ -114,7 +114,6 @@ $$positiveInt = _Integer? Positive;
 (*Main definition*)
 ExportMarkdownString[ expr_, opts0: OptionsPattern[ ] ] := catchTop @ Enclose[
     Module[ { converted, boxes, opts, imageExportMethod, contentTypes, string },
-        Needs[ "Wolfram`Chatbook`" -> None ];
         converted = ConfirmMatch[ convertInput @ expr, $$supported, "ConvertInput" ];
         boxes = Replace[ converted, RawBoxes[ b_ ] :> b, If[ ListQ @ converted, { 1 }, { 0 } ] ];
         opts = FilterRules[ { opts0 }, Options @ cellToString ];
@@ -125,8 +124,6 @@ ExportMarkdownString[ expr_, opts0: OptionsPattern[ ] ] := catchTop @ Enclose[
     ],
     throwInternalFailure
 ];
-
-cellToString := Symbol[ "Wolfram`Chatbook`Serialization`CellToString" ];
 
 (* ::**************************************************************************************************************:: *)
 (* ::Section:: *)
@@ -146,6 +143,40 @@ e: ExportMarkdownString[ ___ ] :=
 (* ::**************************************************************************************************************:: *)
 (* ::Section:: *)
 (*Dependencies*)
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsection::Closed:: *)
+(*Chatbook Dependencies*)
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*cellToString*)
+cellToString := (
+    Needs[ "Wolfram`Chatbook`" -> None ];
+    cellToString = Symbol @ SelectFirst[
+        { "Wolfram`Chatbook`CellToString", "Wolfram`Chatbook`Serialization`CellToString" },
+        definedQ,
+        throwInternalFailure @ cellToString
+    ]
+);
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*getExpressionURI*)
+getExpressionURI := (
+    Needs[ "Wolfram`Chatbook`" -> None ];
+    If[ definedQ[ "Wolfram`Chatbook`GetExpressionURI" ],
+        getExpressionURI = Symbol[ "Wolfram`Chatbook`GetExpressionURI" ],
+        throwInternalFailure @ getExpressionURI
+    ]
+);
+
+(* ::**************************************************************************************************************:: *)
+(* ::Subsubsection::Closed:: *)
+(*definedQ*)
+definedQ // beginDefinition;
+definedQ[ name_String ] := ToExpression[ name, InputForm, System`Private`HasAnyEvaluationsQ ];
+definedQ // endDefinition;
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
@@ -262,12 +293,11 @@ exportImages[ markdown_String, None|Automatic ] := markdown;
 
 exportImages[ markdown_String, f_ ] := Enclose[
     Module[ { expanded, exported },
-        Needs[ "Wolfram`Chatbook`" -> None ];
 
         expanded = StringSplit[
             markdown,
             link: "\\!\\(\\*MarkdownImageBox[\"![" ~~ Except[ "]" ].. ~~ "](" ~~ uri: Except[ "\"" ].. ~~ ")\"]\\)" :>
-                markdownImage[ Symbol[ "Wolfram`Chatbook`GetExpressionURI" ][ uri ], link ]
+                markdownImage[ getExpressionURI @ uri, link ]
         ];
 
 

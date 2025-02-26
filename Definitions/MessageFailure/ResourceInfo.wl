@@ -50,7 +50,7 @@
             "http://reference.wolfram.com/language/guide/Messages.html"
         ],
         Hyperlink[
-            "Robustness & Error Handling",
+            "Guide: Robustness & Error Handling",
             "http://reference.wolfram.com/language/guide/RobustnessAndErrorHandling.html"
         ]
     }

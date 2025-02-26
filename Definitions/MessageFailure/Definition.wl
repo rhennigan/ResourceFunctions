@@ -1166,6 +1166,7 @@ chooseMessageFunction[ template_String, Automatic, _ ] :=
     ];
 
 
+chooseMessageFunction[ template_, rf: HoldPattern[ _ResourceFunction ], testing_ ] :=
     With[ { sym = ResourceFunction[ rf, "Function" ] },
         If[ symbolQ @ sym,
             chooseMessageFunction[ template, sym, testing ]

@@ -1249,12 +1249,9 @@ tagQ[ ___        ] := False;
 (*rfSymbolQ*)
 rfSymbolQ // ClearAll;
 rfSymbolQ // Attributes = { HoldAllComplete };
-
+rfSymbolQ[ MessageFailure|MessageFailureInternal ] := ! TrueQ @ $testMode;
 rfSymbolQ[ sym_Symbol? symbolQ ] /; $testMode := False;
-
-rfSymbolQ[ sym_Symbol? symbolQ ] :=
-    TrueQ @ StringStartsQ[ Context @ sym, "FunctionRepository`" ];
-
+rfSymbolQ[ sym_Symbol? symbolQ ] := TrueQ @ StringStartsQ[ Context @ sym, "FunctionRepository`" ];
 rfSymbolQ[ ___ ] := False;
 
 

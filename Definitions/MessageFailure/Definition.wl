@@ -81,9 +81,12 @@ catch[ eval_ ] :=
         Catch[ eval, $top ]
     ];
 
+(* :!CodeAnalysis::BeginBlock:: *)
+(* :!CodeAnalysis::Disable::SuspiciousSessionSymbol:: *)
 debugPrint // ClearAll;
 debugPrint // Attributes = { HoldAllComplete };
 debugPrint[ args___ ] /; $debug := Print @ args;
+(* :!CodeAnalysis::EndBlock:: *)
 
 stacked // ClearAll;
 stacked[ a_, ___ ] := a;
@@ -98,12 +101,16 @@ $verbose = False;
 (* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Argument patterns*)
+
+(* :!CodeAnalysis::BeginBlock:: *)
+(* :!CodeAnalysis::Disable::PatternTest:: *)
 $failureOpts = OptionsPattern @ Failure;
 $mfOpts      = OptionsPattern @ MessageFailure;
 $opts        = OptionsPattern[ { MessageFailure, Failure } ]? optionsQ;
 $symbol      = _Symbol? symbolQ;
 $string      = _String? stringQ;
 $params      = { ___ } | _Association? AssociationQ;
+(* :!CodeAnalysis::EndBlock:: *)
 
 (* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)

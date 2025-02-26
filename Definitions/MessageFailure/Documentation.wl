@@ -6,7 +6,7 @@
     },
     {
         "MessageFailure[\"tag\", \"message\"]",
-        "uses \"tag\" as the <+Failure+> tag."
+        "uses <+\"tag\"+> as the <+Failure+> tag."
     },
     {
         "MessageFailure[\"tag\", <|$$|>]",
@@ -23,7 +23,7 @@
 },
 "Notes" -> {
     "<+MessageFailure[]+> gives a predefined generic error message.",
-    "<+MessageFailure[tag,Automatic]+> gives a generic message based on the given <+tag+>.",
+    "<+MessageFailure[\"tag\",Automatic]+> gives a generic message based on the given <+\"tag\"+>.",
     "The association <+assoc+> in <+MessageFailure[\"tag\",assoc]+> typically includes:",
     {
         { "\"MessageTemplate\""  , "a string template for a message"            },

@@ -1,13 +1,15 @@
-(* ::Package:: *)
+(* !Excluded
+This notebook was automatically generated from [Definitions/MessageFailure](https://github.com/rhennigan/ResourceFunctions/blob/main/Definitions/MessageFailure).
+*)
+
 MessageFailure // ClearAll;
 
-
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Messages*)
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Messages for normal evaluation*)
 MessageFailure::empty =
@@ -26,7 +28,7 @@ MessageFailure::message =
 "`1`";
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Messages for errors*)
 MessageFailureInternal // ClearAll;
@@ -45,13 +47,13 @@ MessageFailureInternal::unknown =
 "Internal Error: An unexpected error occurred. `1`";
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Attributes*)
 MessageFailure // Attributes = { HoldFirst };
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Options*)
 MessageFailure // Options = {
@@ -62,7 +64,7 @@ MessageFailure // Options = {
 };
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Definition utilities*)
 endDefinition // ClearAll;
@@ -79,35 +81,38 @@ catch[ eval_ ] :=
         Catch[ eval, $top ]
     ];
 
-
+(* :!CodeAnalysis::BeginBlock:: *)
+(* :!CodeAnalysis::Disable::SuspiciousSessionSymbol:: *)
 debugPrint // ClearAll;
 debugPrint // Attributes = { HoldAllComplete };
 debugPrint[ args___ ] /; $debug := Print @ args;
-
+(* :!CodeAnalysis::EndBlock:: *)
 
 stacked // ClearAll;
 stacked[ a_, ___ ] := a;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Flags set by option values*)
 $stack   = Automatic;
 $verbose = False;
 
-
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Argument patterns*)
+
+(* :!CodeAnalysis::BeginBlock:: *)
+(* :!CodeAnalysis::Disable::PatternTest:: *)
 $failureOpts = OptionsPattern @ Failure;
 $mfOpts      = OptionsPattern @ MessageFailure;
 $opts        = OptionsPattern[ { MessageFailure, Failure } ]? optionsQ;
 $symbol      = _Symbol? symbolQ;
 $string      = _String? stringQ;
 $params      = { ___ } | _Association? AssociationQ;
+(* :!CodeAnalysis::EndBlock:: *)
 
-
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Options handling*)
 $optKey // ClearAll;
@@ -163,12 +168,12 @@ paramsAndOptions[ params___ ] :=
 
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Main definition*)
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*From MessageName*)
 MessageFailure[ msg: MessageName[ sym_, tag_, tags___ ], params___ ] /;
@@ -195,7 +200,7 @@ makeFailureTag[ sym_Symbol? symbolQ ] := symbolToFailTag @ sym;
 makeFailureTag[ ___ ] := "MessageFailure";
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*From Failure*)
 MessageFailure[ Failure[ tag_, assoc_Association? AssociationQ ] ] :=
@@ -205,7 +210,7 @@ MessageFailure[ Failure[ tag_, assoc_Association? AssociationQ ] ] :=
     MessageFailure[ tag, assoc ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Failure-like syntax*)
 MessageFailure[ tag_? tagQ, assoc_? AssociationQ, opts: $opts ] :=
@@ -219,7 +224,7 @@ MessageFailure[ assoc_Association? AssociationQ, opts: $opts ] :=
     catch @ messageFailure @ Join[ <| "Options" :> { opts } |>, assoc ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Check value of first argument*)
 MessageFailure[ arg: Except[ _MessageName ], rest___ ] :=
@@ -238,7 +243,7 @@ MessageFailure[ message_? notOptionQ, opts: $opts ] :=
     |>;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Basic argument forms*)
 MessageFailure[ tag_? tagQ, Automatic, opts: $opts ] :=
@@ -259,7 +264,7 @@ MessageFailure[ Evaluate[ opts: $opts ] ] :=
     MessageFailure[ "MessageFailure", <| "Options" :> { opts } |> ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*Fallback definitions*)
 MessageFailure[ other_ ] :=
@@ -277,7 +282,7 @@ MessageFailure[ other___ ] :=
     |>;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*messageFailure*)
 messageFailure // ClearAll;
@@ -310,7 +315,7 @@ messageFailure[ args___ ] :=
     ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*msgBlock*)
 msgBlock // ClearAll;
@@ -330,7 +335,7 @@ msgBlock[ _, eval_ ] := eval;
 msgBlock // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*withOptions*)
 withOptions // ClearAll;
@@ -352,7 +357,7 @@ withOptions[ eval_, opts___ ] :=
 withOptions // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*issueMessage*)
 issueMessage // ClearAll;
@@ -425,7 +430,7 @@ issueMessage0[ info: KeyValuePattern @ {
 issueMessage0 // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*applyWithTemplateWrapper*)
 applyWithTemplateWrapper // ClearAll;
@@ -434,7 +439,7 @@ applyWithTemplateWrapper[ f_, info_ ] :=
     stripTemplateWrapper @ f @ addTemplateWrapper @ info;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*addTemplateWrapper*)
 addTemplateWrapper // ClearAll;
@@ -474,7 +479,7 @@ $templateSymbols = HoldPattern @ Alternatives[
 
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*stripTemplateWrapper*)
 stripTemplateWrapper // ClearAll;
@@ -495,7 +500,7 @@ stripTemplateWrapper[ info_ ] := info;
 stripTemplateWrapper // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*messageOverride*)
 messageOverride // ClearAll;
@@ -519,7 +524,7 @@ messageOverride[
 messageOverride // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*msgFormatter*)
 msgFormatter // ClearAll;
@@ -534,7 +539,7 @@ msgFormatter[ args___ ] :=
     Internal`MessageMenuFormatter @ args;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*templateType*)
 templateType // ClearAll;
@@ -548,7 +553,7 @@ templateType[ template_ ] :=
 
 templateType // endDefinition;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*getMessageTemplate*)
 getMessageTemplate // ClearAll;
@@ -575,7 +580,7 @@ getMessageTemplate[ template_, args___ ] :=
 getMessageTemplate // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*messageString*)
 messageString // ClearAll;
@@ -636,7 +641,7 @@ messageString0[ "Positional", ___ ] := Missing[ "WrongTemplateType" ];
 messageString0 // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*messageStringTemplate*)
 messageStringTemplate // ClearAll;
@@ -657,7 +662,7 @@ messageStringTemplate[ ___ ] :=
     "-- Message text not found --";
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*toString*)
 toString // ClearAll;
@@ -666,7 +671,7 @@ toString[ expr_ ] /; $Notebooks := ToString[ expr, StandardForm ];
 toString[ expr_ ] := ToString @ expr;
 toString // endDefinition;
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*standardizeInfo*)
 standardizeInfo // ClearAll;
@@ -708,7 +713,7 @@ $standardizer = Composition[
 ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*addSymbolAndTag*)
 addSymbolAndTag // ClearAll;
@@ -732,7 +737,7 @@ addSymbolAndTag[ info_ ] := info;
 addSymbolAndTag // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*checkTemplateType*)
 checkTemplateType // ClearAll;
@@ -762,7 +767,7 @@ checkTemplateType[ info_ ] := info;
 checkTemplateType // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*checkFailureTag*)
 checkFailureTag // ClearAll;
@@ -778,7 +783,7 @@ checkFailureTag[ info_ ] := info;
 checkFailureTag // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*addMessageTemplate*)
 addMessageTemplate // ClearAll;
@@ -794,7 +799,7 @@ addMessageTemplate[ info_ ] := info;
 addMessageTemplate // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*validateInfo*)
 validateInfo // ClearAll;
@@ -810,7 +815,7 @@ validateInfo[ info: KeyValuePattern @ { } ] :=
 validateInfo[ ___ ] := <| |>;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*validateRule*)
 validateRule // ClearAll;
@@ -857,7 +862,7 @@ validateRule[ key_, value_ ] := key :> value;
 validateRule[ ___ ] := Nothing;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*$defaultMessageFailureArgs*)
 $defaultMessageFailureArgs // ClearAll;
@@ -873,7 +878,7 @@ $defaultMessageFailureArgs := $defaultMessageFailureArgs = <|
 |>;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*symbolToFailTag*)
 symbolToFailTag // ClearAll;
@@ -897,7 +902,7 @@ symbolToFailTag[ symbol_Symbol ] :=
 symbolToFailTag // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*makeFailureObject*)
 makeFailureObject // ClearAll;
@@ -949,7 +954,7 @@ makeFailureObject[ args___ ] :=
     ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*internalFailure*)
 internalFailure // ClearAll;
@@ -985,7 +990,7 @@ $bugReportURL := $bugReportURL =
     |>;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*throwInternalFailure*)
 throwInternalFailure // ClearAll;
@@ -1001,7 +1006,7 @@ throwInternalFailure[ args___ ] :=
     ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*defaultInternalFailure*)
 defaultInternalFailure // ClearAll;
@@ -1016,7 +1021,7 @@ defaultInternalFailure[ args___ ] :=
     ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*checkFailureObject*)
 checkFailureObject // ClearAll;
@@ -1028,7 +1033,7 @@ checkFailureObject[ failure_Failure? failureObjectQ ] := failure;
 checkFailureObject[ other___ ] := internalFailure[ "invfail", other ];
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*includeStack*)
 includeStack // ClearAll;
@@ -1066,7 +1071,7 @@ includeStack[ info_, ___ ] := info;
 includeStack // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*trimStack*)
 trimStack // ClearAll;
@@ -1107,7 +1112,7 @@ trimStack[ stack_, _ ] := stack;
 trimStack // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*failureObjectQ*)
 failureObjectQ // ClearAll;
@@ -1120,12 +1125,12 @@ failureObjectQ[ fail_Failure ] :=
 failureObjectQ[ ___ ] := False;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Section::Closed:: *)
 (*Utilities*)
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*getMessageFunction*)
 getMessageFunction // ClearAll;
@@ -1143,7 +1148,7 @@ getMessageFunction[ template_, opts: $mfOpts ] :=
 getMessageFunction // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*chooseMessageFunction*)
 chooseMessageFunction // ClearAll;
@@ -1161,7 +1166,7 @@ chooseMessageFunction[ template_String, Automatic, _ ] :=
     ];
 
 
-chooseMessageFunction[ template_, rf_ResourceFunction, testing_ ] :=
+chooseMessageFunction[ template_, rf: HoldPattern[ _ResourceFunction ], testing_ ] :=
     With[ { sym = ResourceFunction[ rf, "Function" ] },
         If[ symbolQ @ sym,
             chooseMessageFunction[ template, sym, testing ]
@@ -1188,7 +1193,7 @@ chooseMessageFunction[ _, mf_, _ ] := mf;
 chooseMessageFunction // endDefinition;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*messageNameQ*)
 messageNameQ // ClearAll;
@@ -1205,7 +1210,7 @@ messageNameQ[ msg_MessageName ] :=
 messageNameQ[ ___ ] := False;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*symbolQ*)
 symbolQ // ClearAll;
@@ -1220,7 +1225,7 @@ symbolQ[ s_Symbol ] :=
 symbolQ[ ___ ] := False;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*stringQ*)
 stringQ // ClearAll;
@@ -1229,7 +1234,7 @@ stringQ[ s_String ] := StringQ @ Unevaluated @ s;
 stringQ[ ___      ] := False;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*tagQ*)
 tagQ // ClearAll;
@@ -1239,21 +1244,18 @@ tagQ[ _? symbolQ ] := True;
 tagQ[ ___        ] := False;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsubsection::Closed:: *)
 (*rfSymbolQ*)
 rfSymbolQ // ClearAll;
 rfSymbolQ // Attributes = { HoldAllComplete };
-
+rfSymbolQ[ MessageFailure|MessageFailureInternal ] := ! TrueQ @ $testMode;
 rfSymbolQ[ sym_Symbol? symbolQ ] /; $testMode := False;
-
-rfSymbolQ[ sym_Symbol? symbolQ ] :=
-    TrueQ @ StringStartsQ[ Context @ sym, "FunctionRepository`" ];
-
+rfSymbolQ[ sym_Symbol? symbolQ ] := TrueQ @ StringStartsQ[ Context @ sym, "FunctionRepository`" ];
 rfSymbolQ[ ___ ] := False;
 
 
-(* ::**********************************************************************:: *)
+(* ::**************************************************************************************************************:: *)
 (* ::Subsection::Closed:: *)
 (*templateMessageFunction*)
 templateMessageFunction // ClearAll;
